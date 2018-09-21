@@ -63,7 +63,7 @@ class FunctionController
             $user = new User;
             $user->name = "Admin";
             $user->password = bcrypt("admin");
-            $user->email = "admin@pos.com";
+            $user->email = "admin@vrinfosysgt.com";
             $user->save();
 
             $role = FunctionController::createRole( array(

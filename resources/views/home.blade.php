@@ -23,10 +23,9 @@
 		<div class="quick-actions_homepage">
 			<ul class="quick-actions">
 				<li class="bg_lb"> <a href=/clientes> <i class="icon-user"></i> <span class="label label-important">
-					{{$clientes_bloqueados}}
 				</span> Clientes Bloqueados</a> </li>
 				<li class="bg_lg"> <a href=/vales> <i class="icon-file"></i> <span class="label label-important">
-					{{$vales}} </span> Vales</a> </li>
+					 </span> Vales</a> </li>
 					<li class="bg_lo"> <a href=/recibo_caja> <i class="icon-money"></i>Recibo de Caja</a> </li>
 					<li class="bg_lg"> <a href=/factura> <i class="icon-calendar"></i> Facturas</a> </li>
 					<li class="bg_ly"> <a href=/factura_cambiaria> <i class="icon-inbox"></i><span class="label label-important"></span> Facturas Cambiarias </a> </li>
@@ -39,7 +38,7 @@
 				<div class="widget-box">
 					<div class="widget-title bg_lg"><span class="icon"><i class="icon-signal"></i></span>
 						<h5>Cuentas por cobrar por fecha y por mes</h5>
-						<h5>Mes Graficado: {{$mes}} </h5>
+						<h5>Mes Graficado:  </h5>
 					</div>
 					<div class="widget-content">
 						<div class="panel-body">
@@ -55,7 +54,7 @@
 				<div class="widget-box">
 					<div class="widget-title bg_lg"><span class="icon"><i class="icon-signal"></i></span>
 						<h5>Recibos de Caja por fecha y por mes</h5>
-						<h5>Mes Graficado: {{$mes}} </h5>
+						<h5>Mes Graficado: </h5>
 					</div>
 					<div class="widget-content">
 						<div class="panel-body">
@@ -344,22 +343,22 @@
 											</tr>
 										</thead>
 										<tbody>
-											@foreach ($clientes_bloqueados2 as $detalle)
+											
 											<tr>
 												<td>
-													{{$detalle["id"]}}
+													
 												</td>
 												<td>
-													{{$detalle["cl_nit"]}}
+													
 												</td>
 												<td>
-													{{$detalle["cl_nombres"]}}
+													
 												</td>
 												<td>
-													{{$detalle["cl_apellidos"]}}
+													
 												</td>
 											</tr>
-											@endforeach
+											
 										</tbody>
 									</table>
 								</div>
@@ -384,22 +383,22 @@
 											</tr>
 										</thead>
 										<tbody>
-											@foreach ($vales2 as $detalle2)
+											
 											<tr>
 												<td>
-													{{$detalle2["no_vale"]}}
+													
 												</td>
 												<td>
-													{{$detalle2["piloto"]}}
+													
 												</td>
 												<td>
-													{{$detalle2["placa"]}}
+													
 												</td>
 												<td>
-													Q.{{{ number_format((float) $detalle2["total_vale"], 2) }}}
+													
 												</td>
 											</tr>
-											@endforeach
+											
 										</tbody>
 									</table>
 								</div>
@@ -417,7 +416,7 @@
 					<ul class="quick-actions">
 
 						<li class="bg_lg span3"> <a href="/vales"> <i class="icon-file"></i> <span class="label label-important">
-							{{$vales}} </span> Vales</a> </li>
+							 </span> Vales</a> </li>
 
 
 						</ul>
@@ -461,35 +460,9 @@ function resetMenu() {
 	document.gomenu.selector.selectedIndex = 2;
 }
 
-Morris.Bar({
-	element: 'chartr',
-	data: [
-	@foreach ($resultsrecibos as $resultr) 
-	{ recibos: {{$resultr->FechaR}}, valuer: {{$resultr->Total_DiarioR}} },
-	@endforeach 
-	],
-	xkey: 'recibos',
-	ykeys: ['valuer'],
-	labels: ['Total Q']
-});
-
-
-
-Morris.Bar({
-	element: 'chart',
-	data: [
-	@foreach ($resultsvales as $resultv) 
-	{ ctaxcobrar: {{$resultv->Fecha}}, value: {{$resultv->Total_Diario}} },
-	@endforeach 
-	],
-	xkey: 'ctaxcobrar',
-	ykeys: ['value'],
-	labels: ['Total Q']
-});
 
 
 </script>
-
 
 <ul class="typeahead dropdown-menu"></ul>
 @endsection

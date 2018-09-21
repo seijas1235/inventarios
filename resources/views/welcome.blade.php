@@ -13,21 +13,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-    <link rel="stylesheet" href="/sfi/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
     <!--        <link rel="stylesheet" href="/../../sfi/sfi/css/bootstrap-theme.min.css">-->
 
 
     <!--For Plugins external css-->
-    <link rel="stylesheet" href="/sfi/css/plugins.css" />
-    <link rel="stylesheet" href="/sfi/css/magnific-popup.css">
+    <link rel="stylesheet" href="/css/plugins.css" />
+    <link rel="stylesheet" href="/css/magnific-popup.css">
 
     <!--Theme custom css -->
 
     <!--Theme Responsive css-->
     <link rel="stylesheet" href="/sfi/css/responsive.css" />
 
-    <script src="/sfi/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-    <link rel="stylesheet" href="/sfi/css/style.css">
+    <script src="/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <!--Home page style-->
@@ -46,7 +46,7 @@
                     
                     <div class="col-sm-6 col-xs-12">
                         <div class="home-photo">
-                            <img src="/sfi/images/new.png" alt="Women" />
+                            <img src="/images/new.png" alt="Women" />
                         </div>
                     </div>
                     
@@ -73,7 +73,7 @@
                     <div class="col-sm-6 col-sm-offset-3 col-xs-12">
                         <div class="footer-item text-center">
                             <div class="logo">
-                                <img src="/sfi/images/logo.png" alt="Logo" height="150px" />
+                                <img src="/images/logo.png" alt="Logo" height="150px" />
                             </div>
                             
                             <div class="social">
@@ -93,16 +93,16 @@
     </footer>
 
 
-    <script src="/sfi/js/vendor/jquery-1.11.2.min.js"></script>
-    <script src="/sfi/js/vendor/bootstrap.min.js"></script>
+    <script src="/js/vendor/jquery-1.11.2.min.js"></script>
+    <script src="/js/vendor/bootstrap.min.js"></script>
 
-    <script src="/sfi/js/plugins.js"></script>
-    <script src="/sfi/js/jquery.mixitup.min.js"></script>
-    <script src="/sfi/js/jquery.easypiechart.min.js"></script>
-    <script src="/sfi/js/jquery.magnific-popup.js"></script>
-    <script src="/sfi/js/modernizr.js"></script>
+    <script src="/js/plugins.js"></script>
+    <script src="/js/jquery.mixitup.min.js"></script>
+    <script src="/js/jquery.easypiechart.min.js"></script>
+    <script src="/js/jquery.magnific-popup.js"></script>
+    <script src="/js/modernizr.js"></script>
     
-    <script src="/sfi/js/main.js"></script>
+    <script src="/js/main.js"></script>
 </body>
 </html>
 
