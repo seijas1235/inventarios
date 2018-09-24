@@ -23,7 +23,7 @@ class CreateTableClientes extends Migration
             $table->unsignedInteger('tipo_cliente_id');
             $table->unsignedInteger('user_id');
 
-            $table->foreign('tipo_cliente_id')->references('id')->on('tipo_clientes')->onDelete('cascade');
+            $table->foreign('tipo_cliente_id')->references('id')->on('tipos_cliente')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
 

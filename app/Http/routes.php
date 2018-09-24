@@ -42,6 +42,15 @@ Route::group(['middleware' => ['web']], function ()
 
 	Route::group(array('middleware' => 'auth'), function()
 	{
+
+		Route::get('/tipos_cliente', 'TiposClienteController@index');
+		Route::get('/tipos_cliente/getJson/' , 'TiposClienteController@getJson');
+		Route::get('/tipos_cliente/new' , 'TiposClienteController@create');
+		Route::post('/tipos_cliente/save/' , 'TiposClienteController@store');
+		Route::get('/tipos_cliente/edit/{tipo_cliente}' , 'TiposClienteController@edit');
+		Route::patch('/tipos_cliente/{tipo_cliente}/update' , 'TiposClienteController@update');
+		Route::delete('/tipos_cliente/remove/{tipo_cliente}' , 'TiposClienteController@destroy');
+
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
 
 		Route::get('/home', 'HomeController@index');

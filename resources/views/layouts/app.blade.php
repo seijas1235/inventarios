@@ -189,6 +189,9 @@
 					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
 					<li><a href="/bombas_combustibles">Asignar Combustible a Bombas</a></li>
 					@endif
+
+					<li><a href="/tipos_cliente">Tipos de cliente</a></li>
+
 					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
 					<li><a href="/bancos">Bancos</a></li>
 					@endif
