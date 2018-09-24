@@ -169,7 +169,7 @@
 
 		<ul style="display: block;">
 			@if ( Auth::user()->is("superadmin|administrator|consulta_central") )
-			<li class="active"><a href="/home"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+			<li class="{{request()->is('home')? 'active': ''}}"><a href="/home"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
 			@endif
 			
 			@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
@@ -183,15 +183,17 @@
 			</li>
 
 			@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
-			<li class="submenu"> <a href="#"><i class="icon icon-file"></i> <span>Catálogos Generales</span> <span class="label label-important"></span></a>
+			<li class="submenu {{request()->is('tipos_cliente*', 'clientes*', 'tipos_vehiculo*', 'empleados*')? 'open active': ''}}"> <a href="#"><i class="icon icon-file"></i> <span>Catálogos Generales</span> <span class="label label-important"></span></a>
 				@endif
 				<ul>
-					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
-					<li><a href="/bombas_combustibles">Asignar Combustible a Bombas</a></li>
-					@endif
 
-					<li><a href="/tipos_cliente">Tipos de cliente</a></li>
-					<li><a href="/clientes">Clientes</a></li>
+					<li class="{{request()->is('tipos_cliente*')? 'active': ''}}"><a href="/tipos_cliente">Tipos de cliente</a></li>
+					
+					<li class="{{request()->is('clientes*')? 'active': ''}}"><a href="/clientes">Clientes</a></li>
+
+					<li class="{{request()->is('tipos_vehiculo*')? 'open active': ''}}"><a href="/tipos_vehiculo">Tipos de Vehiculo</a></li>
+
+					<li class="{{request()->is('empleados*')? 'open active': ''}}"><a href="/empleados">Empleados</a></li>
 
 					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
 					<li><a href="/bancos">Bancos</a></li>

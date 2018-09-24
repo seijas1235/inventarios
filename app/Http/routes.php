@@ -59,6 +59,14 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch('/clientes/{cliente}/update' , 'ClientesController@update');
 		Route::delete('/clientes/remove/{cliente}' , 'ClientesController@destroy');
 
+		Route::get('/tipos_vehiculo', 'TiposVehiculoController@index');
+		Route::get('/tipos_vehiculo/getJson/' , 'TiposVehiculoController@getJson');
+		Route::get('/tipos_vehiculo/new' , 'TiposVehiculoController@create');
+		Route::post('/tipos_vehiculo/save/' , 'TiposVehiculoController@store');
+		Route::get('/tipos_vehiculo/edit/{tipo_vehiculo}' , 'TiposVehiculoController@edit');
+		Route::patch('/tipos_vehiculo/{tipo_vehiculo}/update' , 'TiposVehiculoController@update');
+		Route::delete('/tipos_vehiculo/remove/{tipo_vehiculo}' , 'TiposVehiculoController@destroy');
+
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
 
 		Route::get('/home', 'HomeController@index');
@@ -240,15 +248,6 @@ Route::get( '/requisicion/getInfo/{requisicion}' , 'RequisicionesController@getI
 			Route::patch( '/marcas/{marca}/update' , 'MarcasController@update');
 			Route::post( '/marcas/save/' , 'MarcasController@store');
 			Route::delete( '/marcas/remove/{marca}' , 'MarcasController@destroy');
-
-
-			Route::get( '/tipo_vehiculo' , 'TipoVehiculoController@index');
-			Route::get( '/tipo_vehiculo/getJson/' , 'TipoVehiculoController@getJson');
-			Route::get( '/tipo_vehiculo/new' , 'TipoVehiculoController@create');
-			Route::post( '/tipo_vehiculo/save/' , 'TipoVehiculoController@store');
-			Route::get( '/tipo_vehiculo/edit/{tipov}' , 'TipoVehiculoController@edit');
-			Route::patch( '/tipo_vehiculo/{tipov}/update' , 'TipoVehiculoController@update');
-			Route::delete( '/tipo_vehiculo/remove/{tipov}' , 'TipoVehiculoController@destroy');
 
 
 			Route::get( '/cargos' , 'CargoEmpleadoController@index');
