@@ -191,6 +191,7 @@
 					@endif
 
 					<li><a href="/tipos_cliente">Tipos de cliente</a></li>
+					<li><a href="/clientes">Clientes</a></li>
 
 					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
 					<li><a href="/bancos">Bancos</a></li>

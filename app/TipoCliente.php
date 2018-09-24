@@ -10,4 +10,8 @@ class TipoCliente extends Model
     protected $fillable=[
         'id', 'nombre'
     ];
+
+    public function clientes(){
+        return $this->hasMany('App\Cliente');
+       }
 }

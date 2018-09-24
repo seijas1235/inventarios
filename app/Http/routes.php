@@ -51,6 +51,14 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch('/tipos_cliente/{tipo_cliente}/update' , 'TiposClienteController@update');
 		Route::delete('/tipos_cliente/remove/{tipo_cliente}' , 'TiposClienteController@destroy');
 
+		Route::get('/clientes', 'ClientesController@index');
+		Route::get('/clientes/getJson/' , 'ClientesController@getJson');
+		Route::get('/clientes/new' , 'ClientesController@create');
+		Route::post('/clientes/save/' , 'ClientesController@store');
+		Route::get('/clientes/edit/{cliente}' , 'ClientesController@edit');
+		Route::patch('/clientes/{cliente}/update' , 'ClientesController@update');
+		Route::delete('/clientes/remove/{cliente}' , 'ClientesController@destroy');
+
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
 
 		Route::get('/home', 'HomeController@index');
