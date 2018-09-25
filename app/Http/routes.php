@@ -94,6 +94,15 @@ Route::group(['middleware' => ['web']], function ()
 		Route::post( '/proveedores/save/' , 'ProveedoresController@store');
 		Route::delete( '/proveedores/remove/{proveedor}' , 'ProveedoresController@destroy');
 
+		Route::get('/vehiculos', 'VehiculosController@index');
+		Route::get('/vehiculos/getJson/' , 'VehiculosController@getJson');
+		Route::get('/vehiculos/new' , 'VehiculosController@create');
+		Route::post('/vehiculos/save/' , 'VehiculosController@store');
+		Route::get('/vehiculos/edit/{vehiculo}' , 'VehiculosController@edit');
+		Route::patch('/vehiculos/{vehiculo}/update' , 'VehiculosController@update');
+		Route::delete('/vehiculos/remove/{vehiculo}' , 'VehiculosController@destroy');
+
+
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
 
 		Route::get('/home', 'HomeController@index');

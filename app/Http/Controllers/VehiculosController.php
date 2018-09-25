@@ -40,11 +40,9 @@ class VehiculosController extends Controller
      */
     public function create()
     {
-        $user = Auth::user()->id;
         $tipos_vehiculos = TipoVehiculo::all();
-        $marcas_vehiculos = MarcaVehiculo::all();
 
-        return view("vehiculos.create" , compact( "user", "tipos_vehiculos", "marcas_vehiculos"));
+        return view("vehiculos.create" , compact("tipos_vehiculos"));
     }
 
     /**
@@ -56,8 +54,6 @@ class VehiculosController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $data["estado_vehiculo_id"] =1;
-        $data["user_id"] = Auth::user()->id;
         $vehiculo = Vehiculo::create($data);
 
         return Response::json($vehiculo);
@@ -86,8 +82,7 @@ class VehiculosController extends Controller
         $fieldsArray = DB::select($query);
 
         $tipos_vehiculos = TipoVehiculo::all();
-        $marcas_vehiculos = MarcaVehiculo::all();
-        return view('vehiculos.edit', compact('vehiculo', 'fieldsArray', "tipos_vehiculos", "marcas_vehiculos"));
+        return view('vehiculos.edit', compact('vehiculo', 'fieldsArray', "tipos_vehiculos"));
     }
 
     /**
@@ -107,13 +102,10 @@ class VehiculosController extends Controller
     public function updateVehiculo(Vehiculo $vehiculo, array $data )
     {
         $id= $vehiculo->id;
-        $vehiculo->no_placa = $data["no_placa"];
-        $vehiculo->caracteristicas = $data["caracteristicas"];
-        $vehiculo->marca_vehiculo_id = $data["marca_vehiculo_id"];
-        $vehiculo->linea = $data["linea"];
-        $vehiculo->anio = $data["anio"];
-        $vehiculo->ultimo_km_observado = $data["ultimo_km_observado"];
-        $vehiculo->ultimo_servicio_realizado = $data["ultimo_servicio_realizado"];
+        $vehiculo->placa = $data["placa"];
+        $vehiculo->aceite = $data["aceite"];
+        $vehiculo->año = $data["año"];
+        $vehiculo->kilometraje = $data["kilometraje"];
         $vehiculo->tipo_vehiculo_id = $data["tipo_vehiculo_id"];
         $vehiculo->save();
 
@@ -138,9 +130,7 @@ class VehiculosController extends Controller
         else if( password_verify( $request["password_delete"] , $user1))
         {
             $id= $vehiculo->id;
-            $vehiculo->estado_vehiculo_id = 4;
-
-            $vehiculo->save();
+            $vehiculo->delete();
             
             $response["response"] = "El vehiculo se ha dado de baja";
             return Response::json( $response );
@@ -158,18 +148,14 @@ class VehiculosController extends Controller
     {
         $api_Result = array();
         // Create a mapping of our query fields in the order that will be shown in datatable.
-        $columnsMapping = array("id", "placa", "tipo", "marca", "linea", "anio", "estado");
+        $columnsMapping = array("id", "placa");
 
         // Initialize query (get all)
 
         $api_logsQueriable = DB::table('vehiculos');
         $api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-        $query = "SELECT veh.id as id, veh.no_placa as placa, tv.tipo_vehiculo as tipo, mv.marca_vehiculo as marca, veh.linea as linea, veh.anio as anio, ev.estado_vehiculo as estado
-        FROM vehiculos veh
-        INNER JOIN tipo_vehiculo tv ON veh.tipo_vehiculo_id=tv.id
-        INNER JOIN marca_vehiculos mv ON veh.marca_vehiculo_id=mv.id
-        INNER JOIN estado_vehiculo ev ON veh.estado_vehiculo_id=ev.id ";
+        $query = "SELECT * FROM vehiculos";
 
         $where = "";
 
