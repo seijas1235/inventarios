@@ -15,10 +15,7 @@ class CreateTableTiposProveedor extends Migration
         Schema::create('tipos_proveedor', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            $table->unsignedInteger('tipo_proveedor_id');
-
-            $table->foreign('tipo_proveedor_id')->references('id')->on('tipos_proveedor')->onDelete('cascade');
-
+            
             $table->timestamps();
         });
     }

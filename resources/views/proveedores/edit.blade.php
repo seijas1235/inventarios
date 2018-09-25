@@ -28,8 +28,21 @@
         <br>
         <div class="row">
             <div class="col-sm-4">
-                {!! Form::label("telefono","Teléfono:") !!}
-                {!! Form::number( "telefono" , null , ['class' => 'form-control' , 'placeholder' => 'Telefono' ]) !!}
+                {!! Form::label("telefonos","Teléfono:") !!}
+                {!! Form::text( "telefonos" , null , ['class' => 'form-control' , 'placeholder' => 'Telefono' ]) !!}
+            </div>
+
+            <div class="col-sm-4">
+                {!! Form::label("tipo_proveedor_id","Tipo de Proveedor:") !!}
+                <select class="selectpicker" id='tipo_proveedor_id' name="tipo_proveedor_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+                    @foreach ($tipos_proveedores as $tipo_proveedor)
+                    @if ( $tipo_proveedor->id == $proveedor->tipo_proveedor_id)
+                    <option value="{{$tipo_proveedor->id}}" selected>{{ $tipo_proveedor->nombre}}</option>
+                    @else
+                    <option value="{{$tipo_proveedor->id}}">{{ $tipo_proveedor->nombre}}</option>
+                    @endif                        
+                    @endforeach
+                </select>
             </div>
   
         </div>

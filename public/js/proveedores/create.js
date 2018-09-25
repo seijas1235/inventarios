@@ -84,6 +84,9 @@ var validator = $("#ProveedorForm").validate({
 
 		telefono: {
 			required : true
+		},
+		tipo_proveedor_id: {
+			required: true
 		}
 
 	},
@@ -102,6 +105,9 @@ var validator = $("#ProveedorForm").validate({
 
 		telefono: {
 			required: "Por favor, ingrese el telefono del Proveedor"
+		},
+		tipo_proveedor_id: {
+			required: "Por favor, seleccione el tipo de proveedor"
 		}
 
 	}

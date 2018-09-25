@@ -1,5 +1,5 @@
-var proveedores_table = $('#proveedores-table').DataTable({
-    "ajax": "/proveedores/getJson",
+var tiposproveedor_table = $('#tiposproveedor-table').DataTable({
+    "ajax": "/tipos_proveedor/getJson",
     "responsive": true,
     "processing": true,
     "serverSide": true,
@@ -43,40 +43,22 @@ var proveedores_table = $('#proveedores-table').DataTable({
     },
     "order": [0, 'asc'],
     "columns": [ {
-        "title": "NIT",
-        "data": "nit",
+        "title": "No",
+        "data": "id",
         "width" : "20%",
         "responsivePriority": 1,
         "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data); },
+            return CustomDatatableRenders.fitTextHTML(data);
+        },
     }, 
     {
-        "title": "Nombre",
+        "title": "Tipo Proveedor",
         "data": "nombre",
         "width" : "20%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data); },
-    },
-    
-    {
-        "title": "Teléfonos",
-        "data": "telefonos",
-        "width" : "20%",
-        "responsivePriority": 3,
-        "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data); },
-    }, 
-
-    {
-        "title": "Direccion",
-        "data": "direccion",
-        "width" : "20%",
-        "responsivePriority": 3,
-        "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data); },
-    },
-       
+            return CustomDatatableRenders.fitTextHTML(data);},
+    },       
     {
         "title": "Acciones",
         "orderable": false,
@@ -84,11 +66,11 @@ var proveedores_table = $('#proveedores-table').DataTable({
         "render": function(data, type, full, meta) {
             return "<div id='" + full.id + "' class='text-center'>" + 
             "<div class='float-left col-lg-6'>" + 
-            "<a href='/proveedores/edit/"+ full.id +"' class='edit-proveedor'>" + 
+            "<a href='/tipos_proveedor/edit/"+ full.id +"' class='edit-tipoproveedor'>" + 
             "<i class='fa fa-btn fa-edit' title='Editar Tipo Proveedor'></i>" + 
             "</a>" + "</div>" + 
             "<div class='float-right col-lg-6'>" + 
-            "<a href='#' class='remove-proveedor'>" + 
+            "<a href='#' class='remove-tipoproveedor'>" + 
             "<i class='fa fa-btn fa-trash' title='Eliminar Tipo Proveedor'></i>" + 
             "</a>" + "</div>";
             
@@ -106,7 +88,7 @@ var proveedores_table = $('#proveedores-table').DataTable({
 
 
 
-$('body').on('click', 'a.remove-proveedor', function(e) {
+$('body').on('click', 'a.remove-tipoproveedor', function(e) {
     $( ".confirm-delete" , "#userDeleteModal").removeAttr("field");
     var id = $(this).parent().parent().attr("id");
     $("input[name='password_delete']").val("");
@@ -147,7 +129,7 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
 
     var td  = $("#"+id);
 
-    var url = "/proveedores/remove/"+id;
+    var url = "/tipos_proveedor/remove/"+id;
     var password_delete = $("input[name='password_delete']").val().trim();
     data = {
         password_delete : password_delete
@@ -164,8 +146,8 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
         $(".user-created-message").removeClass("hidden");
         $(".user-created-message").addClass("alert-danger");
         $(".user-created-message").fadeIn();
-        $(".user-created-message > p").text("Proveedor eliminado exitosamente!");
-        proveedores_table.ajax.reload();
+        $(".user-created-message > p").text("Tipo de proveedor eliminado exitosamente!");
+        tiposproveedor_table.ajax.reload();
         $("#userDeleteModal").modal("hide");
     }).fail(function(errors) {
         var errors = JSON.parse(errors.responseText);

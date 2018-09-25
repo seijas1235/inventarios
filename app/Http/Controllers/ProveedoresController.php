@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 Use App\User;
 Use App\Proveedor;
+Use App\TipoProveedor;
 
 
 class ProveedoresController extends Controller
@@ -40,8 +41,8 @@ class ProveedoresController extends Controller
     public function create()
     {
        $user = Auth::user()->id;
-       $proveedores = Proveedor::all();
-       return view("proveedores.create" , compact( "user", "proveedores"));
+       $tipos_proveedores = TipoProveedor::all();
+       return view("proveedores.create" , compact( "user", "tipos_proveedores"));
     }
 
     /**
@@ -81,7 +82,8 @@ class ProveedoresController extends Controller
         $query = "SELECT * FROM proveedores WHERE id=".$proveedor->id."";
         $fieldsArray = DB::select($query);
 
-        return view('proveedores.edit', compact('proveedor', 'fieldsArray'));
+        $tipos_proveedores = TipoProveedor::all();
+        return view('proveedores.edit', compact('proveedor', 'fieldsArray','tipos_proveedores'));
     }
 
     /**
@@ -102,7 +104,7 @@ class ProveedoresController extends Controller
         $id= $proveedor->id;
         $proveedor->nit = $data["nit"];
         $proveedor->nombre = $data["nombre"];
-        $proveedor->telefono = $data["telefono"];
+        $proveedor->telefonos = $data["telefonos"];
         $proveedor->direccion = $data["direccion"];
         $proveedor->save();
 

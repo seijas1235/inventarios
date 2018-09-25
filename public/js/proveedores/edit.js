@@ -66,8 +66,11 @@ var validator = $("#ProveedorUpdateForm").validate({
 		direccion: {
 			required : true
 		},
-		telefono: {
+		telefonos: {
 			required : true
+		},
+		tipo_proveedor_id: {
+			required: true
 		}
 	},
 	messages: {
@@ -80,8 +83,11 @@ var validator = $("#ProveedorUpdateForm").validate({
 		direccion: {
 			required : "Por favor, ingrese un apellido del proveedor"
 		},
-		telefono: {
+		telefonos: {
 			required : "Por favor, ingrese un teléfono del proveedor"
+		},
+		tipo_proveedor_id: {
+			required: "Por favor, seleccione el tipo de proveedor"
 		}
 	}
 });

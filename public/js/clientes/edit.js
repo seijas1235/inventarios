@@ -68,6 +68,9 @@ var validator = $("#ClienteUpdateForm").validate({
 		},
 		telefonos: {
 			required : true
+		},
+		tipo_cliente_id: {
+			required : true
 		}
 	},
 	messages: {
@@ -85,6 +88,9 @@ var validator = $("#ClienteUpdateForm").validate({
 		},
 		telefonos: {
 			required : "Por favor, ingrese un teléfono del cliente"
+		},
+		tipo_cliente_id: {
+			required: "Por favor, seleccione el tipo de cliente"
 		}
 	}
 });
