@@ -110,6 +110,22 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch('/unidades_de_medida/{unidad_de_medida}/update' , 'UnidadesDeMedidaController@update');
 		Route::delete('/unidades_de_medida/remove/{unidad_de_medida}' , 'UnidadesDeMedidaController@destroy');
 
+		Route::get('/tipos_proveedor', 'TiposProveedorController@index');
+		Route::get('/tipos_proveedor/getJson/' , 'TiposProveedorController@getJson');
+		Route::get('/tipos_proveedor/new' , 'TiposProveedorController@create');
+		Route::post('/tipos_proveedor/save/' , 'TiposProveedorController@store');
+		Route::get('/tipos_proveedor/edit/{tipo_proveedor}' , 'TiposProveedorController@edit');
+		Route::patch('/tipos_proveedor/{tipo_proveedor}/update' , 'TiposProveedorController@update');
+		Route::delete('/tipos_proveedor/remove/{tipo_proveedor}' , 'TiposProveedorController@destroy');
+
+		Route::get('/marcas_vehiculo', 'MarcasVehiculoController@index');
+		Route::get('/marcas_vehiculo/getJson/' , 'MarcasVehiculoController@getJson');
+		Route::get('/marcas_vehiculo/new' , 'MarcasVehiculoController@create');
+		Route::post('/marcas_vehiculo/save/' , 'MarcasVehiculoController@store');
+		Route::get('/marcas_vehiculo/edit/{marca_vehiculo}' , 'MarcasVehiculoController@edit');
+		Route::patch('/marcas_vehiculo/{marca_vehiculo}/update' , 'MarcasVehiculoController@update');
+		Route::delete('/marcas_vehiculo/remove/{marca_vehiculo}' , 'MarcasVehiculoController@destroy');
+
 
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
 
