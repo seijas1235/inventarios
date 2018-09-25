@@ -10,11 +10,11 @@ class Cliente extends Model
 
     protected $fillable=[
         'id',
-        'nombre',
+        'nombres',
+        'apellidos',
         'nit',
         'direccion',
-        'telefono',
-        'descuento',
+        'telefonos',
         'record_compra',
         'tipo_cliente_id',
         'user_id'

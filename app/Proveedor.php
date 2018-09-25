@@ -13,6 +13,12 @@ class Proveedor extends Model
         'nombre',
         'nit',
         'direccion',
-        'telefono'
+        'telefonos',
+        'tipo_proveedor_id'
         ];
+
+
+    public function tipo_proveedor(){
+        return $this->belongsTo(TipoProveedor::class);
+    }
 }

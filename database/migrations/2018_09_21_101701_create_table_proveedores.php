@@ -17,7 +17,10 @@ class CreateTableProveedores extends Migration
             $table->string('nombre');
             $table->string('direccion');
             $table->string('nit',20);
-            $table->string('telefono',20);
+            $table->string('telefonos',30);
+            $table->unsignedInteger('tipo_proveedor_id');
+
+            $table->foreign('tipo_proveedor_id')->references('id')->on('tipos_proveedor')->onDelete('cascade');
 
             $table->timestamps();
         });

@@ -14,10 +14,11 @@ class CreateTableEmpleados extends Migration
     {
         Schema::create('empleados', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre');
+            $table->string('nombres');
+            $table->string('apeliidos');
             $table->string('nit',20);
             $table->string('direccion');
-            $table->string('telefono');
+            $table->string('telefonos', 30);
             $table->unsignedInteger('puesto_id');
 
             $table->foreign('puesto_id')->references('id')->on('puestos')->onDelete('cascade');
