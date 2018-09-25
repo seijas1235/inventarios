@@ -67,6 +67,17 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch('/tipos_vehiculo/{tipo_vehiculo}/update' , 'TiposVehiculoController@update');
 		Route::delete('/tipos_vehiculo/remove/{tipo_vehiculo}' , 'TiposVehiculoController@destroy');
 
+		//rutas puestos
+		Route::get('/puestos', 'PuestosController@index');
+		Route::get('/puestos/getJson/' , 'PuestosController@getJson');
+		Route::get('/puestos/new' , 'PuestosController@create');
+		Route::post('/puestos/save/' , 'PuestosController@store');
+		Route::get('/puestos/edit/{puesto}' , 'PuestosController@edit');
+		Route::patch('/puestos/{puesto}/update' , 'PuestosController@update');
+		Route::delete('/puestos/remove/{puesto}' , 'PuestosController@destroy');
+
+
+
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
 
 		Route::get('/home', 'HomeController@index');

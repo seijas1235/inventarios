@@ -183,7 +183,7 @@
 			</li>
 
 			@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
-			<li class="submenu {{request()->is('tipos_cliente*', 'clientes*', 'tipos_vehiculo*', 'empleados*')? 'open active': ''}}"> <a href="#"><i class="icon icon-file"></i> <span>Catálogos Generales</span> <span class="label label-important"></span></a>
+			<li class="submenu {{request()->is('tipos_cliente*', 'clientes*', 'tipos_vehiculo*','puestos*', 'empleados*')? 'open active': ''}}"> <a href="#"><i class="icon icon-file"></i> <span>Catálogos Generales</span> <span class="label label-important"></span></a>
 				@endif
 				<ul>
 
@@ -192,7 +192,9 @@
 					<li class="{{request()->is('clientes*')? 'active': ''}}"><a href="/clientes">Clientes</a></li>
 
 					<li class="{{request()->is('tipos_vehiculo*')? 'open active': ''}}"><a href="/tipos_vehiculo">Tipos de Vehiculo</a></li>
-
+					
+					<li class="{{request()->is('puestos*')? 'open active': ''}}"><a href="/puestos">Puestos</a></li>
+					
 					<li class="{{request()->is('empleados*')? 'open active': ''}}"><a href="/empleados">Empleados</a></li>
 
 					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
