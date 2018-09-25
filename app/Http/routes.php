@@ -102,6 +102,14 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch('/vehiculos/{vehiculo}/update' , 'VehiculosController@update');
 		Route::delete('/vehiculos/remove/{vehiculo}' , 'VehiculosController@destroy');
 
+		Route::get('/unidades_de_medida', 'UnidadesDeMedidaController@index');
+		Route::get('/unidades_de_medida/getJson/' , 'UnidadesDeMedidaController@getJson');
+		Route::get('/unidades_de_medida/new' , 'UnidadesDeMedidaController@create');
+		Route::post('/unidades_de_medida/save/' , 'UnidadesDeMedidaController@store');
+		Route::get('/unidades_de_medida/edit/{unidad_de_medida}' , 'UnidadesDeMedidaController@edit');
+		Route::patch('/unidades_de_medida/{unidad_de_medida}/update' , 'UnidadesDeMedidaController@update');
+		Route::delete('/unidades_de_medida/remove/{unidad_de_medida}' , 'UnidadesDeMedidaController@destroy');
+
 
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
 
