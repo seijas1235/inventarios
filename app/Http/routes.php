@@ -77,6 +77,15 @@ Route::group(['middleware' => ['web']], function ()
 		Route::delete('/puestos/remove/{puesto}' , 'PuestosController@destroy');
 
 
+		Route::get('/proveedores', 'ProveedoresController@index');
+		Route::get('/proveedores/getJson/' , 'ProveedoresController@getJson');
+		Route::get('/proveedores/new' , 'ProveedoresController@create');
+		Route::post('/proveedores/save/' , 'ProveedoresController@store');
+		Route::get('/proveedores/edit/{proveedor}' , 'ProveedoresController@edit');
+		Route::patch('/proveedores/{proveedor}/update' , 'ProveedoresController@update');
+		Route::delete('/proveedores/remove/{proveedor}' , 'ProveedoresController@destroy');
+
+
 
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
 
