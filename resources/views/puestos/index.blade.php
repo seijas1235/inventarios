@@ -25,7 +25,7 @@
 						<div class="col-sm-3 title-line-height text-right">
 							<div class="btn-group">
 								<a class='delete-records-btn btn btn-danger btn-title m-r-15 border-radius' href="#" style="display: none;">Borrar</a>
-                                <a class='btn-add-new-record btn btn-success btn-title border-radius' href="{{ url('puestos/new') }}">Nuevo Tipo</a>
+                                <a class='btn-add-new-record btn btn-success btn-title border-radius' href="{{ url('puestos/new') }}">Nuevo Puesto</a>
 							</div>
 						</div>
 					</div>
