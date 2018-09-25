@@ -75,8 +75,15 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/puestos/edit/{puesto}' , 'PuestosController@edit');
 		Route::patch('/puestos/{puesto}/update' , 'PuestosController@update');
 		Route::delete('/puestos/remove/{puesto}' , 'PuestosController@destroy');
-
-
+		
+		// rutas empleados
+		Route::get('/empleados', 'empleadosController@index');
+		Route::get('/empleados/getJson/' , 'empleadosController@getJson');
+		Route::get('/empleados/new' , 'empleadosController@create');
+		Route::post('/empleados/save/' , 'empleadosController@store');
+		Route::get('/empleados/edit/{empleado}' , 'empleadosController@edit');
+		Route::patch('/empleados/{empleado}/update' , 'empleadosController@update');
+		Route::delete('/empleados/remove/{empleado}' , 'empleadosController@destroy');
 
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
 
