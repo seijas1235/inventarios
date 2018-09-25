@@ -14,7 +14,7 @@ class Empleado extends Model
         'apellido',
         'nit',
         'direccion',
-        'telefonos',
+        'telefono',
         'puesto_id',
         ];
 
