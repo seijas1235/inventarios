@@ -58,6 +58,14 @@ var empleados_table = $('#empleados-table').DataTable({
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data); },
     },
+    {
+        "title": "Apellido",
+        "data": "apellido",
+        "width" : "20%",
+        "responsivePriority": 2,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML(data); },
+    },
     
     {
         "title": "Teléfono",

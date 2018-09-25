@@ -13,10 +13,22 @@
         <br>
         <div class="row">
             <div class="col-sm-4">
+                {!! Form::label("nombre","Nombres:") !!}
+                {!! Form::text( "nombre" , null , ['class' => 'form-control' , 'placeholder' => 'Nombres' ]) !!}
+            </div>
+            <div class="sol-sm-2"></div>
+            <div class="col-sm-4">
+                {!! Form::label("apellido","Apellidos:") !!}
+                {!! Form::text( "apellido" , null , ['class' => 'form-control' , 'placeholder' => 'Apellidos' ]) !!}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-4">
                 {!! Form::label("nit","NIT:") !!}
                 {!! Form::text( "nit" , null , ['class' => 'form-control' , 'placeholder' => 'NIT' ]) !!}
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-2">
             </div>
             <div class="col-sm-4">
                 {!! Form::label("puesto_id","Puesto del Empleado:") !!}
@@ -32,13 +44,7 @@
             </div>
         </div>
         <br>
-        <div class="row">
-            <div class="col-sm-6">
-                {!! Form::label("nombre","Nombres:") !!}
-                {!! Form::text( "nombre" , null , ['class' => 'form-control' , 'placeholder' => 'Nombre' ]) !!}
-            </div>
-        </div>
-        <br>
+
         <div class="row">
             <div class="col-sm-4">
                 {!! Form::label("telefono","Teléfono:") !!}
