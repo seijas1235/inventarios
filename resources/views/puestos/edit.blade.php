@@ -13,12 +13,12 @@
         <br>
         <div class="row">
                 <div class="col-sm-4">
-                    {!! Form::label("puesto","nombre:") !!}
+                    {!! Form::label("nombre","Puesto:") !!}
                     {!! Form::text( "nombre" , null , ['class' => 'form-control' , 'placeholder' => 'puesto' ]) !!}
                 </div>
 
                 <div class="col-sm-4">
-                        {!! Form::label("sueldo","sueldo:") !!}
+                        {!! Form::label("sueldo","Sueldo:") !!}
                         {!! Form::text( "sueldo" , null , ['class' => 'form-control' , 'placeholder' => 'sueldo' ]) !!}
                 </div>
                 <div class="col-sm-4">

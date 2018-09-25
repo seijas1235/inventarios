@@ -50,9 +50,10 @@
                 {!! Form::label("telefono","Teléfono:") !!}
                 {!! Form::number( "telefono" , null , ['class' => 'form-control' , 'placeholder' => 'Telefono' ]) !!}
         </div>
+        </div>
         <br>
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-8">
                 {!! Form::label("direccion","Dirección:") !!}
                 {!! Form::text( "direccion" , null , ['class' => 'form-control' , 'placeholder' => 'Dirección' ]) !!}
             </div>
