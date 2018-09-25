@@ -13,28 +13,34 @@
 			<br>
 			<div class="row">
 				<div class="col-sm-4">
-					{!! Form::label("nit","NIT:") !!}
-					{!! Form::text( "nit" , null , ['class' => 'form-control' , 'placeholder' => 'NIT' ]) !!}
+					{!! Form::label("nombre","Nombres:") !!}
+					{!! Form::text( "nombre" , null , ['class' => 'form-control' , 'placeholder' => 'Nombres' ]) !!}
+				</div>
+				<div class="col-sm-2">
 				</div>
 				<div class="col-sm-4">
-				</div>
-				<div class="col-sm-4">
-					{!! Form::label("puesto_id","Puesto del Empleado:") !!}
-					<select class="selectpicker" id='puesto_id' name="puesto_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
-						@foreach ($puestos as $puesto)
-						<option value="{{$puesto->id}}">{{$puesto->nombre}}</option>
-						@endforeach
-					</select>
+					{!! Form::label("apellido","Apellidos:") !!}
+					{!! Form::text( "apellido" , null , ['class' => 'form-control' , 'placeholder' => 'Apellidos' ]) !!}
 				</div>
 			</div>
 			<br>
 			<div class="row">
-				<div class="col-sm-6">
-					{!! Form::label("nombre","Nombres:") !!}
-					{!! Form::text( "nombre" , null , ['class' => 'form-control' , 'placeholder' => 'Nombres' ]) !!}
+					<div class="col-sm-4">
+						{!! Form::label("nit","NIT:") !!}
+						{!! Form::text( "nit" , null , ['class' => 'form-control' , 'placeholder' => 'NIT' ]) !!}
+					</div>
+					<div class="col-sm-2">
+					</div>
+					<div class="col-sm-4">
+						{!! Form::label("puesto_id","Puesto del Empleado:") !!}
+						<select class="selectpicker" id='puesto_id' name="puesto_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+							@foreach ($puestos as $puesto)
+							<option value="{{$puesto->id}}">{{$puesto->nombre}}</option>
+							@endforeach
+						</select>
+					</div>
 				</div>
-			</div>
-			<br>
+				<br>
 			<div class="row">
 				<div class="col-sm-4">
 				{!! Form::label("telefono","Telefono:") !!}

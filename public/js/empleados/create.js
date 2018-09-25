@@ -77,6 +77,9 @@ var validator = $("#EmpleadoForm").validate({
 		nombre: {
 			required : true
 		},
+		apellido: {
+			required : true
+		},
 
 		direccion: {
 			required : true
@@ -98,6 +101,9 @@ var validator = $("#EmpleadoForm").validate({
 
 		nombre: {
 			required: "Por favor, ingrese el nombre del empleado"
+		},
+		apellido: {
+			required: "Por favor, ingrese el apellido del empleado"
 		},
 
 		direccion: {
