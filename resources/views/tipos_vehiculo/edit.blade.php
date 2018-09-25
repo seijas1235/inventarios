@@ -23,7 +23,7 @@
             </div>
         <br>
         <div class="text-right m-t-15">
-            <a class='btn btn-primary form-gradient-color form-button' href="{{ url('/tipos_cliente') }}">Regresar</a>
+            <a class='btn btn-primary form-gradient-color form-button' href="{{ url('/tipos_vehiculo') }}">Regresar</a>
             {!! Form::input('submit', 'submit', 'Editar', ['class' => 'btn btn-primary form-gradient-color form-button', 'id'=>'ButtonUpdateTipoVehiculo']) !!}
         </div>
         <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
@@ -34,5 +34,5 @@
 
 @endsection
 @section('scripts')
-{!! HTML::script('/js/tipos_cliente/edit.js') !!}
+{!! HTML::script('/js/tipos_vehiculo/edit.js') !!}
 @endsection
