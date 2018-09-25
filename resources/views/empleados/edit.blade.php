@@ -16,7 +16,7 @@
                 {!! Form::label("nombre","Nombres:") !!}
                 {!! Form::text( "nombre" , null , ['class' => 'form-control' , 'placeholder' => 'Nombres' ]) !!}
             </div>
-            <div class="sol-sm-2"></div>
+            <div class="col-sm-2"></div>
             <div class="col-sm-4">
                 {!! Form::label("apellido","Apellidos:") !!}
                 {!! Form::text( "apellido" , null , ['class' => 'form-control' , 'placeholder' => 'Apellidos' ]) !!}
