@@ -11,38 +11,45 @@
             </div>
         </div>
         <br>
-        <div class="row">
+          <div class="row">
             <div class="col-sm-4">
-                {!! Form::label("nit","NIT:") !!}
-                {!! Form::text( "nit" , null , ['class' => 'form-control' , 'placeholder' => 'NIT' ]) !!}
-            </div>
-            <div class="col-sm-4">
-            </div>
-            <div class="col-sm-4">
-                {!! Form::label("puesto_id","Puesto del Empleado:") !!}
-                <select class="selectpicker" id='puesto_id' name="puesto_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
-                    @foreach ($puestos as $puesto)
-                    @if ( $puesto->id == $empleado->puesto_id)
-                    <option value="{{$puesto->id}}" selected>{{ $puesto->nombre}}</option>
-                    @else
-                    <option value="{{$puesto->id}}">{{ $puesto->nombre}}</option>
-                    @endif
-                    @endforeach
-                </select>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-sm-6">
                 {!! Form::label("nombre","Nombres:") !!}
                 {!! Form::text( "nombre" , null , ['class' => 'form-control' , 'placeholder' => 'Nombre' ]) !!}
             </div>
+            <div class="col-sm-2">
+                </div>
+            <div class="col-sm-4">
+                {!! Form::label("apellido","Apellidos:") !!}
+                {!! Form::text( "apellido" , null , ['class' => 'form-control' , 'placeholder' => 'Apellido' ]) !!}
+            </div>
         </div>
         <br>
+        <div class="row">
+                <div class="col-sm-4">
+                    {!! Form::label("nit","NIT:") !!}
+                    {!! Form::text( "nit" , null , ['class' => 'form-control' , 'placeholder' => 'NIT' ]) !!}
+                </div>
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-4">
+                    {!! Form::label("puesto_id","Puesto del Empleado:") !!}
+                    <select class="selectpicker" id='puesto_id' name="puesto_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+                        @foreach ($puestos as $puesto)
+                        @if ( $puesto->id == $empleado->puesto_id)
+                        <option value="{{$puesto->id}}" selected>{{ $puesto->nombre}}</option>
+                        @else
+                        <option value="{{$puesto->id}}">{{ $puesto->nombre}}</option>
+                        @endif
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <br>
         <div class="row">
             <div class="col-sm-4">
                 {!! Form::label("telefono","Teléfono:") !!}
                 {!! Form::number( "telefono" , null , ['class' => 'form-control' , 'placeholder' => 'Telefono' ]) !!}
+            </div>
         </div>
         <br>
         <div class="row">
