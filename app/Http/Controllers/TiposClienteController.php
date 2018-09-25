@@ -100,6 +100,7 @@ class TiposClienteController extends Controller
     {
         $id= $tipo_cliente->id;
         $tipo_cliente->nombre = $data["nombre"];
+        $tipo_cliente->descuento = $data["descuento"];
         $tipo_cliente->save();
 
         return $tipo_cliente;

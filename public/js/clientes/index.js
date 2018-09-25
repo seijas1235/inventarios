@@ -51,8 +51,17 @@ var clientes_table = $('#clientes-table').DataTable({
             return CustomDatatableRenders.fitTextHTML(data); },
     }, 
     {
-        "title": "Nombre",
-        "data": "nombre",
+        "title": "Nombres",
+        "data": "nombres",
+        "width" : "20%",
+        "responsivePriority": 2,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML(data); },
+    },
+
+    {
+        "title": "Apellidos",
+        "data": "apellidos",
         "width" : "20%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
@@ -60,8 +69,8 @@ var clientes_table = $('#clientes-table').DataTable({
     },
     
     {
-        "title": "Teléfono",
-        "data": "telefono",
+        "title": "Teléfonos",
+        "data": "telefonos",
         "width" : "20%",
         "responsivePriority": 3,
         "render": function( data, type, full, meta ) {

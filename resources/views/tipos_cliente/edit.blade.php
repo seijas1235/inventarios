@@ -17,6 +17,8 @@
                     {!! Form::text( "nombre" , null , ['class' => 'form-control' , 'placeholder' => 'Tipo de Cliente' ]) !!}
                 </div>
                 <div class="col-sm-4">
+                    {!! Form::label("descuento","Porcentaje de descuento:") !!}
+                    {!! Form::number( "descuento" , null , ['class' => 'form-control' , 'placeholder' => 'Porcentaje de descuento' ]) !!}
                 </div>
                 <div class="col-sm-4">
                 </div>

@@ -74,7 +74,11 @@ var validator = $("#ClienteForm").validate({
 			nit:true
 		},
 
-		nombre: {
+		nombres: {
+			required : true
+		},
+
+		apellidos: {
 			required : true
 		},
 
@@ -82,15 +86,7 @@ var validator = $("#ClienteForm").validate({
 			required : true
 		},
 
-		telefono: {
-			required : true
-		},
-
-		record_compra: {
-			required : true
-		},
-
-		descuento: {
+		telefonos: {
 			required : true
 		},
 
@@ -104,25 +100,22 @@ var validator = $("#ClienteForm").validate({
 			required: "Por favor, ingrese el NIT del cliente"
 		},
 
-		nombre: {
-			required: "Por favor, ingrese el nombre del cliente"
+		nombres: {
+			required: "Por favor, ingrese nombres del cliente"
+		},
+
+		apellidos: {
+			required: "Por favor, ingrese apellidos del cliente"
 		},
 
 		direccion: {
 			required: "Por favor, ingrese la direccion del cliente"
 		},
 
-		telefono: {
-			required: "Por favor, ingrese el telefono del cliente"
+		telefonos: {
+			required: "Por favor, ingrese el telefonos del cliente"
 		},
 
-		record_compra: {
-			required: "Por favor, ingrese el record de compra del cliente"
-		},
-
-		descuento: {
-			required: "Por favor, ingrese el porcentaje de decuento del cliente"
-		},
 
 		tipo_cliente_id: {
 			required: "Por favor, seleccione el tipo de cliente"

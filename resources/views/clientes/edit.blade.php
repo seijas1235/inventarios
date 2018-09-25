@@ -34,27 +34,20 @@
         <br>
         <div class="row">
             <div class="col-sm-6">
-                {!! Form::label("nombre","Nombres:") !!}
-                {!! Form::text( "nombre" , null , ['class' => 'form-control' , 'placeholder' => 'Nombre' ]) !!}
+                {!! Form::label("nombres","Nombres:") !!}
+                {!! Form::text( "nombres" , null , ['class' => 'form-control' , 'placeholder' => 'Nombres' ]) !!}
             </div>
             <div class="col-sm-6">
-                {!! Form::label("record_compra","Record de compras:") !!}
-                {!! Form::text( "record_compra" , null , ['class' => 'form-control' , 'placeholder' => 'Record de compra' ]) !!}
+                {!! Form::label("apellidos","Apellidos:") !!}
+                {!! Form::text( "apellidos" , null , ['class' => 'form-control' , 'placeholder' => 'Apellidos' ]) !!}
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col-sm-4">
-                {!! Form::label("telefono","Teléfono:") !!}
-                {!! Form::number( "telefono" , null , ['class' => 'form-control' , 'placeholder' => 'Telefono' ]) !!}
+                {!! Form::label("telefonos","Teléfono:") !!}
+                {!! Form::text( "telefonos" , null , ['class' => 'form-control' , 'placeholder' => 'Telefonos' ]) !!}
             </div>
-            <div class="col-sm-8">
-                {!! Form::label("descuento","% Descuento:") !!}
-                {!! Form::text( "descuento" , null , ['class' => 'form-control' , 'placeholder' => 'Porcentaje de Descuento' ]) !!}
-            </div>
-        </div>
-        <br>
-        <div class="row">
             <div class="col-sm-12">
                 {!! Form::label("direccion","Dirección:") !!}
                 {!! Form::text( "direccion" , null , ['class' => 'form-control' , 'placeholder' => 'Dirección' ]) !!}

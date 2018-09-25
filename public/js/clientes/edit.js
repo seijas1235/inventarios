@@ -60,13 +60,13 @@ var validator = $("#ClienteUpdateForm").validate({
 			required : true,
 			nit : true
 		},
-		nombre: {
+		nombres: {
 			required : true
 		},
 		direccion: {
 			required : true
 		},
-		telefono: {
+		telefonos: {
 			required : true
 		}
 	},
@@ -74,13 +74,16 @@ var validator = $("#ClienteUpdateForm").validate({
 		nit: {
 			required: "Por favor, ingrese el NIT del cliente"
 		},
-		nombre: {
-			required : "Por favor, ingrese un nombre del cliente"
+		nombres: {
+			required : "Por favor, ingrese nombres del cliente"
+		},
+		apellidos: {
+			required : "Por favor, ingrese apellidos del cliente"
 		},
 		direccion: {
-			required : "Por favor, ingrese un apellido del cliente"
+			required : "Por favor, ingrese un direccion del cliente"
 		},
-		telefono: {
+		telefonos: {
 			required : "Por favor, ingrese un teléfono del cliente"
 		}
 	}

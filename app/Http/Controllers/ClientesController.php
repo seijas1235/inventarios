@@ -103,11 +103,10 @@ class ClientesController extends Controller
     {
         $id= $cliente->id;
         $cliente->nit = $data["nit"];
-        $cliente->nombre = $data["nombre"];
-        $cliente->record_compra = $data["record_compra"];
-        $cliente->telefono = $data["telefono"];
+        $cliente->nombres = $data["nombres"];
+        $cliente->apellidos = $data["apellidos"];
+        $cliente->telefonos = $data["telefonos"];
         $cliente->direccion = $data["direccion"];
-        $cliente->descuento = $data["descuento"];
         $cliente->tipo_cliente_id = $data["tipo_cliente_id"];
         $cliente->save();
 
@@ -148,7 +147,7 @@ class ClientesController extends Controller
     {
         $api_Result = array();
         // Create a mapping of our query fields in the order that will be shown in datatable.
-        $columnsMapping = array("id", "nombre");
+        $columnsMapping = array("id", "nombres");
 
         // Initialize query (get all)
 

@@ -50,15 +50,22 @@ var tiposcliente_table = $('#tiposcliente-table').DataTable({
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data);
         },
-    }, {
+    }, 
+    {
         "title": "Tipo Cliente",
         "data": "nombre",
         "width" : "20%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data);
-        },
-    }, 
+            return CustomDatatableRenders.fitTextHTML(data);},
+    },{
+        "title": "Porcentaje de descuento",
+        "data": "descuento",
+        "width" : "20%",
+        "responsivePriority": 2,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML(data);},
+    },
        
     {
         "title": "Acciones",
