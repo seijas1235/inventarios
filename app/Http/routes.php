@@ -85,6 +85,15 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch('/empleados/{empleado}/update' , 'empleadosController@update');
 		Route::delete('/empleados/remove/{empleado}' , 'empleadosController@destroy');
 
+		//rutas Proveedores
+		Route::get( '/proveedores' , 'ProveedoresController@index');
+		Route::get( '/proveedores/getJson/' , 'ProveedoresController@getJson');
+		Route::get( '/proveedores/new' , 'ProveedoresController@create');
+		Route::get( '/proveedores/edit/{proveedor}' , 'ProveedoresController@edit');
+		Route::patch( '/proveedores/{proveedor}/update' , 'ProveedoresController@update');
+		Route::post( '/proveedores/save/' , 'ProveedoresController@store');
+		Route::delete( '/proveedores/remove/{proveedor}' , 'ProveedoresController@destroy');
+
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
 
 		Route::get('/home', 'HomeController@index');
@@ -106,15 +115,6 @@ Route::group(['middleware' => ['web']], function ()
 
 		Route::group(array('middleware' => 'acl' , 'is' => 'superadmin|administrator' ), function()
 		{
-
-			Route::get( '/proveedores' , 'ProveedoresController@index');
-			Route::get( '/proveedor/getJson/' , 'ProveedoresController@getJson');
-			Route::get( '/proveedores/new' , 'ProveedoresController@create');
-			Route::get( '/proveedores/edit/{proveedor}' , 'ProveedoresController@edit');
-			Route::patch( '/proveedores/{proveedor}/update' , 'ProveedoresController@update');
-			Route::post( '/proveedores/save/' , 'ProveedoresController@store');
-			Route::delete( '/proveedor/remove/{proveedor}' , 'ProveedoresController@destroy');
-
 
 			Route::get( '/requisiciones' , 'RequisicionesController@index');
 			Route::get( '/requisiciones/getJson/' , 'RequisicionesController@getJson');

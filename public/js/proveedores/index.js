@@ -72,7 +72,7 @@ var proveedores_table = $('#proveedores-table').DataTable({
         "title": "Direccion",
         "data": "direccion",
         "width" : "20%",
-        "responsivePriority": 4,
+        "responsivePriority": 3,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data); },
     },
@@ -85,11 +85,11 @@ var proveedores_table = $('#proveedores-table').DataTable({
             return "<div id='" + full.id + "' class='text-center'>" + 
             "<div class='float-left col-lg-6'>" + 
             "<a href='/proveedores/edit/"+ full.id +"' class='edit-proveedor'>" + 
-            "<i class='fa fa-btn fa-edit' title='Editar Tipo Cliente'></i>" + 
+            "<i class='fa fa-btn fa-edit' title='Editar Tipo Proveedor'></i>" + 
             "</a>" + "</div>" + 
             "<div class='float-right col-lg-6'>" + 
             "<a href='#' class='remove-proveedor'>" + 
-            "<i class='fa fa-btn fa-trash' title='Eliminar Tipo Cliente'></i>" + 
+            "<i class='fa fa-btn fa-trash' title='Eliminar Tipo Proveedor'></i>" + 
             "</a>" + "</div>";
             
         },
@@ -164,7 +164,7 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
         $(".user-created-message").removeClass("hidden");
         $(".user-created-message").addClass("alert-danger");
         $(".user-created-message").fadeIn();
-        $(".user-created-message > p").text("Cliente eliminado exitosamente!");
+        $(".user-created-message > p").text("Proveedor eliminado exitosamente!");
         proveedores_table.ajax.reload();
         $("#userDeleteModal").modal("hide");
     }).fail(function(errors) {
