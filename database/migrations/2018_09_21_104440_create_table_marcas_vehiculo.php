@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableTiposCliente extends Migration
+class CreateTableMarcasVehiculo extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,9 @@ class CreateTableTiposCliente extends Migration
      */
     public function up()
     {
-        Schema::create('tipos_cliente', function (Blueprint $table) {
+        Schema::create('marcas_vehiculo', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            $table->float('descuento');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ class CreateTableTiposCliente extends Migration
      */
     public function down()
     {
-        Schema::drop('tipos_cliente');
+        Schema::drop('marcas_vehiculo');
     }
 }

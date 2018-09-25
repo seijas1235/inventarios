@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableTiposCliente extends Migration
+class CreateTableTiposProveedor extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,13 @@ class CreateTableTiposCliente extends Migration
      */
     public function up()
     {
-        Schema::create('tipos_cliente', function (Blueprint $table) {
+        Schema::create('tipos_proveedor', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            $table->float('descuento');
+            $table->unsignedInteger('tipo_proveedor_id');
+
+            $table->foreign('tipo_proveedor_id')->references('id')->on('tipos_proveedor')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ class CreateTableTiposCliente extends Migration
      */
     public function down()
     {
-        Schema::drop('tipos_cliente');
+        Schema::drop('tipos_proveedor');
     }
 }

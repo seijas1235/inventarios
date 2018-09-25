@@ -105,7 +105,6 @@ class EmpleadosController extends Controller
     {
         $id= $empleado->id;
         $empleado->nombre = $data["nombre"];
-        $empleado->apellido = $data["apellido"];
         $empleado->nit = $data["nit"];
         $empleado->telefono = $data["telefono"];
         $empleado->direccion = $data["direccion"];

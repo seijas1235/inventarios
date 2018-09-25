@@ -18,7 +18,7 @@ class CreateTableEmpleados extends Migration
             $table->string('apellido');
             $table->string('nit',20);
             $table->string('direccion');
-            $table->string('telefono');
+            $table->string('telefonos', 30);
             $table->unsignedInteger('puesto_id');
 
             $table->foreign('puesto_id')->references('id')->on('puestos')->onDelete('cascade');

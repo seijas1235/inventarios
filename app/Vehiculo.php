@@ -11,14 +11,22 @@ class Vehiculo extends Model
     protected $fillable=[
         'id',
         'placa',
-        'aceite',
+        'aceite_caja',
+        'aceite_motor',
         'kilometraje',
+        'color',
+        'fecha_ultimo_servicio',
         'año',
-        'tipo_vehiculo_id'
+        'tipo_vehiculo_id',
+        'marca_vehiculo_id'
         ];
 
 
     public function tipo_vehiculo(){
         return $this->belongsTo(TipoVehiculo::class);
+    }
+
+    public function marca_vehiculo(){
+        return $this->belongsTo(MarcaVehiculo::class);
     }
 }
