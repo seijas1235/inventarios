@@ -20,7 +20,7 @@
 					<div class="row">
 						<div class="col-sm-3 title-line-height"></div>
 						<div class="col-sm-6 text-center">
-							<h4 class="inline-title">Puestos</h4>
+							<h2 class="inline-title">Puestos</h2>
 						</div>
 						<div class="col-sm-3 title-line-height text-right">
 							<div class="btn-group">

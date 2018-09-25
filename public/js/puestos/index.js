@@ -18,6 +18,8 @@ var puestos_table = $('#puestos-table').DataTable({
     ],
     "paging": true,
     "language": {
+        "sdecimal":        ".",
+        "sthousands":      ",",
         "sProcessing":     "Procesando...",
         "sLengthMenu":     "Mostrar _MENU_ registros",
         "sZeroRecords":    "No se encontraron resultados",
@@ -43,7 +45,7 @@ var puestos_table = $('#puestos-table').DataTable({
     },
     "order": [0, 'asc'],
     "columns": [ {
-        "title": "No",
+        "title": "No.",
         "data": "id",
         "width" : "20%",
         "responsivePriority": 1,
@@ -52,7 +54,7 @@ var puestos_table = $('#puestos-table').DataTable({
     }, 
     
     {
-        "title": "puesto",
+        "title": "Puesto",
         "data": "nombre",
         "width" : "20%",
         "responsivePriority": 2,
@@ -61,12 +63,11 @@ var puestos_table = $('#puestos-table').DataTable({
     }, 
     
     {
-        "title": "sueldo",
+        "title": "Sueldo",
         "data": "sueldo",
         "width" : "20%",
         "responsivePriority": 2,
-        "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data);},
+        "render": $.fn.dataTable.render.number( ',', '.', 2, 'Q.' )
     }, 
        
     {
@@ -107,11 +108,11 @@ $('body').on('click', 'a.remove-puesto', function(e) {
     $("#userDeleteModal").hide().show();
     $("#userDeleteModal").modal();
     if (user.length = 1) {
-        $("#message").text("este puesto?");
+        $("#message").text("este Puesto?");
         $(".variable").text("");
         $(".entity").text("");
     } else {
-        $("#message").text("este puesto");
+        $("#message").text("este Puesto");
         $(".variable").text("");
         $(".entity").text("");
     }
