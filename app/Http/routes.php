@@ -85,7 +85,9 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch( '/empleados/{empleado}/update' , 'EmpleadosController@update');
 		Route::post( '/empleados/save/' , 'EmpleadosController@store');
 		Route::delete( '/empleados/remove/{empleado}' , 'EmpleadosController@destroy');
+		Route::get('/empleados/nitDisponible/', 'EmpleadosController@nitDisponible');
 		Route::get( 'cui-disponible/', 'EmpleadosController@dpiDisponible');
+		
 
 		//rutas Proveedores
 		Route::get( '/proveedores' , 'ProveedoresController@index');

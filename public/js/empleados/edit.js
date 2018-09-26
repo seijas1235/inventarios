@@ -9,7 +9,7 @@ $(document).ready(function() {
 	});
 });
 
-
+// funcion para validar CUI
 function cuiIsValid(cui) {
     var console = window.console;
     if (!cui) {
@@ -113,21 +113,6 @@ $.validator.addMethod("dpi", function(value, element) {
 	}, "El CUI/DPI ingresado está incorrecto");
 
 
-$.validator.addMethod("cuiUnico", function(value, element) {
-	var valid = false;
-	$.ajax({
-		type: "GET",
-		async: false,
-		url: "/cui-disponible",
-		data: "emp_cui=" + value,
-		dataType: "json",
-		success: function(msg) {
-			valid = !msg;
-		}
-	});
-	return valid;
-}, "El DPI ya está asignado a otro empleado registrado en el sistema");
-
 
 //funcion validar nit
 
@@ -191,7 +176,6 @@ var validator = $("#EmpleadoUpdateForm").validate({
 	rules: {
 		emp_cui: {
 			required : true,
-			cuiUnico : true,
 			dpi : true
 		},
 		nit: {

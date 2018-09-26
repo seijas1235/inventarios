@@ -73,7 +73,20 @@ class EmpleadosController extends Controller
     {
         //
     }
-    
+    public function nitDisponible()
+	{
+		$dato = Input::get("nit");
+		$query = Empleado::where("nit",$dato)->get();
+		$contador = count($query);
+		if ($contador == 0)
+		{
+			return 'false';
+		}
+		else
+		{
+			return 'true';
+		}
+	}
     public function dpiDisponible()
 	{
 		$dato = Input::get("emp_cui");
@@ -113,6 +126,10 @@ class EmpleadosController extends Controller
      */
     public function update(Empleado $empleado, Request $request)
     {
+        $this->validate($request,['nit' => 'required|unique:empleados,nit,'.$empleado->id
+        ]);
+        $this->validate($request,['emp_cui' => 'required|unique:empleados,emp_cui,'.$empleado->id
+        ]);
         Response::json( $this->updateEmpleado($empleado , $request->all()));
         return redirect('/empleados');
     }

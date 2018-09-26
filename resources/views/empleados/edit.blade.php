@@ -11,6 +11,7 @@
             </div>
         </div>
         <br>
+
         <div class="row">
             <div class="col-sm-4">
                 {!! Form::label("nombre","Nombres:") !!}
@@ -24,15 +25,17 @@
         </div>
         <br>
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-4 {{$errors->has('nit')? 'has-error' : ''}}">
                 {!! Form::label("nit","NIT:") !!}
                 {!! Form::text( "nit" , null , ['class' => 'form-control' , 'placeholder' => 'NIT' ]) !!}
+                {!!$errors->first('nit', '<label class="error">:message</label>')!!}
             </div>
             <div class="col-sm-2">
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-4 {{$errors->has('emp_cui')? 'has-error' : ''}}">
                 {!! Form::label("emp_cui","CUI/DPI:") !!}
                 {!! Form::text( "emp_cui" , null , ['class' => 'form-control' , 'placeholder' => 'CUI/DPI' ]) !!}
+                {!!$errors->first('emp_cui', '<label class="error">:message</label>')!!}
             </div>
           
         </div>
@@ -43,6 +46,7 @@
                 {!! Form::label("telefono","Teléfono:") !!}
                 {!! Form::number( "telefono" , null , ['class' => 'form-control' , 'placeholder' => 'Telefono' ]) !!}
             </div>
+            <div class="col-sm-2"></div>
             <div class="col-sm-4">
                 {!! Form::label("puesto_id","Puesto del Empleado:") !!}
                 <select class="selectpicker" id='puesto_id' name="puesto_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
