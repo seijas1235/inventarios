@@ -68,11 +68,11 @@ var tiposvehiculo_table = $('#tiposvehiculo-table').DataTable({
             return "<div id='" + full.id + "' class='text-center'>" + 
             "<div class='float-left col-lg-6'>" + 
             "<a href='/tipos_vehiculo/edit/"+ full.id +"' class='edit-tipovehiculo'>" + 
-            "<i class='fa fa-btn fa-edit' title='Editar Tipo Cliente'></i>" + 
+            "<i class='fa fa-btn fa-edit' title='Editar Tipo Vehiculo'></i>" + 
             "</a>" + "</div>" + 
             "<div class='float-right col-lg-6'>" + 
             "<a href='#' class='remove-tipovehiculo'>" + 
-            "<i class='fa fa-btn fa-trash' title='Eliminar Tipo Cliente'></i>" + 
+            "<i class='fa fa-btn fa-trash' title='Eliminar Tipo Vehiculo'></i>" + 
             "</a>" + "</div>";
             
         },
