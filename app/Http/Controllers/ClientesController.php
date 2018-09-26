@@ -111,6 +111,8 @@ class ClientesController extends Controller
      */
     public function update(Cliente $cliente, Request $request)
     {
+        $this->validate($request,['nit' => 'required|unique:clientes,nit,'.$cliente->id
+        ]);
         Response::json( $this->updateCliente($cliente , $request->all()));
         return redirect('/clientes');
     }

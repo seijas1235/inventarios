@@ -14,7 +14,6 @@ Use App\User;
 Use App\Proveedor;
 Use App\TipoProveedor;
 
-
 class ProveedoresController extends Controller
 {
     /**
@@ -111,6 +110,8 @@ class ProveedoresController extends Controller
      */
     public function update(Proveedor $proveedor, Request $request)
     {
+        $this->validate($request,['nit' => 'required|unique:proveedores,nit,'.$proveedor->id
+        ]);
         Response::json( $this->updateProveedor($proveedor , $request->all()));
         return redirect('/proveedores');
     }

@@ -12,9 +12,10 @@
         </div>
         <br>
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-4 form-group {{$errors->has('nit')? 'has-error' : ''}}">
                 {!! Form::label("nit","NIT:") !!}
                 {!! Form::text( "nit" , null , ['class' => 'form-control' , 'placeholder' => 'NIT' ]) !!}
+                {!!$errors->first('nit', '<label class="error">:message</label>')!!}
             </div>
             <div class="col-sm-4">
             </div>
