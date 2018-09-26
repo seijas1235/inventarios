@@ -131,6 +131,14 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch('/marcas_vehiculo/{marca_vehiculo}/update' , 'MarcasVehiculoController@update');
 		Route::delete('/marcas_vehiculo/remove/{marca_vehiculo}' , 'MarcasVehiculoController@destroy');
 
+		Route::get('/productos', 'ProductosController@index');
+		Route::get('/productos/getJson/' , 'ProductosController@getJson');
+		Route::get('/productos/new' , 'ProductosController@create');
+		Route::post('/productos/save/' , 'ProductosController@store');
+		Route::get('/productos/edit/{producto}' , 'ProductosController@edit');
+		Route::patch('/productos/{producto}/update' , 'ProductosController@update');
+		Route::delete('/productos/remove/{producto}' , 'ProductosController@destroy');
+
 
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
 

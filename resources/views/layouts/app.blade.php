@@ -183,7 +183,7 @@
 			</li>
 
 			@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
-			<li class="submenu {{request()->is('tipos_cliente*', 'clientes*', 'tipos_vehiculo*','marcas_vehiculo*','vehiculos*','puestos*', 'empleados*','tipos_proveedor*', 'proveedores*')? 'open active': ''}}">
+			<li class="submenu {{request()->is('tipos_cliente*', 'clientes*', 'tipos_vehiculo*','marcas_vehiculo*','vehiculos*','puestos*', 'empleados*','proveedores*')? 'open active': ''}}">
 				<a href="#"><i class="icon icon-file"></i> <span>Catálogos Generales</span> <span class="label label-important"></span></a>
 				@endif
 				<ul>
@@ -202,11 +202,11 @@
 					
 					<li class="{{request()->is('empleados*')? 'open active': ''}}"><a href="/empleados">Empleados</a></li>
 
-					<li class="{{request()->is('tipos_proveedor*')? 'open active': ''}}"><a href="/tipos_proveedor">Tipos de Proveedor</a></li>
-
 					<li class="{{request()->is('proveedores*')? 'open active': ''}}"><a href="/proveedores">Proveedores</a></li>
 
 					<li class="{{request()->is('unidades_de_medida*')? 'open active': ''}}"><a href="/unidades_de_medida">Unidades de medida</a></li>
+
+					<li class="{{request()->is('productos*')? 'open active': ''}}"><a href="/productos">Productos</a></li>
 
 					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
 					<li><a href="/bancos">Bancos</a></li>
