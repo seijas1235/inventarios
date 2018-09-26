@@ -16,6 +16,9 @@ class Empleado extends Model
         'nit',
         'direccion',
         'telefono',
+        'fecha_inicio',
+        'fecha_nacimiento',
+        'fecha_finalizacion',
         'puesto_id',
         ];
 
