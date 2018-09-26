@@ -10,6 +10,7 @@ use DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
 Use App\User;
 Use App\Empleado;
@@ -72,6 +73,21 @@ class EmpleadosController extends Controller
     {
         //
     }
+    
+    public function dpiDisponible()
+	{
+		$dato = Input::get("emp_cui");
+		$query = Empleado::where("emp_cui",$dato)->get();
+		$contador = count($query);
+		if ($contador == 0)
+		{
+			return 'false';
+		}
+		else
+		{
+			return 'true';
+		}
+	}
 
     /**
      * Show the form for editing the specified resource.
@@ -106,6 +122,7 @@ class EmpleadosController extends Controller
         $id= $empleado->id;
         $empleado->nombre = $data["nombre"];
         $empleado->nit = $data["nit"];
+        $empleado->emp_cui = $data["emp_cui"];
         $empleado->telefono = $data["telefono"];
         $empleado->direccion = $data["direccion"];
         $empleado->puesto_id = $data["puesto_id"];
@@ -142,7 +159,6 @@ class EmpleadosController extends Controller
             return Response::json( $response  , 422 );
         }    
     }
-
 
     public function getJson(Request $params)
     {

@@ -42,14 +42,7 @@ var empleados_table = $('#empleados-table').DataTable({
         },
     },
     "order": [0, 'asc'],
-    "columns": [ {
-        "title": "NIT",
-        "data": "nit",
-        "width" : "20%",
-        "responsivePriority": 1,
-        "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data); },
-    }, 
+    "columns": [ 
     {
         "title": "Nombre",
         "data": "nombre",
@@ -66,6 +59,22 @@ var empleados_table = $('#empleados-table').DataTable({
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data); },
     },
+    {
+        "title": "NIT",
+        "data": "nit",
+        "width" : "20%",
+        "responsivePriority": 1,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML(data); },
+    }, 
+    {
+        "title": "DPI",
+        "data": "emp_cui",
+        "width" : "20%",
+        "responsivePriority": 1,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML(data); },
+    }, 
     
     {
         "title": "Teléfono",

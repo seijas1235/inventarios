@@ -10,6 +10,7 @@ class Empleado extends Model
 
     protected $fillable=[
         'id',
+        'emp_cui',
         'nombre',
         'apellido',
         'nit',

@@ -78,13 +78,14 @@ Route::group(['middleware' => ['web']], function ()
 		Route::delete('/puestos/remove/{puesto}' , 'PuestosController@destroy');
 		
 		// rutas empleados
-		Route::get('/empleados', 'empleadosController@index');
-		Route::get('/empleados/getJson/' , 'empleadosController@getJson');
-		Route::get('/empleados/new' , 'empleadosController@create');
-		Route::post('/empleados/save/' , 'empleadosController@store');
-		Route::get('/empleados/edit/{empleado}' , 'empleadosController@edit');
-		Route::patch('/empleados/{empleado}/update' , 'empleadosController@update');
-		Route::delete('/empleados/remove/{empleado}' , 'empleadosController@destroy');
+		Route::get( '/empleados' , 'EmpleadosController@index');
+		Route::get( '/empleados/getJson/' , 'EmpleadosController@getJson');
+		Route::get( '/empleados/new/' , 'EmpleadosController@create');
+		Route::get( '/empleados/edit/{empleado}' , 'EmpleadosController@edit');
+		Route::patch( '/empleados/{empleado}/update' , 'EmpleadosController@update');
+		Route::post( '/empleados/save/' , 'EmpleadosController@store');
+		Route::delete( '/empleados/remove/{empleado}' , 'EmpleadosController@destroy');
+		Route::get( 'cui-disponible/', 'EmpleadosController@dpiDisponible');
 
 		//rutas Proveedores
 		Route::get( '/proveedores' , 'ProveedoresController@index');
