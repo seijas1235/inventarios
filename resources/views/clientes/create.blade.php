@@ -14,7 +14,7 @@
 			<div class="row">
 				<div class="col-sm-4">
 					{!! Form::label("nit","NIT:") !!}
-					{!! Form::text( "nit" , null , ['class' => 'form-control' , 'placeholder' => 'NIT' ]) !!}
+					{!! Form::text( "nit" , null , ['class' => 'form-control' , 'placeholder' => 'NIT', 'id'=>'unique']) !!}
 				</div>
 				<div class="col-sm-4">
 				</div>

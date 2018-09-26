@@ -48,7 +48,7 @@
                 {!! Form::label("telefonos","Teléfono:") !!}
                 {!! Form::text( "telefonos" , null , ['class' => 'form-control' , 'placeholder' => 'Telefonos' ]) !!}
             </div>
-            <div class="col-sm-12">
+            <div class="col-sm-8">
                 {!! Form::label("direccion","Dirección:") !!}
                 {!! Form::text( "direccion" , null , ['class' => 'form-control' , 'placeholder' => 'Dirección' ]) !!}
             </div>

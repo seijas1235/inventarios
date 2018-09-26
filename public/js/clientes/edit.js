@@ -63,10 +63,7 @@ var validator = $("#ClienteUpdateForm").validate({
 		nombres: {
 			required : true
 		},
-		direccion: {
-			required : true
-		},
-		telefonos: {
+		apellidos: {
 			required : true
 		},
 		tipo_cliente_id: {
@@ -82,12 +79,6 @@ var validator = $("#ClienteUpdateForm").validate({
 		},
 		apellidos: {
 			required : "Por favor, ingrese apellidos del cliente"
-		},
-		direccion: {
-			required : "Por favor, ingrese un direccion del cliente"
-		},
-		telefonos: {
-			required : "Por favor, ingrese un teléfono del cliente"
 		},
 		tipo_cliente_id: {
 			required: "Por favor, seleccione el tipo de cliente"

@@ -8,6 +8,7 @@ use DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
 Use App\User;
 Use App\Cliente;
@@ -70,6 +71,21 @@ class ClientesController extends Controller
     {
         //
     }
+
+    public function nitDisponible()
+	{
+		$dato = Input::get("nit");
+		$query = Cliente::where("nit",$dato)->get();
+		$contador = count($query);
+		if ($contador == 0)
+		{
+			return 'false';
+		}
+		else
+		{
+			return 'true';
+		}
+	}
 
     /**
      * Show the form for editing the specified resource.

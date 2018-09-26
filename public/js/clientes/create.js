@@ -9,7 +9,6 @@ $(document).ready(function() {
 	});
 });
 
-
 function ValidaNIT(txtN) {
 	txtN = txtN.toUpperCase();
 	var nit = txtN;
@@ -65,13 +64,29 @@ $.validator.addMethod("nit", function(value, element){
 	}
 }, "El NIT ingresado es incorrecto o inválido, reviselo y vuelva a ingresarlo");
 
+$.validator.addMethod("nitUnico", function(value, element) {
+	var valid = false;
+	$.ajax({
+		type: "GET",
+		async: false,
+		url: "/clientes/nitDisponible",
+		data: "nit=" + value,
+		dataType: "json",
+		success: function(msg) {
+			valid = !msg;
+		}
+	});
+	return valid;
+}, "El nit ya está registrado en el sistema");
+
 var validator = $("#ClienteForm").validate({
 	ignore: [],
 	onkeyup:false,
 	rules: {
 		nit:{
 			required: true,
-			nit:true
+			nit:true,
+			nitUnico: true
 		},
 
 		nombres: {
@@ -81,15 +96,6 @@ var validator = $("#ClienteForm").validate({
 		apellidos: {
 			required : true
 		},
-
-		direccion: {
-			required : true
-		},
-
-		telefonos: {
-			required : true
-		},
-
 		tipo_cliente_id: {
 			required : true
 		}
@@ -107,16 +113,6 @@ var validator = $("#ClienteForm").validate({
 		apellidos: {
 			required: "Por favor, ingrese apellidos del cliente"
 		},
-
-		direccion: {
-			required: "Por favor, ingrese la direccion del cliente"
-		},
-
-		telefonos: {
-			required: "Por favor, ingrese el telefonos del cliente"
-		},
-
-
 		tipo_cliente_id: {
 			required: "Por favor, seleccione el tipo de cliente"
 		}

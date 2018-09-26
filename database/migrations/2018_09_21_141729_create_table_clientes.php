@@ -16,9 +16,9 @@ class CreateTableClientes extends Migration
             $table->increments('id');
             $table->string('nombres');
             $table->string('apellidos');
-            $table->string('nit',20);
-            $table->string('direccion');
-            $table->string('telefonos',30);
+            $table->string('nit',20)->unique();
+            $table->string('direccion')->nullable();
+            $table->string('telefonos',30)->nullable();
             $table->integer('record_compra');
             $table->unsignedInteger('tipo_cliente_id');
             $table->unsignedInteger('user_id');
