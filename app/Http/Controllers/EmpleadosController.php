@@ -143,6 +143,8 @@ class EmpleadosController extends Controller
         $empleado->telefono = $data["telefono"];
         $empleado->direccion = $data["direccion"];
         $empleado->puesto_id = $data["puesto_id"];
+        $empleado->fecha_inicio = $data["fecha_inicio"];
+		$empleado->fecha_nacimiento = $data["fecha_nacimiento"];
         $empleado->save();
 
         return $empleado;
