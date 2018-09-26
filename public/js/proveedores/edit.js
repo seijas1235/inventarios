@@ -51,7 +51,6 @@ $.validator.addMethod("nit", function(value, element) {
 }, "El NIT ingresado es incorrecto o inválido, reviselo y vuelva a ingresarlo");
 
 
-
 var validator = $("#ProveedorUpdateForm").validate({
 	ignore: [],
 	onkeyup:false,
@@ -59,6 +58,7 @@ var validator = $("#ProveedorUpdateForm").validate({
 		nit: {
 			required : true,
 			nit : true
+
 		},
 		nombre: {
 			required : true

@@ -94,6 +94,7 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch( '/proveedores/{proveedor}/update' , 'ProveedoresController@update');
 		Route::post( '/proveedores/save/' , 'ProveedoresController@store');
 		Route::delete( '/proveedores/remove/{proveedor}' , 'ProveedoresController@destroy');
+		Route::get('/proveedores/nitDisponible/', 'ProveedoresController@nitDisponible');
 
 		Route::get('/vehiculos', 'VehiculosController@index');
 		Route::get('/vehiculos/getJson/' , 'VehiculosController@getJson');

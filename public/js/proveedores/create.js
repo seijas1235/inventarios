@@ -65,13 +65,29 @@ $.validator.addMethod("nit", function(value, element){
 	}
 }, "El NIT ingresado es incorrecto o inválido, reviselo y vuelva a ingresarlo");
 
+$.validator.addMethod("nitUnico", function(value, element) {
+	var valid = false;
+	$.ajax({
+		type: "GET",
+		async: false,
+		url: "/proveedores/nitDisponible",
+		data: "nit=" + value,
+		dataType: "json",
+		success: function(msg) {
+			valid = !msg;
+		}
+	});
+	return valid;
+}, "El nit ya está registrado en el sistema");
+
 var validator = $("#ProveedorForm").validate({
 	ignore: [],
 	onkeyup:false,
 	rules: {
 		nit:{
 			required: true,
-			nit:true
+			nit:true,
+			nitUnico: true
 		},
 
 		nombre: {

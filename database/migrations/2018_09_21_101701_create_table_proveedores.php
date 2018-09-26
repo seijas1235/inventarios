@@ -16,7 +16,7 @@ class CreateTableProveedores extends Migration
             $table->increments('id');
             $table->string('nombre');
             $table->string('direccion');
-            $table->string('nit',20);
+            $table->string('nit',20)->unique();
             $table->string('telefonos',30);
             $table->unsignedInteger('tipo_proveedor_id');
 
