@@ -14,6 +14,12 @@ class CreateTableVehiculosCliente extends Migration
     {
         Schema::create('vehiculos_cliente', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('vehiculo_id');
+            $table->unsignedInteger('cliente_id');
+
+            $table->foreign('vehiculo_id')->references('id')->on('vehiculos')->onDelete('cascade');
+            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

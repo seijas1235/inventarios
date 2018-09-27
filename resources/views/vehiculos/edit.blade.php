@@ -69,7 +69,7 @@
             </div>
             <div class="col-sm-3">
                 {!! Form::label("kilometraje","Kilometraje:") !!}
-                {!! Form::text( "kilometraje" , null , ['class' => 'form-control' , 'placeholder' => 'Kilometraje' ]) !!}
+                {!! Form::number( "kilometraje" , null , ['class' => 'form-control' , 'placeholder' => 'Kilometraje' ]) !!}
             </div>
         </div>
     <br>
