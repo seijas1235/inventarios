@@ -14,6 +14,14 @@ class CreateTableMantenimientoEquipo extends Migration
     {
         Schema::create('mantto_equipo', function (Blueprint $table) {
             $table->increments('id');
+            $table->text('descripcion');
+            $table->date('fecha_proximo_servicio')->nullable();
+            $table->date('fecha_servicio');
+            $table->integer('labadas_servicio')->nullable();
+            $table->integer('labadas_proximo_servicio')->nullable();
+            $table->unsignedInteger('maquinaria_id');
+            $table->foreign('maquinaria_id')->references('id')->on('maquinarias_y_equipos')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
