@@ -25,4 +25,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    public function precios_producto(){
+        return $this->hasMany(PrecioProducto::class);
+    }
+
+
+    public function clientes(){
+        return $this->hasMany(Cliente::class);
+    }
 }

@@ -14,4 +14,8 @@ class Producto extends Model
         'minimo',
         'codigo_barra'
         ];
+
+    public function precios_producto(){
+        return $this->hasMany(PrecioProducto::class);
+       }
 }

@@ -148,6 +148,22 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch('/productos/{producto}/update' , 'ProductosController@update');
 		Route::delete('/productos/remove/{producto}' , 'ProductosController@destroy');
 
+		Route::get('/precios_producto', 'PreciosProductoController@index');
+		Route::get('/precios_producto/getJson/' , 'PreciosProductoController@getJson');
+		Route::get('/precios_producto/new' , 'PreciosProductoController@create');
+		Route::post('/precios_producto/save/' , 'PreciosProductoController@store');
+		Route::get('/precios_producto/edit/{precio_producto}' , 'PreciosProductoController@edit');
+		Route::patch('/precios_producto/{precio_producto}/update' , 'PreciosProductoController@update');
+		Route::delete('/precios_producto/remove/{precio_producto}' , 'PreciosProductoController@destroy');
+
+		Route::get('/vehiculos_cliente', 'VehiculosClienteController@index');
+		Route::get('/vehiculos_cliente/getJson/' , 'VehiculosClienteController@getJson');
+		Route::get('/vehiculos_cliente/new' , 'VehiculosClienteController@create');
+		Route::post('/vehiculos_cliente/save/' , 'VehiculosClienteController@store');
+		Route::get('/vehiculos_cliente/edit/{vehiculo_cliente}' , 'VehiculosClienteController@edit');
+		Route::patch('/vehiculos_cliente/{vehiculo_cliente}/update' , 'VehiculosClienteController@update');
+		Route::delete('/vehiculos_cliente/remove/{vehiculo_cliente}' , 'VehiculosClienteController@destroy');
+
 
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
 

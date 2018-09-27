@@ -197,6 +197,8 @@
 					<li class="{{request()->is('marcas_vehiculo*')? 'open active': ''}}"><a href="/marcas_vehiculo">Marcas de Vehiculo</a></li>
 
 					<li class="{{request()->is('vehiculos*')? 'open active': ''}}"><a href="/vehiculos">Vehiculos</a></li>
+
+					<li class="{{request()->is('vehiculos_cliente*')? 'open active': ''}}"><a href="/vehiculos_cliente">Asginar vehiculos</a></li>
 					
 					<li class="{{request()->is('puestos*')? 'open active': ''}}"><a href="/puestos">Puestos</a></li>
 					
@@ -207,6 +209,8 @@
 					<li class="{{request()->is('unidades_de_medida*')? 'open active': ''}}"><a href="/unidades_de_medida">Unidades de medida</a></li>
 
 					<li class="{{request()->is('productos*')? 'open active': ''}}"><a href="/productos">Productos</a></li>
+
+					<li class="{{request()->is('precios_producto*')? 'open active': ''}}"><a href="/precios_producto">Precios de Producto</a></li>
 
 					<li class="{{request()->is('maquinarias_equipo*')? 'open active': ''}}"><a href="/maquinarias_equipo">Maquinarias y equipos</a></li>
 
