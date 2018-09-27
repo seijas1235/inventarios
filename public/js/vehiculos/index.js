@@ -59,16 +59,25 @@ var vehiculos_table = $('#vehiculos-table').DataTable({
             return CustomDatatableRenders.fitTextHTML(data);
         },
     }, {
-        "title": "Aceite recomendado",
-        "data": "aceite",
+        "title": "Aceite de caja",
+        "data": "aceite_caja",
+        "width" : "15%",
+        "responsivePriority": 5,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML(data);
+        },
+    },
+    {
+        "title": "Aceite de motor",
+        "data": "aceite_motor",
         "width" : "15%",
         "responsivePriority": 5,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data);
         },
     }, {
-        "title": "Año",
-        "data": "año",
+        "title": "Fecha ultimo servicio",
+        "data": "fecha_ultimo_servicio",
         "width" : "10%",
         "responsivePriority": 6,
         "render": function( data, type, full, meta ) {
@@ -171,7 +180,7 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
         $(".user-created-message").removeClass("hidden");
         $(".user-created-message").addClass("alert-danger");
         $(".user-created-message").fadeIn();
-        $(".user-created-message > p").text("Vehiculo inhabilitado exitosamente!");
+        $(".user-created-message > p").text("Vehiculo eliminado exitosamente!");
         vehiculos_table.ajax.reload();
         $("#userDeleteModal").modal("hide");
     }).fail(function(errors) {

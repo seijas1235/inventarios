@@ -19,7 +19,7 @@ class CreateTableVehiculos extends Migration
             $table->string('aceite_motor');
             $table->string('año');
             $table->string('color');
-            $table->string('fecha_ultimo_servicio');
+            $table->date('fecha_ultimo_servicio');
             $table->float('kilometraje');
             $table->unsignedInteger('tipo_vehiculo_id');
             $table->unsignedInteger('marca_vehiculo_id');
