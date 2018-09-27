@@ -88,6 +88,15 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/empleados/nitDisponible/', 'EmpleadosController@nitDisponible');
 		Route::get( 'cui-disponible/', 'EmpleadosController@dpiDisponible');
 		
+		//Rutas Maquinarias y equipo
+		Route::get('/maquinarias_equipo', 'MaquinariasEquipoController@index');
+		Route::get('/maquinarias_equipo/getJson/' , 'MaquinariasEquipoController@getJson');
+		Route::get('/maquinarias_equipo/new' , 'MaquinariasEquipoController@create');
+		Route::post('/maquinarias_equipo/save/' , 'MaquinariasEquipoController@store');
+		Route::get('/maquinarias_equipo/edit/{vehiculo}' , 'MaquinariasEquipoController@edit');
+		Route::patch('/maquinarias_equipo/{vehiculo}/update' , 'MaquinariasEquipoController@update');
+		Route::delete('/maquinarias_equipo/remove/{vehiculo}' , 'MaquinariasEquipoController@destroy');
+		
 
 		//rutas Proveedores
 		Route::get( '/proveedores' , 'ProveedoresController@index');

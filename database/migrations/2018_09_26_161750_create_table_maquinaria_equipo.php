@@ -12,8 +12,13 @@ class CreateTableMaquinariaEquipo extends Migration
      */
     public function up()
     {
-        Schema::create('Maquinarias_y_eqipos', function (Blueprint $table) {
+        Schema::create('maquinarias_y_eqipos', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('nombre');
+            $table->string('marca');
+            $table->int('labadas_limite');
+            $table->date('fecha_adquisicion');
+            $table->double('precio_costo');
             $table->timestamps();
         });
     }
