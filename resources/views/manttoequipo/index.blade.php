@@ -32,7 +32,7 @@
                 </div>
                 
 				<div class="panel panel-body">
-					<table id="manttosequipo-table" class="table table-striped table-bordered no-margin-bottom dt-responsive nowrap" ellspacing="0" width="100%">
+					<table id="manttoequipo-table" class="table table-striped table-bordered no-margin-bottom dt-responsive nowrap" ellspacing="0" width="100%">
 					</table>
                 </div>
                 

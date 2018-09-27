@@ -1,5 +1,5 @@
-var empleados_table = $('#empleados-table').DataTable({
-    "ajax": "/empleados/getJson",
+var manttoequipo_table = $('#manttoequipo-table').DataTable({
+    "ajax": "/mantto_equipo/getJson",
     "responsive": true,
     "processing": true,
     "serverSide": true,
@@ -44,7 +44,15 @@ var empleados_table = $('#empleados-table').DataTable({
     "order": [0, 'asc'],
     "columns": [ 
     {
-        "title": "Nombre",
+        "title": "Fecha Realizado",
+        "data": "fecha_servicio",
+        "width" : "20%",
+        "responsivePriority": 2,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML(data); },
+    },
+    {
+        "title": "Equipó",
         "data": "nombre",
         "width" : "20%",
         "responsivePriority": 2,
@@ -52,24 +60,16 @@ var empleados_table = $('#empleados-table').DataTable({
             return CustomDatatableRenders.fitTextHTML(data); },
     },
     {
-        "title": "Apellido",
-        "data": "apellido",
-        "width" : "20%",
-        "responsivePriority": 2,
-        "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data); },
-    },
-    {
-        "title": "NIT",
-        "data": "nit",
+        "title": "Labadas Realizadas",
+        "data": "labadas_servicio",
         "width" : "20%",
         "responsivePriority": 1,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data); },
     }, 
     {
-        "title": "DPI",
-        "data": "emp_cui",
+        "title": "No. de labadas Proximo Servicio",
+        "data": "labadas_proximo_servicio",
         "width" : "20%",
         "responsivePriority": 1,
         "render": function( data, type, full, meta ) {
@@ -77,23 +77,14 @@ var empleados_table = $('#empleados-table').DataTable({
     }, 
     
     {
-        "title": "Teléfono",
-        "data": "telefono",
+        "title": "Fecha Proximo Servicio",
+        "data": "fecha_proximo_servicio",
         "width" : "20%",
         "responsivePriority": 3,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data); },
     }, 
-
-    {
-        "title": "Direccion",
-        "data": "direccion",
-        "width" : "20%",
-        "responsivePriority": 2,
-        "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data); },
-    },
-       
+      
     {
         "title": "Acciones",
         "orderable": false,
@@ -101,12 +92,12 @@ var empleados_table = $('#empleados-table').DataTable({
         "render": function(data, type, full, meta) {
             return "<div id='" + full.id + "' class='text-center'>" + 
             "<div class='float-left col-lg-6'>" + 
-            "<a href='/empleados/edit/"+ full.id +"' class='edit-puesto'>" + 
-            "<i class='fa fa-btn fa-edit' title='Editar Puesto'></i>" + 
+            "<a href='/mantto_equipo/edit/"+ full.id +"' class='edit-mantto_equipo'>" + 
+            "<i class='fa fa-btn fa-edit' title='Editar Mantenimiento'></i>" + 
             "</a>" + "</div>" + 
             "<div class='float-right col-lg-6'>" + 
             "<a href='#' class='remove-Puesto'>" + 
-            "<i class='fa fa-btn fa-trash' title='Eliminar Puesto'></i>" + 
+            "<i class='fa fa-btn fa-trash' title='Eliminar mantenimiento'></i>" + 
             "</a>" + "</div>";
             
         },
@@ -132,11 +123,11 @@ $('body').on('click', 'a.remove-Puesto', function(e) {
     $("#userDeleteModal").hide().show();
     $("#userDeleteModal").modal();
     if (user.length = 1) {
-        $("#message").text("este Empleado?");
+        $("#message").text("este Mantenimiento?");
         $(".variable").text("");
         $(".entity").text("");
     } else {
-        $("#message").text("este Empleado");
+        $("#message").text("este Mantenimiento");
         $(".variable").text("");
         $(".entity").text("");
     }
@@ -164,7 +155,7 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
 
     var td  = $("#"+id);
 
-    var url = "/empleados/remove/"+id;
+    var url = "/mantto_equipo/remove/"+id;
     var password_delete = $("input[name='password_delete']").val().trim();
     data = {
         password_delete : password_delete
@@ -181,8 +172,8 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
         $(".user-created-message").removeClass("hidden");
         $(".user-created-message").addClass("alert-danger");
         $(".user-created-message").fadeIn();
-        $(".user-created-message > p").text("empleado eliminado exitosamente!");
-        empleados_table.ajax.reload();
+        $(".user-created-message > p").text("Mantenimiento eliminado exitosamente!");
+        manttoequipo_table.ajax.reload();
         $("#userDeleteModal").modal("hide");
     }).fail(function(errors) {
         var errors = JSON.parse(errors.responseText);

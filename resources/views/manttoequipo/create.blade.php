@@ -11,27 +11,22 @@
 				</div>
 			</div>
 			<br>
-			<div class="row">
-					<div class="col-sm-4"></div>               
-					<div class="col-sm-4">
-						{!! Form::label("maquinaria_id","Maquinaria :") !!}
+			<div class="row">            
+				<div class="col-sm-4">
+					{!! Form::label("maquinaria_id","Maquinaria :") !!}
 						<select class="selectpicker" id='maquinaria_id' name="maquinaria_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
 							@foreach ($maquinarias as $maquinaria)
-							@if ( $maquinaria->id == $manttoequipo->maquinaria_id)
-							<option value="{{$maquinaria->id}}" selected>{{ $maquinaria->nombre}}</option>
-							@else
-							<option value="{{$maquinaria->id}}">{{ $maquinaria->nombre}}</option>
-							@endif
+							<option value="{{$maquinaria->id}}">{{$maquinaria->nombre}}</option>
 							@endforeach
 						</select>
-					</div>
-					<div class="col-sm-4"></div>
-					<div class="col-sm-4">
-						{!! Form::label("fecha_servicio","Fecha Servicio:") !!}
-						{!! Form::text( "fecha_servicio" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha Servicio:' ]) !!}
-					</div>
 				</div>
-				<br>
+				<div class="col-sm-4"></div>
+				<div class="col-sm-4">
+					{!! Form::label("fecha_servicio","Fecha Servicio:") !!}
+					{!! Form::text( "fecha_servicio" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha Servicio:' ]) !!}
+				</div>
+			</div>
+			<br>
 		 
 				<br>
 		

@@ -41,8 +41,8 @@ class MantenimientoEquiposController extends Controller
      */
     public function create()
     {
-       $maquinas = MaquinariaEquipo::all();
-       return view("manttoequipo.create" , compact( "user", "maquinas"));
+       $maquinarias = MaquinariaEquipo::all();
+       return view("manttoequipo.create" , compact("maquinarias"));
     }
 
     /**
@@ -148,14 +148,19 @@ class MantenimientoEquiposController extends Controller
         $api_Result = array();
         // Create a mapping of our query fields in the order that will be shown in datatable.
         $columnsMapping = array("id");
-
+        
+        
         // Initialize query (get all)
 
         $api_logsQueriable = DB::table('mantto_equipo');
         $api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-        $query = "SELECT * FROM mantto_equipo";
-
+        $query = "SELECT *, C.nombre as nombre 
+        FROM mantto_equipo m
+        INNER JOIN maquinarias_y_equipos C 
+        on  C.id = m.maquinaria_id";
+        
+        
         $where = "";
 
         if (isset($params->search['value']) && !empty($params->search['value'])){
