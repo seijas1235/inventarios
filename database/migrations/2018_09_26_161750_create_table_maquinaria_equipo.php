@@ -12,11 +12,11 @@ class CreateTableMaquinariaEquipo extends Migration
      */
     public function up()
     {
-        Schema::create('maquinarias_y_eqipos', function (Blueprint $table) {
+        Schema::create('maquinarias_y_equipos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
             $table->string('marca');
-            $table->int('labadas_limite');
+            $table->integer('labadas_limite');
             $table->date('fecha_adquisicion');
             $table->double('precio_costo');
             $table->timestamps();
@@ -30,6 +30,6 @@ class CreateTableMaquinariaEquipo extends Migration
      */
     public function down()
     {
-        Schema::drop('Maquinarias_y_eqipos');
+        Schema::drop('Maquinarias_y_equipos');
     }
 }

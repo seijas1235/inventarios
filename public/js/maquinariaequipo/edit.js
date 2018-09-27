@@ -1,39 +1,39 @@
 
-var validator = $("#VehiculoUpdateForm").validate({
+var validator = $("#MaquinariaEquipo-tableUpdateForm").validate({
 	ignore: [],
 	onkeyup:false,
 	rules: {
-		placa: {
+		nombre: {
 			required : true,
 		},
-		tipo_vehiculo_id: {
+		marca: {
 			required : true,
 		},
-		aceite: {
+		labadas_limite: {
 			required : true,
 		},
-		kilometraje: {
+		fecha_adquisicion: {
 			required : true,
 		},
-		año: {
+		precio_coste: {
 			required : true
 		}
 	},
 	messages: {
-		placa: {
-			required: "Por favor, ingrese el numero de placa"
+		nombre: {
+			required: "Por favor, ingrese nombre del Equipo"
 		},
-		tipo_vehiculo_id: {
-			required : "Por favor, seleccione el tipo de vehiculo"
+		marca: {
+			required : "Por favor, ingrese la marca del equipo"
 		},
-		aceite: {
-			required : "Por favor, ingrese el aceite del vehiculo"
+		labadas_limite: {
+			required : "Por favor, ingrese la cantidad de labadas que puede realizar el equipo"
 		},
-		kilometraje: {
-			required : "Por favor, ingrese el ultimo kilometraje del vehiculo"
+		fecha_adquisicion: {
+			required : "Por favor, ingrese la fecha de adquisicion del equipo"
 		},
-		año: {
-			required : "Por favor, ingrese el año del vehiculo"
+		precio_coste: {
+			required : "Por favor, ingrese el precio de compra del equipo"
 		}
 	}
 });
