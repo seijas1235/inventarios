@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
 use App\Vehiculo;
 use App\TipoVehiculo;
+use App\MarcaVehiculo;
 use App\User;
 
 class VehiculosController extends Controller
@@ -41,8 +42,9 @@ class VehiculosController extends Controller
     public function create()
     {
         $tipos_vehiculos = TipoVehiculo::all();
+        $marcas_vehiculos = MarcaVehiculo::all();
 
-        return view("vehiculos.create" , compact("tipos_vehiculos"));
+        return view("vehiculos.create" , compact("tipos_vehiculos", "marcas_vehiculos"));
     }
 
     /**
@@ -82,7 +84,9 @@ class VehiculosController extends Controller
         $fieldsArray = DB::select($query);
 
         $tipos_vehiculos = TipoVehiculo::all();
-        return view('vehiculos.edit', compact('vehiculo', 'fieldsArray', "tipos_vehiculos"));
+        $marcas_vehiculos = MarcaVehiculo::all();
+
+        return view('vehiculos.edit', compact('vehiculo', 'fieldsArray', 'tipos_vehiculos','marcas_vehiculos'));
     }
 
     /**
@@ -103,10 +107,13 @@ class VehiculosController extends Controller
     {
         $id= $vehiculo->id;
         $vehiculo->placa = $data["placa"];
-        $vehiculo->aceite = $data["aceite"];
+        $vehiculo->aceite_caja = $data["aceite_caja"];
+        $vehiculo->aceite_motor = $data["aceite_motor"];
         $vehiculo->año = $data["año"];
+        $vehiculo->color = $data["color"];
         $vehiculo->kilometraje = $data["kilometraje"];
         $vehiculo->tipo_vehiculo_id = $data["tipo_vehiculo_id"];
+        $vehiculo->marca_vehiculo_id = $data["marca_vehiculo_id"];
         $vehiculo->save();
 
         return $vehiculo;
@@ -132,7 +139,7 @@ class VehiculosController extends Controller
             $id= $vehiculo->id;
             $vehiculo->delete();
             
-            $response["response"] = "El vehiculo se ha dado de baja";
+            $response["response"] = "El vehiculo se ha Eliminado";
             return Response::json( $response );
         }
         else {
