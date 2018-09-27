@@ -208,6 +208,8 @@
 
 					<li class="{{request()->is('productos*')? 'open active': ''}}"><a href="/productos">Productos</a></li>
 
+					<li class="{{request()->is('precios_producto*')? 'open active': ''}}"><a href="/precios_producto">Precios de Producto</a></li>
+
 					<li class="{{request()->is('maquinarias_equipo*')? 'open active': ''}}"><a href="/maquinarias_equipo">Maquinarias y equipos</a></li>
 
 					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
