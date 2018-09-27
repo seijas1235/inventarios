@@ -52,7 +52,7 @@ var vehiculos_cliente_table = $('#vehiculos_cliente-table').DataTable({
     }, 
     {
         "title": "Cliente",
-        "data": "cliente_id",
+        "data": "nombres",
         "width" : "20%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
@@ -61,7 +61,7 @@ var vehiculos_cliente_table = $('#vehiculos_cliente-table').DataTable({
 
     {
         "title": "Vehiculo",
-        "data": "vehiculo_id",
+        "data": "placa",
         "width" : "20%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {

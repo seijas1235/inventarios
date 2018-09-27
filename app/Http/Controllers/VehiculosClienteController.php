@@ -148,14 +148,17 @@ class VehiculosClienteController extends Controller
     {
         $api_Result = array();
         // Create a mapping of our query fields in the order that will be shown in datatable.
-        $columnsMapping = array("id");
+        $columnsMapping = array("id", "placa", "nombres");
 
         // Initialize query (get all)
 
         $api_logsQueriable = DB::table('vehiculos_cliente');
         $api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-        $query = "SELECT * FROM vehiculos_cliente";
+        $query = "SELECT vc.id as id, v.placa, c.nombres
+        FROM vehiculos_cliente vc
+        INNER JOIN vehiculos v on vc.vehiculo_id = v.id
+        INNER JOIN clientes c on vc.cliente_id = c.id";
 
         $where = "";
 
