@@ -183,6 +183,14 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch('/vehiculos_cliente/{vehiculo_cliente}/update' , 'VehiculosClienteController@update');
 		Route::delete('/vehiculos_cliente/remove/{vehiculo_cliente}' , 'VehiculosClienteController@destroy');
 
+		Route::get('/documentos', 'DocumentosController@index');
+		Route::get('/documentos/getJson/' , 'DocumentosController@getJson');
+		Route::get('/documentos/new' , 'DocumentosController@create');
+		Route::post('/documentos/save/' , 'DocumentosController@store');
+		Route::get('/documentos/edit/{documento}' , 'DocumentosController@edit');
+		Route::patch('/documentos/{documento}/update' , 'DocumentosController@update');
+		Route::delete('/documentos/remove/{documento}' , 'DocumentosController@destroy');
+
 
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
 

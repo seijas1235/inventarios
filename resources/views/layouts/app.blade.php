@@ -188,6 +188,8 @@
 				@endif
 				<ul>
 
+					<li class="{{request()->is('documentos*')? 'active': ''}}"><a href="/documentos">Documentos</a></li>
+
 					<li class="{{request()->is('tipos_cliente*')? 'active': ''}}"><a href="/tipos_cliente">Tipos de cliente</a></li>
 					
 					<li class="{{request()->is('clientes*')? 'active': ''}}"><a href="/clientes">Clientes</a></li>
