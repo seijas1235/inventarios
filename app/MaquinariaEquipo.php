@@ -16,5 +16,7 @@ class MaquinariaEquipo extends Model
         'fecha_adquisicion',
         'precio_costo',
         ];
-
+    public function mantto_equipo(){
+        return $this->hasMany(MantenimientoEquipo::class);
+    }
 }

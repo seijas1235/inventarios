@@ -98,13 +98,13 @@ Route::group(['middleware' => ['web']], function ()
 		Route::delete('/maquinarias_equipo/remove/{maquinariaequipo}' , 'MaquinariasEquipoController@destroy');
 		
 		//rutas mantenimienotos de maquinarias y equipos
-		Route::get('/mantto_equipos', 'MantenimientoEquiposController@index');
-		Route::get('/mantto_equipos/getJson/' , 'MantenimientoEquiposController@getJson');
-		Route::get('/mantto_equipos/new' , 'MantenimientoEquiposController@create');
-		Route::post('/mantto_equipos/save/' , 'MantenimientoEquiposController@store');
-		Route::get('/mantto_equipos/edit/{manttoequipo}' , 'MantenimientoEquiposController@edit');
-		Route::patch('/mantto_equipos/{manttoequipo}/update' , 'MantenimientoEquiposController@update');
-		Route::delete('/mantto_equipos/remove/{manttoequipo}' , 'MantenimientoEquiposController@destroy');
+		Route::get('/mantto_equipo', 'MantenimientoEquiposController@index');
+		Route::get('/mantto_equipo/getJson/' , 'MantenimientoEquiposController@getJson');
+		Route::get('/mantto_equipo/new' , 'MantenimientoEquiposController@create');
+		Route::post('/mantto_equipo/save/' , 'MantenimientoEquiposController@store');
+		Route::get('/mantto_equipo/edit/{manttoequipo}' , 'MantenimientoEquiposController@edit');
+		Route::patch('/mantto_equipo/{manttoequipo}/update' , 'MantenimientoEquiposController@update');
+		Route::delete('/mantto_equipo/remove/{manttoequipo}' , 'MantenimientoEquiposController@destroy');
 		
 		//rutas Inventario de maquinarias y equipos
 		Route::get('/inventario_equipo', 'InventarioEquiposController@index');
