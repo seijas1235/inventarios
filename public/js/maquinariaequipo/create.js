@@ -1,54 +1,38 @@
-$(document).ready(function() {
-
-	$(document).on("keypress", 'form', function (e) {
-		var code = e.keyCode || e.which;
-		if (code == 13) {
-			e.preventDefault();
-			return false;
-		}
-	});
+$('#fecha_adquisicion').datetimepicker({
+    format: 'YYYY-MM-DD',
+    showClear: true,
+    showClose: true
 });
 
 
 
-var validator = $("#VehiculoForm").validate({
+var validator = $("#MaquinariaEquipoForm").validate({
 	ignore: [],
 	onkeyup:false,
 	rules: {
-		placa: {
+		nombre: {
 			required : true
 		},
-		aceite: {
-			required : true
-		},
-		tipo_vehiculo_id: {
-			required : true
-		},
-		kilometraje: {
+		marca: {
 			required : true
 		},
 
-		año: {
+		labadas_limite: {
 			required : true
 		}
+
 	},
 	messages: {
-		placa: {
-			required: "Por favor, ingrese el numero de placa"
+		nombre: {
+			required: "Por favor, ingrese el nombre del Equipo"
 		},
-		aceite: {
-			required : "Por favor, ingrese el aceite que utiliza el vehiculo"
-		},
-		tipo_vehiculo_id: {
-			required : "Por favor, seleccione el tipo de vehiculo"
-		},
-		kilometraje: {
-			required : "Por favor, ingrese el ultimo kilometraje del vehiculo"
+		apellido: {
+			required: "Por favor, ingrese La marca del Equipo"
 		},
 
-		año: {
-			required : "Por favor, ingrese el año del vehiculo"
-		}
+		direccion: {
+			required: "Por favor, ingrese el numero limite de labadas del equipo"
+		},
 	}
 });
 
@@ -58,8 +42,8 @@ var db = {};
 window.db = db;
 db.detalle = [];
 
-$("#ButtonVehiculo").click(function(event) {
-	if ($('#VehiculoForm').valid()) {
+$("#ButtonMaquinariaEquipo").click(function(event) {
+	if ($('#MaquinariaEquipoForm').valid()) {
 		saveContact();
 	} else {
 		validator.focusInvalid();
@@ -67,18 +51,18 @@ $("#ButtonVehiculo").click(function(event) {
 });
 
 function saveContact(button) {
-	$("#ButtonVehiculo").attr('disabled', 'disabled');
-	var l = Ladda.create(document.querySelector("#ButtonVehiculo"));
+	$("#ButtonMaquinariaEquipo").attr('disabled', 'disabled');
+	var l = Ladda.create(document.querySelector("#ButtonMaquinariaEquipo"));
 	l.start();
-	var formData = $("#VehiculoForm").serialize();
+	var formData = $("#MaquinariaEquipoForm").serialize();
 	$.ajax({
 		type: "POST",
 		headers: {'X-CSRF-TOKEN': $('#token').val()},
-		url: "/vehiculos/save",
+		url: "/maquinarias_equipo/save",
 		data: formData,
 		dataType: "json",
 		success: function(data) {
-			window.location = "/vehiculos" 
+			window.location = "/maquinarias_equipo" 
 		},
 		always: function() {
 			l.stop();

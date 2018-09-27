@@ -82,7 +82,7 @@ var maquinariaequipo_table = $('#maquinariaequipo-table').DataTable({
 
             return "<div id='" + full.id + "' class='text-center'>" + 
             "<div class='float-left col-lg-6'>" + 
-            "<a href='/maquinaria_y_equipo/edit/"+ full.id +"' class='edit-maquinariaequipo'>" + 
+            "<a href='/maquinarias_equipo/edit/"+ full.id +"' class='edit-maquinariaequipo'>" + 
             "<i class='fa fa-btn fa-edit' title='Editar maquinariaequipo'></i>" + 
             "</a>" + "</div>" + 
             "<div class='float-right col-lg-6'>" + 

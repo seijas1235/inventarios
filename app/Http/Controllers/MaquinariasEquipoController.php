@@ -38,6 +38,10 @@ class MaquinariasEquipoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function create()
+    {
+       return view("maquinariaequipo.create");
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -72,7 +76,7 @@ class MaquinariasEquipoController extends Controller
      */
     public function edit(MaquinariaEquipo $maquinariaequipo)
     {
-        $query = "SELECT * FROM maquinarias_y_equipo WHERE id=".$maquinariaequipo->id."";
+        $query = "SELECT * FROM maquinarias_y_equipos WHERE id=".$maquinariaequipo->id."";
         $fieldsArray = DB::select($query);
         return view('maquinariaequipo.edit', compact('maquinariaequipo', 'fieldsArray' ));
     }
@@ -98,7 +102,7 @@ class MaquinariasEquipoController extends Controller
         $maquinariaequipo->marca = $data["marca"];
         $maquinariaequipo->labadas_limite= $data["labadas_limite"];
         $maquinariaequipo->fecha_adquisicion = $data["fecha_adquisicion"];
-        $maquinariaequipo->precio_coste = $data["precio_coste"];
+        $maquinariaequipo->precio_costo = $data["precio_costo"];
         $maquinariaequipo->save();
 
         return $maquinariaequipo;
@@ -140,7 +144,7 @@ class MaquinariasEquipoController extends Controller
     {
         $api_Result = array();
         // Create a mapping of our query fields in the order that will be shown in datatable.
-        $columnsMapping = array("id", "placa");
+        $columnsMapping = array("id");
 
         // Initialize query (get all)
 

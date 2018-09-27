@@ -93,9 +93,9 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/maquinarias_equipo/getJson/' , 'MaquinariasEquipoController@getJson');
 		Route::get('/maquinarias_equipo/new' , 'MaquinariasEquipoController@create');
 		Route::post('/maquinarias_equipo/save/' , 'MaquinariasEquipoController@store');
-		Route::get('/maquinarias_equipo/edit/{vehiculo}' , 'MaquinariasEquipoController@edit');
-		Route::patch('/maquinarias_equipo/{vehiculo}/update' , 'MaquinariasEquipoController@update');
-		Route::delete('/maquinarias_equipo/remove/{vehiculo}' , 'MaquinariasEquipoController@destroy');
+		Route::get('/maquinarias_equipo/edit/{maquinariaequipo}' , 'MaquinariasEquipoController@edit');
+		Route::patch('/maquinarias_equipo/{maquinariaequipo}/update' , 'MaquinariasEquipoController@update');
+		Route::delete('/maquinarias_equipo/remove/{maquinariaequipo}' , 'MaquinariasEquipoController@destroy');
 		
 
 		//rutas Proveedores
