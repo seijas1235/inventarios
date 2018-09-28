@@ -10,4 +10,7 @@ class UnidadDeMedida extends Model
     protected $fillable=[
         'id', 'descripcion','cantidad'
     ];
+    public function unidades_de_medida(){
+        return $this->hasMany(Producto::class);
+    }
 }

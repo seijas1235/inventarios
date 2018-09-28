@@ -20,4 +20,7 @@ class MaquinariaEquipo extends Model
     public function mantto_equipo(){
         return $this->hasMany(MantenimientoEquipo::class);
     }
+    public function marcas(){
+        return $this->belongsTo(Marca::class);
+    }
 }

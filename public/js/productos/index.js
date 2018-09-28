@@ -42,14 +42,7 @@ var productos_table = $('#productos-table').DataTable({
         },
     },
     "order": [0, 'asc'],
-    "columns": [ {
-        "title": "No.",
-        "data": "id",
-        "width" : "10%",
-        "responsivePriority": 1,
-        "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data); },
-    },
+    "columns": [ 
     {
         "title": "Codigo de barra",
         "data": "codigo_barra",
@@ -63,6 +56,22 @@ var productos_table = $('#productos-table').DataTable({
         "data": "nombre",
         "width" : "20%",
         "responsivePriority": 2,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML(data); },
+    },
+    {
+        "title": "Marca",
+        "data": "mrnombre",
+        "width" : "15%",
+        "responsivePriority": 3,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML(data); },
+    },
+    {
+        "title": "Unidad de Medida",
+        "data": "udesc",
+        "width" : "15%",
+        "responsivePriority": 3,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data); },
     },
