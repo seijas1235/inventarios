@@ -23,7 +23,7 @@ $('#fecha_proximo_servicio').datetimepicker({
 
 
 
-var validator = $("#ManttoServicioUpdateForm").validate({
+var validator = $("#ManttoEquipoForm").validate({
 	ignore: [],
 	onkeyup:false,
 	rules: {
@@ -35,6 +35,12 @@ var validator = $("#ManttoServicioUpdateForm").validate({
 			required : true,
 			
 		},
+		proveedor_id: {
+			required:true,
+		},
+		fecha_servicio:{
+			required:true,
+		}
 
 	},
 	messages: {
@@ -44,7 +50,12 @@ var validator = $("#ManttoServicioUpdateForm").validate({
 		maquinaria_id: {
 			required: "Por favor, Seleccione la maquinaria a la que se le realizo el mantenimiento"
 		},
-		
+		proveedor_id: {
+			required:" Seleccione el Proveedor encargado de el mantenimiento",
+		},
+		fecha_servicio:{
+			required: "Debe ingresar una Fecha",
+		}
 	}
 });
 

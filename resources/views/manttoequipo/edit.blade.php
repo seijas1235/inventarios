@@ -24,7 +24,18 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                {!! Form::label("proveedor_id","Encargado de Mantenimiento:") !!}
+                <select class="selectpicker" id='proveedor_id' name="proveedor_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+                    @foreach ($proveedores as $proveedor)
+                    @if ( $proveedor->id == $manttoequipo->proveedor_id)
+                    <option value="{{$proveedor->id}}" selected>{{ $proveedor->nombre}}</option>
+                    @else
+                    <option value="{{$proveedor->id}}">{{ $proveedor->nombre}}</option>
+                    @endif
+                    @endforeach
+                </select> 
+            </div>
             <div class="col-sm-4">
                 {!! Form::label("fecha_servicio","Fecha Servicio:") !!}
                 {!! Form::text( "fecha_servicio" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha Servicio:' ]) !!}

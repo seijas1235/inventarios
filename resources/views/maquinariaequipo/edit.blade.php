@@ -18,8 +18,18 @@
             </div>
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
-                {!! Form::label("marca","Marca:") !!}
-                {!! Form::text( "marca" , null , ['class' => 'form-control' , 'placeholder' => 'Marca del equipo' ]) !!}
+                {!! Form::label("marca","Marca :") !!}
+                <select class="selectpicker" id='marca' name="marca" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+                    @foreach ($marcas as $marca)
+                    @if ( $marca->id == $maquinariaequipo->marca)
+                    <option value="{{$marca->id}}" selected>{{ $marca->nombre}}</option>
+                    @else
+                    @if ( $marca->tipo_marca_id == 1 or $marca->tipo_marca_id == 4 )
+						<option value="{{$marca->id}}">{{$marca->nombre}}</option>
+						@endif
+                    @endif
+                    @endforeach
+                </select>
             </div>
         </div>
         <br>

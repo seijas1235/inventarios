@@ -23,6 +23,10 @@ class TiposMarcaTableSeeder extends Seeder
         $tipo->save();
 
         $tipo = new TipoMarca;
+        $tipo->nombre= "Producto";
+        $tipo->save();
+        
+         $tipo = new TipoMarca;
         $tipo->nombre= "Maquinaria";
         $tipo->save();
     }
