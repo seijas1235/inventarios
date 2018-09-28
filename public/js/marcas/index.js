@@ -1,5 +1,5 @@
-var marcas_vehiculo_table = $('#marcas_vehiculo-table').DataTable({
-    "ajax": "/marcas_vehiculo/getJson",
+var marcas_table = $('#marcas-table').DataTable({
+    "ajax": "/marcas/getJson",
     "responsive": true,
     "processing": true,
     "serverSide": true,
@@ -54,13 +54,22 @@ var marcas_vehiculo_table = $('#marcas_vehiculo-table').DataTable({
     }, 
     
     {
-        "title": "Marcas de Vehiculos",
+        "title": "Marcas",
         "data": "nombre",
         "width" : "20%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data);},
     }, 
+
+    {
+        "title": "Tipo",
+        "data": "tipo_marca_id",
+        "width" : "20%",
+        "responsivePriority": 2,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML(data);},
+    },
     
           
     {
@@ -70,11 +79,11 @@ var marcas_vehiculo_table = $('#marcas_vehiculo-table').DataTable({
         "render": function(data, type, full, meta) {
             return "<div id='" + full.id + "' class='text-center'>" + 
             "<div class='float-left col-lg-6'>" + 
-            "<a href='/marcas_vehiculo/edit/"+ full.id +"' class='edit-marca_vehiculo'>" + 
+            "<a href='/marcas/edit/"+ full.id +"' class='edit-marca'>" + 
             "<i class='fa fa-btn fa-edit' title='Editar Marca'></i>" + 
             "</a>" + "</div>" + 
             "<div class='float-right col-lg-6'>" + 
-            "<a href='#' class='remove-marca_vehiculo'>" + 
+            "<a href='#' class='remove-marca'>" + 
             "<i class='fa fa-btn fa-trash' title='Eliminar Marca'></i>" + 
             "</a>" + "</div>";
             
@@ -92,7 +101,7 @@ var marcas_vehiculo_table = $('#marcas_vehiculo-table').DataTable({
 
 
 
-$('body').on('click', 'a.remove-marca_vehiculo', function(e) {
+$('body').on('click', 'a.remove-marca', function(e) {
     $( ".confirm-delete" , "#userDeleteModal").removeAttr("field");
     var id = $(this).parent().parent().attr("id");
     $("input[name='password_delete']").val("");
@@ -133,7 +142,7 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
 
     var td  = $("#"+id);
 
-    var url = "/marcas_vehiculo/remove/"+id;
+    var url = "/marcas/remove/"+id;
     var password_delete = $("input[name='password_delete']").val().trim();
     data = {
         password_delete : password_delete
@@ -151,7 +160,7 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
         $(".user-created-message").addClass("alert-danger");
         $(".user-created-message").fadeIn();
         $(".user-created-message > p").text("Marca eliminada exitosamente!");
-        marcas_vehiculo_table.ajax.reload();
+        marcas_table.ajax.reload();
         $("#userDeleteModal").modal("hide");
     }).fail(function(errors) {
         var errors = JSON.parse(errors.responseText);

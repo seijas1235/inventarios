@@ -10,17 +10,23 @@ $(document).ready(function() {
 });
 
 
-var validator = $("#Marca_VehiculoForm").validate({
+var validator = $("#MarcaForm").validate({
 	ignore: [],
 	onkeyup:false,
 	rules: {
 		nombre: {
 			required : true
 		},
+		tipo_marca_id: {
+			required : true
+		},
 	},
 	messages: {
 		nombre: {
 			required: "Por favor, ingrese el nombre de una Marca"
+		},
+		tipo_marca_id: {
+			required: "Por favor, seleccione tipo de marca"
 		},
 		
 	}
@@ -32,8 +38,8 @@ var db = {};
 window.db = db;
 db.detalle = [];
 
-$("#ButtonMarca_Vehiculo").click(function(event) {
-	if ($('#Marca_VehiculoForm').valid()) {
+$("#ButtonMarca").click(function(event) {
+	if ($('#MarcaForm').valid()) {
 		saveContact();
 	} else {
 		validator.focusInvalid();
@@ -41,18 +47,18 @@ $("#ButtonMarca_Vehiculo").click(function(event) {
 });
 
 function saveContact(button) {
-	$("#ButtonMarca_Vehiculo").attr('disabled', 'disabled');
-	var l = Ladda.create(document.querySelector("#ButtonMarca_Vehiculo"));
+	$("#ButtonMarca").attr('disabled', 'disabled');
+	var l = Ladda.create(document.querySelector("#ButtonMarca"));
 	l.start();
-	var formData = $("#Marca_VehiculoForm").serialize();
+	var formData = $("#MarcaForm").serialize();
 	$.ajax({
 		type: "POST",
 		headers: {'X-CSRF-TOKEN': $('#token').val()},
-		url: "/marcas_vehiculo/save",
+		url: "/marcas/save",
 		data: formData,
 		dataType: "json",
 		success: function(data) {
-			window.location = "/marcas_vehiculo" 
+			window.location = "/marcas" 
 		},
 		always: function() {
 			l.stop();

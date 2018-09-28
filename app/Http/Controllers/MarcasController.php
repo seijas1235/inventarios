@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Marca;
+use App\TipoMarca;
 Use App\User;
 
 class MarcasController extends Controller
@@ -41,7 +42,8 @@ class MarcasController extends Controller
      */
     public function create()
     {
-        return view("marcas.create");
+        $tipos_marcas= TipoMarca::all();
+        return view("marcas.create", compact('tipos_marcas'));
     }
 
     /**
@@ -80,7 +82,9 @@ class MarcasController extends Controller
         $query = "SELECT * FROM marcas WHERE id=".$marca->id."";
         $fieldsArray = DB::select($query);
 
-        return view('marcas.edit', compact('marca', 'fieldsArray'));
+        $tipos_marcas = TipoMarca::all();
+
+        return view('marcas.edit', compact('marca', 'fieldsArray', 'tipos_marcas'));
     }
 
     /**

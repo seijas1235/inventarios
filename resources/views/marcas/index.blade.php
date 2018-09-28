@@ -20,19 +20,19 @@
 					<div class="row">
 						<div class="col-sm-3 title-line-height"></div>
 						<div class="col-sm-6 text-center">
-							<h2 class="inline-title">Marcas de Vehiculos</h2>
+							<h2 class="inline-title">Marcas</h2>
 						</div>
 						<div class="col-sm-3 title-line-height text-right">
 							<div class="btn-group">
 								<a class='delete-records-btn btn btn-danger btn-title m-r-15 border-radius' href="#" style="display: none;">Borrar</a>
-                                <a class='btn-add-new-record btn btn-success btn-title border-radius' href="{{ url('marcas_vehiculo/new') }}">Nueva Marca</a>
+                                <a class='btn-add-new-record btn btn-success btn-title border-radius' href="{{ url('marcas/new') }}">Nueva Marca</a>
 							</div>
 						</div>
 					</div>
                 </div>
                 
 				<div class="panel panel-body">
-					<table id="marcas_vehiculo-table" class="table table-striped table-bordered no-margin-bottom dt-responsive nowrap" ellspacing="0" width="100%">
+					<table id="marcas-table" class="table table-striped table-bordered no-margin-bottom dt-responsive nowrap" ellspacing="0" width="100%">
 					</table>
                 </div>
                 
@@ -44,5 +44,5 @@
 
 @endsection
 @section('scripts')
-{!! HTML::script('/js/marcas_vehiculo/index.js') !!}
+{!! HTML::script('/js/marcas/index.js') !!}
 @endsection
