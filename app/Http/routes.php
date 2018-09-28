@@ -151,13 +151,13 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch('/tipos_proveedor/{tipo_proveedor}/update' , 'TiposProveedorController@update');
 		Route::delete('/tipos_proveedor/remove/{tipo_proveedor}' , 'TiposProveedorController@destroy');
 
-		Route::get('/marcas_vehiculo', 'MarcasVehiculoController@index');
-		Route::get('/marcas_vehiculo/getJson/' , 'MarcasVehiculoController@getJson');
-		Route::get('/marcas_vehiculo/new' , 'MarcasVehiculoController@create');
-		Route::post('/marcas_vehiculo/save/' , 'MarcasVehiculoController@store');
-		Route::get('/marcas_vehiculo/edit/{marca_vehiculo}' , 'MarcasVehiculoController@edit');
-		Route::patch('/marcas_vehiculo/{marca_vehiculo}/update' , 'MarcasVehiculoController@update');
-		Route::delete('/marcas_vehiculo/remove/{marca_vehiculo}' , 'MarcasVehiculoController@destroy');
+		Route::get('/marcas', 'MarcasController@index');
+		Route::get('/marcas/getJson/' , 'MarcasController@getJson');
+		Route::get('/marcas/new' , 'MarcasController@create');
+		Route::post('/marcas/save/' , 'MarcasController@store');
+		Route::get('/marcas/edit/{marca}' , 'MarcasController@edit');
+		Route::patch('/marcas/{marca}/update' , 'MarcasController@update');
+		Route::delete('/marcas/remove/{marca}' , 'MarcasController@destroy');
 
 		Route::get('/productos', 'ProductosController@index');
 		Route::get('/productos/getJson/' , 'ProductosController@getJson');
@@ -356,15 +356,6 @@ Route::get( '/requisicion/getInfo/{requisicion}' , 'RequisicionesController@getI
 			Route::get( '/bombas_combustibles/edit/{bomba_combustible}' , 'Bomba_CombustibleController@edit');
 			Route::patch( '/bombas_combustibles/{bomba_combustible}/update' , 'Bomba_CombustibleController@update');
 			Route::delete( '/bombas_combustibles/remove/{bomba_combustible}' , 'Bomba_CombustibleController@destroy');
-
-			Route::get( '/marcas' , 'MarcasController@index');
-			Route::get( '/marca/getJson/' , 'MarcasController@getJson');
-			Route::get( '/marcas/new' , 'MarcasController@create');
-			Route::get( '/marcas/edit/{marca}' , 'MarcasController@edit');
-			Route::patch( '/marcas/{marca}/update' , 'MarcasController@update');
-			Route::post( '/marcas/save/' , 'MarcasController@store');
-			Route::delete( '/marcas/remove/{marca}' , 'MarcasController@destroy');
-
 
 			Route::get( '/cargos' , 'CargoEmpleadoController@index');
 			Route::get( '/cargos/getJson/' , 'CargoEmpleadoController@getJson');

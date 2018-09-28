@@ -22,10 +22,10 @@ class CreateTableVehiculos extends Migration
             $table->date('fecha_ultimo_servicio');
             $table->float('kilometraje');
             $table->unsignedInteger('tipo_vehiculo_id');
-            $table->unsignedInteger('marca_vehiculo_id');
+            $table->unsignedInteger('marca_id');
 
             $table->foreign('tipo_vehiculo_id')->references('id')->on('tipos_vehiculo')->onDelete('cascade');
-            $table->foreign('marca_vehiculo_id')->references('id')->on('marcas_vehiculo')->onDelete('cascade');
+            $table->foreign('marca_id')->references('id')->on('marcas')->onDelete('cascade');
             $table->timestamps();
         });
     }

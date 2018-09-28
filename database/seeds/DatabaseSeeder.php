@@ -14,11 +14,11 @@ class DatabaseSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
         $this->call(TiposProveedorTableSeeder::class);
-        $this->call(MarcasVehiculoTableSeeder::class);
         $this->call(PuestosTableSeeder::class);
         $this->call(TiposClienteTableSeeder::class);
         $this->call(ProveedoresTableSeeder::class);
         $this->call(TiposVehiculoTableSeeder::class);
+        $this->call(TiposMarcaTableSeeder::class);
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         

@@ -10,13 +10,12 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-use App\MarcaVehiculo;
+use App\Marca;
 Use App\User;
 
-
-class MarcasVehiculoController extends Controller
+class MarcasController extends Controller
 {
-/**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -31,7 +30,7 @@ class MarcasVehiculoController extends Controller
     public function index()
     {
 
-        return view ("marcas_vehiculo.index");
+        return view ("marcas.index");
 
     }
 
@@ -42,7 +41,7 @@ class MarcasVehiculoController extends Controller
      */
     public function create()
     {
-        return view("marcas_vehiculo.create");
+        return view("marcas.create");
     }
 
     /**
@@ -54,9 +53,9 @@ class MarcasVehiculoController extends Controller
     public function store(Request $request)
     {       
         $data = $request->all();
-        $marca_vehiculo = MarcaVehiculo::create($data);
+        $marca = Marca::create($data);
 
-        return Response::json($marca_vehiculo);
+        return Response::json($marca);
     }
 
     /**
@@ -76,12 +75,12 @@ class MarcasVehiculoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(MarcaVehiculo $marca_vehiculo)
+    public function edit(Marca $marca)
     {
-        $query = "SELECT * FROM marcas_vehiculo WHERE id=".$marca_vehiculo->id."";
+        $query = "SELECT * FROM marcas WHERE id=".$marca->id."";
         $fieldsArray = DB::select($query);
 
-        return view('marcas_vehiculo.edit', compact('marca_vehiculo', 'fieldsArray'));
+        return view('marcas.edit', compact('marca', 'fieldsArray'));
     }
 
     /**
@@ -91,19 +90,20 @@ class MarcasVehiculoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(MarcaVehiculo $marca_vehiculo, Request $request)
+    public function update(Marca $marca, Request $request)
     {
-        Response::json( $this->updatemarca_vehiculo($marca_vehiculo , $request->all()));
-        return redirect('/marcas_vehiculo');
+        Response::json( $this->updateMarca($marca , $request->all()));
+        return redirect('/marcas');
     }
 
-    public function updateMarca_Vehiculo(MarcaVehiculo $marca_vehiculo, array $data )
+    public function updateMarca(Marca $marca, array $data )
     {
-        $id= $marca_vehiculo->id;
-        $marca_vehiculo->nombre = $data["nombre"];
-        $marca_vehiculo->save();
+        $id= $marca->id;
+        $marca->nombre = $data["nombre"];
+        $marca->tipo_marca_id = $data['tipo_marca_id'];
+        $marca->save();
 
-        return $marca_vehiculo;
+        return $marca;
     }
 
     /**
@@ -112,7 +112,7 @@ class MarcasVehiculoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MarcaVehiculo $marca_vehiculo, Request $request)
+    public function destroy(Marca $marca, Request $request)
     {
         $user1= Auth::user()->password;
 
@@ -123,10 +123,10 @@ class MarcasVehiculoController extends Controller
         }
         else if( password_verify( $request["password_delete"] , $user1))
         {
-            $id= $marca_vehiculo->id;
-            $marca_vehiculo->delete();
+            $id= $marca->id;
+            $marca->delete();
             
-            $response["response"] = "La marca de Vehiculo ha sido eliminado";
+            $response["response"] = "La marca ha sido eliminado";
             return Response::json( $response );
         }
         else {
@@ -144,10 +144,10 @@ class MarcasVehiculoController extends Controller
 
         // Initialize query (get all)
 
-        $api_logsQueriable = DB::table('marcas_vehiculo');
+        $api_logsQueriable = DB::table('marcas');
         $api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-        $query = "SELECT * FROM marcas_vehiculo";
+        $query = "SELECT * FROM marcas";
 
         $where = "";
 

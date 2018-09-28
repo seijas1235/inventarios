@@ -183,7 +183,7 @@
 			</li>
 
 			@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
-			<li class="submenu {{request()->is('tipos_cliente*', 'clientes*','maquinarias_equipo*' ,'tipos_vehiculo*','marcas_vehiculo*','vehiculos*','puestos*', 'empleados*','proveedores*')? 'open active': ''}}">
+			<li class="submenu {{request()->is('tipos_cliente*', 'clientes*','maquinarias_equipo*' ,'tipos_vehiculo*','marcas*','vehiculos*','puestos*', 'empleados*','proveedores*')? 'open active': ''}}">
 				<a href="#"><i class="icon icon-file"></i> <span>Catálogos Generales</span> <span class="label label-important"></span></a>
 				@endif
 				<ul>
@@ -196,7 +196,7 @@
 
 					<li class="{{request()->is('tipos_vehiculo*')? 'open active': ''}}"><a href="/tipos_vehiculo">Tipos de Vehiculo</a></li>
 
-					<li class="{{request()->is('marcas_vehiculo*')? 'open active': ''}}"><a href="/marcas_vehiculo">Marcas de Vehiculo</a></li>
+					<li class="{{request()->is('marcas*')? 'open active': ''}}"><a href="/marcas">Marcas</a></li>
 
 					<li class="{{request()->is('vehiculos*')? 'open active': ''}}"><a href="/vehiculos">Vehiculos</a></li>
 
