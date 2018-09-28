@@ -10,6 +10,15 @@ var validator = $("#ProductoUpdateForm").validate({
 		},
 		minimo: {
 			required : true
+		},
+		marca_id:{
+			required : true
+		},
+		descripcion:{
+			required : true
+		},
+		medida_id:{
+			required : true
 		}
 	},
 	messages: {
@@ -21,6 +30,15 @@ var validator = $("#ProductoUpdateForm").validate({
 		},
 		minimo: {
 			required : "Por favor, ingrese el stock minimo del producto"
+		},
+		marca_id:{
+			required : "debe seleccionar La Marca del Producto"
+		},
+		descripcion:{
+			required : " Por Favor, ingrese la descripcion del producto"
+		},
+		medida_id:{
+			required : "Debe seleccionar una Unidad de medida del Producto"
 		}
 	}
 });

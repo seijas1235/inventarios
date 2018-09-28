@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
 use App\Producto;
 use App\User;
+use App\UnidadDeMedida;
+use App\Marca;
 
 class ProductosController extends Controller
 {
@@ -40,7 +42,9 @@ class ProductosController extends Controller
 	public function create()
 	{
 		$user = Auth::user()->id;
-		return view("productos.create" , compact( "user"));
+		$medidas = UnidadDeMedida::All();
+		$marcas = Marca::All();
+		return view("productos.create" , compact( "user",'medidas','marcas'));
 	}
 
 	/**
@@ -79,7 +83,10 @@ class ProductosController extends Controller
 	{
 		$query = "SELECT * FROM productos WHERE id=".$producto->id."";
 		$fieldsArray = DB::select($query);
-		return view('productos.edit', compact('producto', 'fieldsArray'));
+		$medidas = UnidadDeMedida::All();
+		$marcas = Marca::All();
+
+		return view('productos.edit', compact('producto', 'fieldsArray','medidas','marcas'));
 	}
 
 	/**
@@ -103,6 +110,9 @@ class ProductosController extends Controller
 		$producto->nombre = $data["codigo_barra"];
         $producto->nombre = $data["nombre"];
 		$producto->minimo = $data["minimo"];
+		$producto->marca_id = $data["marca_id"];
+		$producto->medida_id = $data["medida_id"];
+		$producto->descripcion = $data["descripcion"];
 		$producto->save();
 
 		return $producto;
@@ -148,8 +158,11 @@ class ProductosController extends Controller
 		$api_logsQueriable = DB::table('productos');
 		$api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-		$query = "SELECT * FROM productos ";
-
+		$query = "SELECT P.nombre, P.codigo_barra, P.minimo, P.id, P.descripcion, MR.nombre as mrnombre , U.descripcion as udesc
+        FROM productos P 
+        INNER JOIN marcas MR ON MR.id = P.marca_id 
+        INNER JOIN unidades_de_medida u on U.id = P.medida_id";
+        
 		$where = "";
 
 		if (isset($params->search['value']) && !empty($params->search['value'])){
