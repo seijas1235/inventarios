@@ -15,6 +15,7 @@ class MaquinariaEquipo extends Model
         'labadas_limite',
         'fecha_adquisicion',
         'precio_costo',
+        'descripcion'
         ];
     public function mantto_equipo(){
         return $this->hasMany(MantenimientoEquipo::class);

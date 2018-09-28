@@ -25,18 +25,25 @@
         <br>
         <div class="row">
             <div class="col-sm-4">
-                {!! Form::label("labadas_limite","Labadas Limite:") !!}
-                {!! Form::text( "labadas_limite" , null , ['class' => 'form-control' , 'placeholder' => 'Labadas Maximas a realizar' ]) !!}
+                {!! Form::label("labadas_limite","Horas  Limite:") !!}
+                {!! Form::text( "labadas_limite" , null , ['class' => 'form-control' , 'placeholder' => 'Horas de Vida de la Maquinaria' ]) !!}
             </div>
             <div class="col-sm-4">
                 {!! Form::label("fecha_adquisicion","Fecha de Adquisicion:") !!}
                 {!! Form::text( "fecha_adquisicion" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha Adquisicion' ]) !!}
             </div>
             <div class="col-sm-4">
-                    {!! Form::label("precio_costo","Precio Costo:") !!}
-                    {!! Form::text( "precio_costo" , null , ['class' => 'form-control' , 'placeholder' => 'Precio Compra' ]) !!}
+                    {!! Form::label("precio_costo","Precio:") !!}
+                    {!! Form::text( "precio_costo" , null , ['class' => 'form-control' , 'placeholder' => 'Precio' ]) !!}
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-12">
+                {!! Form::label("descripcion","Descripción:") !!}
+                {!! Form::text( "descripcion" , null , ['class' => 'form-control' , 'placeholder' => 'Descripción' ]) !!}
+            </div>
+        </div>
+        <br>
     </div>
     <br>
     <div class="text-right m-t-15">

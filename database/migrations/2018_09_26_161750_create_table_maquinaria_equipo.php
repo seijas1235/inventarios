@@ -19,6 +19,7 @@ class CreateTableMaquinariaEquipo extends Migration
             $table->integer('labadas_limite');
             $table->date('fecha_adquisicion');
             $table->double('precio_costo');
+            $table->text('descripcion');
             $table->timestamps();
         });
     }

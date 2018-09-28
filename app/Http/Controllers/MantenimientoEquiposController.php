@@ -155,10 +155,9 @@ class MantenimientoEquiposController extends Controller
         $api_logsQueriable = DB::table('mantto_equipo');
         $api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-        $query = "SELECT *, C.nombre as nombre 
-        FROM mantto_equipo m
-        INNER JOIN maquinarias_y_equipos C 
-        on  C.id = m.maquinaria_id";
+        $query = "SELECT m.id, m.descripcion, m.fecha_proximo_servicio, c.nombre  as nombre, m.labadas_servicio, m.fecha_servicio, m.labadas_proximo_servicio 
+        FROM mantto_equipo m 
+		  INNER JOIN maquinarias_y_equipos C ON m.maquinaria_id=C.id ";
         
         
         $where = "";
