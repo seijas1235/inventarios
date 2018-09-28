@@ -14,6 +14,7 @@ use Carbon\Carbon;
 Use App\User;
 Use App\MantenimientoEquipo;
 Use App\MaquinariaEquipo;
+use App\Proveedor;
 
 class MantenimientoEquiposController extends Controller
 {
@@ -41,8 +42,9 @@ class MantenimientoEquiposController extends Controller
      */
     public function create()
     {
-       $maquinarias = MaquinariaEquipo::all();
-       return view("manttoequipo.create" , compact("maquinarias"));
+        $proveedores =Proveedor::all();
+        $maquinarias = MaquinariaEquipo::all();
+        return view("manttoequipo.create" , compact("maquinarias" , "proveedores"));
     }
 
     /**
@@ -77,13 +79,14 @@ class MantenimientoEquiposController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(ManttoEquipo $manttoequipo)
+    public function edit(MantenimientoEquipo $manttoequipo)
     {
         $query = "SELECT * FROM mantto_equipo WHERE id=".$manttoequipo->id."";
         $fieldsArray = DB::select($query);
 
-        $maquinas = MaquinariaEquipo::all();
-        return view('manttoequipo.edit', compact('manttoequipo', 'fieldsArray', 'maquinas'));
+        $proveedores =Proveedor::all();
+        $maquinarias = MaquinariaEquipo::all();
+        return view('manttoequipo.edit', compact('manttoequipo', 'fieldsArray', 'maquinarias','proveedores'));
     }
 
     /**
@@ -93,22 +96,23 @@ class MantenimientoEquiposController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ManttoEquipo $manttoequipo, Request $request)
+    public function update(MantenimientoEquipo $manttoequipo, Request $request)
     {
         Response::json( $this->updateManttoEquipo($manttoequipo , $request->all()));
         return redirect('/mantto_equipo');
     }
 
-    public function updateManttoEquipo(ManttoEquipo $manttoequipo, array $data )
+    public function updateManttoEquipo(MantenimientoEquipo $manttoequipo, array $data )
     {
         $id= $manttoequipo->id;
         $manttoequipo->descripcion = $data["descripcion"];
         $manttoequipo->fecha_proximo_servicio = $data["fecha_proximo_servicio"];
         $manttoequipo->fecha_servicio = $data["fecha_servicio"];
         $manttoequipo->labadas_servicio = $data["labadas_servicio"];
-        $manttoequipo->labadas_proximo_servico = $data["labadas_proximo_servico"];
-        $manttoequipo->maquinaria_id = $data["'maquinaria_id'"];
-        
+        $manttoequipo->labadas_proximo_servicio = $data["labadas_proximo_servicio"];
+        $manttoequipo->maquinaria_id = $data["maquinaria_id"];
+        $manttoequipo->proveedor_id = $data["proveedor_id"];
+                
         $manttoequipo->save();
 
         return $manttoequipo;
@@ -120,7 +124,7 @@ class MantenimientoEquiposController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ManttoEquipo $manttoequipo, Request $request)
+    public function destroy(MantenimientoEquipo $manttoequipo, Request $request)
     {
         $user1= Auth::user()->password;
 
@@ -155,9 +159,10 @@ class MantenimientoEquiposController extends Controller
         $api_logsQueriable = DB::table('mantto_equipo');
         $api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-        $query = "SELECT m.id, m.descripcion, m.fecha_proximo_servicio, c.nombre  as nombre, m.labadas_servicio, m.fecha_servicio, m.labadas_proximo_servicio 
+        $query = "SELECT P.nombre as prov, m.id, m.descripcion, m.fecha_proximo_servicio, c.nombre  as nombre, m.labadas_servicio, m.fecha_servicio, m.labadas_proximo_servicio 
         FROM mantto_equipo m 
-		  INNER JOIN maquinarias_y_equipos C ON m.maquinaria_id=C.id ";
+        INNER JOIN maquinarias_y_equipos C ON m.maquinaria_id=C.id 
+        INNER JOIN proveedores P on m.proveedor_id = P.id";
         
         
         $where = "";

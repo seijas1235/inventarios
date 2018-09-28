@@ -14,13 +14,20 @@
 			<div class="row">            
 				<div class="col-sm-4">
 					{!! Form::label("maquinaria_id","Maquinaria :") !!}
-						<select class="selectpicker" id='maquinaria_id' name="maquinaria_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+						<select class="selectpicker" id='maquinaria_id' name="maquinaria_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione Maquinaria">
 							@foreach ($maquinarias as $maquinaria)
 							<option value="{{$maquinaria->id}}">{{$maquinaria->nombre}}</option>
 							@endforeach
 						</select>
 				</div>
-				<div class="col-sm-4"></div>
+				<div class="col-sm-4">
+					{!! Form::label("proveedor_id","Encargado de Mantenimiento:") !!}
+						<select class="selectpicker" id='proveedor_id' name="proveedor_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+							@foreach ($proveedores as $proveedor)
+							<option value="{{$proveedor->id}}">{{$proveedor->nombre}}</option>
+							@endforeach
+					</select>
+				</div>
 				<div class="col-sm-4">
 					{!! Form::label("fecha_servicio","Fecha Servicio:") !!}
 					{!! Form::text( "fecha_servicio" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha Servicio:' ]) !!}

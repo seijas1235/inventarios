@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
 use App\MaquinariaEquipo;
 use App\User;
+use App\Marca;
 
 class MaquinariasEquipoController extends Controller
 {
@@ -40,7 +41,8 @@ class MaquinariasEquipoController extends Controller
      */
     public function create()
     {
-       return view("maquinariaequipo.create");
+        $marcas = Marca::all();
+        return view("maquinariaequipo.create", compact("marcas" ));
     }
 
     /**
@@ -78,7 +80,9 @@ class MaquinariasEquipoController extends Controller
     {
         $query = "SELECT * FROM maquinarias_y_equipos WHERE id=".$maquinariaequipo->id."";
         $fieldsArray = DB::select($query);
-        return view('maquinariaequipo.edit', compact('maquinariaequipo', 'fieldsArray' ));
+        $marcas =Marca::all();
+
+        return view('maquinariaequipo.edit', compact('maquinariaequipo', 'fieldsArray','marcas' ));
     }
 
     /**
@@ -152,7 +156,9 @@ class MaquinariasEquipoController extends Controller
         $api_logsQueriable = DB::table('maquinarias_y_equipos');
         $api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-        $query = "SELECT * FROM maquinarias_y_equipos";
+        $query = "SELECT M.id, M.nombre, M.labadas_limite, M.fecha_adquisicion, MA.nombre as marca
+                FROM maquinarias_y_equipos M
+                INNER JOIN marcas MA on MA.id = M.marca ";
 
         $where = "";
 
