@@ -15,6 +15,10 @@ $('#fecha_ultimo_servicio').datetimepicker({
     showClose: true
 });
 
+$('.select2').select2({
+    clientes: true
+});
+
 var validator = $("#VehiculoForm").validate({
 	ignore: [],
 	onkeyup:false,

@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+
 <div id="content">
 	<div class="container-custom">
 		{!! Form::open( array( 'id' => 'VehiculoForm') ) !!}
@@ -78,24 +79,22 @@
 					</select>
 				</div>
 				<div class="col-sm-4">
-					{!! Form::label("cliente_id","Cliente:") !!}
-					<select class="selectpicker" id='cliente_id' name="cliente_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+					
+					{{--<select class="selectpicker" id='cliente_id' name="cliente_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
 						@foreach ($clientes as $cliente)
 						<option value="{{$cliente->id}}">{{$cliente->nombre}}</option>							
 						@endforeach
-					</select>
+					</select>--}}
+						<div class="form-group">
+							{!! Form::label("cliente_id","Encargado vehiculo:") !!}
+							<select class="form-control select2" multiple="multiple" data-placeholder="Seleccione uno o mas clientes"
+									style="width: 100%;" name="clientes">
+								 @foreach($clientes as $cliente)
+									<option value="{{$cliente->id}}">{{$cliente->nombres}}</option>
+								  @endforeach
+							</select>
+						  </div>
 
-
-					<select multiple >
-						<option>First option</option>
-						<option selected>Second option</option>
-						<option>Third option</option>
-						<option>Fourth option</option>
-						<option>Fifth option</option>
-						<option>Sixth option</option>
-						<option>Seventh option</option>
-						<option>Eighth option</option>
-					</select>
 				</div>
 				<div class="col-sm-5">
 					{!! Form::label("observaciones","Observacciones de inspeccion:") !!}

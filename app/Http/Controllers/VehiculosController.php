@@ -49,7 +49,6 @@ class VehiculosController extends Controller
         $tipos_vehiculos = TipoVehiculo::all();
         $tipos_transmision = TipoTransmision::all();
         $clientes = Cliente::all();
-
         return view("vehiculos.create" , compact("tipos_vehiculos", "marcas","tipos_transmision", "clientes"));
     }
 
@@ -89,11 +88,19 @@ class VehiculosController extends Controller
         $query = "SELECT * FROM vehiculos WHERE id=".$vehiculo->id."";
         $fieldsArray = DB::select($query);
 
-        $tipos_transmision = TipoTransmision::all();
-        $tipos_vehiculos = TipoVehiculo::all();
-        $marcas = Marca::all();
+        //$tipos_transmision = TipoTransmision::all();
+        //$tipos_vehiculos = TipoVehiculo::all();
+        //$marcas = Marca::all();
 
-        return view('vehiculos.edit', compact('vehiculo', 'fieldsArray', 'tipos_vehiculos','marcas', 'tipos_transmision'));
+        return view('vehiculos.edit', [
+            'vehiculo' => $vehiculo,
+            'fieldsArray' => $fieldsArray, 
+            'tipos_vehiculos' => TipoVehiculo::all(),
+            'marcas' => Marca::all(),
+            'tipos_transmision' => TipoTransmision::all()
+        ]);
+
+        //return view('vehiculos.edit', compact('vehiculo', 'fieldsArray', 'tipos_vehiculos','marcas', 'tipos_transmision'));
     }
 
     /**

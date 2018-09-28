@@ -32,6 +32,8 @@
 	<link rel="stylesheet" href="/css/ladda-themeless.min.css">
 	<link rel="stylesheet" href="/css/style.css">
 
+	<link rel="stylesheet" href="/css/select2.min.css">
+
 	<script src="/js/jquery.min.js"></script> 
 
 	{{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
@@ -58,7 +60,7 @@
 	<script src="/js/matrix.form_validation.js"></script> 
 	<script src="/js/jquery.wizard.js"></script> 
 	<script src="/js/jquery.uniform.js"></script> 
-	<script src="/js/select2.min.js"></script> 
+	<!--<script src="/js/select2.min.js"></script>--> 
 	<script src="/js/matrix.popover.js"></script> 
 	<script src="/js/jquery.dataTables.min.js"></script> 
 	<script src="/js/matrix.tables.js"></script> 
@@ -66,6 +68,8 @@
 	<script src="/js/box.min.js"></script> 
 	<script src="/js/loadingoverlay.min.js"></script> 
 	<script src="/js/loadingoverlay_progress.min.js"></script> 
+
+	<script src="/js/select2.full.min.js"></script> 
 
 	<script src="{{ URL::to("/js/jquery.metisMenu.js")  }}"></script>
 	<script src="{{ URL::to("/js/raphael-2.1.0.min.js")  }}"></script>
