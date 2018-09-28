@@ -14,6 +14,7 @@ use Carbon\Carbon;
 Use App\User;
 Use App\MantenimientoEquipo;
 Use App\MaquinariaEquipo;
+use App\Proveedor;
 
 class MantenimientoEquiposController extends Controller
 {
@@ -41,8 +42,9 @@ class MantenimientoEquiposController extends Controller
      */
     public function create()
     {
-       $maquinarias = MaquinariaEquipo::all();
-       return view("manttoequipo.create" , compact("maquinarias"));
+        $proveedores =Proveedor::all();
+        $maquinarias = MaquinariaEquipo::all();
+        return view("manttoequipo.create" , compact("maquinarias" , "proveedores"));
     }
 
     /**
@@ -82,8 +84,9 @@ class MantenimientoEquiposController extends Controller
         $query = "SELECT * FROM mantto_equipo WHERE id=".$manttoequipo->id."";
         $fieldsArray = DB::select($query);
 
+        $proveedores =Proveedor::all();
         $maquinarias = MaquinariaEquipo::all();
-        return view('manttoequipo.edit', compact('manttoequipo', 'fieldsArray', 'maquinarias'));
+        return view('manttoequipo.edit', compact('manttoequipo', 'fieldsArray', 'maquinarias','proveedores'));
     }
 
     /**
