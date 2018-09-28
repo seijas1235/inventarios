@@ -21,4 +21,7 @@ class Proveedor extends Model
     public function tipo_proveedor(){
         return $this->belongsTo(TipoProveedor::class);
     }
+    public function mantto_equipo(){
+        return $this->hasMany(MantenimientoEquipo::class);
+    }
 }

@@ -3,7 +3,7 @@
 <div id="content">
     <div class="container-custom">
 
-        {!! Form::model($manttoequipo, ['method' => 'PATCH', 'action' => ['ManteminientoEquiposController@update', $manttoequipo->id], 'id' => 'ManttoEquipoUpdateForm']) !!}
+        {!! Form::model($manttoequipo, ['method' => 'PATCH', 'action' => ['MantenimientoEquiposController@update', $manttoequipo->id], 'id' => 'ManttoEquipoUpdateForm']) !!}
 
         <div class="row">
             <div class="col-sm-12">
@@ -11,8 +11,7 @@
             </div>
         </div>
         <br>
-        <div class="row">
-            <div class="col-sm-4"></div>               
+        <div class="row">               
             <div class="col-sm-4">
                 {!! Form::label("maquinaria_id","Maquinaria :") !!}
                 <select class="selectpicker" id='maquinaria_id' name="maquinaria_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">

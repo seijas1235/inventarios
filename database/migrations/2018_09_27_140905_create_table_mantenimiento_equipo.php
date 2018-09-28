@@ -22,6 +22,9 @@ class CreateTableMantenimientoEquipo extends Migration
             $table->unsignedInteger('maquinaria_id');
             $table->foreign('maquinaria_id')->references('id')->on('maquinarias_y_equipos')->onDelete('cascade');
 
+            $table->unsignedInteger('proveedor_id');
+            $table->foreign('proveedor_id')->references('id')->on('proveedores')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

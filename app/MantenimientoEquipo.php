@@ -15,10 +15,15 @@ class MantenimientoEquipo extends Model
         'fecha_servicio',
         'labadas_servicio',
         'labadas_proximo_servicio',
-        'maquinaria_id'
+        'maquinaria_id',
+        'proveedor_id'
         ];
 
     public function maquinarias_y_equipo(){
         return $this->belongsTo(MaquinariaEquipo::class);
+    }
+
+    public function proveedores(){
+        return $this->belongsTo(Proveedor::class);
     }
 }
