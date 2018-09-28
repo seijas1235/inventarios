@@ -31,7 +31,7 @@ var validator = $("#VehiculoForm").validate({
 		tipo_vehiculo_id: {
 			required : true
 		},
-		marca_vehiculo_id: {
+		marca_id: {
 			required : true
 		},
 		kilometraje: {
@@ -45,7 +45,16 @@ var validator = $("#VehiculoForm").validate({
 		},
 		fecha_ultimo_servicio: {
 			required : true
-		}
+		},
+		tipo_transmision_id: {
+			required : true
+		},
+		linea: {
+			required : true
+		},
+		cliente_id: {
+			required : true
+		},
 
 	},
 	messages: {
@@ -61,7 +70,7 @@ var validator = $("#VehiculoForm").validate({
 		tipo_vehiculo_id: {
 			required : "Por favor, seleccione el tipo de vehiculo"
 		},
-		marca_vehiculo_id: {
+		marca_id: {
 			required : "Por favor, seleccione el tipo de vehiculo"
 		},
 		kilometraje: {
@@ -75,7 +84,17 @@ var validator = $("#VehiculoForm").validate({
 		},
 		fecha_ultimo_servicio: {
 			required : "Por favor, ingrese la fecha del ultimo servicio"
-		}
+		},
+		tipo_transmision_id: {
+			required : "Por favor, seleccione el tipo de transmision"
+		},
+		linea: {
+			required : "Por favor, ingrese linea del vehiculo"
+		},
+		cliente_id: {
+			required : "Por favor, seleccione cliente"
+		},
+		
 	}
 });
 

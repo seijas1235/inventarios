@@ -36,10 +36,10 @@
 					</select>
 				</div>
 				<div class="col-sm-4">
-					{!! Form::label("marca_vehiculo_id","Marca:") !!}
-					<select class="selectpicker" id='marca_vehiculo_id' name="marca_vehiculo_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
-						@foreach ($marcas_vehiculos as $marca_vehiculo)
-						<option value="{{$marca_vehiculo->id}}">{{$marca_vehiculo->nombre}}</option>							
+					{!! Form::label("marca_id","Marca:") !!}
+					<select class="selectpicker" id='marca_id' name="marca_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+						@foreach ($marcas as $marca)
+						<option value="{{$marca->id}}">{{$marca->nombre}}</option>							
 						@endforeach
 					</select>
 				</div>
@@ -61,6 +61,45 @@
 				<div class="col-sm-3">
 					{!! Form::label("kilometraje","Kilometraje:") !!}
 					{!! Form::number( "kilometraje" , null , ['class' => 'form-control' , 'placeholder' => 'Kilometraje' ]) !!}
+				</div>
+				<div class="col-sm-3">
+					{!! Form::label("linea","linea:") !!}
+					{!! Form::text( "linea" , null , ['class' => 'form-control' , 'placeholder' => 'Linea' ]) !!}
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-3">
+					{!! Form::label("tipo_transmision_id","Tipo de Transmision:") !!}
+					<select class="selectpicker" id='tipo_transmision_id' name="tipo_transmision_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+						@foreach ($tipos_transmision as $tipo_transmision)
+						<option value="{{$tipo_transmision->id}}">{{$tipo_transmision->nombre}}</option>							
+						@endforeach
+					</select>
+				</div>
+				<div class="col-sm-4">
+					{!! Form::label("cliente_id","Cliente:") !!}
+					<select class="selectpicker" id='cliente_id' name="cliente_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+						@foreach ($clientes as $cliente)
+						<option value="{{$cliente->id}}">{{$cliente->nombre}}</option>							
+						@endforeach
+					</select>
+
+
+					<select multiple >
+						<option>First option</option>
+						<option selected>Second option</option>
+						<option>Third option</option>
+						<option>Fourth option</option>
+						<option>Fifth option</option>
+						<option>Sixth option</option>
+						<option>Seventh option</option>
+						<option>Eighth option</option>
+					</select>
+				</div>
+				<div class="col-sm-5">
+					{!! Form::label("observaciones","Observacciones de inspeccion:") !!}
+					{!! Form::text( "observaciones" , null , ['class' => 'form-control' , 'placeholder' => 'Observaciones de inspeccion' ]) !!}
 				</div>
 			</div>
 			<br>
