@@ -17,6 +17,13 @@ class CreateTableProductos extends Migration
             $table->string('nombre');
             $table->string('codigo_barra',20);
             $table->float('minimo');
+
+            $table->unsignedInteger('medida_id');
+            $table->foreign('medida_id')->references('id')->on('unidades_de_medida')->onDelete('cascade');
+
+            $table->unsignedInteger('marca_id');
+            $table->foreign('marca_id')->references('id')->on('tipos_marca')->onDelete('cascade');
+            $table->text('descripcion');
             $table->timestamps();
         });
     }
