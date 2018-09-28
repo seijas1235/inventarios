@@ -14,6 +14,7 @@ class Marca extends Model
     public function vehiculos(){
         return $this->hasMany(Vehiculo::class);
     }
+
     public function maquinarias_y_equipo(){
         return $this->hasMany(MaquinariaEquipo::class);
     }

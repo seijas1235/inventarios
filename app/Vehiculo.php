@@ -18,7 +18,10 @@ class Vehiculo extends Model
         'fecha_ultimo_servicio',
         'año',
         'tipo_vehiculo_id',
-        'marca_vehiculo_id'
+        'marca_id',
+        'tipo_transmision_id',
+        'linea',
+        'observaciones'
         ];
 
 
@@ -26,7 +29,15 @@ class Vehiculo extends Model
         return $this->belongsTo(TipoVehiculo::class);
     }
 
-    public function marca_vehiculo(){
-        return $this->belongsTo(MarcaVehiculo::class);
+    public function marca(){
+        return $this->belongsTo(Marca::class);
+    }
+
+    public function tipo_transmision(){
+        return $this->belongsTo(TipoTransmision::class);
+    }
+
+    public function clientes(){
+        return $this->belongsToMany(Cliente::class);
     }
 }

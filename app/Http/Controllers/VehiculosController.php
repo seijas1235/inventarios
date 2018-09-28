@@ -13,8 +13,10 @@ use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
 use App\Vehiculo;
 use App\TipoVehiculo;
-use App\MarcaVehiculo;
+use App\Marca;
 use App\User;
+use App\TipoTransmision;
+use App\Cliente;
 
 class VehiculosController extends Controller
 {
@@ -41,10 +43,14 @@ class VehiculosController extends Controller
      */
     public function create()
     {
-        $tipos_vehiculos = TipoVehiculo::all();
-        $marcas_vehiculos = MarcaVehiculo::all();
+        $query = "SELECT * FROM marcas WHERE tipo_marca_id=".'1'." OR tipo_marca_id='2'";
+        $marcas = DB::select($query);
 
-        return view("vehiculos.create" , compact("tipos_vehiculos", "marcas_vehiculos"));
+        $tipos_vehiculos = TipoVehiculo::all();
+        $tipos_transmision = TipoTransmision::all();
+        $clientes = Cliente::all();
+
+        return view("vehiculos.create" , compact("tipos_vehiculos", "marcas","tipos_transmision", "clientes"));
     }
 
     /**
@@ -83,10 +89,11 @@ class VehiculosController extends Controller
         $query = "SELECT * FROM vehiculos WHERE id=".$vehiculo->id."";
         $fieldsArray = DB::select($query);
 
+        $tipos_transmision = TipoTransmision::all();
         $tipos_vehiculos = TipoVehiculo::all();
-        $marcas_vehiculos = MarcaVehiculo::all();
+        $marcas = Marca::all();
 
-        return view('vehiculos.edit', compact('vehiculo', 'fieldsArray', 'tipos_vehiculos','marcas_vehiculos'));
+        return view('vehiculos.edit', compact('vehiculo', 'fieldsArray', 'tipos_vehiculos','marcas', 'tipos_transmision'));
     }
 
     /**
