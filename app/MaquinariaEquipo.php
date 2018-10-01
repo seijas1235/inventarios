@@ -23,4 +23,7 @@ class MaquinariaEquipo extends Model
     public function marcas(){
         return $this->belongsTo(Marca::class);
     }
+    public function servicios(){
+        return $this->belongsToMany(Servicio::class);
+    }
 }

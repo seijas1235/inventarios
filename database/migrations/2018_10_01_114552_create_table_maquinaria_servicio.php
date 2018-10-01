@@ -30,6 +30,6 @@ class CreateTableMaquinariaServicio extends Migration
      */
     public function down()
     {
-        Schema::drop('servicios');
+        Schema::drop('maquinaria_servicios');
     }
 }
