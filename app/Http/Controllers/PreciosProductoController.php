@@ -42,7 +42,8 @@ class PreciosProductoController extends Controller
     {
        $user = Auth::user()->id;
        $productos = Producto::all();
-       return view("precios_producto.create" , compact( "user", "productos"));
+       $fecha= Carbon::now();
+       return view("precios_producto.create" , compact( "user", "productos", "fecha"));
     }
 
     /**
@@ -103,7 +104,6 @@ class PreciosProductoController extends Controller
     {
         $id= $precio_producto->id;
         $precio_producto->precio_venta = $data["precio_venta"];
-        $precio_producto->fecha = $data["fecha"];
         $precio_producto->producto_id = $data["producto_id"];
         $precio_producto->save();
 

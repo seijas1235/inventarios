@@ -14,7 +14,7 @@
 			<div class="row">
 				<div class="col-sm-4">
 					{!! Form::label("fecha","Fecha:") !!}
-					{!! Form::text( "fecha" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha']) !!}
+					{!! Form::text( "fecha" ,$fecha->format('d/m/y h:i:s') , ['class' => 'form-control', 'readonly']) !!}
 				</div>
 				<div class="col-sm-4">
 					{!! Form::label("producto_id","Producto:") !!}
@@ -26,7 +26,7 @@
 				</div>
 				<div class="col-sm-4">
 					{!! Form::label("precio_venta","Precio Venta:") !!}
-					{!! Form::text( "precio_venta" , null , ['class' => 'form-control' , 'placeholder' => 'Precio venta']) !!}
+					{!! Form::number( "precio_venta" , null , ['class' => 'form-control' , 'placeholder' => 'Precio venta']) !!}
 				</div>
 			</div>
 			<br>

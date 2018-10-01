@@ -16,6 +16,7 @@ class CreateTableUnidadesDeMedida extends Migration
             $table->increments('id');
             $table->string('descripcion');
             $table->float('cantidad');
+            $table->string('equivalente');
             $table->timestamps();
         });
     }
