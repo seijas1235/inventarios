@@ -41,13 +41,13 @@
                 </select>
             </div>
             <div class="col-sm-4">
-                {!! Form::label("marca_vehiculo_id","Marca de Vehiculo:") !!}
-                <select class="selectpicker" id='marca_vehiculo_id' name="marca_vehiculo_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
-                    @foreach ($marcas_vehiculos as $marca_vehiculo)
-                    @if ( $marca_vehiculo->id == $vehiculo->marca_vehiculo_id)
-                    <option value="{{$marca_vehiculo->id}}" selected>{{ $marca_vehiculo->nombre}}</option>
+                {!! Form::label("marca_id","Marca de Vehiculo:") !!}
+                <select class="selectpicker" id='marca_id' name="marca_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+                    @foreach ($marcas as $marca)
+                    @if ( $marca->id == $vehiculo->marca_id)
+                    <option value="{{$marca->id}}" selected>{{ $marca->nombre}}</option>
                     @else
-                    <option value="{{$marca_vehiculo->id}}">{{ $marca_vehiculo->nombre}}</option>
+                    <option value="{{$marca->id}}">{{ $marca->nombre}}</option>
                     @endif
                     @endforeach
                 </select>
@@ -70,6 +70,41 @@
             <div class="col-sm-3">
                 {!! Form::label("kilometraje","Kilometraje:") !!}
                 {!! Form::number( "kilometraje" , null , ['class' => 'form-control' , 'placeholder' => 'Kilometraje' ]) !!}
+            </div>
+            <div class="col-sm-3">
+                {!! Form::label("linea","Linea:") !!}
+                {!! Form::text( "linea" , null , ['class' => 'form-control' , 'placeholder' => 'Linea' ]) !!}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-3">
+                {!! Form::label("tipo_transmision_id","Tipo de Transmision:") !!}
+                <select class="selectpicker" id='tipo_transmision_id' name="tipo_transmision_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+                    @foreach ($tipos_transmision as $tipo_transmision)
+                    @if ( $tipo_transmision->id == $vehiculo->tipo_transmision_id)
+                    <option value="{{$tipo_transmision->id}}" selected>{{ $tipo_transmision->nombre}}</option>
+                    @else
+                    <option value="{{$tipo_transmision->id}}">{{ $tipo_transmision->nombre}}</option>
+                    @endif
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-sm-4">
+                {!! Form::label("cliente_id","Dueño:") !!}
+                <select class="selectpicker" id='cliente_id' name="cliente_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+                    @foreach ($clientes as $cliente)
+                    @if ( $cliente->id == $vehiculo->cliente_id)
+                    <option value="{{$cliente->id}}" selected>{{ $cliente->nombres}}</option>
+                    @else
+                    <option value="{{$cliente->id}}">{{ $cliente->nombres}}</option>
+                    @endif
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-sm-5">
+                {!! Form::label("observaciones","Observacciones de inspeccion:") !!}
+                {!! Form::text( "observaciones" , null , ['class' => 'form-control' , 'placeholder' => 'Observaciones de inspeccion' ]) !!}
             </div>
         </div>
     <br>

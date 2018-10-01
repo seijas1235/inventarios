@@ -21,7 +21,8 @@ class Vehiculo extends Model
         'marca_id',
         'tipo_transmision_id',
         'linea',
-        'observaciones'
+        'observaciones',
+        'cliente_id'
         ];
 
 
@@ -37,7 +38,7 @@ class Vehiculo extends Model
         return $this->belongsTo(TipoTransmision::class);
     }
 
-    public function clientes(){
-        return $this->belongsToMany(Cliente::class);
+    public function cliente(){
+        return $this->belongsTo(Cliente::class);
     }
 }

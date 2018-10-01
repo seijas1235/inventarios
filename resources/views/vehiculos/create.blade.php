@@ -79,21 +79,12 @@
 					</select>
 				</div>
 				<div class="col-sm-4">
-					
-					{{--<select class="selectpicker" id='cliente_id' name="cliente_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+					{!! Form::label("cliente_id","Dueño:") !!}
+					<select class="selectpicker" id='cliente_id' name="cliente_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
 						@foreach ($clientes as $cliente)
-						<option value="{{$cliente->id}}">{{$cliente->nombre}}</option>							
+						<option value="{{$cliente->id}}">{{$cliente->nombres}}</option>							
 						@endforeach
-					</select>--}}
-						<div class="form-group">
-							{!! Form::label("cliente_id","Encargado vehiculo:") !!}
-							<select class="form-control select2" multiple="multiple" data-placeholder="Seleccione uno o mas clientes"
-									style="width: 100%;" name="clientes">
-								 @foreach($clientes as $cliente)
-									<option value="{{$cliente->id}}">{{$cliente->nombres}}</option>
-								  @endforeach
-							</select>
-						  </div>
+					</select>
 
 				</div>
 				<div class="col-sm-5">
