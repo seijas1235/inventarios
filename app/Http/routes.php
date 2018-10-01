@@ -175,14 +175,6 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch('/precios_producto/{precio_producto}/update' , 'PreciosProductoController@update');
 		Route::delete('/precios_producto/remove/{precio_producto}' , 'PreciosProductoController@destroy');
 
-		Route::get('/vehiculos_cliente', 'VehiculosClienteController@index');
-		Route::get('/vehiculos_cliente/getJson/' , 'VehiculosClienteController@getJson');
-		Route::get('/vehiculos_cliente/new' , 'VehiculosClienteController@create');
-		Route::post('/vehiculos_cliente/save/' , 'VehiculosClienteController@store');
-		Route::get('/vehiculos_cliente/edit/{vehiculo_cliente}' , 'VehiculosClienteController@edit');
-		Route::patch('/vehiculos_cliente/{vehiculo_cliente}/update' , 'VehiculosClienteController@update');
-		Route::delete('/vehiculos_cliente/remove/{vehiculo_cliente}' , 'VehiculosClienteController@destroy');
-
 		Route::get('/documentos', 'DocumentosController@index');
 		Route::get('/documentos/getJson/' , 'DocumentosController@getJson');
 		Route::get('/documentos/new' , 'DocumentosController@create');
@@ -190,6 +182,14 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/documentos/edit/{documento}' , 'DocumentosController@edit');
 		Route::patch('/documentos/{documento}/update' , 'DocumentosController@update');
 		Route::delete('/documentos/remove/{documento}' , 'DocumentosController@destroy');
+
+		Route::get('/servicios', 'ServiciosController@index');
+		Route::get('/servicios/getJson/' , 'ServiciosController@getJson');
+		Route::get('/servicios/new' , 'ServiciosController@create');
+		Route::post('/servicios/save/' , 'ServiciosController@store');
+		Route::get('/servicios/edit/{servicio}' , 'ServiciosController@edit');
+		Route::patch('/servicios/{servicio}/update' , 'ServiciosController@update');
+		Route::delete('/servicios/remove/{servicio}' , 'ServiciosController@destroy');
 
 
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
