@@ -437,12 +437,12 @@ Route::group(array('middleware' => 'acl' , 'is' => 'superadmin|administrator|fin
 {
 
 
-	Route::get( '/series2' , 'SeriesController@index');
-	Route::get( '/series2/getJson/' , 'SeriesController@getJson');
-	Route::get( '/series2/new' , 'SeriesController@create');
-	Route::post( '/series2/save/' , 'SeriesController@store');
-	Route::get( '/series2/edit/{serie}' , 'SeriesController@edit');
-	Route::patch( '/series2/{serie}/update' , 'SeriesController@update');
+	Route::get( '/series' , 'SeriesController@index');
+	Route::get( '/series/getJson/' , 'SeriesController@getJson');
+	Route::get( '/series/new' , 'SeriesController@create');
+	Route::post( '/series/save/' , 'SeriesController@store');
+	Route::get( '/series/edit/{serie}' , 'SeriesController@edit');
+	Route::patch( '/series/{serie}/update' , 'SeriesController@update');
 
 	Route::get( '/bancos' , 'BancosController@index');
 	Route::get( '/bancos/getJson/' , 'BancosController@getJson');

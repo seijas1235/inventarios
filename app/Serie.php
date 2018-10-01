@@ -9,18 +9,19 @@ class Serie extends Model
     protected $table = 'series';
     
     protected $fillable=[
+        'id',
         'resolucion',
         'serie',     
         'fecha_resolucion',
         'fecha_vencimiento',
         'inicio',
         'fin',
-        'estado_serie_id',
+        'estado_id',
         'user_id',
         'documento_id'
     ];
 
-    public function estados(){
+    public function estadosserie(){
         return $this->belongsTo(EstadoSerie::class);
     }
 

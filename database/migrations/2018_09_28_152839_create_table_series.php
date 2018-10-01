@@ -13,6 +13,7 @@ class CreateTableSeries extends Migration
     public function up()
     {
         Schema::create('series', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('resolucion')->primary_key();
             $table->string('serie');     
             $table->date('fecha_resolucion');
