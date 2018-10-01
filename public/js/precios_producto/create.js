@@ -9,12 +9,6 @@ $(document).ready(function() {
 	});
 });
 
-$('#fecha').datetimepicker({
-    format: 'YYYY-MM-DD',
-    showClear: true,
-    showClose: true
-});
-
 
 var validator = $("#PrecioProductoForm").validate({
 	ignore: [],
@@ -26,10 +20,6 @@ var validator = $("#PrecioProductoForm").validate({
 
 		producto_id: {
 			required : true
-		},
-
-		fecha: {
-			required : true
 		}
 
 	},
@@ -40,10 +30,6 @@ var validator = $("#PrecioProductoForm").validate({
 
 		producto_id: {
 			required: "Por favor, seleccione producto"
-		},
-
-		fecha: {
-			required: "Por favor, ingrese fecha"
 		}
 
 	}

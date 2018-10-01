@@ -1,8 +1,3 @@
-$('#fecha').datetimepicker({
-    format: 'YYYY-MM-DD',
-    showClear: true,
-    showClose: true
-});
 var validator = $("#PrecioProductoUpdateForm").validate({
 	ignore: [],
 	onkeyup:false,
@@ -12,10 +7,6 @@ var validator = $("#PrecioProductoUpdateForm").validate({
 		},
 
 		producto_id: {
-			required : true
-		},
-
-		fecha: {
 			required : true
 		}
 
@@ -27,10 +18,6 @@ var validator = $("#PrecioProductoUpdateForm").validate({
 
 		producto_id: {
 			required: "Por favor, seleccione producto"
-		},
-
-		fecha: {
-			required: "Por favor, ingrese fecha"
 		}
 
 	}

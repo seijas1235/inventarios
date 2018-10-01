@@ -12,10 +12,6 @@
         </div>
         <br>
         <div class="row">
-                <div class="col-sm-4">
-                    {!! Form::label("fecha","Fecha:") !!}
-                    {!! Form::text( "fecha" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha']) !!}
-                </div>
             <div class="col-sm-4">
                 {!! Form::label("producto_id","Producto:") !!}
                 <select class="selectpicker" id='producto_id' name="producto_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
