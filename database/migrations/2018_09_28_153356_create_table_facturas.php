@@ -15,7 +15,7 @@ class CreateTableFacturas extends Migration
         Schema::create('facturas', function (Blueprint $table) {
             $table->increments('id');
             $table->datetime('fecha');
-            $table->decimel('total');
+            $table->decimal('total');
             $table->unsignedInteger('voucher_id');
             $table->unsignedInteger('tipo_pago_id');
             $table->unsignedInteger('user_id');
@@ -23,7 +23,7 @@ class CreateTableFacturas extends Migration
 
             $table->foreign('voucher_id')->references('id')->on('voucher')->onDelete('cascade');
             $table->foreign('tipo_pago_id')->references('id')->on('tipos_pago')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('documento_id')->references('id')->on('documentos')->onDelete('cascade');
             $table->timestamps();
         });

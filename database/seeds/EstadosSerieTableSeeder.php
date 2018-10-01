@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Estado;
+use App\EstadoSerie;
 
 class EstadosTableSeeder extends Seeder
 {
@@ -12,19 +12,26 @@ class EstadosTableSeeder extends Seeder
      */
     public function run()
     {
-        Estado::truncate();
+        EstadoSerie::truncate();
 
-        $estado = new Estado;
+        $estado = new EstadoSerie;
+        $estado->estado= "Creado";
+        $estado->save();
+        
+        $estado = new EstadoSerie;
         $estado->estado= "Activo";
         $estado->save();
         
-        $estado = new Estado;
+        $estado = new EstadoSerie;
         $estado->estado= "Finalizado";
         $estado->save();
 
-        $estado = new Estado;
+        $estado = new EstadoSerie;
         $estado->estado= "Vencido";
         $estado->save();
-
+        
+        $estado = new EstadoSerie;
+        $estado->estado= "Anulado";
+        $estado->save();
     }
 }

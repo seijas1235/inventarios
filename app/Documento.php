@@ -12,4 +12,7 @@ class Documento extends Model
         'id',
         'descripcion'
         ];
+    public function series(){
+        return $this->hasMany(Series::class);
+    }
 }
