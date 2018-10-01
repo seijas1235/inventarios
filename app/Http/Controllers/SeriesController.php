@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-class VoucherController extends Controller
+class SeriesController extends Controller
 {
-    
+    //
 }

@@ -14,7 +14,8 @@ class CreateTableVoucher extends Migration
     {
         Schema::create('voucher', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
+            $table->string('numero');
+            $table->datetime('fecha');
         });
     }
 

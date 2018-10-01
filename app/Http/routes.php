@@ -438,7 +438,7 @@ Route::group(array('middleware' => 'acl' , 'is' => 'superadmin|administrator|fin
 
 
 	Route::get( '/series2' , 'SeriesController@index');
-	Route::get( '/serie2/getJson/' , 'SeriesController@getJson');
+	Route::get( '/series2/getJson/' , 'SeriesController@getJson');
 	Route::get( '/series2/new' , 'SeriesController@create');
 	Route::post( '/series2/save/' , 'SeriesController@store');
 	Route::get( '/series2/edit/{serie}' , 'SeriesController@edit');
@@ -465,17 +465,17 @@ Route::group(array('middleware' => 'acl' , 'is' => 'superadmin|administrator|fin
 	Route::delete( '/factura_cambiaria/remove/{factura}' , 'FacturaCambiariaController@remove');
 	Route::get('factura-validation/', 'FacturaCambiariaController@unicaFactura');
 
-	Route::get( '/factura' , 'FacturaController@index');
-	Route::get( '/factura/getJson' , 'FacturaController@getJson');
-	Route::get( '/facturas_clientes/{cliente_id}/GetJson' , 'FacturaController@getFacturas');
-	Route::get( '/factura/new' , 'FacturaController@create');
-	Route::post( '/factura/generar' , 'FacturaController@generar');
-	Route::post( '/factura/save/' , 'FacturaController@save');
-	Route::delete( '/factura/remove/{factura}' , 'FacturaController@remove');
-	Route::get( '/factura/show/{factura}/' , 'FacturaController@showFactura');
+	Route::get( '/factura' , 'FacturasController@index');
+	Route::get( '/factura/getJson' , 'FacturasController@getJson');
+	Route::get( '/facturas_clientes/{cliente_id}/GetJson' , 'FacturasController@getFacturas');
+	Route::get( '/factura/new' , 'FacturasController@create');
+	Route::post( '/factura/generar' , 'FacturasController@generar');
+	Route::post( '/factura/save/' , 'FacturasController@save');
+	Route::delete( '/factura/remove/{factura}' , 'FacturasController@remove');
+	Route::get( '/factura/show/{factura}/' , 'FacturasController@showFactura');
+	Route::get( '/factura/new2' , 'FacturasController@create2');
+	Route::post( '/factura/save2/' , 'FacturasController@save2');
 
-	Route::get( '/factura/new2' , 'FacturaController@create2');
-	Route::post( '/factura/save2/' , 'FacturaController@save2');
 
 	Route::get( '/nota_credito' , 'NotaCreditoController@index');
 	Route::get( '/nota_credito/getJson/' , 'NotaCreditoController@getJson');
