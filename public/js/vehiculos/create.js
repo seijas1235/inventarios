@@ -15,9 +15,6 @@ $('#fecha_ultimo_servicio').datetimepicker({
     showClose: true
 });
 
-$('.select2').select2({
-    clientes: true
-});
 
 var validator = $("#VehiculoForm").validate({
 	ignore: [],
@@ -58,7 +55,7 @@ var validator = $("#VehiculoForm").validate({
 		},
 		cliente_id: {
 			required : true
-		},
+		}
 
 	},
 	messages: {
@@ -97,7 +94,7 @@ var validator = $("#VehiculoForm").validate({
 		},
 		cliente_id: {
 			required : "Por favor, seleccione cliente"
-		},
+		}
 		
 	}
 });

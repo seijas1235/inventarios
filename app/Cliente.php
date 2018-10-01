@@ -29,6 +29,6 @@ class Cliente extends Model
     }
 
     public function vehiculos(){
-        return $this->belongsToMany(Vehiculo::class);
+        return $this->hasMany(Vehiculo::class);
     }
 }

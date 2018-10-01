@@ -88,23 +88,19 @@ class VehiculosController extends Controller
         $query = "SELECT * FROM vehiculos WHERE id=".$vehiculo->id."";
         $fieldsArray = DB::select($query);
 
-        //$tipos_transmision = TipoTransmision::all();
-        //$tipos_vehiculos = TipoVehiculo::all();
-        //$marcas = Marca::all();
+        $query2 = "SELECT * FROM marcas WHERE tipo_marca_id=".'1'." OR tipo_marca_id='2'";
+        $marcas = DB::select($query2);
 
-        return view('vehiculos.edit', [
-            'vehiculo' => $vehiculo,
-            'fieldsArray' => $fieldsArray, 
-            'tipos_vehiculos' => TipoVehiculo::all(),
-            'marcas' => Marca::all(),
-            'tipos_transmision' => TipoTransmision::all()
-        ]);
+        $tipos_transmision = TipoTransmision::all();
+        $tipos_vehiculos = TipoVehiculo::all();
+        $marcas = Marca::all();
+        $clientes = Cliente::all();
 
-        //return view('vehiculos.edit', compact('vehiculo', 'fieldsArray', 'tipos_vehiculos','marcas', 'tipos_transmision'));
+        return view('vehiculos.edit', compact('vehiculo', 'fieldsArray', 'tipos_vehiculos','marcas', 'tipos_transmision','clientes'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Updata the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -126,8 +122,13 @@ class VehiculosController extends Controller
         $vehiculo->año = $data["año"];
         $vehiculo->color = $data["color"];
         $vehiculo->kilometraje = $data["kilometraje"];
+        $vehiculo->linea = $data['linea'];
+        $vehiculo->observaciones = $data['observaciones'];
         $vehiculo->tipo_vehiculo_id = $data["tipo_vehiculo_id"];
-        $vehiculo->marca_vehiculo_id = $data["marca_vehiculo_id"];
+        $vehiculo->tipo_transmision_id = $data["tipo_transmision_id"];
+        $vehiculo->marca_id = $data["marca_id"];
+        $vehiculo->cliente_id = $data["cliente_id"];
+        $vehiculo->fecha_ultimo_servicio = $data["fecha_ultimo_servicio"];
         $vehiculo->save();
 
         return $vehiculo;
