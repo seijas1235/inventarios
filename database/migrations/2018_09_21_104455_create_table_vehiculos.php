@@ -26,7 +26,9 @@ class CreateTableVehiculos extends Migration
             $table->unsignedInteger('tipo_vehiculo_id');
             $table->unsignedInteger('marca_id');
             $table->unsignedInteger('tipo_transmision_id');
+            $table->unsignedInteger('cliente_id');
 
+            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
             $table->foreign('tipo_transmision_id')->references('id')->on('tipos_transmision')->onDelete('cascade');
             $table->foreign('tipo_vehiculo_id')->references('id')->on('tipos_vehiculo')->onDelete('cascade');
             $table->foreign('marca_id')->references('id')->on('marcas')->onDelete('cascade');
