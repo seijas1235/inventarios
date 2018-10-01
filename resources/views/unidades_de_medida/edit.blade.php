@@ -21,6 +21,8 @@
                     {!! Form::number( "cantidad" , null , ['class' => 'form-control' , 'placeholder' => 'Cantidad' ]) !!}
                 </div>
                 <div class="col-sm-4">
+                    {!! Form::label("equivalente","Unidad de medida:") !!}
+                    {!! Form::text( "equivalente" , null , ['class' => 'form-control' , 'placeholder' => 'unidad de medida' ]) !!}
                 </div>
             </div>
         <br>

@@ -19,6 +19,9 @@ var validator = $("#UnidadDeMedidaForm").validate({
 		},
 		cantidad: {
 			required : true
+		},
+		equivalente: {
+			required : true
 		}
 	},
 	messages: {
@@ -27,7 +30,10 @@ var validator = $("#UnidadDeMedidaForm").validate({
 		},
 		cantidad: {
 			required: "Por favor, ingrese la cantidad de la unidad de medida"
-		}
+		},
+		equivalente: {
+			required: "Por favor, ingrese unidad de medida equivalente"
+		},
 	}
 });
 
