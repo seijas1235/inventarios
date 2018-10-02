@@ -191,6 +191,22 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch('/servicios/{servicio}/update' , 'ServiciosController@update');
 		Route::delete('/servicios/remove/{servicio}' , 'ServiciosController@destroy');
 
+		Route::get('/compras', 'ComprasController@index');
+		Route::get('/compras/getJson/' , 'ComprasController@getJson');
+		Route::get('/compras/new' , 'ComprasController@create');
+		Route::post('/compras/save/' , 'ComprasController@store');
+		Route::get('/compras/edit/{compra}' , 'ComprasController@edit');
+		Route::patch('/compras/{compra}/update' , 'ComprasController@update');
+		Route::delete('/compras/remove/{compra}' , 'ComprasController@destroy');
+
+		Route::get('/detallescompras', 'DetallesComprasController@index');
+		Route::get('/detallescompras/getJson/' , 'DetallesComprasController@getJson');
+		Route::get('/detallescompras/new' , 'DetallesComprasController@create');
+		Route::post('/detallescompras/save/' , 'DetallesComprasController@store');
+		Route::get('/detallescompras/edit/{detallecompra}' , 'DetallesComprasController@edit');
+		Route::patch('/detallescompras/{detallecompra}/update' , 'DetallesComprasController@update');
+		Route::delete('/detallescompras/remove/{detallecompra}' , 'DetallesComprasController@destroy');
+
 
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
 
