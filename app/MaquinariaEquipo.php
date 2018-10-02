@@ -26,4 +26,7 @@ class MaquinariaEquipo extends Model
     public function servicios(){
         return $this->belongsToMany(Servicio::class);
     }
+    public function detalles_compras(){
+        return $this->hasMany(DetalleCompra::class);
+    }
 }

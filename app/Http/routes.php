@@ -198,6 +198,8 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/compras/edit/{compra}' , 'ComprasController@edit');
 		Route::patch('/compras/{compra}/update' , 'ComprasController@update');
 		Route::delete('/compras/remove/{compra}' , 'ComprasController@destroy');
+		Route::post('/detalle/buscar', 'ComprasController@getBuscar');
+		Route::get('/compras/buscar', 'ComprasController@buscarProducto');
 
 		Route::get('/detallescompras', 'DetallesComprasController@index');
 		Route::get('/detallescompras/getJson/' , 'DetallesComprasController@getJson');
