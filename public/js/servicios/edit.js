@@ -1,3 +1,6 @@
+$('.select2').select2({
+});
+
 var validator = $("#PuestoUpdateForm").validate({
 	ignore: [],
 	onkeyup:false,
@@ -5,7 +8,7 @@ var validator = $("#PuestoUpdateForm").validate({
 		nombre: {
 			required : true
 		},
-		sueldo: {
+		precio: {
 			required : true
 		}
 	},
@@ -13,8 +16,8 @@ var validator = $("#PuestoUpdateForm").validate({
 		nombre: {
 			required: "Por favor, ingrese el nombre de un Puesto"
 		},
-		sueldo: {
-			required: "Por favor, ingrese el sueldo"
+		precio: {
+			required: "Por favor, ingrese el precio"
 		}
 	}
 });

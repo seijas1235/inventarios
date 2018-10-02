@@ -14,7 +14,7 @@ class Servicio extends Model
         'precio'
         ];
 
-    public function MaquinariasEquipos(){
+    public function Maquinarias(){
         return $this->belongsToMany(MaquinariaEquipo::class);
     }
 }
