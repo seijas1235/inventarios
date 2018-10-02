@@ -1,5 +1,5 @@
-var puestos_table = $('#puestos-table').DataTable({
-    "ajax": "/puestos/getJson",
+var servicios_table = $('#servicios-table').DataTable({
+    "ajax": "/servicios/getJson",
     "responsive": true,
     "processing": true,
     "serverSide": true,
@@ -54,7 +54,7 @@ var puestos_table = $('#puestos-table').DataTable({
     }, 
     
     {
-        "title": "Puesto",
+        "title": "Nombre Servicio",
         "data": "nombre",
         "width" : "20%",
         "responsivePriority": 2,
@@ -63,13 +63,13 @@ var puestos_table = $('#puestos-table').DataTable({
     }, 
     
     {
-        "title": "Sueldo",
-        "data": "sueldo",
+        "title": "Precio",
+        "data": "precio",
         "width" : "20%",
         "responsivePriority": 2,
         "render": $.fn.dataTable.render.number( ',', '.', 2, 'Q.' )
     }, 
-       
+         
     {
         "title": "Acciones",
         "orderable": false,
@@ -77,12 +77,12 @@ var puestos_table = $('#puestos-table').DataTable({
         "render": function(data, type, full, meta) {
             return "<div id='" + full.id + "' class='text-center'>" + 
             "<div class='float-left col-lg-6'>" + 
-            "<a href='/puestos/edit/"+ full.id +"' class='edit-puesto'>" + 
-            "<i class='fa fa-btn fa-edit' title='Editar Puesto'></i>" + 
+            "<a href='/servicios/edit/"+ full.id +"' class='edit-servicio'>" + 
+            "<i class='fa fa-btn fa-edit' title='Editar Servicio'></i>" + 
             "</a>" + "</div>" + 
             "<div class='float-right col-lg-6'>" + 
-            "<a href='#' class='remove-puesto'>" + 
-            "<i class='fa fa-btn fa-trash' title='Eliminar Puesto'></i>" + 
+            "<a href='#' class='remove-servicio'>" + 
+            "<i class='fa fa-btn fa-trash' title='Eliminar Servicio'></i>" + 
             "</a>" + "</div>";
             
         },
@@ -99,7 +99,7 @@ var puestos_table = $('#puestos-table').DataTable({
 
 
 
-$('body').on('click', 'a.remove-puesto', function(e) {
+$('body').on('click', 'a.remove-servicio', function(e) {
     $( ".confirm-delete" , "#userDeleteModal").removeAttr("field");
     var id = $(this).parent().parent().attr("id");
     $("input[name='password_delete']").val("");
@@ -108,11 +108,11 @@ $('body').on('click', 'a.remove-puesto', function(e) {
     $("#userDeleteModal").hide().show();
     $("#userDeleteModal").modal();
     if (user.length = 1) {
-        $("#message").text("este Puesto?");
+        $("#message").text("este Servicio?");
         $(".variable").text("");
         $(".entity").text("");
     } else {
-        $("#message").text("este Puesto");
+        $("#message").text("este Servicio");
         $(".variable").text("");
         $(".entity").text("");
     }
@@ -140,7 +140,7 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
 
     var td  = $("#"+id);
 
-    var url = "/puestos/remove/"+id;
+    var url = "/servicios/remove/"+id;
     var password_delete = $("input[name='password_delete']").val().trim();
     data = {
         password_delete : password_delete
@@ -157,8 +157,8 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
         $(".user-created-message").removeClass("hidden");
         $(".user-created-message").addClass("alert-danger");
         $(".user-created-message").fadeIn();
-        $(".user-created-message > p").text("puesto eliminado exitosamente!");
-        puestos_table.ajax.reload();
+        $(".user-created-message > p").text("servicio eliminado exitosamente!");
+        servicios_table.ajax.reload();
         $("#userDeleteModal").modal("hide");
     }).fail(function(errors) {
         var errors = JSON.parse(errors.responseText);

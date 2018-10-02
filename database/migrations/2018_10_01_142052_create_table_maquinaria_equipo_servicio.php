@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableMaquinariaServicio extends Migration
+class CreateTableMaquinariaEquipoServicio extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,13 @@ class CreateTableMaquinariaServicio extends Migration
      */
     public function up()
     {
-        Schema::create('maquinaria_servicios', function (Blueprint $table) {
+        Schema::create('maquinaria_equipo_servicio', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('maquinaria_id');
             $table->unsignedInteger('servicio_id');
+            $table->unsignedInteger('maquinaria_equipo_id');
 
-            $table->foreign('maquinaria_id')->references('id')->on('maquinarias_y_equipos')->onDelete('cascade');
             $table->foreign('servicio_id')->references('id')->on('servicios')->onDelete('cascade');
-            $table->timestamps();
+            $table->foreign('maquinaria_equipo_id')->references('id')->on('maquinarias_y_equipos')->onDelete('cascade');
         });
     }
 
@@ -30,6 +29,6 @@ class CreateTableMaquinariaServicio extends Migration
      */
     public function down()
     {
-        Schema::drop('maquinaria_servicios');
+        Schema::drop('maquinaria_equipo_servicio');
     }
 }

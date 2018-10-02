@@ -9,23 +9,25 @@ $(document).ready(function() {
 	});
 });
 
+$('.select2').select2({
+});
 
-var validator = $("#PuestoForm").validate({
+var validator = $("#ServicioForm").validate({
 	ignore: [],
 	onkeyup:false,
 	rules: {
 		nombre: {
 			required : true
 		},
-		sueldo: {
+		precio: {
 			required : true
 		}
 	},
 	messages: {
 		nombre: {
-			required: "Por favor, ingrese el nombre de un Puesto"
+			required: "Por favor, ingrese el nombre de un servicio"
 		},
-		sueldo: {
+		precio: {
 			required: "Por favor, ingrese el Sueldo"
 		}
 	}
@@ -37,8 +39,8 @@ var db = {};
 window.db = db;
 db.detalle = [];
 
-$("#ButtonPuesto").click(function(event) {
-	if ($('#PuestoForm').valid()) {
+$("#ButtonServicio").click(function(event) {
+	if ($('#ServicioForm').valid()) {
 		saveContact();
 	} else {
 		validator.focusInvalid();
@@ -46,18 +48,18 @@ $("#ButtonPuesto").click(function(event) {
 });
 
 function saveContact(button) {
-	$("#ButtonPuesto").attr('disabled', 'disabled');
-	var l = Ladda.create(document.querySelector("#ButtonPuesto"));
+	$("#ButtonServicio").attr('disabled', 'disabled');
+	var l = Ladda.create(document.querySelector("#ButtonServicio"));
 	l.start();
-	var formData = $("#PuestoForm").serialize();
+	var formData = $("#ServicioForm").serialize();
 	$.ajax({
 		type: "POST",
 		headers: {'X-CSRF-TOKEN': $('#token').val()},
-		url: "/puestos/save",
+		url: "/servicios/save",
 		data: formData,
 		dataType: "json",
 		success: function(data) {
-			window.location = "/puestos" 
+			window.location = "/servicios" 
 		},
 		always: function() {
 			l.stop();
