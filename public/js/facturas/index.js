@@ -1,5 +1,5 @@
-var series_table = $('#series-table').DataTable({
-    "ajax": "/series/getJson",
+var factura_table = $('#facturas-table').DataTable({
+    "ajax": "/factura/getJson",
     "responsive": true,
     "processing": true,
     "serverSide": true,
@@ -41,15 +41,10 @@ var series_table = $('#series-table').DataTable({
             "sSortDescending": ": Activar para ordenar la columna de manera descendente"
         },
     },
+    
     "order": [0, 'asc'],
-    "columns": [ {
-        "title": "Resolucion",
-        "data": "resolucion",
-        "width" : "20%",
-        "responsivePriority": 1,
-        "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data); },
-    }, 
+    "columns": [ 
+        
     {
         "title": "Serie",
         "data": "serie",
@@ -58,17 +53,25 @@ var series_table = $('#series-table').DataTable({
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data); },
     },
+        {
+        "title": "Numero",
+        "data": "numero",
+        "width" : "20%",
+        "responsivePriority": 1,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML(data); },
+    }, 
     {
-        "title": "Documento",
-        "data": "documento",
+        "title": "Fecha",
+        "data": "fecha",
         "width" : "20%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data); },
     },
     {
-        "title": "Inicio",
-        "data": "inicio",
+        "title": "Total",
+        "data": "total",
         "width" : "20%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
@@ -76,44 +79,27 @@ var series_table = $('#series-table').DataTable({
     },
     
     {
-        "title": "Fin",
-        "data": "fin",
+        "title": "Voucher",
+        "data": "voucher",
         "width" : "20%",
         "responsivePriority": 3,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data); },
     }, 
 
-    {
-        "title": "Fecha Vecimiento",
-        "data": "fecha_vencimiento",
-        "width" : "20%",
-        "responsivePriority": 2,
-        "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data); },
-    },
-    
-    {
-        "title": "Estado",
-        "data": "estado",
-        "width" : "20%",
-        "responsivePriority": 2,
-        "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data); },
-    }, 
-    {
+     {
         "title": "Acciones",
         "orderable": false,
         "width" : "20%",
         "render": function(data, type, full, meta) {
             return "<div id='" + full.id + "' class='text-center'>" + 
             "<div class='float-left col-lg-6'>" + 
-            "<a href='/series/edit/"+ full.id +"' class='edit-serie'>" + 
-            "<i class='fa fa-btn fa-edit' title='Editar Serie'></i>" + 
+            "<a href='/factura/edit/"+ full.id +"' class='edit-factura'>" + 
+            "<i class='fa fa-btn fa-edit' title='Editar Factura'></i>" + 
             "</a>" + "</div>" + 
             "<div class='float-right col-lg-6'>" + 
-            "<a href='#' class='remove-serie'>" + 
-            "<i class='fa fa-btn fa-trash' title='Eliminar Serie'></i>" + 
+            "<a href='#' class='remove-factura'>" + 
+            "<i class='fa fa-btn fa-trash' title='Eliminar factura'></i>" + 
             "</a>" + "</div>";
             
         },
@@ -130,7 +116,7 @@ var series_table = $('#series-table').DataTable({
 
 
 
-$('body').on('click', 'a.remove-Serie', function(e) {
+$('body').on('click', 'a.remove-Factura', function(e) {
     $( ".confirm-delete" , "#userDeleteModal").removeAttr("field");
     var id = $(this).parent().parent().attr("id");
     $("input[name='password_delete']").val("");
@@ -139,11 +125,11 @@ $('body').on('click', 'a.remove-Serie', function(e) {
     $("#userDeleteModal").hide().show();
     $("#userDeleteModal").modal();
     if (user.length = 1) {
-        $("#message").text("esta Serie?");
+        $("#message").text("esta Factura?");
         $(".variable").text("");
         $(".entity").text("");
     } else {
-        $("#message").text("esta Serie");
+        $("#message").text("esta Factura");
         $(".variable").text("");
         $(".entity").text("");
     }
@@ -171,7 +157,7 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
 
     var td  = $("#"+id);
 
-    var url = "/series/remove/"+id;
+    var url = "/factura/remove/"+id;
     var password_delete = $("input[name='password_delete']").val().trim();
     data = {
         password_delete : password_delete
@@ -188,8 +174,8 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
         $(".user-created-message").removeClass("hidden");
         $(".user-created-message").addClass("alert-danger");
         $(".user-created-message").fadeIn();
-        $(".user-created-message > p").text("Serie eliminada exitosamente!");
-        series_table.ajax.reload();
+        $(".user-created-message > p").text("Factura eliminada exitosamente!");
+        factura_table.ajax.reload();
         $("#userDeleteModal").modal("hide");
     }).fail(function(errors) {
         var errors = JSON.parse(errors.responseText);

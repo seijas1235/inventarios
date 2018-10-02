@@ -14,7 +14,7 @@ use Carbon\Carbon;
 Use App\User;
 Use App\Serie;
 Use App\Factura;
-use App\Voucher;
+use App\TipoPago;
 
 class FacturasController extends Controller
 {
@@ -44,9 +44,9 @@ class FacturasController extends Controller
     {
        $user = Auth::user()->id;
        $series = Serie::all();
-       $vouchers = Voucher::all();
+       $pagos = TipoPago::all();
        
-       return view("factura.create" , compact( "user", "series","vouchers"));
+       return view("facturas.create" , compact( "user", "series","pagos"));
     }
 
     /**
@@ -90,8 +90,8 @@ class FacturasController extends Controller
         $query = "SELECT * FROM facturas WHERE id=".$factura->id."";
         $fieldsArray = DB::select($query);
         $series = Serie::all();
-        $vouchers = Voucher::all();
-        return view('factura.edit', compact('factura', 'fieldsArray', 'series','vouchers'));
+        $pagos = TipoPago::all();
+        return view('factura.edit', compact('factura', 'fieldsArray', 'series','pagos'));
     }
 
     /**
@@ -115,7 +115,7 @@ class FacturasController extends Controller
         $factura->fecha = $data["fecha"];
         $factura->serie_id = $data["serie_id"];
         $factura->total = $data["total"];
-        $factura->voucher_id = $data["voucher_id"];
+        $factura->voucher = $data["voucher"];
         $factura->tipo_pago_id= $data["tipo_pago_id"];
         $factura->save();
 
@@ -163,10 +163,10 @@ class FacturasController extends Controller
         $api_logsQueriable = DB::table('facturas');
         $api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-        $query = "SELECT F.numero, F.fecha, F.total, F.id S.serie as serie, V.numero as voucher
+        $query = "SELECT F.id, F.numero, F.fecha,  F.total, S.serie as sr, TP.tipo_pago as pago
         from facturas F
         INNER JOIN series S on S.id = F.serie_id 
-        INNER JOIN voucher V on V.id = F.voucher_id";
+        INNER JOIN tipos_pago TP on TP.id = F.tipo_pago_id ";
 
         $where = "";
 

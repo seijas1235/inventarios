@@ -13,7 +13,7 @@ class Factura extends Model
         'numero',
         'fecha',
         'total',
-        'voucher_id',
+        'voucher',
         'tipo_pago_id',
         'user_id',
         'serie_id',
@@ -24,7 +24,7 @@ class Factura extends Model
     public function series(){
         return $this->belongsTo(Serie::class);
     }
-    public function voucher(){
-        return $this->belongsTo(Voucher::class);
+    public function pagos(){
+        return $this->belongsTo(TipoPago::class);
     }
 }

@@ -8,70 +8,44 @@ $(document).ready(function() {
 		}
 	});
 });
-$('#fecha_resolucion').datetimepicker({
-    format: 'YYYY-MM-DD',
-    showClear: true,
-    showClose: true
-});
-
-$('#fecha_vencimiento').datetimepicker({
+$('#fecha').datetimepicker({
     format: 'YYYY-MM-DD',
     showClear: true,
     showClose: true
 });
 
 
-var validator = $("#SerieForm").validate({
+var validator = $("#FacturaForm").validate({
 	ignore: [],
 	onkeyup:false,
 	rules: {
-		resolucion:{
-			required: true,
-		},
-
-		serie: {
+		serie_id: {
 			required : true
 		},
 
-		estado_id: {
+		total: {
 			required : true
 		},
-		documento_id: {
-			required : true
-		},
-		inicio:{
+		fecha:{
 			required: true
 		},
-		fin:{
-			required : true
-		},
-		
+	
 
 	},
 	messages: {
-		resolucion:{
-			required: "Debe ingresar El Número de Resolución",
-		},
-
-		serie: {
-			required : "Debe Ingresar La Serie"
-		},
-
-		estado_id: {
-			required : "Seleccione Un Estado"
-		},
-		documento_id: {
-			required : "Seleccione Un Documento"
-		},
-		inicio:{
-			required: "Debe Ingresar un número de Inicio"
-		},
-		fin:{
-			required : "Debe Ingresar un número de Fin"
-		},
 		
+		serie_id: {
+			required : "Debe Seleccionar La Serie"
+		},
+		total:{
+			required: "Debe Ingresar el total"
+		},
+		fecha:{
+			required : "Debe Seleccionar Fecha"
+		},
 	
 
 	}
 });
+
 

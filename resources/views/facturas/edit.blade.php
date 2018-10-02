@@ -3,79 +3,69 @@
 <div id="content">
     <div class="container-custom">
 
-        {!! Form::model($serie, ['method' => 'PATCH', 'action' => ['SeriesController@update', $serie->id], 'id' => 'SerieUpdateForm']) !!}
+        {!! Form::model($Factura, ['method' => 'PATCH', 'action' => ['FacturasController@update', $factura->id], 'id' => 'FacturaUpdateForm']) !!}
 
         <div class="row">
             <div class="col-sm-12">
-                <h3 class="tittle-custom"> Edición de Series de Documentos </h3>
+                <h3 class="tittle-custom"> Edición de Facturas </h3>
             </div>
         </div>
         <br>
         <div class="row">
-            <div class="col-sm-4 form-group ">
-                {!! Form::label("resolucion","Resolucion:") !!}
-                {!! Form::text( "resolucion" , null , ['class' => 'form-control' , 'placeholder' => 'Resolucion:' ]) !!}
-                
-            </div>
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4">
-                {!! Form::label("serie","Serie:") !!}
-                {!! Form::text( "serie" , null , ['class' => 'form-control' , 'placeholder' => 'Serie:' ]) !!}
-            </div>
-           
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-sm-4">
-                    {!! Form::label("fecha_resolucion","Fecha Resolucion:") !!}
-                    {!! Form::text( "fecha_resolucion" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha Resolucion' ]) !!}
-                </div>
-                
-                <div class="col-sm-4">
-                    {!! Form::label("fecha_vencimiento","Fecha de Vencimiento:") !!}
-                    {!! Form::text( "fecha_vencimiento" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha de Vencimiento' ]) !!}
-                </div>
-                <div class="col-sm-4">
-                    {!! Form::label("estado_id","Estado:") !!}
-                    <select class="selectpicker" id='estado_id' name="estado_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
-                        @foreach ($estados as $estado)
-                        @if ( $estado->id == $serie->estado_id)
-                        <option value="{{$estado->id}}" selected>{{ $estado->estado}}</option>
-                        @else
-                        <option value="{{$estado->id}}">{{ $estado->estado}}</option>
-                        @endif
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <br>
-        <div class="row">
-            <div class="col-sm-4">
-                {!! Form::label("documento_id","Documento:") !!}
-                <select class="selectpicker" id='documento_id' name="documento_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
-                    @foreach ($documentos as $documento)
-                    @if ( $documento->id == $serie->documento_id)
-                    <option value="{{$documento->id}}" selected>{{ $documento->descripcion}}</option>
-                    @else
-                    <option value="{{$documento->id}}">{{ $documento->descripcion}}</option>
-                    @endif
-                    @endforeach
-                </select>
-            </div>
-                    
-            <div class="col-sm-4">
-                {!! Form::label("inicio","Numero Inicio:") !!}
-                {!! Form::text( "inicio" , null , ['class' => 'form-control' , 'placeholder' => 'Numero Inicio' ]) !!}
-            </div>
-            <div class="col-sm-4">
-                {!! Form::label("fin","Numero Fin:") !!}
-                {!! Form::text( "fin" , null , ['class' => 'form-control' , 'placeholder' => 'Numero Fin' ]) !!}
-            </div>
-        </div>
+				<div class="col-sm-4 form-group ">
+					{!! Form::label("numero","Numero:") !!}
+					{!! Form::text( "numero" , null , ['class' => 'form-control' , 'placeholder' => 'Numero:' ]) !!}
+					
+				</div>
+				<div class="col-sm-4"></div>
+				<div class="col-sm-4">
+					{!! Form::label("serie_id","Serie:") !!}
+					<select class="selectpicker" id='serie_id' name="serie_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+						@foreach ($series as $serie)
+							@if($serie->documento_id == 1)
+								<option value="{{$serie->id}}">{{ $serie->serie}}</option>
+							@endif
+						@endforeach
+					</select>
+				</div>		
+			
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-4">
+					{!! Form::label("fecha","Fecha:") !!}
+					{!! Form::text( "fecha" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha:' ]) !!}
+				</div>
+				
+				<div class="col-sm-4">
+					{!! Form::label("total","Total:") !!}
+					{!! Form::text( "total" , null , ['class' => 'form-control' , 'placeholder' => 'Total' ]) !!}
+				</div>
+				<div class="col-sm-4">
+					{!! Form::label("tipo_pago_id","Tipo de Pago:") !!}
+					<select class="selectpicker" id='tipo_pago_id' name="tipo_pago_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+						@foreach ($pagos as $pago)
+						<option value="{{$pago->id}}">{{ $pago->nombre}}</option>
+						@endforeach
+					</select>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-4">
+					{!! Form::label("voucher_id","Voucher:") !!}
+					<select class="selectpicker" id='voucher_id' name="voucher_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+						@foreach ($vouchers as $voucher)
+						<option value="{{$voucher->id}}">{{ $voucher->numero}}</option>
+						@endforeach
+					</select>
+				</div>
+				
+			</div>
         <br>
         <div class="text-right m-t-15">
-            <a class='btn btn-primary form-gradient-color form-button' href="{{ url('/series') }}">Regresar</a>
-            {!! Form::input('submit', 'submit', 'Editar', ['class' => 'btn btn-primary form-gradient-color form-button', 'id'=>'ButtonUpdateSerie']) !!}
+            <a class='btn btn-primary form-gradient-color form-button' href="{{ url('/factura') }}">Regresar</a>
+            {!! Form::input('submit', 'submit', 'Editar', ['class' => 'btn btn-primary form-gradient-color form-button', 'id'=>'ButtonUpdateFactura']) !!}
         </div>
         <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
     </br>
@@ -85,5 +75,5 @@
 
 @endsection
 @section('scripts')
-{!! HTML::script('/js/series/edit.js') !!}
+{!! HTML::script('/js/factura/edit.js') !!}
 @endsection

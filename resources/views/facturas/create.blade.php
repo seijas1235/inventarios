@@ -45,21 +45,14 @@
 					{!! Form::label("tipo_pago_id","Tipo de Pago:") !!}
 					<select class="selectpicker" id='tipo_pago_id' name="tipo_pago_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
 						@foreach ($pagos as $pago)
-						<option value="{{$pago->id}}">{{ $pago->nombre}}</option>
+						<option value="{{$pago->id}}">{{ $pago->tipo_pago}}</option>
 						@endforeach
 					</select>
 				</div>
 			</div>
 			<br>
 			<div class="row">
-				<div class="col-sm-4">
-					{!! Form::label("voucher_id","Voucher:") !!}
-					<select class="selectpicker" id='voucher_id' name="voucher_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
-						@foreach ($vouchers as $voucher)
-						<option value="{{$voucher->id}}">{{ $voucher->numero}}</option>
-						@endforeach
-					</select>
-				</div>
+				
 				
 			</div>
 			<br>
