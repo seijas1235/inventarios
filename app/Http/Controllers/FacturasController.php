@@ -163,7 +163,7 @@ class FacturasController extends Controller
         $api_logsQueriable = DB::table('facturas');
         $api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-        $query = "SELECT F.id, F.numero, F.fecha,  F.total, S.serie as serie, TP.tipo_pago as pago
+        $query = "SELECT F.voucher,F.id, F.numero, F.fecha,  F.total, S.serie as serie, TP.tipo_pago as pago
         from facturas F
         INNER JOIN series S on S.id = F.serie_id 
         INNER JOIN tipos_pago TP on TP.id = F.tipo_pago_id ";

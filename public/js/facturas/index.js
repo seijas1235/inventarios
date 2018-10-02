@@ -94,7 +94,7 @@ var factura_table = $('#facturas-table').DataTable({
         "render": function(data, type, full, meta) {
             return "<div id='" + full.id + "' class='text-center'>" + 
             "<div class='float-left col-lg-6'>" + 
-            "<a href='/facturas/edit/"+ full.id +"' class='edit-factura'>" + 
+            "<a href='/factura/edit/"+ full.id +"' class='edit-factura'>" + 
             "<i class='fa fa-btn fa-edit' title='Editar Factura'></i>" + 
             "</a>" + "</div>" + 
             "<div class='float-right col-lg-6'>" + 
