@@ -46,7 +46,7 @@ class FacturasController extends Controller
        $series = Serie::all();
        $pagos = TipoPago::all();
        
-       return view("facturas.create" , compact( "user", "series","pagos"));
+       return view("facturas.create" , compact( "user", "series","pagos",'fecha'));
     }
 
     /**
@@ -61,9 +61,9 @@ class FacturasController extends Controller
         $data = $request->all();
         $data["user_id"] = Auth::user()->id;
                
-        $serie = Factura::create($data);
+        $factura = Factura::create($data);
 
-        return Response::json($serie);
+        return Response::json($factura);
     }
 
     /**
@@ -91,7 +91,7 @@ class FacturasController extends Controller
         $fieldsArray = DB::select($query);
         $series = Serie::all();
         $pagos = TipoPago::all();
-        return view('factura.edit', compact('factura', 'fieldsArray', 'series','pagos'));
+        return view('facturas.edit', compact('factura', 'fieldsArray', 'series','pagos'));
     }
 
     /**
@@ -112,7 +112,7 @@ class FacturasController extends Controller
     {
         $id= $factura->id;
         $factura->numero = $data["numero"];
-        $factura->fecha = $data["fecha"];
+        $factura->fecha = $data["fecha"];    
         $factura->serie_id = $data["serie_id"];
         $factura->total = $data["total"];
         $factura->voucher = $data["voucher"];
@@ -163,7 +163,7 @@ class FacturasController extends Controller
         $api_logsQueriable = DB::table('facturas');
         $api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-        $query = "SELECT F.id, F.numero, F.fecha,  F.total, S.serie as sr, TP.tipo_pago as pago
+        $query = "SELECT F.id, F.numero, F.fecha,  F.total, S.serie as serie, TP.tipo_pago as pago
         from facturas F
         INNER JOIN series S on S.id = F.serie_id 
         INNER JOIN tipos_pago TP on TP.id = F.tipo_pago_id ";

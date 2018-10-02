@@ -444,7 +444,15 @@ Route::group(array('middleware' => 'acl' , 'is' => 'superadmin|administrator|fin
 	Route::get( '/series/edit/{serie}' , 'SeriesController@edit');
 	Route::patch( '/series/{serie}/update' , 'SeriesController@update');
 
-		Route::get( '/bancos' , 'BancosController@index');
+	Route::get('/factura', 'FacturasController@index');
+	Route::get('/factura/getJson/' , 'FacturasController@getJson');
+	Route::get('/factura/new' , 'FacturasController@create');
+	Route::post('/factura/save/' , 'FacturasController@store');
+	Route::get('/factura/edit/{factura}' , 'FacturasController@edit');
+	Route::patch('/factura/{factura}/update' , 'FacturasController@update');
+	Route::delete('/factura/remove/{factura}' , 'FacturasController@destroy');
+
+	Route::get( '/bancos' , 'BancosController@index');
 	Route::get( '/bancos/getJson/' , 'BancosController@getJson');
 	Route::get( '/bancos/new' , 'BancosController@create');
 	Route::post( '/bancos/save/' , 'BancosController@store');
@@ -465,7 +473,7 @@ Route::group(array('middleware' => 'acl' , 'is' => 'superadmin|administrator|fin
 	Route::delete( '/factura_cambiaria/remove/{factura}' , 'FacturaCambiariaController@remove');
 	Route::get('factura-validation/', 'FacturaCambiariaController@unicaFactura');
 
-	Route::get( '/factura' , 'FacturasController@index');
+	/*Route::get( '/factura' , 'FacturasController@index');
 	Route::get( '/factura/getJson' , 'FacturasController@getJson');
 	Route::get( '/facturas_clientes/{cliente_id}/GetJson' , 'FacturasController@getFacturas');
 	Route::get( '/factura/new' , 'FacturasController@create');
@@ -475,7 +483,7 @@ Route::group(array('middleware' => 'acl' , 'is' => 'superadmin|administrator|fin
 	Route::get( '/factura/show/{factura}/' , 'FacturasController@showFactura');
 	Route::get( '/factura/new2' , 'FacturasController@create2');
 	Route::get( '/factura/edit/{factura}' , 'FacturasController@edit');
-	Route::post( '/factura/save2/' , 'FacturasController@save2');
+	Route::post( '/factura/save2/' , 'FacturasController@save2');*/
 	
 
 	Route::get( '/nota_credito' , 'NotaCreditoController@index');

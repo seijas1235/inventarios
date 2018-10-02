@@ -9,9 +9,8 @@ $(document).ready(function() {
 	});
 });
 $('#fecha').datetimepicker({
-    format: 'YYYY-MM-DD',
-    showClear: true,
-    showClose: true
+    format: 'YYYY/MM/DD hh:mm:ss',
+
 });
 
 
@@ -66,7 +65,7 @@ function saveContact(button) {
 	$("#ButtonFactura").attr('disabled', 'disabled');
 	var l = Ladda.create(document.querySelector("#ButtonFactura"));
 	l.start();
-	var formData = $("#facturaForm").serialize();
+	var formData = $("#FacturaForm").serialize();
 	$.ajax({
 		type: "POST",
 		headers: {'X-CSRF-TOKEN': $('#token').val()},

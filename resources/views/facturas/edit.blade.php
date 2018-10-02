@@ -3,7 +3,7 @@
 <div id="content">
     <div class="container-custom">
 
-        {!! Form::model($Factura, ['method' => 'PATCH', 'action' => ['FacturasController@update', $factura->id], 'id' => 'FacturaUpdateForm']) !!}
+        {!! Form::model($factura, ['method' => 'PATCH', 'action' => ['FacturasController@update', $factura->id], 'id' => 'FacturaUpdateForm']) !!}
 
         <div class="row">
             <div class="col-sm-12">
@@ -22,8 +22,11 @@
 					{!! Form::label("serie_id","Serie:") !!}
 					<select class="selectpicker" id='serie_id' name="serie_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
 						@foreach ($series as $serie)
+							@if ( $serie->id == $factura->serie_id)
+								<option value="{{$serie->id}}" selected>{{ $serie->serie}}</option>
+							@else
 							@if($serie->documento_id == 1)
-								<option value="{{$serie->id}}">{{ $serie->serie}}</option>
+								<option value="{{$serie->id}}">{{ $serie->serie}}</option>@endif
 							@endif
 						@endforeach
 					</select>
@@ -45,7 +48,11 @@
 					{!! Form::label("tipo_pago_id","Tipo de Pago:") !!}
 					<select class="selectpicker" id='tipo_pago_id' name="tipo_pago_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
 						@foreach ($pagos as $pago)
-						<option value="{{$pago->id}}">{{ $pago->nombre}}</option>
+						@if ( $pago->id == $factura->tipo_pago_id)
+						<option value="{{$pago->id}}" selected>{{ $pago->tipo_pago}}</option>
+						@else
+						<option value="{{$pago->id}}">{{ $pago->tipo_pago}}</option>
+						@endif
 						@endforeach
 					</select>
 				</div>
@@ -53,12 +60,9 @@
 			<br>
 			<div class="row">
 				<div class="col-sm-4">
-					{!! Form::label("voucher_id","Voucher:") !!}
-					<select class="selectpicker" id='voucher_id' name="voucher_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
-						@foreach ($vouchers as $voucher)
-						<option value="{{$voucher->id}}">{{ $voucher->numero}}</option>
-						@endforeach
-					</select>
+						{!! Form::label("voucher","Numero Voucher:") !!}
+						{!! Form::text( "voucher" , null , ['class' => 'form-control' , 'placeholder' => 'Numero Voucher' ]) !!}
+	
 				</div>
 				
 			</div>
@@ -75,5 +79,5 @@
 
 @endsection
 @section('scripts')
-{!! HTML::script('/js/factura/edit.js') !!}
+{!! HTML::script('/js/facturas/edit.js') !!}
 @endsection
