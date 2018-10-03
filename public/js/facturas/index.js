@@ -87,6 +87,7 @@ var factura_table = $('#facturas-table').DataTable({
             return CustomDatatableRenders.fitTextHTML(data); },
     }, 
 
+    
      {
         "title": "Acciones",
         "orderable": false,

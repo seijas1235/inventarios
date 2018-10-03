@@ -40,6 +40,7 @@
 					{!! Form::text( "fecha" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha:' ]) !!}
 				</div>
 				
+				
 				<div class="col-sm-4">
 					{!! Form::label("total","Total:") !!}
 					{!! Form::text( "total" , null , ['class' => 'form-control' , 'placeholder' => 'Total' ]) !!}

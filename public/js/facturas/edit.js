@@ -15,6 +15,7 @@ $('#fecha').datetimepicker({
 });
 
 
+
 var validator = $("#FacturaForm").validate({
 	ignore: [],
 	onkeyup:false,

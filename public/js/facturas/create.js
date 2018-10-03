@@ -61,6 +61,7 @@ $("#ButtonFactura").click(function(event) {
 	}
 });
 
+
 function saveContact(button) {
 	$("#ButtonFactura").attr('disabled', 'disabled');
 	var l = Ladda.create(document.querySelector("#ButtonFactura"));

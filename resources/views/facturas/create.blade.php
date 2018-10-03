@@ -49,15 +49,17 @@
 					</select>
 				</div>
 				
-					<div class="col-sm-4">
-						{!! Form::label("voucher","Numero de Voucher:") !!}
-						{!! Form::text( "voucher" , null , ['class' => 'form-control' , 'placeholder' => 'Numero de voucher' ]) !!}
-					</div>
-			
-
 			</div>
 			<br>
-			
+			<div class="row">
+				<div class="col-4"></div>				
+				<div class="col-sm-4">
+					{!! Form::label("voucher","Numero de Voucher:") !!}
+					{!! Form::text( "voucher" , null , ['class' => 'form-control' , 'placeholder' => 'Numero de voucher' ]) !!}
+				</div>
+		
+
+			</div>
 			</div>
 			<br>
 			<div class="text-right m-t-15">
