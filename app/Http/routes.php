@@ -47,12 +47,12 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get( '/venta/getJson' , 'VentasController@getJson');
 		Route::get( '/venta/new' , 'VentasController@create');
 		Route::post( '/venta/new' , 'VentasController@addDetalle');
-		Route::get('/venta/get/', 'ProductoController@getInfo');
-		Route::get('/venta/getpartida/', 'ProductoController@getInfoPartida');
+		Route::get('/venta/get/', 'ProductosController@getInfo');
+		Route::get('/venta/getpartida/', 'ProductosController@getInfoPartida');
 		Route::get( '/venta/save/' , 'VentasController@save');
 		Route::post( '/venta-detalle/{venta_maestro}' , 'VentasController@saveDetalle');
 		Route::delete( '/venta/destroy/{venta_maestro}' , 'VentasController@destroy');
-		Route::get('/existencia/getJson', 'ProductoController@getJsonExistencia');
+		Route::get('/existencia/getJson', 'ProductosController@getJsonExistencia');
 		Route::get('/pdf_ccdetalle', 'PdfController@pdf_ccdetalle');
 		Route::get('/pdf_ccresumen', 'PdfController@pdf_ccresumen');
 		Route::post('/cortecaja', 'VentasController@makeCorte');
