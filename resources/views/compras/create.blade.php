@@ -37,11 +37,10 @@
 				<h1> Buscar Producto </h1>
 				<div class="row">
 				   <div class="col-lg-4">
-					  {{ Form::open(array('onsubmit' => 'return false', 'id' => 'DetalleForm')) }}
 						 {{ Form::label ('codigo_barra', 'Codigo de Barra') }}
-						 {{ Form::text ('codigo_barra', '') }}
-						 {!! Form::button('Buscar', ['class' => 'pull-right btn btn-success', 'onclick' => 'buscarProducto()']) !!}
-					  {{ Form::close() }}
+						 {!! Form::text( "codigo_barra" , null , ['class' => 'form-control' , 'placeholder' => 'Dirección', 'id'=>'codigo_barra' ]) !!}
+						 <a href="#" id="BtnEnviar">Aceptar</a> 
+						 <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
 				   </div>
 				   <div id="respuesta" class="col-lg-5">
 				   </div>

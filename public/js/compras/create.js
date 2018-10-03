@@ -103,24 +103,16 @@ function saveContact(button) {
 	});
 }
 
-/*function buscarProducto(button){
-	$("#Buscar").attr('disabled', 'disabled');
-	let me=this;
-	var url='/compras/buscar?filtro='+ me.codigo_barra;
-
-	axios.get(url).then(function(response){
-		var respuesta = response.data;
-		me.arrayProducto = respuesta.productos;
-	})
-}*/
-
-
-function buscarProducto() {
+$("#BtnEnviar").click(function (e) {
+	e.preventDefault();
+	var codigo_barra=$('#codigo_barra').val();
 	$.ajax({
 		type: "GET",
-		async: false,
+		headers: {'X-CSRF-TOKEN': $('#token').val()},
 		url: "/compras/buscar",
-		data: "codigo_barra=",
+		data: {
+			codigo_barra:codigo_barra
+		},
 		dataType: "json",
 		beforeSend: function() {
 			$("#respuesta").html('Buscando producto...');
@@ -128,18 +120,19 @@ function buscarProducto() {
 		 error: function() {
 			$("#respuesta").html('<div> Ha surgido un error. </div>');
 		 },
-		success: function(respuesta) {
-			if (respuesta) {
+		success: function(data) {
+			if (data) {
 				var html = '<div>';
 				html += '<ul>';
-				html += '<li> Codigo de Barra: ' + respuesta.codigo_barra + ' </li>';
-				html += '<li> Nombre: ' + respuesta.nombre + ' </li>';
+				html += '<li> Codigo de Barra: ' + data.productos['nombre'] + ' </li>';
+				html += '<li> Nombre: ' + data + ' </li>';
 				html += '</ul>';
 				html += '</div>';
 				$("#respuesta").html(html);
 			 } else {
 				$("#respuesta").html('<div> No hay ningún empleado con ese legajo. </div>');
 			 }
+
 		  }
 	   });
-}
+});
