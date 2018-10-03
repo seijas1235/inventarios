@@ -14,6 +14,20 @@ class CreateTableVentasDetalle extends Migration
     {
         Schema::create('ventas_detalle', function (Blueprint $table) {
             $table->increments('id');
+            
+            $table->integer('venta_id')->unsigned()->nullable();
+            $table->foreign('venta_id')->references('id')->on('ventas_maestro')->onDelete('cascade');
+
+            $table->integer('producto_id')->unsigned()->nullable();
+            $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');
+            
+            $table->integer('servicio_id')->unsigned()->nullable();
+            $table->foreign('servicio_id')->references('id')->on('servicios')->onDelete('cascade');
+
+            $table->integer('cantidad');
+            $table->float('precio_compra');
+            $table->float('precio_venta');
+            $table->float('subtotal');
             $table->timestamps();
         });
     }

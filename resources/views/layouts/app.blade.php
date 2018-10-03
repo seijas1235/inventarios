@@ -184,6 +184,7 @@
 					<li><a href="/factura"><i class="icon icon-th"></i> <span>Facturas</span></a></li>
 					<li><a href="/series"><i class="icon icon-th"></i> <span>Series</span></a></li>
 					<li><a href="/compras"><i class="icon icon-th"></i> <span>Compras</span></a></li>
+					<li><a href="/ventas"><i class="icon icon-th"></i> <span>Ventas</span></a></li>
 					@endif
 				</ul>
 			</li>
