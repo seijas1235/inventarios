@@ -202,4 +202,32 @@ class ProductosController extends Controller
 
 		return Response::json( $api_Result );
 	}
+
+	public function getInfo(Request $request)
+	{
+		$producto = $request["data"];
+
+		if ($producto == "")
+		{
+			$result = "";
+			return Response::json( $result);
+		}
+		else {
+			$query = "Select MP.id as producto_id, if(MP.fecha_ingreso is null,0,MP.fecha_ingreso) as fecha, PR.id as prod_id,
+			PR.nombre, if(MP.existencias is null,0,MP.existencias) as existencias, 
+			if(MP.precio_compra is null,0,MP.precio_compra) as precio_compra, PR.codigo_barra,
+				if(MP.precio_venta is null,0,MP.precio_venta) as precio_venta
+					from productos PR
+				left join movimientos_productos MP on PR.id=MP.producto_id and (MP.existencias>0)
+				having PR.codigo_barra = '".$producto."'
+				order by MP.fecha_ingreso DESC limit 1";
+				$result = DB::select($query);
+				return Response::json( $result);
+			}
+
+		}
+
+
+
+
 }
