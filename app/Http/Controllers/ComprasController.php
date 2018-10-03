@@ -223,49 +223,58 @@ class ComprasController extends Controller
         return Response::json( $api_Result );
     }
 
-    public function getBuscar()
-    {
-        $productos=DB::table('productos')->get();
-
-        $resultado =Input::get('codigo_barra');
-        
-        return Response::json( array(
-            'resultado' => $resultado, 
-            'sms' => " Parametro AJAX y JSON", 
-            'productos' => $productos, 
-            ));
-    }
-
-    public function buscarProducto(Request $request)
-    {
-        if(!$request->ajax())
-        {
-            return redirect('/');
-        }
-
-        else{
-            $filtro = $request->filtro;
-            $productos = Producto::where('codigo_barra', '=', $filtro)
-            ->select('id','nombre')->orderBy('nombre','asc')->take(1)->get();
-
-            return['productos' => $productos];
-        }
-        
-    }
-
-    public function dpiDisponible()
+    public function getJsonDetalle(Request $params, $detalle)
 	{
-		$dato = Input::get("emp_cui");
-		$query = Empleado::where("emp_cui",$dato)->get();
-		$contador = count($query);
-		if ($contador == 0)
-		{
-			return 'false';
+		$api_Result = array();
+		// Create a mapping of our query fields in the order that will be shown in datatable.
+		$columnsMapping = array("ingresos_detalle.ingreso_maestro_id", "productos.codigobarra", "productos.prod_nombre", "ingresos_detalle.existencias", "ingresos_detalle.precio_compra", "ingresos_detalle.precio_venta");
+
+		// Initialize query (get all)
+
+
+		$api_logsQueriable = DB::table('ingresos_detalle');
+		$api_Result['recordsTotal'] = $api_logsQueriable->count();
+
+		$query = 'SELECT ingresos_detalle.id, ingresos_detalle.ingreso_maestro_id, productos.codigobarra, productos.prod_nombre, ingresos_detalle.existencias, ingresos_detalle.precio_compra, ingresos_detalle.precio_venta FROM ingresos_detalle INNER JOIN productos ON ingresos_detalle.producto_id=productos.id WHERE ingresos_detalle.ingreso_maestro_id ='.$detalle.' ';
+
+		$where = "";
+
+		if (isset($params->search['value']) && !empty($params->search['value'])){
+
+			foreach ($columnsMapping as $column) {
+				if (strlen($where) == 0) {
+					$where .=" and (".$column." like  '%".$params->search['value']."%' ";
+				} else {
+					$where .=" or ".$column." like  '%".$params->search['value']."%' ";
+				}
+
+			}
+			$where .= ') ';
 		}
-		else
-		{
-			return 'true';
+
+		$query = $query . $where;
+
+		// Sorting
+		$sort = "";
+		foreach ($params->order as $order) {
+			if (strlen($sort) == 0) {
+				$sort .= ' order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
+			} else {
+				$sort .= ', '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
+			}
 		}
+
+		$result = DB::select($query);
+		$api_Result['recordsFiltered'] = count($result);
+
+		$filter = " limit ".$params->length." offset ".$params->start."";
+
+		$query .= $sort . $filter;
+
+		$result = DB::select($query);
+		$api_Result['data'] = $result;
+
+		return Response::json( $api_Result );
 	}
 
 }
