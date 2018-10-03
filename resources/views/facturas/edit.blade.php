@@ -12,38 +12,24 @@
         </div>
         <br>
         <div class="row">
+				<div class="col-sm-4">
+						{!! Form::label("serie_id","Serie:") !!}
+						<select class="selectpicker" id='serie_id' name="serie_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+							@foreach ($series as $serie)
+								@if ( $serie->id == $factura->serie_id)
+									<option value="{{$serie->id}}" selected>{{ $serie->serie}}</option>
+								@else
+								@if($serie->documento_id == 1)
+									<option value="{{$serie->id}}">{{ $serie->serie}}</option>@endif
+								@endif
+							@endforeach
+						</select>
+					</div>		
+				
 				<div class="col-sm-4 form-group ">
 					{!! Form::label("numero","Numero:") !!}
 					{!! Form::text( "numero" , null , ['class' => 'form-control' , 'placeholder' => 'Numero:' ]) !!}
 					
-				</div>
-				<div class="col-sm-4"></div>
-				<div class="col-sm-4">
-					{!! Form::label("serie_id","Serie:") !!}
-					<select class="selectpicker" id='serie_id' name="serie_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
-						@foreach ($series as $serie)
-							@if ( $serie->id == $factura->serie_id)
-								<option value="{{$serie->id}}" selected>{{ $serie->serie}}</option>
-							@else
-							@if($serie->documento_id == 1)
-								<option value="{{$serie->id}}">{{ $serie->serie}}</option>@endif
-							@endif
-						@endforeach
-					</select>
-				</div>		
-			
-			</div>
-			<br>
-			<div class="row">
-				<div class="col-sm-4">
-					{!! Form::label("fecha","Fecha:") !!}
-					{!! Form::text( "fecha" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha:' ]) !!}
-				</div>
-				
-				
-				<div class="col-sm-4">
-					{!! Form::label("total","Total:") !!}
-					{!! Form::text( "total" , null , ['class' => 'form-control' , 'placeholder' => 'Total' ]) !!}
 				</div>
 				<div class="col-sm-4">
 					{!! Form::label("tipo_pago_id","Tipo de Pago:") !!}
@@ -57,9 +43,20 @@
 						@endforeach
 					</select>
 				</div>
-			</div>
+		</div>
 			<br>
 			<div class="row">
+				<div class="col-sm-4">
+					{!! Form::label("fecha","Fecha:") !!}
+					{!! Form::text( "fecha" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha:' ]) !!}
+				</div>
+				
+				
+				<div class="col-sm-4">
+					{!! Form::label("total","Total:") !!}
+					{!! Form::text( "total" , null , ['class' => 'form-control' , 'placeholder' => 'Total' ]) !!}
+				</div>
+	
 				<div class="col-sm-4">
 						{!! Form::label("voucher","Numero Voucher:") !!}
 						{!! Form::text( "voucher" , null , ['class' => 'form-control' , 'placeholder' => 'Numero Voucher' ]) !!}

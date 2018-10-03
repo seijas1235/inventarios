@@ -9,11 +9,9 @@ $(document).ready(function() {
 	});
 });
 $('#fecha').datetimepicker({
-    format: 'YYYY-MM-DD',
-    showClear: true,
-    showClose: true
-});
+    format: 'DD/MM/YYYY',
 
+});
 
 
 var validator = $("#FacturaForm").validate({
@@ -30,6 +28,12 @@ var validator = $("#FacturaForm").validate({
 		fecha:{
 			required: true
 		},
+		numero:{
+			required: true
+		},
+		tipo_pago_id:{
+			required: true
+		},
 	
 
 	},
@@ -44,9 +48,13 @@ var validator = $("#FacturaForm").validate({
 		fecha:{
 			required : "Debe Seleccionar Fecha"
 		},
+		numero:{
+			required: "Debe ingresar el numero de factura"
+		},
+		tipo_pago_id:{
+			required: "Seleccione el tipo de pago"
+		},
 	
 
 	}
 });
-
-

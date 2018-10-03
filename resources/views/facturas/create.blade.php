@@ -12,12 +12,6 @@
 			</div>
 			<br>
 			<div class="row">
-				<div class="col-sm-4 form-group ">
-					{!! Form::label("numero","Numero:") !!}
-					{!! Form::text( "numero" , null , ['class' => 'form-control' , 'placeholder' => 'Numero:' ]) !!}
-					
-				</div>
-				<div class="col-sm-4"></div>
 				<div class="col-sm-4">
 					{!! Form::label("serie_id","Serie:") !!}
 					<select class="selectpicker" id='serie_id' name="serie_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
@@ -27,8 +21,20 @@
 							@endif
 						@endforeach
 					</select>
+				</div>
+				<div class="col-sm-4 form-group ">
+					{!! Form::label("numero","Numero:") !!}
+					{!! Form::text( "numero" , null , ['class' => 'form-control' , 'placeholder' => 'Numero:' ]) !!}
+					
 				</div>		
-			
+				<div class="col-sm-4">
+					{!! Form::label("tipo_pago_id","Tipo de Pago:") !!}
+					<select class="selectpicker" id='tipo_pago_id' name="tipo_pago_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+						@foreach ($pagos as $pago)
+						<option value="{{$pago->id}}">{{ $pago->tipo_pago}}</option>
+						@endforeach
+					</select>
+				</div>
 			</div>
 			<br>
 			<div class="row">
@@ -40,24 +46,16 @@
 					{!! Form::label("total","Total:") !!}
 					{!! Form::text( "total" , null , ['class' => 'form-control' , 'placeholder' => 'Total' ]) !!}
 				</div>
-				<div class="col-sm-4">
-					{!! Form::label("tipo_pago_id","Tipo de Pago:") !!}
-					<select class="selectpicker" id='tipo_pago_id' name="tipo_pago_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
-						@foreach ($pagos as $pago)
-						<option value="{{$pago->id}}">{{ $pago->tipo_pago}}</option>
-						@endforeach
-					</select>
+				<div class="row">			
+					<div class="col-sm-4">
+						{!! Form::label("voucher","Numero de Voucher:") !!}
+						{!! Form::text( "voucher" , null , ['class' => 'form-control' , 'placeholder' => 'Numero de voucher' ]) !!}
 				</div>
+			
 				
 			</div>
 			<br>
-			<div class="row">
-				<div class="col-4"></div>				
-				<div class="col-sm-4">
-					{!! Form::label("voucher","Numero de Voucher:") !!}
-					{!! Form::text( "voucher" , null , ['class' => 'form-control' , 'placeholder' => 'Numero de voucher' ]) !!}
-				</div>
-		
+			
 
 			</div>
 			</div>
