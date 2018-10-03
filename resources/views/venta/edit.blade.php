@@ -14,12 +14,12 @@
                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                         <label class="col-md-4 control-label">Tipo de Venta</label>
                         <div class="col-md-6">
-                            <select class="form-control" id='tipo_venta_id' name="tipo_venta_id" value="{{ old('role')}}">
+                            <select class="form-control" id='tipo_pago_id' name="tipo_pago_id" value="{{ old('role')}}">
                                 @foreach ($tipo_pagos as $tipo_pago)
                                 <option value="{{$tipo_pago->id}}">{{ $tipo_pago->tipo_pago}}</option>;
                                 @endforeach
                             </select>
-                            <span id="tipo_venta_id-error" class="help-block hidden">
+                            <span id="tipo_pago_id-error" class="help-block hidden">
                                 <strong></strong>
                             </span>
                             @if ($errors->has('name'))

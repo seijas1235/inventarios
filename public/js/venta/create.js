@@ -24,8 +24,8 @@ $(document).on("keypress", '#ButtonDetalle', function (e) {
 });
 
 
-$("input[name='codigobarra']").focusout(function() {
-    var codigo = $("input[name='codigobarra'] ").val();
+$("input[name='codigo_barra']").focusout(function() {
+    var codigo = $("input[name='codigo_barra'] ").val();
     /*var url = "../pos_v2/venta/get/?data=" + codigo;*/
     var url = "/../venta/get/?data=" + codigo;
         $.getJSON( url , function ( result ) {
@@ -37,7 +37,7 @@ $("input[name='codigobarra']").focusout(function() {
                 $("#total_existencia").text("El producto no existe, está agotado, en existencia mínima o desactivado");
             }
             else {
-                $("input[name='descripcion'] ").val(result[0].prod_nombre);
+                $("input[name='descripcion'] ").val(result[0].nombre);
                 $("input[name='precio_venta'] ").val(result[0].precio_venta);
                 $("input[name='precio_compra'] ").val(result[0].precio_compra);
                 $("input[name='existencias'] ").val(result[0].existencias);
@@ -78,8 +78,8 @@ $('body').on('click', '#addDetalle', function(e)
     if($("input[name='venta_maestro']").val() == "") 
     {
         var total_venta = $("input[name='total'] ").val();
-        var tipo_venta_id = $("#tipo_venta_id").val();
-        var formData = {total_venta: total_venta, tipo_venta_id : tipo_venta_id} 
+        var tipo_pago_id = $("#tipo_pago_id").val();
+        var formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id} 
         $.ajax({
             type: "GET",
             /*url: "../pos_v2/venta/save/",*/
@@ -113,8 +113,8 @@ $('body').on('click', '#addDetalle', function(e)
             detalle.subtotal_venta = $("input[name='subtotal'] ").val();
             detalle.producto_id  = $("input[name='producto_id'] ").val();
             detalle.movimiento_id  = $("input[name='movimiento_id'] ").val();
-            detalle.codigoballa = $("input[name='codigobarra'] ").val();
-            detalle.prod_nombre = $("input[name='descripcion'] ").val();
+            detalle.codigoballa = $("input[name='codigo_barra'] ").val();
+            detalle.nombre = $("input[name='descripcion'] ").val();
             detalle.precio_compra = $("input[name='precio_compra'] ").val();
             var total2 = $("input[name='total'] ").val();
             if (total2 != "") {
@@ -130,7 +130,7 @@ $('body').on('click', '#addDetalle', function(e)
 
             dbs.detalles.push(detalle);
             $("input[name='producto_id'] ").val("");
-            $("input[name='codigobarra'] ").val("");
+            $("input[name='codigo_barra'] ").val("");
             $("input[name='descripcion'] ").val("");
             $("input[name='precio_venta'] ").val("");
             $("input[name='precio_compra'] ").val("");
@@ -255,9 +255,9 @@ $('body').on('click', '#addDetalle', function(e)
 
     function saveDetalle(button) {
         var total_venta = $("input[name='total'] ").val();
-        var tipo_venta_id = $("#tipo_venta_id").val();
+        var tipo_pago_id = $("#tipo_pago_id").val();
         var venta_maestro = $("input[name='venta_maestro'] ").val();
-        var formData = {total_venta: total_venta, tipo_venta_id : tipo_venta_id} 
+        var formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id} 
         $.ajax({
             type: "PATCH",
             /*url: "../pos_v2/venta/update-total/"+ venta_maestro+ "/",*/
@@ -298,7 +298,7 @@ $('body').on('click', '#addDetalle', function(e)
             controller: db,
             fields: [
                 // { title: "Id", name: "id", type:"number", index:"id", filtering:false, editing:false, inserting:false},
-                { title: "Producto", name: "prod_nombre", type: "text"},
+                { title: "Producto", name: "nombre", type: "text"},
                 { title: "Código", name: "producto_id", type: "text", visible:false},
                 { title: "Precio2", name: "precio_compra", type: "text", visible:false},
                 { title: "venta_detalle", name: "venta_detalle", type: "text", visible:false},

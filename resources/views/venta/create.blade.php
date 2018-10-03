@@ -3,8 +3,8 @@
 <div id="content">
 	<div class="row">
 		<div class="col-sm-6">
-			{!! Form::label("tipo_venta","Tipo Venta:") !!}
-			<select class="form-control" id='tipo_venta_id' name="tipo_venta_id" value="{{ old('role')}}">
+			{!! Form::label("tipo_pago","Tipo Pago:") !!}
+			<select class="form-control" id='tipo_pago_id' name="tipo_pago_id" value="{{ old('role')}}">
 				@foreach ($tipo_pagos as $tipo_pago)
 				<option value="{{$tipo_pago->id}}">{{ $tipo_pago->tipo_pago}}</option>;
 				@endforeach
@@ -15,7 +15,7 @@
 		</div>
 		<div class="col-sm-3">
 			{!! Form::label("tienda","Tienda:") !!}
-			{!! Form::text( "tienda" , "Market Telecután", ['class' => 'form-control' , 'disabled' ]) !!}
+			{!! Form::text( "tienda" , "Car Wash Ankara", ['class' => 'form-control' , 'disabled' ]) !!}
 		</div>
 		<div class="col-sm-3">
 			{!! Form::label("estado","Estado:") !!}
@@ -26,7 +26,7 @@
 	<div class="row">
 		<div class="col-sm-6">
 			{!! Form::label("codigo","Código de Barras:") !!}
-			{!! Form::text( "codigobarra" , null , ['class' => 'form-control' , 'placeholder' => 'Código de Barras' ]) !!}
+			{!! Form::text( "codigo_barra" , null , ['class' => 'form-control' , 'placeholder' => 'Código de Barras' ]) !!}
 		</div>
 		<div class="col-sm-3">
 			{!! Form::label("cantidad","Cantidad:") !!}

@@ -384,7 +384,7 @@ class VentasController extends Controller
 	{
 		$api_Result = array();
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("id", "prod_nombre", "cantidad", "subtotal");
+		$columnsMapping = array("id", "nombre", "cantidad", "subtotal");
 
 		// Initialize query (get all)
 
@@ -392,7 +392,7 @@ class VentasController extends Controller
 		$api_logsQueriable = DB::table('ventas_detalle');
 		$api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-		$query = 'Select venta_id As No_Venta, TRUNCATE(subtotal,4) as subtotal, ventas_detalle.id, cantidad, prod_nombre from ventas_detalle  inner join productos on ventas_detalle.producto_id=productos.id where venta_id='.$detalle.' ';
+		$query = 'Select venta_id As No_Venta, TRUNCATE(subtotal,4) as subtotal, ventas_detalle.id, cantidad, nombre from ventas_detalle  inner join productos on ventas_detalle.producto_id=productos.id where venta_id='.$detalle.' ';
 
 		$where = "";
 

@@ -33,8 +33,8 @@ var venta_table = $('#venta-table').DataTable({
     },
     "order": [0, 'desc'],
     "columns": [ {
-        "title": "Tipo de Venta",
-        "data": "tipo_venta",
+        "title": "Tipo de Pago",
+        "data": "tipo_pago",
         "width" : "25%",
         "responsivePriority": 1,
         "render": function( data, type, full, meta ) {

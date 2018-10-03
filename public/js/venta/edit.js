@@ -34,9 +34,9 @@ $('body').on('click', 'a.edit-venta', function(e) {
 	var url= "tipoventa/"+id;
 	$.getJSON( url , function ( data ) {
 		$('#edit-venta-form').data("id", id);
-		var tipo_venta_id = data.tipo_venta_id;
-		$('#tipo_venta_id option').each(function(option) {
-			if (this.value == tipo_venta_id) {
+		var tipo_pago_id = data.tipo_pago_id;
+		$('#tipo_pago_id option').each(function(option) {
+			if (this.value == tipo_pago_id) {
 				$(this).parent().val( this.value );
 				return false;
 			}
@@ -58,10 +58,10 @@ $("#edit-venta-form").submit(function(e) {
 	var id = $(this).data("id");
 	/*var url = "/pos_v2/venta/" + id + "/update";*/
 	var url = "venta/" + id + "/update";
-	var tipo_venta_id = $("#edit-venta-form #tipo_venta_id").val();
+	var tipo_pago_id = $("#edit-venta-form #tipo_pago_id").val();
 
 	data = {
-		tipo_venta_id: tipo_venta_id
+		tipo_pago_id: tipo_pago_id
 	};
 	$(".user-created-message").addClass("hidden");
 	$.ajax({
