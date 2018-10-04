@@ -42,6 +42,28 @@ Route::group(['middleware' => ['web']], function ()
 
 	Route::group(array('middleware' => 'auth'), function()
 	{
+		/* ========== RUTAS PARA LA GESTIÓN DE VENTAS =========== */
+		Route::get( '/ventas' , 'VentasController@index');
+		Route::get( '/venta/getJson' , 'VentasController@getJson');
+		Route::get( '/venta/new' , 'VentasController@create');
+		Route::post( '/venta/new' , 'VentasController@addDetalle');
+		Route::get('/venta/get/', 'ProductosController@getInfo');
+		Route::get('/venta/getpartida/', 'ProductosController@getInfoPartida');
+		Route::get( '/venta/save/' , 'VentasController@save');
+		Route::post( '/venta-detalle/{venta_maestro}' , 'VentasController@saveDetalle');
+		Route::delete( '/venta/destroy/{venta_maestro}' , 'VentasController@destroy');
+		Route::get('/existencia/getJson', 'ProductosController@getJsonExistencia');
+		Route::get('/pdf_ccdetalle', 'PdfController@pdf_ccdetalle');
+		Route::get('/pdf_ccresumen', 'PdfController@pdf_ccresumen');
+		Route::post('/cortecaja', 'VentasController@makeCorte');
+		Route::get('/tipoventa/{venta_maestro}', 'VentasController@getTipoPago');
+		Route::get('/ventadetalle/{venta_maestro}', 'VentasController@show');
+		Route::patch('/venta/{venta_maestro}/update' , 'VentasController@update');
+		Route::patch('/venta/update-total/{venta_maestro}/' , 'VentasController@updateTotal');
+		Route::get('/ventadetalle/{venta_maestro}/getJson' , 'VentasController@getJsonDetalle');
+		Route::delete('/ventadetalle/destroy/{venta_detalle}', 'VentasController@destroyDetalle');
+		Route::delete('/ventadetalle2/destroy/{venta_detalle}/{movimiento_producto}', 'VentaController@destroyDetalle2');
+
 
 		Route::get('/tipos_cliente', 'TiposClienteController@index');
 		Route::get('/tipos_cliente/getJson/' , 'TiposClienteController@getJson');
@@ -452,6 +474,9 @@ Route::group(array('middleware' => 'acl' , 'is' => 'superadmin|administrator|ope
 
 Route::group(array('middleware' => 'acl' , 'is' => 'superadmin|administrator|finanzas' ), function()
 {
+
+
+
 
 
 	Route::get( '/series' , 'SeriesController@index');
