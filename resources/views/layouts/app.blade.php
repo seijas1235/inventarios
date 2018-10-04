@@ -8,12 +8,12 @@
 
 	<title>SFI</title>
 
-{{--<script
+<script
   src="https://code.jquery.com/jquery-3.3.1.js"
   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous"></script>--}}
+  crossorigin="anonymous"></script>
 
-	<script src="{{ URL::to("js/jquery.min.js")  }}"></script>
+	{{--<script src="{{ URL::to("js/jquery.min.js")  }}"></script>--}}
 	<script src="{{ URL::to("js/bootstrap.min.js")  }}"></script>
 	<script src="{{ URL::to("js/jquery.validate.js")  }}"></script>
 	<script src="{{ URL::to("js/moment.min.js")  }}"></script>
@@ -39,7 +39,6 @@
 	<script src="{{ URL::to("js/jszip.min.js")  }}"></script>
 	<script src="{{ URL::to("js/bootstrap-toggle.min.js")  }}"></script>
 
-	@yield('scripts')
 	
 
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -299,7 +298,7 @@
 	<script src="{{ URL::to("/js/users/update.js")  }}"></script>
 	<script src="{{ URL::to("/js/users/update-information.js")  }}"></script>
 
-	{{--@yield('scripts') --}}
+	@yield('scripts')
 
 </body>
 </html>
