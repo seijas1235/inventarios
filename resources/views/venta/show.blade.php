@@ -12,7 +12,7 @@
     </div>
     @endif
     <div id="detalle" style="display: none">{{$venta_maestro->id}}</div>
-    <div class="panel panel-default">
+      <div class="panel panel-default">
         <div class="panel panel-heading">
             <div class="row">
                 <div class="col-sm-3 title-line-height"></div>

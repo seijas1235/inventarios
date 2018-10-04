@@ -24,6 +24,6 @@ class SeedEstadoVentaTable extends Migration
      */
     public function down()
     {
-        DB::table('estado_ventas')->delete();
+        DB::table('estado_venta')->delete();
     }
 }
