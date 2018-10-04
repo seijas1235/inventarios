@@ -18,7 +18,7 @@ class CreateTableDetallesCompras extends Migration
             $table->unsignedInteger('compra_id');
             $table->unsignedInteger('maquinaria_equipo_id');
             $table->float('cantidad');
-            $table->float('precio_costo');
+            $table->float('precio_compra');
             $table->float('subtotal');
 
             $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');

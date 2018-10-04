@@ -107,7 +107,7 @@ class ProductosController extends Controller
 	{
 		
 		$id= $producto->id;
-		$producto->nombre = $data["codigo_barra"];
+		$producto->codigo_barra = $data["codigo_barra"];
         $producto->nombre = $data["nombre"];
 		$producto->minimo = $data["minimo"];
 		$producto->marca_id = $data["marca_id"];

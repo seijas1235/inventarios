@@ -134,7 +134,7 @@ var venta_detalle = $('#ventadetalle-table').DataTable({
         },
     }, {
         "title": "Producto",
-        "data": "prod_nombre",
+        "data": "nombre",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data);

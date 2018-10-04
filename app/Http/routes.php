@@ -241,7 +241,9 @@ Route::group(['middleware' => ['web']], function ()
         Route::get( '/detallescompras/{compra}/getJson' , 'comprasController@getJsonDetalle' );
 		Route::patch( '/detallescompras/{compra}/update' , 'comprasController@update' );
 		Route::delete( '/detallescompras/destroy/{detallecompra}' , 'comprasController@destroyDetalle' );
-        Route::get('/detallescompras/name/{detallecompra}', 'comprasController@getDetalle');
+		Route::get('/detallescompras/name/{detallecompra}', 'comprasController@getDetalle');
+		
+		Route::get('/prueba', 'comprasController@prueba');
 
 
 		Route::get( '/vales2/get/' , 'ValesController@getJson');

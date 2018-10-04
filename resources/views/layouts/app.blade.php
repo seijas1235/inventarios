@@ -8,6 +8,39 @@
 
 	<title>SFI</title>
 
+	<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+
+
+	{{--<script src="{{ URL::to("js/jquery.min.js")  }}"></script>--}}
+	<script src="{{ URL::to("js/bootstrap.min.js")  }}"></script>
+	<script src="{{ URL::to("js/jquery.validate.js")  }}"></script>
+	<script src="{{ URL::to("js/moment.min.js")  }}"></script>
+	<script src="{{ URL::to("js/bootstrap-select.min.js")  }}"></script>
+	<script src="{{ URL::to("js/bootstrap-datetimepicker.min.js")  }}"></script>
+
+	<!--    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script> -->
+
+	<script src="{{ URL::to("js/datatable/initialize.js")  }}"></script>
+	<script src="{{ URL::to("js/datatable/custom_render.js")  }}"></script>
+	<script src="{{ URL::to("js/datatable/jquery.dataTables.min.js")  }}"></script>
+	<script src="{{ URL::to("js/datatable/dataTables.bootstrap.min.js")  }}"></script>
+	<script src="{{ URL::to("js/datatable/dataTables.responsive.min.js")  }}"></script>
+    <script src="{{ URL::to("js/datatable/responsive.bootstrap.min.js")  }}"></script>
+    {!! HTML::script('/js/jsgrid.min.js') !!}
+	{!! HTML::style('/css/jsgrid.css') !!}
+    {!! HTML::style('/css/theme.css') !!}
+    
+    <script src="{{ URL::to("js/dataTables.buttons.min.js")  }}"></script>
+	<script src="{{ URL::to("js/buttons.html5.min.js")  }}"></script>
+	<script src="{{ URL::to("js/pdfmake.min.js")  }}"></script>
+	<script src="{{ URL::to("js/vfs_fonts.js")  }}"></script>
+	<script src="{{ URL::to("js/jszip.min.js")  }}"></script>
+	<script src="{{ URL::to("js/bootstrap-toggle.min.js")  }}"></script>
+	
+
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
 	<link rel="stylesheet" href="/css/fullcalendar.css">
@@ -27,26 +60,15 @@
 	<link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">
 	<link rel="stylesheet" href="/css/buttons.dataTables.min.css">
 	<link rel="stylesheet" href="/css/bootstrap-toggle.min.css">
-	<link rel="stylesheet" href="/css/jsgrid.css">
 	<link rel="stylesheet" href="/css/theme.css">
 	<link rel="stylesheet" href="/css/ladda-themeless.min.css">
 	<link rel="stylesheet" href="/css/style.css">
 
 	<link rel="stylesheet" href="/css/select2.min.css">
 
-	<script src="/js/jquery.min.js"></script> 
-
-	{{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
-
 	<script src="/js/excanvas.min.js"></script> 
-	<script src="/js/moment.min.js"></script> 
-	<script src="/js/bootstrap-datetimepicker.min.js"></script> 
-
 
 	<script src="/js/jquery.ui.custom.js"></script> 
-	<script src="/js/bootstrap.min.js"></script> 
-	<script src="/js/bootstrap-select.min.js"></script> 
-	<script src="/js/bootstrap-toggle.min.js"></script> 
 	<script src="/js/jquery.flot.min.js"></script> 
 	<script src="/js/jquery.flot.resize.min.js"></script> 
 	<script src="/js/jquery.peity.min.js"></script> 
@@ -56,13 +78,10 @@
 	<script src="/js/jquery.gritter.min.js"></script> 
 	<script src="/js/matrix.interface.js"></script> 
 	<script src="/js/matrix.chat.js"></script> 
-	<script src="/js/jquery.validate.js"></script> 
 	<script src="/js/matrix.form_validation.js"></script> 
 	<script src="/js/jquery.wizard.js"></script> 
-	<script src="/js/jquery.uniform.js"></script> 
-	<!--<script src="/js/select2.min.js"></script>--> 
+	<!--<script src="/js/jquery.uniform.js"></script> --> 
 	<script src="/js/matrix.popover.js"></script> 
-	<script src="/js/jquery.dataTables.min.js"></script> 
 	<script src="/js/matrix.tables.js"></script> 
 	<script src="/js/typehead.js"></script> 
 	<script src="/js/box.min.js"></script> 
@@ -75,22 +94,11 @@
 	<script src="{{ URL::to("/js/raphael-2.1.0.min.js")  }}"></script>
 	<script src="{{ URL::to("/js/morris.js")  }}"></script>
 	<script src="{{ URL::to("/js/custom-scripts.js")  }}"></script>
-
-	<script src="/js/dataTables.bootstrap.min.js"></script> 
-	<script src="/js/dataTables.buttons.min.js"></script> 
-	<script src="/js/dataTables.responsive.min.js"></script> 
-	<script src="/js/custom_render.js"></script> 
 	<script src="/js/spin.min.js"></script>
-	<scrsrc="/js/ladda.jquery.min.js"></script> 
+	<script src="/js/ladda.jquery.min.js"></script> 
 	<script src="/js/ladda.min.js"></script> 
 
-	<script src="{{ URL::to("/js/buttons.html5.min.js")  }}"></script>
-	<script src="{{ URL::to("/js/datatable/jszip.min.js")  }}"></script>
-	<script src="{{ URL::to("/js/datatable/pdfmake.min.js")  }}"></script>
-	<script src="{{ URL::to("/js/datatable/vfs_fonts.js")  }}"></script>
 
-
-	<script src="/js/jsgrid.js"></script>
 </head>
 
 <body id="app-layout">
