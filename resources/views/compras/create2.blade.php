@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.app')
 @section('content')
 <div id="content">
 	<div class="container-custom">
@@ -63,8 +63,8 @@
 			<br>
 			<div id="detallecompra-grid">
 
-			</div>
-			<div class="title m-b-md">
+
+				<div class="title m-b-md">
 					Laravel
 				</div>
 				<label for="txtNombre">Nombre</label>
@@ -89,6 +89,7 @@
 				
 					</tbody>
 				</table>
+			</div>
 			<br>
 			<div class="col-sm-4" id="total">
 				<h3>{!! Form::label("total","Total:") !!}</h3>
@@ -109,5 +110,4 @@
 {!! HTML::script('/js/compras/create.js') !!}
 {!! HTML::script('/js/compras/grid.js') !!}
 {!! HTML::script('/js/compras/prueba.js') !!}
-
 @endsection

@@ -31,7 +31,11 @@ class ComprasController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-    }
+	}
+	
+	public function prueba(){
+		return view('prueba');
+	}
 
 
     public function index()

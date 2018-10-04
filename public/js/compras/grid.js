@@ -27,24 +27,23 @@ $(document).on("keypress", '#ButtonCompra', function (e) {
 $("input[name='codigo_barra']").focusout(function() {
     var codigo = $("input[name='codigo_barra'] ").val();
     /*var url = "../pos_v2/venta/get/?data=" + codigo;*/
-    var url = "/productos/get/?data=" + codigo;  
+    var url = "/../productos/get/?data=" + codigo;    
         $.getJSON( url , function ( result ) {
             if (result == 0 ) {
                 $("input[name='nombre'] ").val("");
             }
             else {
-                console.log(result);
-                $("input[name='nombre'] ").val(result[0].prod_nombre);
-                $("input[name='codigo_barra'] ").val(result[0].codigo_barra);
+                $("input[name='nombre'] ").val(result[0].nombre);
+                $("input[name='producto_id'] ").val(result[0].prod_id);
             }
         });
     });
 
 $("input[name='cantidad']").focusout(function() {
     var cantidad = $("input[name='cantidad'] ").val();
-    var precio_costo = $("input[name='precio_costo'] ").val();
+    var precio_compra = $("input[name='precio_compra'] ").val();
 
-    var subtotal = cantidad * precio_costo;
+    var subtotal = cantidad * precio_compra;
     if (cantidad != 0 ) {
         $("input[name='subtotal'] ").val(subtotal);
     }
@@ -57,19 +56,19 @@ $('body').on('click', '#addDetalle', function(e) {
 
     var detalle = new Object();
     var cantidad = $("input[name='cantidad'] ").val();
-    var precio_costo = $("input[name='precio_costo'] ").val();
+    var precio_compra = $("input[name='precio_compra'] ").val();
     var id = $("input[name='producto_id'] ").val(); 
-    var subtotal = cantidad * precio_costo;
+    var subtotal = cantidad * precio_compra;
 
-    if (cantidad != "" && precio_costo != "" && id != "")
+    if (cantidad != "" && precio_compra != "" && id != "")
     {
         $("input[name='subtotal'] ").val(subtotal);
         detalle.cantidad = $("input[name='cantidad'] ").val();
-        detalle.precio_costo = $("input[name='precio_costo'] ").val();
+        detalle.precio_compra = $("input[name='precio_compra'] ").val();
         detalle.subtotal_venta = $("input[name='subtotal'] ").val();
         detalle.producto_id  = $("input[name='producto_id'] ").val();
-        detalle.codigoballa = $("input[name='codigo_barra'] ").val();
-        detalle.prod_nombre = $("input[name='nombre'] ").val();
+        detalle.codigo_barra = $("input[name='codigo_barra'] ").val();
+        detalle.nombre = $("input[name='nombre'] ").val();
         var total2 = $("input[name='total'] ").val();
         if (total2 != "") {
             var total2 =parseFloat(total2);
@@ -86,10 +85,10 @@ $('body').on('click', '#addDetalle', function(e) {
         $("input[name='producto_id'] ").val("");
         $("input[name='codigo_barra'] ").val("");
         $("input[name='nombre'] ").val("");
-        $("input[name='precio_costo'] ").val("");
+        $("input[name='precio_compra'] ").val("");
         $("input[name='cantidad'] ").val([""]);
         var cantidad = $("input[name='cantidad'] ").val();
-        var subtotal = cantidad * precio_costo;
+        var subtotal = cantidad * precio_compra;
         $("input[name='subtotal'] ").val(subtotal);
         $("#detallecompra-grid .jsgrid-search-button").trigger("click");    
     }
@@ -136,14 +135,14 @@ $('body').on('click', '#addDetalle', function(e) {
     db.links = [];
 
     function saveDetalle(button) {
-        var total = $("input[name='total'] ").val();
+        var total_factura = $("input[name='total'] ").val();
         var fecha = $("#fecha").val();
         var proveedor_id = $("#proveedor_id").val();
         var num_factura = $("#num_factura").val();
         if ( fecha != '') 
         {
-            var formData = {total: total, proveedor_id : proveedor_id, fecha: fecha,
-                } 
+            var formData = {total_factura: total_factura, proveedor_id : proveedor_id, fecha: fecha,
+                num_factura :num_factura} 
                 $.ajax({
                     type: "GET",
                     /*url: "../pos_v2/compras/save/",*/
@@ -160,7 +159,7 @@ $('body').on('click', '#addDetalle', function(e) {
                             data: JSON.stringify(db.links),
                             success: function(addressResponse) {
                                 if (addressResponse.result == "ok") {
-                            /*window.location = "/pos_v2/compras"*/
+                            /*window.location = "/pos_v2/ingresoproducto"*/
                             window.location = "/compras"
                                 }
                             },
@@ -203,10 +202,10 @@ $('body').on('click', '#addDetalle', function(e) {
                 controller: db,
                 fields: [
                 // { title: "Id", name: "id", type:"number", index:"id", filtering:false, editing:false, inserting:false},
-                { title: "Producto", name: "prod_nombre", type: "text"},
+                { title: "Producto", name: "nombre", type: "text"},
                 { title: "Codigo", name: "producto_id", type: "text", visible:false},
                 { title: "Cantidad", name: "cantidad", type: "text"},
-                { title: "Precio Compra", name: "precio_costo", type: "text"},
+                { title: "Precio Compra", name: "precio_compra", type: "text"},
                 { title: "Subtotal", name: "subtotal_venta", type: "text"},
                 { type: "control" }
                 ],
