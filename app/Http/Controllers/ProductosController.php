@@ -232,13 +232,13 @@ class ProductosController extends Controller
 		public function getJsonExistencia(Request $params)
 		{
 			$api_Result = array();
-			$columnsMapping = array( "productos.id", "codigo_barra", "prod_nombre", "movimientos_productos.precio_compra", "existencias");
+			$columnsMapping = array( "productos.id", "codigo_barra", "nombre", "movimientos_productos.precio_compra", "existencias");
 
 
 			$api_logsQueriable = DB::table('productos');
 			$api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-			$query = 'SELECT productos.id AS Codigo, productos.codigo_barra, productos.prod_nombre, IF(movimientos_productos.precio_compra IS NULL,0,ROUND(movimientos_productos.precio_compra,4)) AS precio_compra, IF(SUM(movimientos_productos.existencias) IS NULL,0,SUM(movimientos_productos.existencias)) AS existencias, IF(SUM(movimientos_productos.existencias) IS NULL,0,ROUND(SUM(movimientos_productos.existencias) * movimientos_productos.precio_compra,4)) AS total_neto FROM productos  LEFT JOIN movimientos_productos ON productos.id=movimientos_productos.producto_id ';
+			$query = 'SELECT productos.id AS Codigo, productos.codigo_barra, productos.nombre, IF(movimientos_productos.precio_compra IS NULL,0,ROUND(movimientos_productos.precio_compra,4)) AS precio_compra, IF(SUM(movimientos_productos.existencias) IS NULL,0,SUM(movimientos_productos.existencias)) AS existencias, IF(SUM(movimientos_productos.existencias) IS NULL,0,ROUND(SUM(movimientos_productos.existencias) * movimientos_productos.precio_compra,4)) AS total_neto FROM productos  LEFT JOIN movimientos_productos ON productos.id=movimientos_productos.producto_id ';
 
 			$where = "";
 
@@ -289,14 +289,14 @@ class ProductosController extends Controller
 		{
 			$api_Result = array();
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-			$columnsMapping = array("productos.codigo_barra", "productos.prod_nombre");
+			$columnsMapping = array("productos.codigo_barra", "productos.nombre");
 
 		// Initialize query (get all)
 
 			$api_logsQueriable = DB::table("productos");
 			$api_Result["recordsTotal"] = $api_logsQueriable->count();
 
-			$query = 'SELECT productos.id, productos.codigo_barra, productos.prod_nombre, if(Sum(movimientos_productos.existencias) is null,0,Sum(movimientos_productos.existencias)) as existencias FROM productos LEFT JOIN movimientos_productos on productos.id=movimientos_productos.producto_id  ';
+			$query = 'SELECT productos.id, productos.codigo_barra, productos.nombre, if(Sum(movimientos_productos.existencias) is null,0,Sum(movimientos_productos.existencias)) as existencias FROM productos LEFT JOIN movimientos_productos on productos.id=movimientos_productos.producto_id  ';
 
 			$where = "";
 
@@ -326,7 +326,7 @@ class ProductosController extends Controller
 			//}
 
 			$filter = " limit ".$params->length." offset ".$params->start."";
-			$group = " GROUP BY productos.id, productos.codigo_barra, productos.prod_nombre ";
+			$group = " GROUP BY productos.id, productos.codigo_barra, productos.nombre ";
 
 			
                         $data =  $query . $sort . $group;
