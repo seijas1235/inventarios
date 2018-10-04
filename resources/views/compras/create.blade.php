@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.app')
 @section('content')
 <div id="content">
 	<div class="container-custom">
@@ -106,8 +106,10 @@
 @endsection
 
 @section('scripts')
+
 {!! HTML::script('/js/compras/create.js') !!}
 {!! HTML::script('/js/compras/grid.js') !!}
 {!! HTML::script('/js/compras/prueba.js') !!}
+
 
 @endsection
