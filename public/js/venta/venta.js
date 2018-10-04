@@ -126,7 +126,7 @@ var venta_detalle = $('#ventadetalle-table').DataTable({
     "order": [0, 'desc'],
     "columns": [ {
         "title": "No Venta",
-        "data": "No_Venta",
+        "data": "venta_id",
         "width" : "25%",
         "responsivePriority": 1,
         "render": function( data, type, full, meta ) {
