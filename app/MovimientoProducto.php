@@ -18,23 +18,23 @@ class MovimientoProducto extends Model
     ];
 
     public function producto(){
-        return $this->belongsTo('App\Producto');
+        return $this->belongsTo(Producto::class);
     }
 
-    public function compras(){
-        return $this->belongsTo('App\Compra');
+    public function compra(){
+        return $this->belongsTo(Compra::class);
     }
 
     public function detallescompras(){
-        return $this->hasMany('App\DetalleCompra');
+        return $this->hasMany(DetalleCompra::class);
     }
 
     public function ventadetalle(){
-        return $this->hasMany('App\VentaDetalle');
+        return $this->hasMany(VentaDetalle::class);
     }
 
     public function salidaproducto(){
-        return $this->hasMany('App\SalidaProducto');
+        return $this->hasMany(SalidaProducto::class);
     }
 
 }

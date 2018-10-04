@@ -15,7 +15,7 @@ class CreateTableCompras extends Migration
         Schema::create('compras', function (Blueprint $table) {
             $table->increments('id');
             $table->date('fecha_factura');
-            $table->float('total');
+            $table->float('total_factura');
             $table->unsignedInteger('proveedor_id');
             $table->unsignedInteger('user_id');
             $table->string('serie_factura');

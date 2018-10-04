@@ -10,12 +10,15 @@ class DetalleCompra extends Model
 
     protected $fillable=[
         'id',
+        'fecha_ingreso',
+        'precio_compra',
+        'precio_venta',
         'producto_id',
+        'existencias',
+        'user_id',
+        'maquinaria_equipo_id',
         'compra_id',
-        'cantidad',
-        'precio_costo',
-        'subtotal',
-        'maquinaria_equipo_id'
+        'movimiento_producto_id'
         ];
 
     public function maquinaria(){
@@ -26,8 +29,15 @@ class DetalleCompra extends Model
         return $this->belongsTo(Compra::class);
     }
 
+       public function movimientoproducto(){
+        return $this->belongsTo(MovimientoProducto::class);
+    }
+
     public function producto(){
         return $this->belongsTo(Producto::class);
+    }
+    public function user(){
+    	return $this->belongsTo(User::class);
     }
 
 }

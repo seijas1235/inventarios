@@ -10,9 +10,13 @@ class Compra extends Model
 
     protected $fillable=[
         'id',
-        'fecha',
+        'user_id',
+        'fecha_factura',
         'proveedor_id',
-        'total'
+        'serie_factura',
+        'num_factura',
+        'total_factura',
+        'edo_ingreso_id'
         ];
 
     public function proveedor(){
@@ -21,5 +25,17 @@ class Compra extends Model
 
     public function detalles_compras(){
         return $this->hasMany(DetalleCompra::class);
+    }
+
+    public function movimientoproducto(){
+        return $this->hasMany(MovimientoProducto::class);
+    }
+
+    public function estadoingreso(){
+    	return $this->belongsTo(EstadoIngreso::class);
+    }
+
+    public function user(){
+    	return $this->belongsTo(User::class);
     }
 }

@@ -1,12 +1,19 @@
 $(document).ready(function() {
 
-	$('#fecha').datetimepicker({
+	$('#fecha_factura').datetimepicker({
 		format: 'DD-MM-YYYY',
 		showClear: true,
 		showClose: true
 	});
 
-	$("#cantidad").keypress(function(evt) {
+	$('#fecha_ingreso').datetimepicker({
+		format: 'DD-MM-YYYY',
+		showClear: true,
+		showClose: true
+	});
+
+
+	$("#cantidad_ingreso").keypress(function(evt) {
 		var charCode = (evt.which) ? evt.which : event.keyCode
 		if (charCode < 48 || charCode > 57)  return false;
 		return true;
@@ -15,7 +22,7 @@ $(document).ready(function() {
 	$("input[name='codigo_barra']").focusout(function() {
 		var codigo = $("input[name='codigo_barra'] ").val();
 		var url = "/productos/get/?data=" + codigo;
-		/*var url = "../pos_v2/productos/get/?data=" + codigo;*/
+		/*var url = "../pos_v2/venta/get/?data=" + codigo;*/
 		$.getJSON( url , function ( result ) {
 			if (result == 0 ) {
 				$("input[name='nombre'] ").val("");
@@ -37,16 +44,20 @@ $(document).ready(function() {
 		}
 	});
 
-
-
 	var validator = $("#submit-ingresoproducto").validate({
 		ignore: [],
 		onkeyup:false,
 		rules: {
-			fecha: {
+			fecha_ingreso: {
+				required : true
+			},
+			serie_factura : {
 				required : true
 			},
 			num_factura : {
+				required : true
+			},
+			fecha_factura : {
 				required : true
 			},
 			proveedor_id : {
@@ -55,19 +66,22 @@ $(document).ready(function() {
 
 		},
 		messages: {
-			fecha : {
+			fecha_ingreso : {
 				required : "Por favor, seleccione la fecha de ingreso"
+			},
+			serie_factura : {
+				required : "Por favor, ingrese la serie de la factura"
 			},
 			num_factura : {
 				required : "Por favor, ingrese el numero de la factura"
+			},
+			fecha_factura : {
+				required : "Por favor, seleccione la fecha de la factura"
 			},
 			proveedor_id : {
 				required : "Por favor, seleccione al proveedor de la factura",
 			}
 		}
 	});
-
-
-
 
 });

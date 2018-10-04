@@ -15,7 +15,7 @@ $(document).on("keypress", '#addDetalle', function (e) {
 });
 
 
-$(document).on("keypress", '#ButtonCompra', function (e) {
+$(document).on("keypress", '#ButtonDetalle', function (e) {
     var code = e.keyCode || e.which;
     if (code == 13) {
         e.preventDefault();
@@ -27,17 +27,25 @@ $(document).on("keypress", '#ButtonCompra', function (e) {
 $("input[name='codigo_barra']").focusout(function() {
     var codigo = $("input[name='codigo_barra'] ").val();
     /*var url = "../pos_v2/venta/get/?data=" + codigo;*/
-    var url = "/../productos/get/?data=" + codigo;    
+    var url = "/productos/get/?data=" + codigo;    
         $.getJSON( url , function ( result ) {
             if (result == 0 ) {
                 $("input[name='nombre'] ").val("");
             }
             else {
                 $("input[name='nombre'] ").val(result[0].nombre);
-                $("input[name='producto_id'] ").val(result[0].prod_id);
+                $("input[name='producto_id'] ").val(result[0].producto_id);
             }
         });
     });
+
+
+$("input[name='efectivo']").focusout(function() {
+    var total = $("input[name='total'] ").val();
+    var efectivo = $("input[name='efectivo']").val();
+    var cambio = efectivo - total;
+    $("input[name='cambio'] ").val("Q."+ cambio);
+});
 
 $("input[name='cantidad']").focusout(function() {
     var cantidad = $("input[name='cantidad'] ").val();
@@ -56,14 +64,16 @@ $('body').on('click', '#addDetalle', function(e) {
 
     var detalle = new Object();
     var cantidad = $("input[name='cantidad'] ").val();
+    var precio_venta = $("input[name='precio_venta'] ").val();
     var precio_compra = $("input[name='precio_compra'] ").val();
     var id = $("input[name='producto_id'] ").val(); 
     var subtotal = cantidad * precio_compra;
 
-    if (cantidad != "" && precio_compra != "" && id != "")
+    if (cantidad != "" && precio_venta != "" && precio_compra != "" && id != "")
     {
         $("input[name='subtotal'] ").val(subtotal);
         detalle.cantidad = $("input[name='cantidad'] ").val();
+        detalle.precio_venta = $("input[name='precio_venta'] ").val();
         detalle.precio_compra = $("input[name='precio_compra'] ").val();
         detalle.subtotal_venta = $("input[name='subtotal'] ").val();
         detalle.producto_id  = $("input[name='producto_id'] ").val();
@@ -85,12 +95,14 @@ $('body').on('click', '#addDetalle', function(e) {
         $("input[name='producto_id'] ").val("");
         $("input[name='codigo_barra'] ").val("");
         $("input[name='nombre'] ").val("");
+        $("input[name='precio_venta'] ").val("");
         $("input[name='precio_compra'] ").val("");
         $("input[name='cantidad'] ").val([""]);
         var cantidad = $("input[name='cantidad'] ").val();
+        var precio_venta = $("input[name='precio_venta'] ").val();
         var subtotal = cantidad * precio_compra;
         $("input[name='subtotal'] ").val(subtotal);
-        $("#detallecompra-grid .jsgrid-search-button").trigger("click");    
+        $("#compradetalle-grid .jsgrid-search-button").trigger("click");    
     }
     else 
     {
@@ -136,13 +148,14 @@ $('body').on('click', '#addDetalle', function(e) {
 
     function saveDetalle(button) {
         var total_factura = $("input[name='total'] ").val();
-        var fecha = $("#fecha").val();
+        var fecha_factura = $("#fecha_factura").val();
         var proveedor_id = $("#proveedor_id").val();
+        var serie_factura = $("#serie_factura").val();
         var num_factura = $("#num_factura").val();
-        if ( fecha != '') 
+        if ( fecha_factura != '') 
         {
-            var formData = {total_factura: total_factura, proveedor_id : proveedor_id, fecha: fecha,
-                num_factura :num_factura} 
+            var formData = {total_factura: total_factura, proveedor_id : proveedor_id, fecha_factura: fecha_factura,
+                serie_factura : serie_factura, num_factura :num_factura} 
                 $.ajax({
                     type: "GET",
                     /*url: "../pos_v2/compras/save/",*/
@@ -159,7 +172,7 @@ $('body').on('click', '#addDetalle', function(e) {
                             data: JSON.stringify(db.links),
                             success: function(addressResponse) {
                                 if (addressResponse.result == "ok") {
-                            /*window.location = "/pos_v2/ingresoproducto"*/
+                            /*window.location = "/pos_v2/compras"*/
                             window.location = "/compras"
                                 }
                             },
@@ -179,14 +192,14 @@ $('body').on('click', '#addDetalle', function(e) {
 
         }
 
-        $("#ButtonCompra").click(function(event) {
+        $("#ButtonDetalle").click(function(event) {
             saveDetalle();
         });
 
 
         $(document).ready(function () {
 
-            $("#detallecompra-grid").jsGrid({
+            $("#compradetalle-grid").jsGrid({
                 width: "",
                 filtering: false,
                 editing: false,
@@ -206,6 +219,7 @@ $('body').on('click', '#addDetalle', function(e) {
                 { title: "Codigo", name: "producto_id", type: "text", visible:false},
                 { title: "Cantidad", name: "cantidad", type: "text"},
                 { title: "Precio Compra", name: "precio_compra", type: "text"},
+                { title: "Precio Venta", name: "precio_venta", type: "text"},
                 { title: "Subtotal", name: "subtotal_venta", type: "text"},
                 { type: "control" }
                 ],

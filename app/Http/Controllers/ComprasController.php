@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Compra;
+use App\IngresoProducto;
 use App\User;
 use App\Proveedor;
+use App\EstadoIngreso;
 use App\Producto;
 use App\DetalleCompra;
+use App\MovimientoProducto;
 use View;
 Use DB;
 use Illuminate\Support\Facades\Redirect;
@@ -54,7 +57,7 @@ class ComprasController extends Controller
     {
 		$proveedores = Proveedor::all();
 		$productos = Producto::all();
-		return view("compras.create" , compact("proveedores", "productos") );
+		return view("compras.create" , compact("back","proveedores", "productos") );
     }
 
     /**
@@ -109,20 +112,26 @@ class ComprasController extends Controller
     public function save(Request $request)
 	{
 		$data = $request->all();
-		$data['fecha'] = Carbon::createFromFormat('d-m-Y', $data['fecha']);
-		$compra = Compra::create($data);
-		return $compra;
+		$data["user_id"] = Auth::user()->id;
+		$data['fecha_factura'] = Carbon::createFromFormat('d-m-Y', $data['fecha_factura']);
+		$data["edo_ingreso_id"] = 1;
+		$maestro = Compra::create($data);
+		return $maestro;
 	}
-
 
 	public function saveDetalle(Request $request, Compra $compra)
 	{
 		$statsArray = $request->all();
 		foreach($statsArray as $stat) {
-			$stat["subtotal"] = $stat["subtotal"];
+			$stat['user_id'] = Auth::user()->id;
+			$stat["subtotal"] = $stat["subtotal_venta"];
 			$stat['producto_id'] = $stat['producto_id'];
-			$stat["precio_costo"] = $stat["precio_costo"];
-			$stat['fecha'] = Carbon::now();
+			$stat['existencias'] = $stat["cantidad"];
+			$stat["precio_compra"] = $stat["precio_compra"];
+			$stat["precio_venta"] = $stat["precio_venta"];
+			$stat['fecha_ingreso'] = Carbon::now();
+			$detalle = MovimientoProducto::create($stat);
+			$stat["movimiento_producto_id"] = $detalle->id;
 			$compra->detalles_compras()->create($stat);
 			
 		}
@@ -146,18 +155,18 @@ class ComprasController extends Controller
 
 	public function getName(Compra $compra )
 	{
-		$date =Carbon::createFromFormat('Y-m-d H:i:s', $compra->fecha)->format('d-m-Y');
-		$compra->fecha = $date;
+		$date =Carbon::createFromFormat('Y-m-d H:i:s', $compra->fecha_factura)->format('d-m-Y');
+		$compra->fecha_factura = $date;
 		return Response::json($compra);
 	}
 
 	public function getDetalle( DetalleCompra $detallecompra)
 	{
-		$compras = DetalleCompra::where( "detalles_compras.id" , "=" , $detallecompra->id )
-		->select("precio_costo")
+		$ingresoproducto = DetalleCompra::where( "detalles_compras.id" , "=" , $detallecompra->id )
+		->select( "existencias", "precio_compra", "precio_venta")
 		->get()
 		->first();
-		return Response::json( $compras);
+		return Response::json( $ingresoproducto);
 	}
 
 	/**
@@ -183,7 +192,7 @@ class ComprasController extends Controller
 	public function update( Compra $compra, Request $request )
 	{
 
-		return Response::json( $this->updateIngresoProducto($compra, $request->all())); 
+			return Response::json( $this->updateIngresoProducto($compra, $request->all())); 
 	}
 
 
@@ -191,8 +200,10 @@ class ComprasController extends Controller
 	public function updateIngresoProducto(Compra $compra, array $data )
 	{
 
-		$data['fecha'] = Carbon::createFromFormat('d-m-Y', $data['fecha']);
-		$compra->fecha = $data["fecha"];
+		$data['fecha_factura'] = Carbon::createFromFormat('d-m-Y', $data['fecha_factura']);
+		$compra->serie_factura = $data["serie_factura"];
+		$compra->num_factura = $data["num_factura"];
+		$compra->fecha_factura = $data["fecha_factura"];
 		$compra->proveedor_id = $data["proveedor_id"];
 		$compra->save();
 		return $compra;
@@ -217,14 +228,14 @@ class ComprasController extends Controller
 		{
 			$detalles = DetalleCompra::where('compra_id', $compra->id)
 			->get();
-			/*foreach($detalles as $detalle) 
+			foreach($detalles as $detalle) 
 			{
 				$producto = MovimientoProducto::where('id', $detalle["movimiento_producto_id"])
 				->get()->first();
 				$newExistencias = 0;
 				$updateExistencia = MovimientoProducto::where('id', $detalle["movimiento_producto_id"])
 				->update(['existencias' => $newExistencias]);
-			}*/
+			}
 			$compra->delete();
 			$response["response"] = "El registro ha sido borrado";
 			return Response::json( $response );
@@ -258,7 +269,7 @@ class ComprasController extends Controller
 			$ingresomaestro = Compra::where('id', $detallecompra->compra_id)
 			->get()->first();
 			$total = $ingresomaestro->total_factura;
-			$totalresta = ($detallecompra->precio_costo * $detallecompra->existencias);
+			$totalresta = ($detallecompra->precio_compra * $detallecompra->existencias);
 			$newTotal = $total - $totalresta;
 			$updateTotal = Compra::where('id', $detallecompra->compra_id)
 			->update(['total_factura' => $newTotal]);
@@ -279,14 +290,14 @@ class ComprasController extends Controller
 	{
 		$api_Result = array();
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("id","fecha","total");
+		$columnsMapping = array("serie_factura", "num_factura","fecha_factura", "nombre_comercial","total_factura");
 
 		// Initialize query (get all)
 
 		$api_logsQueriable = DB::table("compras");
 		$api_Result["recordsTotal"] = $api_logsQueriable->count();
 
-		$query = 'SELECT compras.id, DATE_FORMAT(compras.fecha, "%d-%m-%Y") as fecha, proveedores.nombre, TRUNCATE(compras.total,2) as total FROM compras INNER JOIN proveedores ON proveedores.id=compras.proveedor_id ';
+		$query = 'SELECT compras.id, compras.serie_factura, compras.num_factura, DATE_FORMAT(compras.fecha_factura, "%d-%m-%Y") as fecha_factura, proveedores.nombre_comercial, TRUNCATE(compras.total_factura,2) as total FROM compras INNER JOIN proveedores ON proveedores.id=compras.proveedor_id ';
 
 		$where = "";
 
@@ -334,7 +345,7 @@ class ComprasController extends Controller
 	{
 		$api_Result = array();
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("detalles_compras.compra_id", "productos.codigo_barra", "productos.nombre", "detalles_compras.precio_costo");
+		$columnsMapping = array("detalles_compras.compra_id", "productos.codigo_barra", "productos.prod_nombre", "detalles_compras.existencias", "detalles_compras.precio_compra", "detalles_compras.precio_venta");
 
 		// Initialize query (get all)
 
@@ -342,7 +353,7 @@ class ComprasController extends Controller
 		$api_logsQueriable = DB::table('detalles_compras');
 		$api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-		$query = 'SELECT detalles_compras.id, detalles_compras.compra_id, productos.codigo_barra, productos.nombre, detalles_compras.precio_costo FROM detalles_compras INNER JOIN productos ON detalles_compras.producto_id=productos.id WHERE detalles_compras.compra_id ='.$detalle.' ';
+		$query = 'SELECT detalles_compras.id, detalles_compras.compra_id, productos.codigo_barra, productos.prod_nombre, detalles_compras.existencias, detalles_compras.precio_compra, detalles_compras.precio_venta FROM detalles_compras INNER JOIN productos ON detalles_compras.producto_id=productos.id WHERE detalles_compras.compra_id ='.$detalle.' ';
 
 		$where = "";
 

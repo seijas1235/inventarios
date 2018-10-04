@@ -14,13 +14,18 @@ class CreateTableDetallesCompras extends Migration
     {
         Schema::create('detalles_compras', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('producto_id');
+            $table->date('fecha_ingreso');
+            $table->unsignedInteger('producto_id')->nullable();
             $table->unsignedInteger('compra_id');
-            $table->unsignedInteger('maquinaria_equipo_id');
-            $table->float('cantidad');
+            $table->unsignedInteger('maquinaria_equipo_id')->nullable();
+            $table->unsignedInteger('user_id');
             $table->float('precio_compra');
-            $table->float('subtotal');
+            $table->float('precio_venta');
+            $table->integer('existencias');
+            $table->unsignedInteger('movimiento_producto_id');
 
+            $table->foreign('movimiento_producto_id')->references('id')->on('movimientos_productos')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');
             $table->foreign('compra_id')->references('id')->on('compras')->onDelete('cascade');
             $table->foreign('maquinaria_equipo_id')->references('id')->on('maquinarias_y_equipos')->onDelete('cascade');

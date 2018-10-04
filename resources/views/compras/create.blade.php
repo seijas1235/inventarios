@@ -7,10 +7,21 @@
 				<h3 class="tittle-custom"> Creación de Compras </h3>
 				<line>
 				</div>
-			</div>
+		</div>
 			<br>
 			<div class="row">
-				<div class="col-sm-4">
+				<div class="col-sm-3">
+					{!! Form::label("edo_ingreso_id","Estado:") !!}
+					{!! Form::text( "edo_ingreso_id" , "Activo", ['class' => 'form-control' , 'disabled' ]) !!}
+				</div>
+				<div class="col-sm-3">
+					{!! Form::label("fecha_ingreso","Fecha Compra:") !!}
+					{!! Form::text( "fecha_ingreso" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha', 'id' => 'fecha_ingreso' ]) !!}
+				</div>
+			</div>	
+			<br>
+			<div class="row">
+				<div class="col-sm-3">
 					{!! Form::label("proveedor_id","Proveedor:") !!}
 					<select class="selectpicker" id='proveedor_id' name="proveedor_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
 						@foreach ($proveedores as $proveedor)
@@ -19,15 +30,20 @@
 					</select>
 				</div>
 
-				<div class="col-sm-4">
-					{!! Form::label("fecha","Fecha:") !!}
-					{!! Form::text( "fecha" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha', 'id' => 'fecha' ]) !!}
+				<div class="col-sm-3">
+					{!! Form::label("fecha_factura","Fecha factura:") !!}
+					{!! Form::text( "fecha_factura" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha', 'id' => 'fecha_factura' ]) !!}
 				</div>
 
-				<div class="col-sm-4">
+				<div class="col-sm-3">
+					{!! Form::label("serie_factura","No. Serie:") !!}
+					{!! Form::text( "serie_factura" , null , ['class' => 'form-control' , 'placeholder' => 'No. Serie' ]) !!}
+				</div>
+
+				<div class="col-sm-3">
 					{!! Form::label("num_factura","No. Factura:") !!}
 					{!! Form::text( "num_factura" , null , ['class' => 'form-control' , 'placeholder' => 'No. Factura' ]) !!}
-				</div>
+				</div>	
 			</div>
 			<hr>
 
@@ -35,6 +51,7 @@
 				<div class="col-sm-3">
 					{!! Form::label("codigo_barra","Codego de Barra:") !!}
 					{!! Form::hidden("producto_id" , null , ['class' => 'form-control' , 'disabled']) !!}
+					{!! Form::hidden("subtotal" , null , ['class' => 'form-control' , 'disabled']) !!}
 					{!! Form::text( "codigo_barra" , null , ['class' => 'form-control' , 'placeholder' => 'Codigo Barra' ]) !!}
 				</div>
 
@@ -43,15 +60,20 @@
 					{!! Form::text( "nombre" , null , ['class' => 'form-control' , 'disabled','placeholder' => 'Descripcion del producto' ]) !!}
 				</div>
 
-				<div class="col-sm-3">
+				<div class="col-sm-2">
 					{!! Form::label("cantidad","Cantidad:") !!}
 					{!! Form::text( "cantidad" , null , ['class' => 'form-control' , 'placeholder' => 'Cantidad' ]) !!}
 				</div>
 
-				<div class="col-sm-3">
-					{!! Form::label("precio_compra","Precio Costo:") !!}
-					{!! Form::text( "precio_compra" , null , ['class' => 'form-control' , 'placeholder' => 'Precio Costo' ]) !!}
+				<div class="col-sm-2">
+					{!! Form::label("precio_compra","Precio Compra:") !!}
+					{!! Form::text( "precio_compra" , null , ['class' => 'form-control' , 'placeholder' => 'Precio Compra' ]) !!}
 				</div>
+
+				<div class="col-sm-2">
+						{!! Form::label("precio_venta","Precio Venta:") !!}
+						{!! Form::text( "precio_venta" , null , ['class' => 'form-control' , 'placeholder' => 'Precio venta' ]) !!}
+					</div>
 			</div>
 
 			<br>
@@ -61,34 +83,9 @@
 					{!! Form::button('Agregar Nuevo Producto' , ['class' => 'btn btn-success' ,'id' => 'addDetalle', 'data-loading-text' => 'Processing...' ]) !!}
 				</div>				
 			<br>
-			<div id="detallecompra-grid">
+			<div id="compradetalle-grid">
 
 			</div>
-			<div class="title m-b-md">
-					Laravel
-				</div>
-				<label for="txtNombre">Nombre</label>
-				<input type="text" id="txtNombre">
-				
-				<label for="txtCantidad">Nombre</label>
-				<input type="text" id="txtCantidad">
-				<button type="button" id="btnEnviar">Enviar</button>
-				<br>
-				<table id="detalle">
-					<thead>
-						<th>Nombre</th>
-						<th>Cantidad</th>
-					</thead>
-				
-					<tfoot>
-						<th></th>
-						<th>Total</th>
-					</tfoot>
-				
-					<tbody>
-				
-					</tbody>
-				</table>
 			<br>
 			<div class="col-sm-4" id="total">
 				<h3>{!! Form::label("total","Total:") !!}</h3>
@@ -96,7 +93,7 @@
 			</div>
 			<div class="text-right m-t-15">
 				<a class='btn btn-primary form-gradient-color form-button' href="{{ url('/compras') }}">Regresar</a>
-				{!! Form::submit('Agregar Nueva Compra' , ['class' => 'btn btn-success btn-submit-ingresoproducto', 'id' => 'ButtonCompra', 'data-loading-text' => 'Processing...' ]) !!}
+				{!! Form::submit('Agregar Nueva Compra' , ['class' => 'btn btn-success btn-submit-ingresoproducto', 'id' => 'ButtonDetalle', 'data-loading-text' => 'Processing...' ]) !!}
 			</div>
 			<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
 		<br>
@@ -109,7 +106,5 @@
 
 {!! HTML::script('/js/compras/create.js') !!}
 {!! HTML::script('/js/compras/grid.js') !!}
-{!! HTML::script('/js/compras/prueba.js') !!}
-
 
 @endsection
