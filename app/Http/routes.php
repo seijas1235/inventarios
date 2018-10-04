@@ -65,6 +65,19 @@ Route::group(['middleware' => ['web']], function ()
 		Route::delete('/ventadetalle2/destroy/{venta_detalle}/{movimiento_producto}', 'VentaController@destroyDetalle2');
 
 
+		Route::get( '/salidaproducto' , 'SalidaProductoController@index' );
+        Route::get( '/salidaproducto/getJson' , 'SalidaProductoController@getJson' );
+        Route::get( '/salidaproducto/new' , 'SalidaProductoController@create' );
+        Route::post( '/salidaproducto' , 'SalidaProductoController@store' );
+        Route::get('/tiposalida/{salida_producto}', 'SalidaProductoController@getTipoSalida');
+        Route::patch( '/salidaproducto/{salidaproducto}/update' , 'SalidaProductoController@update' );
+        Route::resource("salidaproducto", "SalidaProductoController");
+        Route::get('/salidaproducto/name/{salidaproducto}', 'SalidaProductoController@getName' );
+        Route::delete( '/salidaproducto/destroy/{salidaproducto}' , 'SalidaProductoController@destroy' );
+
+
+
+
 		Route::get('/tipos_cliente', 'TiposClienteController@index');
 		Route::get('/tipos_cliente/getJson/' , 'TiposClienteController@getJson');
 		Route::get('/tipos_cliente/new' , 'TiposClienteController@create');
