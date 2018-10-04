@@ -199,11 +199,13 @@ Route::group(['middleware' => ['web']], function ()
         Route::patch( '/compras/{compra}/update' , 'comprasController@update' );
         Route::resource("compras", "comprasController");
         Route::get('/compras/name/{compra}', 'comprasController@getName' );
-        Route::delete( '/compras/destroy/{compra}' , 'comprasController@destroy' );
+		Route::delete( '/compras/destroy/{compra}' , 'comprasController@destroy' );
+		Route::get('/productos/get/', 'ProductosController@getInfo');
+		
         Route::get('/detallescompras/{compra}', 'comprasController@show');
         Route::get( '/detallescompras/{compra}/getJson' , 'comprasController@getJsonDetalle' );
-        Route::delete( '/detallescompras/destroy/{detallecompra}' , 'comprasController@destroyDetalle' );
-        Route::patch( '/detallescompras/{compra}/update' , 'comprasController@update' );
+		Route::patch( '/detallescompras/{compra}/update' , 'comprasController@update' );
+		Route::delete( '/detallescompras/destroy/{detallecompra}' , 'comprasController@destroyDetalle' );
         Route::get('/detallescompras/name/{detallecompra}', 'comprasController@getDetalle');
 
 

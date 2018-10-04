@@ -202,4 +202,21 @@ class ProductosController extends Controller
 
 		return Response::json( $api_Result );
 	}
+
+	public function getInfo(Request $request)
+	{
+		$producto = $request["data"];
+
+		if ($producto == "")
+		{
+			$result = "";
+			return Response::json( $result);
+		}
+		else {
+			$query = "Select nombre, codigo_barra from productos where productos.codigo_barra = '".$producto."' ";
+				$result = DB::select($query);
+				return Response::json( $result);
+			}
+
+		}
 }

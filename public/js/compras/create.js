@@ -1,5 +1,36 @@
 $(document).ready(function() {
 
+	$('#fecha').datetimepicker({
+		format: 'DD-MM-YYYY',
+		showClear: true,
+		showClose: true
+	});
+
+
+	$("#cantidad").keypress(function(evt) {
+		var charCode = (evt.which) ? evt.which : event.keyCode
+		if (charCode < 48 || charCode > 57)  return false;
+		return true;
+	});
+
+	$("input[name='codigo_barra']").focusout(function() {
+		var codigo = $("input[name='codigo_barra'] ").val();
+		var url = "/productos/get/?data=" + codigo;
+		$.getJSON( url , function ( result ) {
+			if (result == 0 ) {
+				$("input[name='nombre'] ").val("");
+				$("input[name='codigo_barra'] ").val("");
+				console.log(result);
+			}
+			else {
+				$("input[name='nombre']").val(result[0].nombre);
+				$("input[name='codigo_barra'] ").val(result[0].codigo_barra);
+				console.log(result);
+			}
+		});
+	});
+
+
 	$(document).on("keypress", 'form', function (e) {
 		var code = e.keyCode || e.which;
 		if (code == 13) {
@@ -7,132 +38,27 @@ $(document).ready(function() {
 			return false;
 		}
 	});
-});
 
-$('#fecha').datetimepicker({
-    format: 'YYYY-MM-DD',
-    showClear: true,
-    showClose: true
-});
+	var validator = $("#CompraForm").validate({
+		ignore: [],
+		onkeyup:false,
+		rules: {
+			fecha: {
+				required : true
+			},
+			proveedor_id : {
+				required : true,
+			}
 
-var validator = $("#CompraForm").validate({
-	ignore: [],
-	onkeyup:false,
-	rules: {
-		nit:{
-			required: true,
-			nit:true,
-			nitUnico: true
 		},
-
-		nombres: {
-			required : true
-		},
-
-		apellidos: {
-			required : true
-		},
-		tipo_cliente_id: {
-			required : true
+		messages: {
+			fecha : {
+				required : "Por favor, seleccione la fecha de ingreso"
+			},
+			proveedor_id : {
+				required : "Por favor, seleccione al proveedor de la factura",
+			}
 		}
-
-	},
-	messages: {
-		nit: {
-			required: "Por favor, ingrese el NIT del cliente"
-		},
-
-		nombres: {
-			required: "Por favor, ingrese nombres del cliente"
-		},
-
-		apellidos: {
-			required: "Por favor, ingrese apellidos del cliente"
-		},
-		tipo_cliente_id: {
-			required: "Por favor, seleccione el tipo de cliente"
-		}
-
-	}
-});
-
-
-var db = {};
-
-window.db = db;
-db.detalle = [];
-
-$("#ButtonCompra").click(function(event) {
-	if ($('#CompraForm').valid()) {
-		saveContact();
-	} else {
-		validator.focusInvalid();
-	}
-});
-
-$("#ButtonCompra").click(function(event) {
-	if ($('#CompraForm').valid()) {
-		saveContact();
-	} else {
-		validator.focusInvalid();
-	}
-});
-
-
-function saveContact(button) {
-	$("#ButtonCompra").attr('disabled', 'disabled');
-	var l = Ladda.create(document.querySelector("#ButtonCompra"));
-	l.start();
-	var formData = $("#CompraForm").serialize();
-	$.ajax({
-		type: "POST",
-		headers: {'X-CSRF-TOKEN': $('#token').val()},
-		url: "/clientes/save",
-		data: formData,
-		dataType: "json",
-		success: function(data) {
-			window.location = "/clientes" 
-		},
-		always: function() {
-			l.stop();
-		},
-		error: function() {
-			alert("Ha ocurrido un problema, contacte a su administrador!!");
-		}
-		
 	});
-}
 
-$("#BtnEnviar").click(function (e) {
-	e.preventDefault();
-	var codigo_barra=$('#codigo_barra').val();
-	$.ajax({
-		type: "GET",
-		headers: {'X-CSRF-TOKEN': $('#token').val()},
-		url: "/compras/buscar",
-		data: {
-			codigo_barra:codigo_barra
-		},
-		dataType: "json",
-		beforeSend: function() {
-			$("#respuesta").html('Buscando producto...');
-		 },
-		 error: function() {
-			$("#respuesta").html('<div> Ha surgido un error. </div>');
-		 },
-		success: function(data) {
-			if (data) {
-				var html = '<div>';
-				html += '<ul>';
-				html += '<li> Codigo de Barra: ' + data.productos['nombre'] + ' </li>';
-				html += '<li> Nombre: ' + data + ' </li>';
-				html += '</ul>';
-				html += '</div>';
-				$("#respuesta").html(html);
-			 } else {
-				$("#respuesta").html('<div> No hay ningún empleado con ese legajo. </div>');
-			 }
-
-		  }
-	   });
 });

@@ -25,30 +25,44 @@
 					{!! Form::label("fecha","Fecha:") !!}
 					{!! Form::text( "fecha" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha' ]) !!}
 				</div>
-
-				<div class="col-sm-4">
-					{!! Form::label("Total","Total:") !!}
-					{!! Form::text( "Total" , null , ['class' => 'form-control' , 'placeholder' => 'Total' ]) !!}
-				</div>
 			</div>
 			<hr>
-			
-			<div class="container">
-				<h1> Buscar Producto </h1>
-				<div class="row">
-				   <div class="col-lg-4">
-						 {{ Form::label ('codigo_barra', 'Codigo de Barra') }}
-						 {!! Form::text( "codigo_barra" , null , ['class' => 'form-control' , 'placeholder' => 'Dirección', 'id'=>'codigo_barra' ]) !!}
-						 <a href="#" id="BtnEnviar">Aceptar</a> 
-						 <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-				   </div>
-				   <div id="respuesta" class="col-lg-5">
-				   </div>
-				</div>
-			 </div>
 
-			
+			<div class="row">
+				<div class="col-sm-3">
+					{!! Form::label("codigo_barra","Codego de Barra:") !!}
+					{!! Form::text( "codigo_barra" , null , ['class' => 'form-control' , 'placeholder' => 'Codigo Barra' ]) !!}
+				</div>
+
+				<div class="col-sm-3">
+					{!! Form::label("nombre","Descripcion del Producto:") !!}
+					{!! Form::text( "nombre" , null , ['class' => 'form-control' , 'disabled','placeholder' => 'Descripcion del producto' ]) !!}
+				</div>
+
+				<div class="col-sm-3">
+					{!! Form::label("cantidad","Cantidad:") !!}
+					{!! Form::text( "cantidad" , null , ['class' => 'form-control' , 'placeholder' => 'Cantidad' ]) !!}
+				</div>
+
+				<div class="col-sm-3">
+					{!! Form::label("precio_costo","Precio Compra:") !!}
+					{!! Form::text( "precio_costo" , null , ['class' => 'form-control' , 'placeholder' => 'Precio Costo' ]) !!}
+				</div>
+			</div>
+
 			<br>
+				<div class="row">
+				</div>
+				<div class="text-right m-t-15">
+					{!! Form::button('Agregar Nuevo Producto' , ['class' => 'btn btn-success' ,'id' => 'addDetalle', 'data-loading-text' => 'Processing...' ]) !!}
+				</div>				
+			<br>
+			<div id="detallecompra-grid"></div>
+			<br>
+			<div class="col-sm-4" id="total">
+				<h3>{!! Form::label("total","Total:") !!}</h3>
+				{!! Form::text( "total" , null, ['class' => 'form-control', 'id' => 'total', 'disabled']) !!}
+			</div>
 			<div class="text-right m-t-15">
 				<a class='btn btn-primary form-gradient-color form-button' href="{{ url('/compras') }}">Regresar</a>
 				{!! Form::input('submit', 'submit', 'Guardar', ['class' => 'btn btn-primary form-gradient-color form-button', 'id'=>'ButtonCompra']) !!}
@@ -62,4 +76,5 @@
 
 @section('scripts')
 {!! HTML::script('/js/compras/create.js') !!}
+{!! HTML::script('/js/compras/grid.js') !!}
 @endsection

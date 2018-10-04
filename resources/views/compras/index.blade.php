@@ -44,5 +44,5 @@
 
 @endsection
 @section('scripts')
-{!! HTML::script('/js/compras/index.js') !!}
+{!! HTML::script('/js/compras/index-compra.js') !!}
 @endsection
