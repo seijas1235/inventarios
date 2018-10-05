@@ -7,7 +7,7 @@
         <br>
         <select class="selectpicker data" id='producto_id' name="producto_id" value="{{ old('company')}}" data-live-search="true">
             @foreach ($productos as $producto)
-            <option value="{{$producto->id}}">{{ $producto->prod_nombre}}</option>;
+            <option value="{{$producto->id}}">{{ $producto->nombre}}</option>;
             @endforeach
         </select>
         <span id="api-type-error" class="help-block hidden">

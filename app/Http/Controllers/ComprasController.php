@@ -175,9 +175,13 @@ class ComprasController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit($id)
+	public function edit(Compra $compra)
 	{
-		//
+		$query = "SELECT * FROM compras WHERE id=".$compra->id."";
+		$fieldsArray = DB::select($query);
+		
+		$proveedores = Proveedor::all();
+        return view ("compras.edit", compact('compra', 'fieldsArray','proveedores'));
 	}
 
 	/**
@@ -189,10 +193,12 @@ class ComprasController extends Controller
 	 */
 
 
-	public function update( Compra $compra, Request $request )
+	public function update(Compra $compra, Request $request )
 	{
+		Response::json($this->updateIngresoProducto($compra , $request->all()));
+        return redirect('/compras');
 
-			return Response::json( $this->updateIngresoProducto($compra, $request->all())); 
+		//return Response::json( $this->updateIngresoProducto($compra, $request->all())); 
 	}
 
 
@@ -200,7 +206,7 @@ class ComprasController extends Controller
 	public function updateIngresoProducto(Compra $compra, array $data )
 	{
 
-		$data['fecha_factura'] = Carbon::createFromFormat('d-m-Y', $data['fecha_factura']);
+		//$data['fecha_factura'] = Carbon::createFromFormat('d-m-Y', $data['fecha_factura']);
 		$compra->serie_factura = $data["serie_factura"];
 		$compra->num_factura = $data["num_factura"];
 		$compra->fecha_factura = $data["fecha_factura"];
@@ -297,7 +303,7 @@ class ComprasController extends Controller
 		$api_logsQueriable = DB::table("compras");
 		$api_Result["recordsTotal"] = $api_logsQueriable->count();
 
-		$query = 'SELECT compras.id, compras.serie_factura, compras.num_factura, DATE_FORMAT(compras.fecha_factura, "%d-%m-%Y") as fecha_factura, proveedores.nombre_comercial, TRUNCATE(compras.total_factura,2) as total FROM compras INNER JOIN proveedores ON proveedores.id=compras.proveedor_id ';
+		$query = 'SELECT compras.id, compras.serie_factura, compras.num_factura, DATE_FORMAT(compras.fecha_factura, "%d-%m-%Y") as fecha_factura, proveedores.nombre, TRUNCATE(compras.total_factura,2) as total FROM compras INNER JOIN proveedores ON proveedores.id=compras.proveedor_id ';
 
 		$where = "";
 
@@ -345,7 +351,7 @@ class ComprasController extends Controller
 	{
 		$api_Result = array();
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("detalles_compras.compra_id", "productos.codigo_barra", "productos.prod_nombre", "detalles_compras.existencias", "detalles_compras.precio_compra", "detalles_compras.precio_venta");
+		$columnsMapping = array("detalles_compras.compra_id", "productos.codigo_barra", "productos.nombre", "detalles_compras.existencias", "detalles_compras.precio_compra", "detalles_compras.precio_venta");
 
 		// Initialize query (get all)
 
@@ -353,7 +359,7 @@ class ComprasController extends Controller
 		$api_logsQueriable = DB::table('detalles_compras');
 		$api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-		$query = 'SELECT detalles_compras.id, detalles_compras.compra_id, productos.codigo_barra, productos.prod_nombre, detalles_compras.existencias, detalles_compras.precio_compra, detalles_compras.precio_venta FROM detalles_compras INNER JOIN productos ON detalles_compras.producto_id=productos.id WHERE detalles_compras.compra_id ='.$detalle.' ';
+		$query = 'SELECT detalles_compras.id, detalles_compras.compra_id, productos.codigo_barra, productos.nombre, detalles_compras.existencias, detalles_compras.precio_compra, detalles_compras.precio_venta FROM detalles_compras INNER JOIN productos ON detalles_compras.producto_id=productos.id WHERE detalles_compras.compra_id ='.$detalle.' ';
 
 		$where = "";
 

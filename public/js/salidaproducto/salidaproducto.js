@@ -50,7 +50,7 @@ var salidaproducto_table = $('#salidaproducto-table').DataTable({
         },
     },{
         "title": "Producto",
-        "data": "prod_nombre",
+        "data": "nombre",
         "width" : "20%",
         "responsivePriority": 3,
         "render": function( data, type, full, meta ) {

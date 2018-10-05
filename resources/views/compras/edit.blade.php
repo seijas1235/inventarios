@@ -3,69 +3,53 @@
 <div id="content">
     <div class="container-custom">
 
-        {!! Form::model($cliente, ['method' => 'PATCH', 'action' => ['ClientesController@update', $cliente->id], 'id' => 'ClienteUpdateForm']) !!}
+        {!! Form::model($compra, ['method' => 'PATCH', 'action' => ['ComprasController@update', $compra->id], 'id' => 'CompraUpdateForm']) !!}
 
         <div class="row">
             <div class="col-sm-12">
-                <h3 class="tittle-custom"> Edición de Clientes </h3>
+                <h3 class="tittle-custom"> Edición de Compra </h3>
             </div>
         </div>
         <br>
         <div class="row">
-            <div class="col-sm-4 form-group {{$errors->has('nit')? 'has-error' : ''}}">
-                {!! Form::label("nit","NIT:") !!}
-                {!! Form::text( "nit" , null , ['class' => 'form-control' , 'placeholder' => 'NIT' ]) !!}
-                {!!$errors->first('nit', '<label class="error">:message</label>')!!}
+            <div class="col-sm-3">
+                {!! Form::label("serie_factura","Serie:") !!}
+                {!! Form::text( "serie_factura" , null , ['class' => 'form-control' , 'placeholder' => 'Serie' ]) !!}
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
+                {!! Form::label("num_factura","No.Factura:") !!}
+                {!! Form::text( "num_factura" , null , ['class' => 'form-control' , 'placeholder' => 'numero factura' ]) !!}
             </div>
-            <div class="col-sm-4">
-                {!! Form::label("tipo_cliente_id","Tipo de Cliente:") !!}
-                <select class="selectpicker" id='tipo_cliente_id' name="tipo_cliente_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
-                    @foreach ($tipos_clientes as $tipo_cliente)
-                    @if ( $tipo_cliente->id == $cliente->tipo_cliente_id)
-                    <option value="{{$tipo_cliente->id}}" selected>{{ $tipo_cliente->nombre}}</option>
+            <div class="col-sm-3">
+                {!! Form::label("proveedor_id","Tipo de Cliente:") !!}
+                <select class="selectpicker" id='proveedor_id' name="proveedor_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+                    @foreach ($proveedores as $proveedor)
+                    @if ( $proveedor->id == $compra->proveedor_id)
+                    <option value="{{$proveedor->id}}" selected>{{ $proveedor->nombre}}</option>
                     @else
-                    <option value="{{$tipo_cliente->id}}">{{ $tipo_cliente->nombre}}</option>
+                    <option value="{{$proveedor->id}}">{{ $proveedor->nombre}}</option>
                     @endif
                     @endforeach
                 </select>
             </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-sm-6">
-                {!! Form::label("nombres","Nombres:") !!}
-                {!! Form::text( "nombres" , null , ['class' => 'form-control' , 'placeholder' => 'Nombres' ]) !!}
-            </div>
-            <div class="col-sm-6">
-                {!! Form::label("apellidos","Apellidos:") !!}
-                {!! Form::text( "apellidos" , null , ['class' => 'form-control' , 'placeholder' => 'Apellidos' ]) !!}
+            <div class="col-sm-3">
+                {!! Form::label("fecha_factura","Fecha factura:") !!}
+                {!! Form::text( "fecha_factura" , null , ['class' => 'form-control' , 'placeholder' => 'YYYY-MM-DD', 'id'=>'fecha_factura' ]) !!}
             </div>
         </div>
         <br>
-        <div class="row">
-            <div class="col-sm-4">
-                {!! Form::label("telefonos","Teléfono:") !!}
-                {!! Form::text( "telefonos" , null , ['class' => 'form-control' , 'placeholder' => 'Telefonos' ]) !!}
-            </div>
-            <div class="col-sm-8">
-                {!! Form::label("direccion","Dirección:") !!}
-                {!! Form::text( "direccion" , null , ['class' => 'form-control' , 'placeholder' => 'Dirección' ]) !!}
-            </div>
-        </div>
         <br>
         <div class="text-right m-t-15">
-            <a class='btn btn-primary form-gradient-color form-button' href="{{ url('/clientes') }}">Regresar</a>
-            {!! Form::input('submit', 'submit', 'Editar', ['class' => 'btn btn-primary form-gradient-color form-button', 'id'=>'ButtonUpdateCliente']) !!}
+            <a class='btn btn-primary form-gradient-color form-button' href="{{ url('/compras') }}">Regresar</a>
+            {!! Form::input('submit', 'submit', 'Editar', ['class' => 'btn btn-primary form-gradient-color form-button', 'id'=>'ButtonUpdateCompra']) !!}
         </div>
         <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
     </br>
     {!! Form::close() !!}
 </div>
 </div>
-
 @endsection
+
 @section('scripts')
-{!! HTML::script('/js/clientes/edit.js') !!}
+{!! HTML::script('/js/compras/edit.js') !!}
 @endsection
