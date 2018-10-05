@@ -49,7 +49,7 @@
 
 			<div class="row">
 				<div class="col-sm-3">
-					{!! Form::label("codigo_barra","Codego de Barra:") !!}
+					{!! Form::label("codigo_barra","Codigo de Barra:") !!}
 					{!! Form::hidden("producto_id" , null , ['class' => 'form-control' , 'disabled']) !!}
 					{!! Form::hidden("subtotal" , null , ['class' => 'form-control' , 'disabled']) !!}
 					{!! Form::text( "codigo_barra" , null , ['class' => 'form-control' , 'placeholder' => 'Codigo Barra' ]) !!}
@@ -61,7 +61,7 @@
 				</div>
 
 				<div class="col-sm-2">
-					{!! Form::label("cantidad","Cantidad:") !!}
+					{!! Form::label("cantidad_ingreso","Cantidad:") !!}
 					{!! Form::text( "cantidad" , null , ['class' => 'form-control' , 'placeholder' => 'Cantidad' ]) !!}
 				</div>
 
