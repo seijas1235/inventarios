@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div id="content">
+	<div class="content">
 	<div class="container-custom">
 		{!! Form::open( array( 'id' => 'ServicioForm') ) !!}
 		<div class="row">
@@ -11,15 +12,15 @@
 			</div>
 			<br>
 			<div class="row">
-				<div class="col-sm-4">
+				<div class="col-sm-3">
+					{!! Form::label("codigo","Codigo de Servicio:") !!}
+					{!! Form::text( "codigo" , null , ['class' => 'form-control' , 'placeholder' => 'Codigo de servicio' ]) !!}
+				</div>
+				<div class="col-sm-3">
 					{!! Form::label("nombre","Nombre Servicio:") !!}
 					{!! Form::text( "nombre" , null , ['class' => 'form-control' , 'placeholder' => 'Nombre servicio' ]) !!}
 				</div>
-				<div class="col-sm-4">
-					{!! Form::label("precio","Precio:") !!}
-					{!! Form::text( "precio" , null , ['class' => 'form-control' , 'placeholder' => 'Precio' ]) !!}
-	
-				</div>
+				
 				<div class="col-sm-4">
 					<div class="form-group">
 					{!! Form::label("maquinaria_equipo_id","Maquinaria utilizada:") !!}
@@ -32,6 +33,11 @@
 					</select>
 					</div>
 				</div>
+				<div class="col-sm-3">
+						{!! Form::label("precio","Precio:") !!}
+						{!! Form::text( "precio" , null , ['class' => 'form-control' , 'placeholder' => 'Precio' ]) !!}
+		
+					</div>
 			</div>
 			<br>
 			<div class="text-right m-t-15">
@@ -42,6 +48,7 @@
 		<br>
 		{!! Form::close() !!}
 	</div>
+</div>
 </div>
 @endsection
 

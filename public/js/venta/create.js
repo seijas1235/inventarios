@@ -14,6 +14,15 @@ $(document).on("keypress", '#addDetalle', function (e) {
     }
 });
 
+$(document).on("keypress", '#ButtonServicio', function (e) {
+	var code = e.keyCode || e.which;
+	if (code == 13) {
+		e.preventDefault();
+		return false;
+	}
+});
+
+
 
 $(document).on("keypress", '#ButtonDetalle', function (e) {
     var code = e.keyCode || e.which;
@@ -22,6 +31,7 @@ $(document).on("keypress", '#ButtonDetalle', function (e) {
         return false;
     }
 });
+
 
 
 $("input[name='codigo_barra']").focusout(function() {
@@ -280,6 +290,94 @@ $('body').on('click', '#addDetalle', function(e)
     });
 
 
+    function addServicio() {
+        $.LoadingOverlay("show");
+       
+        var detalle = new Object();
+        detalle.servicio_id = $("#servicio_id").val();
+        detalle.cantidad = $("input[name='cantidad_s").val();
+        detalle.precio = $("input[name='precio'] ").val();
+        detalle.subtotal_venta = $("input[name='subtotal_s']").val();
+        detalle.nombre = $("#servicio_id").find("option:selected").text();     
+        
+        var total = $("input[name='total']").val();
+        if(total!=""){
+            var new_total = parseFloat(total) + parseFloat(detalle.subtotal_venta);        
+               
+        }else{
+            var new_total = parseFloat(detalle.subtotal_venta);
+        }
+        $("input[name='total']").val(new_total);
+        db.links.push(detalle);
+        $("#detalle-grid .jsgrid-search-button").trigger("click");
+    
+        $("#servicio_id").val("");
+        $("#servicio_id").selectpicker(0, '');
+    
+        $('#servicio_id').selectpicker('render');
+    
+        $("input[name='cantidad_s").val(1);
+        $("input[name='precio'] ").val(0);
+        $("input[name='subtotal_s']").val(0); 
+    
+        $.LoadingOverlay("hide");
+        if($("input[name='venta_maestro']").val() == "") 
+        {
+            var total_venta = $("input[name='total'] ").val();
+            var tipo_pago_id = $("#tipo_pago_id").val();
+            var formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id} 
+            $.ajax({
+                type: "GET",
+                /*url: "../pos_v2/venta/save/",*/
+                url: "/venta/save/",
+                data: formData,
+                async:false,
+                dataType: 'json',
+                success: function(data) {
+                    var detalle = data;
+                    $("input[name='venta_maestro'] ").val(data.id);
+                },
+                error: function() {
+                    alert("Something went wrong, please try again!");
+                }
+            });
+        }
+        
+    }
+    function changeService() {
+        var servicio_id = $("#servicio_id").val();
+        var cantidad = $("input[name='cantidad_s").val();
+        var url = "/servicio/precio/" + servicio_id ;
+        if (servicio_id != "") {
+            $.getJSON( url , function ( result ) {
+                $("input[name='precio'] ").val(result.precio);
+                $("input[name='subtotal_s']").val(result.precio * cantidad);			
+            });
+        }
+    }
+    $("#ButtonServicio").click(function(e) {
+        var servicio_id = $("#servicio_id").val();
+        var cantidad = $("input[name='cantidad_s").val();
+        e.preventDefault();
+    
+        if (servicio_id && cantidad) {
+            addServicio();
+        } 
+        else {
+            bootbox.alert("Debe de seleccionar un Servicio");
+        }
+    });
+    
+    $("input[name='cantidad_s").change(function () {
+
+        var cantidad = $("input[name='cantidad_s").val();
+        var precio = $("input[name='precio").val();
+        $("input[name='subtotal_s']").val(precio * cantidad);
+    });
+    $("#servicio_id").change(function () {
+        changeService();
+    });
+    
     $(document).ready(function () {
 
         $("#detalle-grid").jsGrid({

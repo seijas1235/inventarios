@@ -123,6 +123,7 @@ class ServiciosController extends Controller
     {
         $id= $servicio->id;
         $servicio->nombre = $data["nombre"];
+        $servicio->codigo = $data["codigo"];
         $servicio->precio = $data["precio"];
         $servicio->save();
 
@@ -164,7 +165,10 @@ class ServiciosController extends Controller
             return Response::json( $response  , 422 );
         }    
     }
+    public function getPrecio(servicio $servicio) {
 
+		return Response::json($servicio);
+	}
 
     public function getJson(Request $params)
     {

@@ -10,6 +10,7 @@ class Servicio extends Model
     
     protected $fillable=[
         'id',
+        'codigo',
         'nombre',
         'precio'
         ];
