@@ -1,71 +1,87 @@
-@extends('layouts.app')
-@section('content')
-<div id="content">
-    <div class="container-custom">
+<div class="modal fade" id="compraUpdateModal" tabindex="-1" role="dialog" aria-labelledby="userEditModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" id="closeEditIngresoProducto" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="userEditModalLabel">Editar Ingreso de Productos</h4>
+            </div>
+            <form id="edit-compra-form" class="form-horizontal" role="form" method="POST" action="{{ url('/admin/user/update') }}">
+                <input type="hidden" name="_token" value="{{{ csrf_token() }}}"/>
+                <div class="modal-body">
+                    {!! csrf_field() !!}
 
-        {!! Form::model($cliente, ['method' => 'PATCH', 'action' => ['ClientesController@update', $cliente->id], 'id' => 'ClienteUpdateForm']) !!}
+                    
+                    <div class="form-group{{ $errors->has('serie_factura') ? ' has-error' : '' }}">
+                        <label class="col-md-4 control-label">Serie de la Factura</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="serie_factura" value="{{ old('serie_factura') }}">
+                            <span id="serie_factura-error" class="help-block hidden">
+                                <strong></strong>
+                            </span>
+                            @if ($errors->has('serie_factura'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('serie_factura') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
 
-        <div class="row">
-            <div class="col-sm-12">
-                <h3 class="tittle-custom"> Edición de Clientes </h3>
-            </div>
+                    <div class="form-group{{ $errors->has('num_factura') ? ' has-error' : '' }}">
+                        <label class="col-md-4 control-label">Numero de Factura</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="num_factura" value="{{ old('num_factura') }}">
+                            <span id="num_factura-error" class="help-block hidden">
+                                <strong></strong>
+                            </span>
+                            @if ($errors->has('num_factura'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('num_factura') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group{{ $errors->has('fecha_factura') ? ' has-error' : '' }}">
+                        <label class="col-md-4 control-label">Fecha de Factura</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id= "fecha_factura" name="fecha_factura" value="{{ old('fecha_factura') }}">
+                            <span id="fecha_factura-error" class="help-block hidden">
+                                <strong></strong>
+                            </span>
+                            @if ($errors->has('fecha_factura'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('fecha_factura') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group{{ $errors->has('proveedor_id') ? ' has-error' : '' }}">
+                        <label class="col-md-4 control-label">Proveedor</label>
+                        <div class="col-md-6">
+                           <select class="selectpicker data" id='proveedor_id' name="proveedor_id" value="{{ old('proveedor_id')}}" data-live-search="true">
+                            @foreach ($proveedores as $proveedor)
+                            <option value="{{$proveedor->id}}">{{ $proveedor->nombre_comercial }}</option>;
+                            @endforeach
+                        </select>
+                        <span id="proveedor_id-error" class="help-block hidden">
+                            <strong></strong>
+                        </span>
+                        @if ($errors->has('proveedor_id'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('proveedor_id') }}</strong>
+                        </span>
+                        @endif
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="closeEditUser2" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button class="btn btn-success" id="editClassButton">
+                        <i  class="fa fa-btn fa-user"></i>Editar Ingreso de Producto
+                    </button>
+                </div>
+            </form>
         </div>
-        <br>
-        <div class="row">
-            <div class="col-sm-4 form-group {{$errors->has('nit')? 'has-error' : ''}}">
-                {!! Form::label("nit","NIT:") !!}
-                {!! Form::text( "nit" , null , ['class' => 'form-control' , 'placeholder' => 'NIT' ]) !!}
-                {!!$errors->first('nit', '<label class="error">:message</label>')!!}
-            </div>
-            <div class="col-sm-4">
-            </div>
-            <div class="col-sm-4">
-                {!! Form::label("tipo_cliente_id","Tipo de Cliente:") !!}
-                <select class="selectpicker" id='tipo_cliente_id' name="tipo_cliente_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
-                    @foreach ($tipos_clientes as $tipo_cliente)
-                    @if ( $tipo_cliente->id == $cliente->tipo_cliente_id)
-                    <option value="{{$tipo_cliente->id}}" selected>{{ $tipo_cliente->nombre}}</option>
-                    @else
-                    <option value="{{$tipo_cliente->id}}">{{ $tipo_cliente->nombre}}</option>
-                    @endif
-                    @endforeach
-                </select>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-sm-6">
-                {!! Form::label("nombres","Nombres:") !!}
-                {!! Form::text( "nombres" , null , ['class' => 'form-control' , 'placeholder' => 'Nombres' ]) !!}
-            </div>
-            <div class="col-sm-6">
-                {!! Form::label("apellidos","Apellidos:") !!}
-                {!! Form::text( "apellidos" , null , ['class' => 'form-control' , 'placeholder' => 'Apellidos' ]) !!}
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-sm-4">
-                {!! Form::label("telefonos","Teléfono:") !!}
-                {!! Form::text( "telefonos" , null , ['class' => 'form-control' , 'placeholder' => 'Telefonos' ]) !!}
-            </div>
-            <div class="col-sm-8">
-                {!! Form::label("direccion","Dirección:") !!}
-                {!! Form::text( "direccion" , null , ['class' => 'form-control' , 'placeholder' => 'Dirección' ]) !!}
-            </div>
-        </div>
-        <br>
-        <div class="text-right m-t-15">
-            <a class='btn btn-primary form-gradient-color form-button' href="{{ url('/clientes') }}">Regresar</a>
-            {!! Form::input('submit', 'submit', 'Editar', ['class' => 'btn btn-primary form-gradient-color form-button', 'id'=>'ButtonUpdateCliente']) !!}
-        </div>
-        <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-    </br>
-    {!! Form::close() !!}
+    </div>
 </div>
-</div>
-
-@endsection
-@section('scripts')
-{!! HTML::script('/js/clientes/edit.js') !!}
-@endsection

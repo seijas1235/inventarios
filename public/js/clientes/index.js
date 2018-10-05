@@ -93,11 +93,11 @@ var clientes_table = $('#clientes-table').DataTable({
         "render": function(data, type, full, meta) {
             return "<div id='" + full.id + "' class='text-center'>" + 
             "<div class='float-left col-lg-6'>" + 
-            "<a href='/clientes/edit/"+ full.id +"' class='edit-tipocliente'>" + 
+            "<a href='/clientes/edit/"+ full.id +"' class='edit-cliente'>" + 
             "<i class='fa fa-btn fa-edit' title='Editar Tipo Cliente'></i>" + 
             "</a>" + "</div>" + 
             "<div class='float-right col-lg-6'>" + 
-            "<a href='#' class='remove-tipocliente'>" + 
+            "<a href='#' class='remove-cliente'>" + 
             "<i class='fa fa-btn fa-trash' title='Eliminar Tipo Cliente'></i>" + 
             "</a>" + "</div>";
             
@@ -115,7 +115,7 @@ var clientes_table = $('#clientes-table').DataTable({
 
 
 
-$('body').on('click', 'a.remove-tipocliente', function(e) {
+$('body').on('click', 'a.remove-cliente', function(e) {
     $( ".confirm-delete" , "#userDeleteModal").removeAttr("field");
     var id = $(this).parent().parent().attr("id");
     $("input[name='password_delete']").val("");

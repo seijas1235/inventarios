@@ -41,8 +41,11 @@
 	</div>
 </div>
 
+@include("compras.edit", ['proveedor' => $proveedores] )
 
 @endsection
+
 @section('scripts')
 {!! HTML::script('/js/compras/index-compra.js') !!}
+{!! HTML::script('/js/compras/edit.js') !!}
 @endsection

@@ -13,7 +13,7 @@ function setPassworddErrors( input_name , text )
 }
 
 
-$('body').on('click', 'a.remove-detallescompras', function(e) {
+$('body').on('click', 'a.remove-detallecompra', function(e) {
 	$( ".confirm-delete" , "#userDeleteModal").removeAttr("field");
 	var id = $(this).parent().parent().attr("id");
 	$("input[name='password_delete']").val("");
@@ -34,20 +34,22 @@ $('body').on('click', 'a.remove-detallescompras', function(e) {
 });
 
 
-$('body').on('click', 'a.edit-detallescompras', function(e) {
+$('body').on('click', 'a.edit-detallecompra', function(e) {
 	e.preventDefault();
 	unsetFieldErrors("existencias");
-	$("#detallescomprasUpdateModal").modal();
-	$("#detallescomprasUpdateModal").hide().show();
+	$("#detallecompraUpdateModal").modal();
+	$("#detallecompraUpdateModal").hide().show();
 	$("#password-changed").addClass("hidden");
 	var id = $(this).parent().parent().attr("id");
-	/*var url= "/pos_v2/detallescompras/name/"+id;*/
-	var url= "detallescompras/name/"+id;
+	/*var url= "/pos_v2/detallecompra/name/"+id;*/
+	var url= "/detallsecompras/name/"+id;
 	$.getJSON( url , function ( data ) {
-		$('#edit-compras-form').data("id", id);
-		$("#edit-compras-form input[name='precio_costo']").val( data.precio_compra);
+		$('#edit-ingresoproducto-form').data("id", id);
+		$("#edit-ingresoproducto-form input[name='existencias']").val( data.existencias);
+		$("#edit-ingresoproducto-form input[name='precio_compra']").val( data.precio_compra);
+		$("#edit-ingresoproducto-form input[name='precio_venta']").val( data.precio_venta);
 	});
-	$('#fecha').datetimepicker({
+	$('#fecha_factura').datetimepicker({
 		format: 'DD-MM-YYYY',
 		showClear: true,
 		showClose: true
@@ -75,7 +77,7 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
 
 	var td  = $("#"+id);
 
-	/*var url = "/pos_v2/detallescompras/destroy/"+id;*/
+	/*var url = "/pos_v2/detallecompra/destroy/"+id;*/
 	var url = "/detallescompras/destroy/"+id;
 	var password_delete = $("input[name='password_delete']").val().trim();
 	data = {

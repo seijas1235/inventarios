@@ -297,7 +297,7 @@ class ComprasController extends Controller
 		$api_logsQueriable = DB::table("compras");
 		$api_Result["recordsTotal"] = $api_logsQueriable->count();
 
-		$query = 'SELECT compras.id, compras.serie_factura, compras.num_factura, DATE_FORMAT(compras.fecha_factura, "%d-%m-%Y") as fecha_factura, proveedores.nombre_comercial, TRUNCATE(compras.total_factura,2) as total FROM compras INNER JOIN proveedores ON proveedores.id=compras.proveedor_id ';
+		$query = 'SELECT compras.id, compras.serie_factura, compras.num_factura, DATE_FORMAT(compras.fecha_factura, "%d-%m-%Y") as fecha_factura, proveedores.nombre, TRUNCATE(compras.total_factura,2) as total FROM compras INNER JOIN proveedores ON proveedores.id=compras.proveedor_id ';
 
 		$where = "";
 
@@ -345,7 +345,7 @@ class ComprasController extends Controller
 	{
 		$api_Result = array();
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("detalles_compras.compra_id", "productos.codigo_barra", "productos.prod_nombre", "detalles_compras.existencias", "detalles_compras.precio_compra", "detalles_compras.precio_venta");
+		$columnsMapping = array("detalles_compras.compra_id", "productos.codigo_barra", "productos.nombre", "detalles_compras.existencias", "detalles_compras.precio_compra", "detalles_compras.precio_venta");
 
 		// Initialize query (get all)
 
@@ -353,7 +353,7 @@ class ComprasController extends Controller
 		$api_logsQueriable = DB::table('detalles_compras');
 		$api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-		$query = 'SELECT detalles_compras.id, detalles_compras.compra_id, productos.codigo_barra, productos.prod_nombre, detalles_compras.existencias, detalles_compras.precio_compra, detalles_compras.precio_venta FROM detalles_compras INNER JOIN productos ON detalles_compras.producto_id=productos.id WHERE detalles_compras.compra_id ='.$detalle.' ';
+		$query = 'SELECT detalles_compras.id, detalles_compras.compra_id, productos.codigo_barra, productos.nombre, detalles_compras.existencias, detalles_compras.precio_compra, detalles_compras.precio_venta FROM detalles_compras INNER JOIN productos ON detalles_compras.producto_id=productos.id WHERE detalles_compras.compra_id ='.$detalle.' ';
 
 		$where = "";
 

@@ -1,6 +1,6 @@
 var compras_table = $('#compras-table').DataTable({
     /*"ajax": "/pos_v2/ingresoproducto/getJson",*/
-    "ajax": "compras/getJson",
+    "ajax": "/compras/getJson",
     "responsive": true,
     "processing": true,
     "serverSide": true,
@@ -41,16 +41,16 @@ var compras_table = $('#compras-table').DataTable({
         },
     }, {
         "title": "Fecha Factura",
-        "data": "fecha",
+        "data": "fecha_factura",
         "width" : "20%",
-        "responsivePriority": 3,
+        "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data);
         },
     },
     {
         "title": "Proveedor",
-        "data": "proveedor_id",
+        "data": "nombre",
         "width" : "20%",
         "responsivePriority": 3,
         "render": function( data, type, full, meta ) {
@@ -68,20 +68,22 @@ var compras_table = $('#compras-table').DataTable({
         },
     }, {
         "title": "Acciones",
-        "width" : "10%",
         "orderable": false,
+        "width" : "20%",
         "render": function(data, type, full, meta) {
             return "<div id='" + full.id + "' class='text-center'>" + 
-            "<div class='float-left three-columns'>" + 
-            "<a href='#' class='edit-compras'>" + 
-            "<i class='fa fa-btn fa-edit' title='Edit'></i>" + 
-            "</div>" + "<div class='float-right three-columns'>" + 
-            "<a href='#' class='remove-compras'>" + 
-            "<i class='fa fa-btn fa-trash' title='Delete'></i>" + 
-            "</a>" + "</div>" + "<div class='float-left three-columns'>" + 
-            "<a href='#' class='detalle-compras'>" + 
+            "<div class='float-left col-lg-4'>" + 
+            "<a href='#' class='edit-compra'>" + 
+            "<i class='fa fa-btn fa-edit' title='Editar compra'></i>" + 
+            "</a>" + "</div>" + 
+            "<div class='float-right col-lg-4'>" + 
+            "<a href='#' class='remove-compra'>" + 
+            "<i class='fa fa-btn fa-trash' title='Eliminar compra'></i>" + 
+            "</a>" + "</div>"+
+            "<div class='float-right col-lg-4'>" + 
+            "<a href='#' class='detalle-compra'>" + 
             "<i class='fa fa-btn fa-desktop' title='Detalles'></i>" + 
-            "</div>" + "</div>";;
+            "</a>" + "</div>";
         },
         "responsivePriority": 2
     }],
@@ -94,13 +96,11 @@ var compras_table = $('#compras-table').DataTable({
     }
 });
 
-
-
 var detalle = $('#detallecompra').text();
 
-var detallecompra_table = $('#detallecompra-table').DataTable({
+var venta_detalle = $('#detallecompra-table').DataTable({
     /*"ajax": "/pos_v2/detallecompra/"+ detalle +"/getJson",*/
-    "ajax": "/detallecompra/"+ detalle +"/getJson",
+    "ajax": "/detallescompras/"+ detalle +"/getJson",
     "responsive": true,
     "processing": true,
     "serverSide": true,
@@ -149,22 +149,39 @@ var detallecompra_table = $('#detallecompra-table').DataTable({
         },
     },{
         "title": "Producto",
-        "data": "producto_id",
+        "data": "nombre",
         "width" : "25%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data);
         },
-    },  {
+    }, {
+        "title": "Cantidad",
+        "data": "existencias",
+        "width" : "10%",
+        "responsivePriority": 2,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML(data);
+        },
+    }, {
         "title": "Precio de Compra",
-        "data": "precio_costo",
+        "data": "precio_compra",
         "width" : "15%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML("Q." + parseFloat(Math.round(data * 100) / 100).toFixed(2));
         },
     }, {
-    "title": "Acciones",
+        "title": "Precio de Venta",
+        "data": "precio_venta",
+        "width" : "15%",
+        "responsivePriority": 5,
+        "render": function( data, type, full, meta ) {
+           return CustomDatatableRenders.fitTextHTML("Q." + parseFloat(Math.round(data * 100) / 100).toFixed(2));
+
+       },
+   },{
+    "title": "Actions",
     "width" : "10%",
     "orderable": false,
     "render": function(data, type, full, meta) {

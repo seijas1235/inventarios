@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+<div id="content">
 <div class="user-created-message alert alert-dismissible fade in hidden" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
     <p></p>
@@ -31,8 +32,10 @@
         </table>
     </div>
 </div>
-{{--@include("compras.edit-detalle")--}}
+@include("compras.edit-detalle")
+</div>
 @endsection
+
 @section('scripts')
 {!! HTML::script('/js/compras/index-compra.js') !!}
 {!! HTML::script('/js/compras/detallecompra.js') !!}
