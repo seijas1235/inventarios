@@ -1,11 +1,10 @@
-$('body').on('click', 'a.edit-compra', function(e) {
+/*$('body').on('click', 'a.edit-compra', function(e) {
 	e.preventDefault();
 	$("#compraUpdateModal").modal();
 	$("#compraUpdateModal").hide().show();
 	$("#password-changed").addClass("hidden");
 	var id = $(this).parent().parent().attr("id");
 	var url= "/compras/name/"+id;
-	/*var url= "/pos_v2/compra/name/"+id;*/
 	$.getJSON( url , function ( data ) {
 		$('#edit-compra-form').data("id", id);
 		$("#edit-compra-form input[name='serie_factura']").val( data.serie_factura);
@@ -18,6 +17,56 @@ $('body').on('click', 'a.edit-compra', function(e) {
 		showClear: true,
 		showClose: true
 	});
+});*/
+
+$(document).ready(function() {
+
+	$(document).on("keypress", 'form', function (e) {
+		var code = e.keyCode || e.which;
+		if (code == 13) {
+			e.preventDefault();
+			return false;
+		}
+	});
+});
+
+$('#fecha_factura').datetimepicker({
+    format: 'YYYY-MM-DD',
+    showClear: true,
+    showClose: true
+});
+
+var validator = $("#CompraUpdateForm").validate({
+	ignore: [],
+	onkeyup:false,
+	rules: {
+		fecha_factura: {
+			required : true
+		},
+		proveedor_id: {
+			required : true
+		},
+		num_factura: {
+			required : true
+		},
+		serie_factura: {
+			required : true
+		}
+	},
+	messages: {
+		fecha_factura: {
+			required: "Por favor, seleccione fecha"
+		},
+		proveedor_id: {
+			required : "Por favor, seleccione proveedor"
+		},
+		num_factura: {
+			required : "Por favor, ingrese numero de factura"
+		},
+		serie_factura: {
+			required: "Por favor, ingrese serie"
+		}
+	}
 });
 
 

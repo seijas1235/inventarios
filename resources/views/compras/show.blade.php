@@ -32,8 +32,9 @@
         </table>
     </div>
 </div>
-@include("compras.edit-detalle")
 </div>
+
+@include("compras.edit-detalle")
 @endsection
 
 @section('scripts')

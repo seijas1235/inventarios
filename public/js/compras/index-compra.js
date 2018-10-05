@@ -73,7 +73,7 @@ var compras_table = $('#compras-table').DataTable({
         "render": function(data, type, full, meta) {
             return "<div id='" + full.id + "' class='text-center'>" + 
             "<div class='float-left col-lg-4'>" + 
-            "<a href='#' class='edit-compra'>" + 
+            "<a href='/compras/edit/"+full.id+"'class='edit-compra'>" + 
             "<i class='fa fa-btn fa-edit' title='Editar compra'></i>" + 
             "</a>" + "</div>" + 
             "<div class='float-right col-lg-4'>" + 

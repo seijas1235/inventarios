@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
+
 <div id="content">
-	<div class="container-custom">
 			<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
 			<div class="user-created-message alert alert-dismissible fade in hidden" role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -38,11 +38,7 @@
                 
 			</div>
 		</div>
-	</div>
 </div>
-
-@include("compras.edit", ['proveedor' => $proveedores] )
-
 @endsection
 
 @section('scripts')

@@ -175,9 +175,13 @@ class ComprasController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit($id)
+	public function edit(Compra $compra)
 	{
-		//
+		$query = "SELECT * FROM compras WHERE id=".$compra->id."";
+		$fieldsArray = DB::select($query);
+		
+		$proveedores = Proveedor::all();
+        return view ("compras.edit", compact('compra', 'fieldsArray','proveedores'));
 	}
 
 	/**
@@ -189,10 +193,12 @@ class ComprasController extends Controller
 	 */
 
 
-	public function update( Compra $compra, Request $request )
+	public function update(Compra $compra, Request $request )
 	{
+		Response::json($this->updateIngresoProducto($compra , $request->all()));
+        return redirect('/compras');
 
-			return Response::json( $this->updateIngresoProducto($compra, $request->all())); 
+		//return Response::json( $this->updateIngresoProducto($compra, $request->all())); 
 	}
 
 
@@ -200,7 +206,7 @@ class ComprasController extends Controller
 	public function updateIngresoProducto(Compra $compra, array $data )
 	{
 
-		$data['fecha_factura'] = Carbon::createFromFormat('d-m-Y', $data['fecha_factura']);
+		//$data['fecha_factura'] = Carbon::createFromFormat('d-m-Y', $data['fecha_factura']);
 		$compra->serie_factura = $data["serie_factura"];
 		$compra->num_factura = $data["num_factura"];
 		$compra->fecha_factura = $data["fecha_factura"];
