@@ -229,119 +229,119 @@ class ProductosController extends Controller
 
 
 
-		public function getJsonExistencia(Request $params)
-		{
-			$api_Result = array();
-			$columnsMapping = array( "productos.id", "codigo_barra", "nombre", "movimientos_productos.precio_compra", "existencias");
+	public function getJsonExistencia(Request $params)
+	{
+		$api_Result = array();
+		$columnsMapping = array( "productos.id", "codigo_barra", "nombre", "movimientos_productos.precio_compra", "existencias");
 
 
-			$api_logsQueriable = DB::table('productos');
-			$api_Result['recordsTotal'] = $api_logsQueriable->count();
+		$api_logsQueriable = DB::table('productos');
+		$api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-			$query = 'SELECT productos.id AS Codigo, productos.codigo_barra, productos.nombre, IF(movimientos_productos.precio_compra IS NULL,0,ROUND(movimientos_productos.precio_compra,4)) AS precio_compra, IF(SUM(movimientos_productos.existencias) IS NULL,0,SUM(movimientos_productos.existencias)) AS existencias, IF(SUM(movimientos_productos.existencias) IS NULL,0,ROUND(SUM(movimientos_productos.existencias) * movimientos_productos.precio_compra,4)) AS total_neto FROM productos  LEFT JOIN movimientos_productos ON productos.id=movimientos_productos.producto_id ';
+		$query = 'SELECT productos.id AS Codigo, productos.codigo_barra, productos.nombre, IF(movimientos_productos.precio_compra IS NULL,0,ROUND(movimientos_productos.precio_compra,4)) AS precio_compra, IF(SUM(movimientos_productos.existencias) IS NULL,0,SUM(movimientos_productos.existencias)) AS existencias, IF(SUM(movimientos_productos.existencias) IS NULL,0,ROUND(SUM(movimientos_productos.existencias) * movimientos_productos.precio_compra,4)) AS total_neto FROM productos  LEFT JOIN movimientos_productos ON productos.id=movimientos_productos.producto_id ';
 
-			$where = "";
+		$where = "";
 
-			if (isset($params->search['value']) && !empty($params->search['value'])){
+		if (isset($params->search['value']) && !empty($params->search['value'])){
 
-				foreach ($columnsMapping as $column) {
-					if (strlen($where) == 0) {
-						$where .=" where (".$column." like  '%".$params->search['value']."%' ";
-					} else {
-						$where .=" or ".$column." like  '%".$params->search['value']."%' ";
-					}
-
+			foreach ($columnsMapping as $column) {
+				if (strlen($where) == 0) {
+					$where .=" where (".$column." like  '%".$params->search['value']."%' ";
+				} else {
+					$where .=" or ".$column." like  '%".$params->search['value']."%' ";
 				}
-				$where .= ') ';
+
 			}
-
-			$query = $query . $where;
-
-		// Sorting
-			$sort = "";
-			//foreach ($params->order as $order) {
-			//	if (strlen($sort) == 0) {
-			//		$sort .= ' order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-			//	} else {
-			//		$sort .= ' , '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-			//	}
-			//}
-
-			$filter = " limit ".$params->length." offset ".$params->start."";
-			$group = " GROUP BY productos.id, productos.codigo_barra, movimientos_productos.precio_compra ";
-			
-                        $data =  $query . $sort . $group;
-                        $result = DB::select($data);
-
-			$api_Result['recordsFiltered'] = count($result);
-
-                        $query .= $sort . $group . $filter;
-
-			$result = DB::select($query);
-
-			$api_Result['data'] = $result;
-
-			return Response::json( $api_Result );
+			$where .= ') ';
 		}
 
+		$query = $query . $where;
 
-		public function getJsonExistenciaProd(Request $params)
-		{
-			$api_Result = array();
-		// Create a mapping of our query fields in the order that will be shown in datatable.
-			$columnsMapping = array("productos.codigo_barra", "productos.nombre");
+	// Sorting
+		$sort = "";
+		//foreach ($params->order as $order) {
+		//	if (strlen($sort) == 0) {
+		//		$sort .= ' order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
+		//	} else {
+		//		$sort .= ' , '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
+		//	}
+		//}
 
-		// Initialize query (get all)
+		$filter = " limit ".$params->length." offset ".$params->start."";
+		$group = " GROUP BY productos.id, productos.codigo_barra, movimientos_productos.precio_compra ";
+		
+					$data =  $query . $sort . $group;
+					$result = DB::select($data);
 
-			$api_logsQueriable = DB::table("productos");
-			$api_Result["recordsTotal"] = $api_logsQueriable->count();
+		$api_Result['recordsFiltered'] = count($result);
 
-			$query = 'SELECT productos.id, productos.codigo_barra, productos.nombre, if(Sum(movimientos_productos.existencias) is null,0,Sum(movimientos_productos.existencias)) as existencias FROM productos LEFT JOIN movimientos_productos on productos.id=movimientos_productos.producto_id  ';
+					$query .= $sort . $group . $filter;
 
-			$where = "";
+		$result = DB::select($query);
 
-			if (isset($params->search['value']) && !empty($params->search['value'])){
+		$api_Result['data'] = $result;
 
-				foreach ($columnsMapping as $column) {
-					if (strlen($where) == 0) {
-						$where .=" where (".$column." like  '%".$params->search['value']."%' ";
-					} else {
-						$where .=" or ".$column." like  '%".$params->search['value']."%' ";
-					}
+		return Response::json( $api_Result );
+	}
 
+
+	public function getJsonExistenciaProd(Request $params)
+	{
+		$api_Result = array();
+	// Create a mapping of our query fields in the order that will be shown in datatable.
+		$columnsMapping = array("productos.codigo_barra", "productos.nombre");
+
+	// Initialize query (get all)
+
+		$api_logsQueriable = DB::table("productos");
+		$api_Result["recordsTotal"] = $api_logsQueriable->count();
+
+		$query = 'SELECT productos.id, productos.codigo_barra, productos.nombre, if(Sum(movimientos_productos.existencias) is null,0,Sum(movimientos_productos.existencias)) as existencias FROM productos LEFT JOIN movimientos_productos on productos.id=movimientos_productos.producto_id  ';
+
+		$where = "";
+
+		if (isset($params->search['value']) && !empty($params->search['value'])){
+
+			foreach ($columnsMapping as $column) {
+				if (strlen($where) == 0) {
+					$where .=" where (".$column." like  '%".$params->search['value']."%' ";
+				} else {
+					$where .=" or ".$column." like  '%".$params->search['value']."%' ";
 				}
-				$where .= ') ';
+
 			}
-
-			$query = $query . $where;
-
-		// Sorting
-			$sort = "";
-			//foreach ($params->order as $order) {
-			//	if (strlen($sort) == 0) {
-			//		$sort .= ' order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-			//	} else {
-			//		$sort .= ' , '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-			//	}
-			//}
-
-			$filter = " limit ".$params->length." offset ".$params->start."";
-			$group = " GROUP BY productos.id, productos.codigo_barra, productos.nombre ";
-
-			
-                        $data =  $query . $sort . $group;
-                        $result = DB::select($data);
-
-			$api_Result['recordsFiltered'] = count($result);
-
-                        $query .= $sort . $group . $filter;
-
-			$result = DB::select($query);
-
-			$api_Result['data'] = $result;
-
-			return Response::json( $api_Result );
+			$where .= ') ';
 		}
+
+		$query = $query . $where;
+
+	// Sorting
+		$sort = "";
+		//foreach ($params->order as $order) {
+		//	if (strlen($sort) == 0) {
+		//		$sort .= ' order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
+		//	} else {
+		//		$sort .= ' , '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
+		//	}
+		//}
+
+		$filter = " limit ".$params->length." offset ".$params->start."";
+		$group = " GROUP BY productos.id, productos.codigo_barra, productos.nombre ";
+
+		
+					$data =  $query . $sort . $group;
+					$result = DB::select($data);
+
+		$api_Result['recordsFiltered'] = count($result);
+
+					$query .= $sort . $group . $filter;
+
+		$result = DB::select($query);
+
+		$api_Result['data'] = $result;
+
+		return Response::json( $api_Result );
+	}
 
 
 

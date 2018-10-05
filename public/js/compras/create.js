@@ -57,6 +57,21 @@ $(document).ready(function() {
 		});
 	});
 
+	$("input[name='codigo_maquina']").focusout(function() {
+		var codigo = $("input[name='codigo_maquina'] ").val();
+		var url = "/maquinarias_equipo/get/?data=" + codigo;
+		$.getJSON( url , function ( result ) {
+			if (result == 0 ) {
+				$("input[name='nombre_maquina'] ").val("");
+				$("input[name='maquinaria_equipo_id'] ").val("");
+			}
+			else {
+				$("input[name='nombre_maquina'] ").val(result[0].nombre_maquina);
+				$("input[name='maquinaria_equipo_id'] ").val(result[0].maquina_id);
+			}
+		});
+	});
+
 
 	$(document).on("keypress", 'form', function (e) {
 		var code = e.keyCode || e.which;

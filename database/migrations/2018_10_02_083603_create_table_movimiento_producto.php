@@ -20,9 +20,12 @@ class CreateTableMovimientoProducto extends Migration
             $tabla->integer('producto_id')->unsigned()->nullable();
             $tabla->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');
 
+            $tabla->integer('maquinaria_equipo_id')->unsigned()->nullable();
+            $tabla->foreign('maquinaria_equipo_id')->references('id')->on('maquinarias_y_equipos')->onDelete('cascade');
+
             $tabla->integer('existencias');
             $tabla->float('precio_compra');
-            $tabla->float('precio_venta');
+            $tabla->float('precio_venta')->nullable();
 
             //campos para controlar inserts y updates
             //created_at updated_at

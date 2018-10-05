@@ -142,7 +142,22 @@ class MaquinariasEquipoController extends Controller
         }    
     }
 
+    public function getInfo(Request $request)
+	{
+		$maquina = $request["data"];
 
+		if ($maquina == "")
+		{
+			$result = "";
+			return Response::json( $result);
+		}
+		else {
+			$query = "Select nombre_maquina, id as maquina_id, codigo_maquina FROM maquinarias_y_equipos WHERE codigo_maquina= '".$maquina."'";
+				$result = DB::select($query);
+				return Response::json( $result);
+			}
+
+	}
 
 
     public function getJson(Request $params)

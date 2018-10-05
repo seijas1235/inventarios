@@ -77,12 +77,43 @@
 			</div>
 
 			<br>
-				<div class="row">
-				</div>
+	
 				<div class="text-right m-t-15">
 					{!! Form::button('Agregar Nuevo Producto' , ['class' => 'btn btn-success' ,'id' => 'addDetalle', 'data-loading-text' => 'Processing...' ]) !!}
 				</div>				
 			<br>
+			<hr>
+			<div class="row">
+					<div class="col-sm-3">
+						{!! Form::label("codigo_maquina","Codigo de Maquina:") !!}
+						{!! Form::hidden("maquinaria_equipo_id" , null , ['class' => 'form-control' , 'disabled']) !!}
+						{!! Form::hidden("subtotalmaquina" , null , ['class' => 'form-control' , 'disabled']) !!}
+						{!! Form::text( "codigo_maquina" , null , ['class' => 'form-control' , 'placeholder' => 'Codigo Maquina' ]) !!}
+					</div>
+	
+					<div class="col-sm-3">
+						{!! Form::label("nombre_maquina","Descripcion:") !!}
+						{!! Form::text( "nombre_maquina" , null , ['class' => 'form-control' , 'disabled','placeholder' => 'Descripcion de maquinaria' ]) !!}
+					</div>
+	
+					<div class="col-sm-2">
+						{!! Form::label("cantidad_ingreso","Cantidad:") !!}
+						{!! Form::text( "cantidad_maquina" , null , ['class' => 'form-control' , 'placeholder' => 'Cantidad' ]) !!}
+					</div>
+	
+					<div class="col-sm-2">
+						{!! Form::label("precio_compra_maquina","Precio Compra:") !!}
+						{!! Form::text( "precio_compra_maquina" , null , ['class' => 'form-control' , 'placeholder' => 'Precio Compra' ]) !!}
+					</div>
+	
+				</div>
+				<br>
+					<div class="text-right m-t-15">
+						{!! Form::button('Agregar Nueva maquina' , ['class' => 'btn btn-success' ,'id' => 'addDetalleMaquina', 'data-loading-text' => 'Processing...' ]) !!}
+					</div>
+				<br>
+				<hr>	
+
 			<div id="compradetalle-grid">
 
 			</div>

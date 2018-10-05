@@ -14,6 +14,14 @@ $(document).on("keypress", '#addDetalle', function (e) {
     }
 });
 
+$(document).on("keypress", '#addDetalleMaquina', function (e) {
+    var code = e.keyCode || e.which;
+    if (code == 13) {
+        e.preventDefault();
+        return false;
+    }
+});
+
 
 $(document).on("keypress", '#ButtonDetalle', function (e) {
     var code = e.keyCode || e.which;
@@ -26,7 +34,6 @@ $(document).on("keypress", '#ButtonDetalle', function (e) {
 
 $("input[name='codigo_barra']").focusout(function() {
     var codigo = $("input[name='codigo_barra'] ").val();
-    /*var url = "../pos_v2/venta/get/?data=" + codigo;*/
     var url = "/productos/get/?data=" + codigo;    
         $.getJSON( url , function ( result ) {
             if (result == 0 ) {
@@ -39,13 +46,27 @@ $("input[name='codigo_barra']").focusout(function() {
         });
     });
 
+$("input[name='codigo_maquina']").focusout(function() {
+    var codigo = $("input[name='codigo_maquina'] ").val();
+    var url = "/maquinarias_equipo/get/?data=" + codigo;    
+        $.getJSON( url , function ( result ) {
+            if (result == 0 ) {
+                $("input[name='nombre_maquina'] ").val("");
+            }
+            else {
+                $("input[name='nombre_maquina'] ").val(result[0].nombre_maquina);
+                $("input[name='maquinaria_equipo_id'] ").val(result[0].maquina_id);
+            }
+        });
+    });
 
-$("input[name='efectivo']").focusout(function() {
+
+/*$("input[name='efectivo']").focusout(function() {
     var total = $("input[name='total'] ").val();
     var efectivo = $("input[name='efectivo']").val();
     var cambio = efectivo - total;
     $("input[name='cambio'] ").val("Q."+ cambio);
-});
+});*/
 
 $("input[name='cantidad']").focusout(function() {
     var cantidad = $("input[name='cantidad'] ").val();
@@ -57,6 +78,19 @@ $("input[name='cantidad']").focusout(function() {
     }
     else 
         $("input[name='subtotal'] ").val("0");
+    return false;
+})
+
+$("input[name='cantidad_maquina']").focusout(function() {
+    var cantidad = $("input[name='cantidad_maquina'] ").val();
+    var precio_compra = $("input[name='precio_compra_maquina'] ").val();
+
+    var subtotal = cantidad * precio_compra;
+    if (cantidad != 0 ) {
+        $("input[name='subtotalmaquina'] ").val(subtotal);
+    }
+    else 
+        $("input[name='subtotalmaquina'] ").val("0");
     return false;
 })
 
@@ -100,6 +134,57 @@ $('body').on('click', '#addDetalle', function(e) {
         $("input[name='cantidad'] ").val([""]);
         var cantidad = $("input[name='cantidad'] ").val();
         var precio_venta = $("input[name='precio_venta'] ").val();
+        var subtotal = cantidad * precio_compra;
+        $("input[name='subtotal'] ").val(subtotal);
+        $("#compradetalle-grid .jsgrid-search-button").trigger("click");    
+    }
+    else 
+    {
+        alert("Verifique que el nombre del producto, la cantidad, el precio de compra y el precio de venta no esten vacios");
+    }
+    
+});
+
+$('body').on('click', '#addDetalleMaquina', function(e) {
+
+    var detalle = new Object();
+    var cantidad = $("input[name='cantidad_maquina'] ").val();
+    var precio_venta = 0;
+    var precio_compra = $("input[name='precio_compra_maquina'] ").val();
+    var id = $("input[name='maquinaria_equipo_id'] ").val(); 
+    var subtotal = cantidad * precio_compra;
+
+    if (cantidad != "" && precio_compra != "" && id != "")
+    {
+        $("input[name='subtotalmaquina'] ").val(subtotal);
+        detalle.cantidad = $("input[name='cantidad_maquina'] ").val();
+        detalle.precio_venta = 0;
+        detalle.precio_compra = $("input[name='precio_compra_maquina'] ").val();
+        detalle.subtotal_venta = $("input[name='subtotalmaquina'] ").val();
+        detalle.maquinaria_equipo_id  = $("input[name='maquinaria_equipo_id'] ").val();
+        detalle.codigo_maquina = $("input[name='codigo_maquina'] ").val();
+        detalle.nombre = $("input[name='nombre_maquina'] ").val();
+        var total2 = $("input[name='total'] ").val();
+        if (total2 != "") {
+            var total2 =parseFloat(total2);
+            var subtotal = parseFloat(subtotal);
+            var total = total2 + subtotal;
+            var total3 = $("input[name='total'] ").val(total);
+        }
+        else {
+            var subtotal = parseFloat(subtotal);
+            var total3 = $("input[name='total'] ").val(subtotal);
+        }
+
+        db.links.push(detalle);
+        $("input[name='maquinaria_equipo_id'] ").val("");
+        $("input[name='codigo_maquina'] ").val("");
+        $("input[name='nombre_maquina'] ").val("");
+        $("input[name='precio_venta'] ").val("");
+        $("input[name='precio_compra_maquina'] ").val("");
+        $("input[name='cantidad_maquina'] ").val([""]);
+        var cantidad = $("input[name='cantidad_maquina'] ").val();
+        var precio_venta = 0;
         var subtotal = cantidad * precio_compra;
         $("input[name='subtotal'] ").val(subtotal);
         $("#compradetalle-grid .jsgrid-search-button").trigger("click");    
@@ -217,6 +302,7 @@ $('body').on('click', '#addDetalle', function(e) {
                 // { title: "Id", name: "id", type:"number", index:"id", filtering:false, editing:false, inserting:false},
                 { title: "Producto", name: "nombre", type: "text"},
                 { title: "Codigo", name: "producto_id", type: "text", visible:false},
+                { title: "Codigo2", name: "maquinaria_equipo_id", type: "text", visible:false},
                 { title: "Cantidad", name: "cantidad", type: "text"},
                 { title: "Precio Compra", name: "precio_compra", type: "text"},
                 { title: "Precio Venta", name: "precio_venta", type: "text"},

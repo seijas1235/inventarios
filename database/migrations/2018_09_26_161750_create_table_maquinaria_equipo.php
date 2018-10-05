@@ -14,7 +14,8 @@ class CreateTableMaquinariaEquipo extends Migration
     {
         Schema::create('maquinarias_y_equipos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre');
+            $table->string('nombre_maquina');
+            $table->string('codigo_maquina',20)->nullable();
 
             $table->unsignedInteger('marca');
             $table->foreign('marca')->references('id')->on('tipos_marca')->onDelete('cascade');

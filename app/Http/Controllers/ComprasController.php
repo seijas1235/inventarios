@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Compra;
+use App\MaquinariaEquipo;
 use App\IngresoProducto;
 use App\User;
 use App\Proveedor;
@@ -36,10 +37,6 @@ class ComprasController extends Controller
         $this->middleware('auth');
 	}
 	
-	public function prueba(){
-		return view('prueba');
-	}
-
 
     public function index()
     {
@@ -57,7 +54,8 @@ class ComprasController extends Controller
     {
 		$proveedores = Proveedor::all();
 		$productos = Producto::all();
-		return view("compras.create" , compact("back","proveedores", "productos") );
+		$maquinarias = MaquinariaEquipo::all();
+		return view("compras.create" , compact("back","proveedores", "productos", "maquinarias") );
     }
 
     /**
@@ -123,16 +121,34 @@ class ComprasController extends Controller
 	{
 		$statsArray = $request->all();
 		foreach($statsArray as $stat) {
-			$stat['user_id'] = Auth::user()->id;
-			$stat["subtotal"] = $stat["subtotal_venta"];
-			$stat['producto_id'] = $stat['producto_id'];
-			$stat['existencias'] = $stat["cantidad"];
-			$stat["precio_compra"] = $stat["precio_compra"];
-			$stat["precio_venta"] = $stat["precio_venta"];
-			$stat['fecha_ingreso'] = Carbon::now();
-			$detalle = MovimientoProducto::create($stat);
-			$stat["movimiento_producto_id"] = $detalle->id;
-			$compra->detalles_compras()->create($stat);
+
+			if(empty($stat['producto_id'])){
+				$stat['user_id'] = Auth::user()->id;
+				$stat['maquinaria_equipo_id'] = $stat['maquinaria_equipo_id'];
+				$stat["precio_venta"] = 0;
+				$stat["subtotal"] = $stat["subtotal_venta"];
+				$stat['existencias'] = $stat["cantidad"];
+				$stat["precio_compra"] = $stat["precio_compra"];
+				$stat['fecha_ingreso'] = Carbon::now();
+			
+				$detalle = MovimientoProducto::create($stat);
+				$stat["movimiento_producto_id"] = $detalle->id;
+				$compra->detalles_compras()->create($stat);
+			}
+
+			else{
+				$stat['user_id'] = Auth::user()->id;
+				$stat['producto_id'] = $stat['producto_id'];
+				$stat["precio_venta"] = $stat["precio_venta"];
+				$stat["subtotal"] = $stat["subtotal_venta"];
+				$stat['existencias'] = $stat["cantidad"];
+				$stat["precio_compra"] = $stat["precio_compra"];
+				$stat['fecha_ingreso'] = Carbon::now();
+			
+				$detalle = MovimientoProducto::create($stat);
+				$stat["movimiento_producto_id"] = $detalle->id;
+				$compra->detalles_compras()->create($stat);
+			}		
 			
 		}
 		return Response::json(['result' => 'ok']);
