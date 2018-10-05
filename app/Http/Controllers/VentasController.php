@@ -392,7 +392,7 @@ class VentasController extends Controller
 		$api_logsQueriable = DB::table('ventas_detalle');
 		$api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-		$query = 'SELECT venta_id As No_Venta, subtotal, ventas_detalle.id, cantidad, nombre from ventas_detalle  inner join productos on ventas_detalle.producto_id=productos.id where venta_id='.$detalle.' ';
+		$query = 'SELECT venta_id As No_Venta, TRUNCATE(subtotal,4) as  subtotal, ventas_detalle.id, cantidad, nombre from ventas_detalle  inner join productos on ventas_detalle.producto_id=productos.id where venta_id='.$detalle.' ';
 
 		$where = "";
 
