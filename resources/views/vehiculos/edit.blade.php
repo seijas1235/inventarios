@@ -78,7 +78,7 @@
         </div>
         <br>
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 {!! Form::label("tipo_transmision_id","Tipo de Transmision:") !!}
                 <select class="selectpicker" id='tipo_transmision_id' name="tipo_transmision_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
                     @foreach ($tipos_transmision as $tipo_transmision)
@@ -95,16 +95,19 @@
                 <select class="selectpicker" id='cliente_id' name="cliente_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
                     @foreach ($clientes as $cliente)
                     @if ( $cliente->id == $vehiculo->cliente_id)
-                    <option value="{{$cliente->id}}" selected>{{ $cliente->nombres}}</option>
+                    <option value="{{$cliente->id}}" selected>{{ $cliente->nombres.' '.$cliente->apellidos}}</option>
                     @else
-                    <option value="{{$cliente->id}}">{{ $cliente->nombres}}</option>
+                    <option value="{{$cliente->id}}">{{ $cliente->nombres.' '.$cliente->apellidos}}</option>
                     @endif
                     @endforeach
                 </select>
             </div>
-            <div class="col-sm-5">
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
                 {!! Form::label("observaciones","Observacciones de inspeccion:") !!}
-                {!! Form::text( "observaciones" , null , ['class' => 'form-control' , 'placeholder' => 'Observaciones de inspeccion' ]) !!}
+                {!! Form::textarea( "observaciones" , null , ['class' => 'form-control' , 'placeholder' => 'Observaciones de inspeccion', 'rows'=> '5' ]) !!}
             </div>
         </div>
     <br>

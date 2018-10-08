@@ -15,13 +15,45 @@ $('#fecha_ultimo_servicio').datetimepicker({
     showClose: true
 });
 
+function ValidaPlaca(valorPlaca){
+  var digitos = valorPlaca.length;
+
+  // Aqui esta el patron(expresion regular) a buscar en el input
+  patronPlaca = /^(DIS|TE|P|A|C|U|TRC|M|TC|O|CD|CC|MI|0)+[A-Z0-9]{6}$/;
+  
+  if( patronPlaca.test(valorPlaca) )
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+
+
+$.validator.addMethod("placa", function(value, element){
+	var valor = value;
+
+	if(ValidaPlaca(valor)==true)
+	{
+		return true;
+	}
+
+	else
+	{
+		return false;
+	}
+}, "Verfique, placa incorrecta o incompleta");
+
 
 var validator = $("#VehiculoForm").validate({
 	ignore: [],
 	onkeyup:false,
 	rules: {
 		placa: {
-			required : true
+			required : true,
+			placa: true
 		},
 		aceite_caja: {
 			required : true
