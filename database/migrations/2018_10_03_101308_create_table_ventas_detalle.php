@@ -26,7 +26,7 @@ class CreateTableVentasDetalle extends Migration
             $table->integer('movimiento_producto_id')->unsigned()->nullable();
 
             $table->integer('cantidad');
-            $table->float('precio_compra');
+            $table->float('precio_compra')->nullable();
             $table->float('precio_venta');
             $table->float('subtotal');
             $table->timestamps();
