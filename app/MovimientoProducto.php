@@ -14,7 +14,8 @@ class MovimientoProducto extends Model
     'producto_id',
     'existencias',
     'precio_compra',
-    'precio_venta'
+    'precio_venta',
+    'maquinaria_equipo_id'
     ];
 
     public function producto(){

@@ -367,7 +367,7 @@ class ComprasController extends Controller
 	{
 		$api_Result = array();
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("detalles_compras.compra_id", "productos.codigo_barra", "productos.nombre", "detalles_compras.existencias", "detalles_compras.precio_compra", "detalles_compras.precio_venta");
+		$columnsMapping = array("dc.compra_id", "p.codigo_barra", "p.nombre", "dc.existencias", "dc.precio_compra", "dc.precio_venta");
 
 		// Initialize query (get all)
 
@@ -375,7 +375,11 @@ class ComprasController extends Controller
 		$api_logsQueriable = DB::table('detalles_compras');
 		$api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-		$query = 'SELECT detalles_compras.id, detalles_compras.compra_id, productos.codigo_barra, productos.nombre, detalles_compras.existencias, detalles_compras.precio_compra, detalles_compras.precio_venta FROM detalles_compras INNER JOIN productos ON detalles_compras.producto_id=productos.id WHERE detalles_compras.compra_id ='.$detalle.' ';
+		//$query = 'SELECT detalles_compras.id, detalles_compras.compra_id, productos.codigo_barra, productos.nombre, detalles_compras.existencias, detalles_compras.precio_compra, detalles_compras.precio_venta FROM detalles_compras INNER JOIN productos ON detalles_compras.producto_id=productos.id WHERE detalles_compras.compra_id ='.$detalle.' ';
+		$query = 'SELECT dc.id, dc.compra_id, p.codigo_barra, p.nombre, m.codigo_maquina, m.nombre_maquina, dc.existencias, dc.precio_compra, dc.precio_venta
+		FROM detalles_compras dc
+		left join productos p on p.id = dc.producto_id
+		left join maquinarias_y_equipos m on m.id = dc.maquinaria_equipo_id where dc.compra_id ='.$detalle.'';
 
 		$where = "";
 

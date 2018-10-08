@@ -22,11 +22,11 @@ $('body').on('click', 'a.remove-detallecompra', function(e) {
 	$("#userDeleteModal").hide().show();
 	$("#userDeleteModal").modal();
 	if (user.length = 1) {
-		$("#message").text("este ingreso?");
+		$("#message").text("esta compra?");
 		$(".variable").text("");
 		$(".entity").text("");
 	} else {
-		$("#message").text("esta ingreso");
+		$("#message").text("esta compra");
 		$(".variable").text("");
 		$(".entity").text("");
 	}
@@ -95,7 +95,7 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
 		$(".user-created-message").removeClass("hidden");
 		$(".user-created-message").addClass("alert-success");
 		$(".user-created-message").fadeIn();
-		$(".user-created-message > p").text("Ingreso borrado exitosamente!");
+		$(".user-created-message > p").text("Compra borrada exitosamente!");
 		venta_detalle.ajax.reload();
 		$("#userDeleteModal").modal("hide");
 	}).fail(function(errors) {

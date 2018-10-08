@@ -142,7 +142,7 @@ var venta_detalle = $('#detallecompra-table').DataTable({
     }, {
         "title": "Codigo Barra",
         "data": "codigo_barra",
-        "width" : "15%",
+        "width" : "10%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data);
@@ -150,12 +150,30 @@ var venta_detalle = $('#detallecompra-table').DataTable({
     },{
         "title": "Producto",
         "data": "nombre",
-        "width" : "25%",
+        "width" : "10%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data);
         },
-    }, {
+    }, 
+    {
+        "title": "Codigo Maquina",
+        "data": "codigo_maquina",
+        "width" : "10%",
+        "responsivePriority": 2,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML(data);
+        },
+    },{
+        "title": "Maquina",
+        "data": "nombre_maquina",
+        "width" : "10%",
+        "responsivePriority": 2,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML(data);
+        },
+    },
+    {
         "title": "Cantidad",
         "data": "existencias",
         "width" : "10%",
@@ -180,8 +198,9 @@ var venta_detalle = $('#detallecompra-table').DataTable({
            return CustomDatatableRenders.fitTextHTML("Q." + parseFloat(Math.round(data * 100) / 100).toFixed(2));
 
        },
-   },{
-    "title": "Actions",
+   },
+   {
+    "title": "Acciones",
     "width" : "10%",
     "orderable": false,
     "render": function(data, type, full, meta) {
