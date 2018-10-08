@@ -69,7 +69,7 @@ var unidadesdemedida_table = $('#unidadesdemedida-table').DataTable({
         },
     }, {
         "title": "Unidad de medida",
-        "data": "equivalente",
+        "data": "unidad_de_medida_id",
         "width" : "15%",
         "responsivePriority": 3,
         "render": function( data, type, full, meta ) {

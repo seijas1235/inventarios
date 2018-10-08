@@ -21,8 +21,16 @@
                     {!! Form::number( "cantidad" , null , ['class' => 'form-control' , 'placeholder' => 'Cantidad' ]) !!}
                 </div>
                 <div class="col-sm-4">
-                    {!! Form::label("equivalente","Unidad de medida:") !!}
-                    {!! Form::text( "equivalente" , null , ['class' => 'form-control' , 'placeholder' => 'unidad de medida' ]) !!}
+                    {!! Form::label("unidad_de_medida_id","Unidad de medida:") !!}
+                    <select class="selectpicker" id='unidad_de_medida_id' name="unidad_de_medida_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+                        @foreach ($unidades_de_medida as $unidad_de_medida)
+                        @if ( $unidad_de_medida->id == $unidad_de_medida->unidad_de_medida_id)
+                        <option value="{{$unidad_de_medida->id}}" selected>{{ $unidad_de_medida->descripcion}}</option>
+                        @else
+                        <option value="{{$unidad_de_medida->id}}">{{ $unidad_de_medida->descripcion}}</option>
+                        @endif
+                        @endforeach
+                    </select>
                 </div>
             </div>
         <br>

@@ -40,7 +40,8 @@ class UnidadesDeMedidaController extends Controller
      */
     public function create()
     {
-        return view("unidades_de_medida.create");
+        $unidades_de_medida = UnidadDeMedida::all();
+        return view("unidades_de_medida.create",compact('unidades_de_medida'));
     }
 
     /**
@@ -78,8 +79,9 @@ class UnidadesDeMedidaController extends Controller
     {
         $query = "SELECT * FROM unidades_de_medida WHERE id=".$unidad_de_medida->id."";
         $fieldsArray = DB::select($query);
+        $unidades_de_medida = UnidadDeMedida::all();
 
-        return view('unidades_de_medida.edit', compact('unidad_de_medida', 'fieldsArray'));
+        return view('unidades_de_medida.edit', compact('unidad_de_medida', 'fieldsArray', 'unidades_de_medida'));
     }
 
     /**
@@ -100,6 +102,7 @@ class UnidadesDeMedidaController extends Controller
         $id= $unidad_de_medida->id;
         $unidad_de_medida->descripcion = $data["descripcion"];
         $unidad_de_medida->cantidad = $data["cantidad"];
+        $unidad_de_medida->unidad_de_medida_id = $data['unidad_de_medida_id'];
         $unidad_de_medida->save();
 
         return $unidad_de_medida;
