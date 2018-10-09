@@ -179,6 +179,27 @@ class EmpleadosController extends Controller
         }    
     }
 
+    public function getInfo(Request $request)
+	{
+		$empleado = $request["data"];
+
+		if ($empleado == "")
+		{
+			$result = "";
+			return Response::json( $result);
+		}
+		else {
+			$query = "SELECT e.nombre, e.apellido, p.sueldo 
+
+            FROM empleados e
+            
+            INNER JOIN puestos p on p.id = e.puesto_id WHERE e.id ='".$empleado."'";
+				$result = DB::select($query);
+				return Response::json( $result);
+			}
+
+	}
+
     public function getJson(Request $params)
     {
         $api_Result = array();

@@ -14,14 +14,6 @@ $(document).on("keypress", '#addDetalle', function (e) {
     }
 });
 
-$(document).on("keypress", '#addDetalleMaquina', function (e) {
-    var code = e.keyCode || e.which;
-    if (code == 13) {
-        e.preventDefault();
-        return false;
-    }
-});
-
 
 $(document).on("keypress", '#ButtonDetalle', function (e) {
     var code = e.keyCode || e.which;
@@ -32,43 +24,28 @@ $(document).on("keypress", '#ButtonDetalle', function (e) {
 });
 
 
-$("input[name='codigo_barra']").focusout(function() {
-    var codigo = $("input[name='codigo_barra'] ").val();
-    var url = "/productos/get/?data=" + codigo;    
+$("input[name='empleado_id']").focusout(function() {
+    var codigo = $("input[name='empleado_id'] ").val();
+    var url = "/empleados/get/?data=" + codigo;    
         $.getJSON( url , function ( result ) {
             if (result == 0 ) {
                 $("input[name='nombre'] ").val("");
+                $("input[name='apellido'] ").val("");
+                $("input[name='sueldo'] ").val("");
+                $("input[name='igss'] ").val("");
             }
             else {
                 $("input[name='nombre'] ").val(result[0].nombre);
-                $("input[name='producto_id'] ").val(result[0].producto_id);
-            }
-        });
-    });
-
-$("input[name='codigo_maquina']").focusout(function() {
-    var codigo = $("input[name='codigo_maquina'] ").val();
-    var url = "/maquinarias_equipo/get/?data=" + codigo;    
-        $.getJSON( url , function ( result ) {
-            if (result == 0 ) {
-                $("input[name='nombre_maquina'] ").val("");
-            }
-            else {
-                $("input[name='nombre_maquina'] ").val(result[0].nombre_maquina);
-                $("input[name='maquinaria_equipo_id'] ").val(result[0].maquina_id);
+                $("input[name='apellido'] ").val(result[0].apellido);
+                $("input[name='sueldo'] ").val(result[0].sueldo);
+                var igss = $("input[name='sueldo'] ").val() *4.83/100;
+                $("input[name='igss'] ").val(igss);
             }
         });
     });
 
 
-/*$("input[name='efectivo']").focusout(function() {
-    var total = $("input[name='total'] ").val();
-    var efectivo = $("input[name='efectivo']").val();
-    var cambio = efectivo - total;
-    $("input[name='cambio'] ").val("Q."+ cambio);
-});*/
-
-$("input[name='cantidad']").focusout(function() {
+/*$("input[name='cantidad']").focusout(function() {
     var cantidad = $("input[name='cantidad'] ").val();
     var precio_compra = $("input[name='precio_compra'] ").val();
 
@@ -79,40 +56,30 @@ $("input[name='cantidad']").focusout(function() {
     else 
         $("input[name='subtotal'] ").val("0");
     return false;
-})
+})*/
 
-$("input[name='cantidad_maquina']").focusout(function() {
-    var cantidad = $("input[name='cantidad_maquina'] ").val();
-    var precio_compra = $("input[name='precio_compra_maquina'] ").val();
-
-    var subtotal = cantidad * precio_compra;
-    if (cantidad != 0 ) {
-        $("input[name='subtotalmaquina'] ").val(subtotal);
-    }
-    else 
-        $("input[name='subtotalmaquina'] ").val("0");
-    return false;
-})
 
 $('body').on('click', '#addDetalle', function(e) {
 
     var detalle = new Object();
-    var cantidad = $("input[name='cantidad'] ").val();
-    var precio_venta = $("input[name='precio_venta'] ").val();
-    var precio_compra = $("input[name='precio_compra'] ").val();
-    var id = $("input[name='producto_id'] ").val(); 
-    var subtotal = cantidad * precio_compra;
+    var sueldo = $("input[name='sueldo'] ").val();
+    var horas_extra = $("input[name='horas_extra'] ").val();
+    var bono_incentivo = $("input[name='bono_incentivo'] ").val();
+    var id = $("input[name='empleado_id'] ").val();
+    var igss = sueldo * 4.83/100;
+    var monto_hora_extra = horas_extra * (sueldo/30*1.5); 
+    var subtotal = sueldo + bono_incentivo+ monto_hora_extra - igss;
 
-    if (cantidad != "" && precio_venta != "" && precio_compra != "" && id != "")
+    if (sueldo != ""  && id != "")
     {
         $("input[name='subtotal'] ").val(subtotal);
-        detalle.cantidad = $("input[name='cantidad'] ").val();
-        detalle.precio_venta = $("input[name='precio_venta'] ").val();
-        detalle.precio_compra = $("input[name='precio_compra'] ").val();
-        detalle.subtotal_venta = $("input[name='subtotal'] ").val();
-        detalle.producto_id  = $("input[name='producto_id'] ").val();
-        detalle.codigo_barra = $("input[name='codigo_barra'] ").val();
+        $("input[name='monto_hora_extra'] ").val(monto_hora_extra);
+        detalle.sueldo = $("input[name='sueldo'] ").val();
+        detalle.monto_hora_extra = $("input[name='monto_hora_extra'] ").val();
+        detalle.subtotal_planilla = $("input[name='subtotal'] ").val();
+        detalle.empleado_id  = $("input[name='empleado_id'] ").val();
         detalle.nombre = $("input[name='nombre'] ").val();
+        detalle.apellido = $("input[name='apellido'] ").val();
         var total2 = $("input[name='total'] ").val();
         if (total2 != "") {
             var total2 =parseFloat(total2);
@@ -126,76 +93,20 @@ $('body').on('click', '#addDetalle', function(e) {
         }
 
         db.links.push(detalle);
-        $("input[name='producto_id'] ").val("");
-        $("input[name='codigo_barra'] ").val("");
+        $("input[name='empleado_id'] ").val("");
         $("input[name='nombre'] ").val("");
-        $("input[name='precio_venta'] ").val("");
-        $("input[name='precio_compra'] ").val("");
-        $("input[name='cantidad'] ").val([""]);
-        var cantidad = $("input[name='cantidad'] ").val();
-        var precio_venta = $("input[name='precio_venta'] ").val();
-        var subtotal = cantidad * precio_compra;
-        $("input[name='subtotal'] ").val(subtotal);
-        $("#compradetalle-grid .jsgrid-search-button").trigger("click");    
+        $("input[name='horas_extra'] ").val("");
+        $("input[name='apellido'] ").val("");
+        $("input[name='monto_hora_extra'] ").val("");
+        $("input[name='subtotal'] ").val("");
+        $("#planilla-grid .jsgrid-search-button").trigger("click");    
     }
     else 
     {
-        alert("Verifique que el nombre del producto, la cantidad, el precio de compra y el precio de venta no esten vacios");
+        alert("Verifique que el nombre del empleado no este en blanco");
     }
     
 });
-
-$('body').on('click', '#addDetalleMaquina', function(e) {
-
-    var detalle = new Object();
-    var cantidad = $("input[name='cantidad_maquina'] ").val();
-    var precio_venta = 0;
-    var precio_compra = $("input[name='precio_compra_maquina'] ").val();
-    var id = $("input[name='maquinaria_equipo_id'] ").val(); 
-    var subtotal = cantidad * precio_compra;
-
-    if (cantidad != "" && precio_compra != "" && id != "")
-    {
-        $("input[name='subtotalmaquina'] ").val(subtotal);
-        detalle.cantidad = $("input[name='cantidad_maquina'] ").val();
-        detalle.precio_venta = 0;
-        detalle.precio_compra = $("input[name='precio_compra_maquina'] ").val();
-        detalle.subtotal_venta = $("input[name='subtotalmaquina'] ").val();
-        detalle.maquinaria_equipo_id  = $("input[name='maquinaria_equipo_id'] ").val();
-        detalle.codigo_maquina = $("input[name='codigo_maquina'] ").val();
-        detalle.nombre = $("input[name='nombre_maquina'] ").val();
-        var total2 = $("input[name='total'] ").val();
-        if (total2 != "") {
-            var total2 =parseFloat(total2);
-            var subtotal = parseFloat(subtotal);
-            var total = total2 + subtotal;
-            var total3 = $("input[name='total'] ").val(total);
-        }
-        else {
-            var subtotal = parseFloat(subtotal);
-            var total3 = $("input[name='total'] ").val(subtotal);
-        }
-
-        db.links.push(detalle);
-        $("input[name='maquinaria_equipo_id'] ").val("");
-        $("input[name='codigo_maquina'] ").val("");
-        $("input[name='nombre_maquina'] ").val("");
-        $("input[name='precio_venta'] ").val("");
-        $("input[name='precio_compra_maquina'] ").val("");
-        $("input[name='cantidad_maquina'] ").val([""]);
-        var cantidad = $("input[name='cantidad_maquina'] ").val();
-        var precio_venta = 0;
-        var subtotal = cantidad * precio_compra;
-        $("input[name='subtotal'] ").val(subtotal);
-        $("#compradetalle-grid .jsgrid-search-button").trigger("click");    
-    }
-    else 
-    {
-        alert("Verifique que el nombre del producto, la cantidad, el precio de compra y el precio de venta no esten vacios");
-    }
-    
-});
-
 
 (function() {
 
@@ -221,7 +132,7 @@ $('body').on('click', '#addDetalleMaquina', function(e) {
             var linkIndex = $.inArray(deletingLink, this.links);
             var total2 = $("input[name='total'] ").val();
             var total2 =parseFloat(total2);
-            var subtotal = parseFloat(deletingLink.subtotal_venta);
+            var subtotal = parseFloat(deletingLink.subtotal_planilla);
             var total = total2 - subtotal;
             var total3 = $("input[name='total'] ").val(total);
             this.links.splice(linkIndex, 1);
@@ -232,26 +143,22 @@ $('body').on('click', '#addDetalleMaquina', function(e) {
     db.links = [];
 
     function saveDetalle(button) {
-        var total_factura = $("input[name='total'] ").val();
-        var fecha_factura = $("#fecha_factura").val();
-        var proveedor_id = $("#proveedor_id").val();
-        var serie_factura = $("#serie_factura").val();
-        var num_factura = $("#num_factura").val();
-        if ( fecha_factura != '') 
+        var total_planilla = $("input[name='total'] ").val();
+        var fecha = $("#fecha").val();
+        if ( fecha != '') 
         {
-            var formData = {total_factura: total_factura, proveedor_id : proveedor_id, fecha_factura: fecha_factura,
-                serie_factura : serie_factura, num_factura :num_factura} 
+            var formData = {total_planilla: total_planilla, fecha: fecha} 
                 $.ajax({
                     type: "GET",
                     /*url: "../pos_v2/compras/save/",*/
-                    url: "/compras/save/",
+                    url: "/planillas/save/",
                     data: formData,
                     dataType: "json",
                     success: function(data) {
                         var detalle = data;
                         $.ajax({
                             /*url: "/pos_v2/compras-detalle/" + detalle.id,*/
-                            url: "/compras-detalle/" + detalle.id,
+                            url: "/planillas-detalle/" + detalle.id,
                             type: "POST",
                             contentType: "application/json",
                             data: JSON.stringify(db.links),
@@ -284,7 +191,7 @@ $('body').on('click', '#addDetalleMaquina', function(e) {
 
         $(document).ready(function () {
 
-            $("#compradetalle-grid").jsGrid({
+            $("#planilla-grid").jsGrid({
                 width: "",
                 filtering: false,
                 editing: false,
@@ -301,12 +208,12 @@ $('body').on('click', '#addDetalleMaquina', function(e) {
                 fields: [
                 // { title: "Id", name: "id", type:"number", index:"id", filtering:false, editing:false, inserting:false},
                 { title: "Producto", name: "nombre", type: "text"},
-                { title: "Codigo", name: "producto_id", type: "text", visible:false},
+                { title: "Codigo", name: "empleado_id", type: "text", visible:false},
                 { title: "Codigo2", name: "maquinaria_equipo_id", type: "text", visible:false},
                 { title: "Cantidad", name: "cantidad", type: "text"},
                 { title: "Precio Compra", name: "precio_compra", type: "text"},
-                { title: "Precio Venta", name: "precio_venta", type: "text"},
-                { title: "Subtotal", name: "subtotal_venta", type: "text"},
+                { title: "Precio Venta", name: "horas_extra", type: "text"},
+                { title: "Subtotal", name: "subtotal_planilla", type: "text"},
                 { type: "control" }
                 ],
                 onItemInserting: function (args) {

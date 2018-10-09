@@ -256,7 +256,7 @@ Route::group(['middleware' => ['web']], function ()
         Route::resource("planillas", "PlanillasController");
         Route::get('/planillas/name/{planilla}', 'PlanillasController@getName' );
 		Route::delete('/planillas/destroy/{planilla}' , 'PlanillasController@destroy' );
-		Route::get('/productos/get/', 'ProductosController@getInfo');
+		Route::get('/empleados/get/', 'EmpleadosController@getInfo');
 		
         Route::get('/detallesplanillas/{planilla}', 'PlanillasController@show');
         Route::get( '/detallesplanillas/{planilla}/getJson' , 'PlanillasController@getJsonDetalle' );
