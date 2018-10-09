@@ -26,12 +26,12 @@
 			</div>
 			<br>
 			<div class="row">
-				<div class="col-sm-4">
+				<div class="col-sm-6">
 					{!! Form::label("fecha_resolucion","Fecha Resolucion:") !!}
 					{!! Form::date( "fecha_resolucion" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha Resolucion' ]) !!}
 				</div>
 				
-				<div class="col-sm-4">
+				<div class="col-sm-6">
 					{!! Form::label("fecha_vencimiento","Fecha de Vencimiento:") !!}
 					{!! Form::date( "fecha_vencimiento" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha de Vencimiento' ]) !!}
 				</div>

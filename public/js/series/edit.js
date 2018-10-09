@@ -8,18 +8,16 @@ $(document).ready(function() {
 		}
 	});
 });
-var validator = $("#SerieForm").validate({
+var validator = $("#SerieUpdateForm").validate({
 	ignore: [],
 	onkeyup:false,
 	rules: {
 		resolucion:{
 			required: true,
 		},
-
 		serie: {
 			required : true
 		},
-
 		documento_id: {
 			required : true
 		},
@@ -34,7 +32,10 @@ var validator = $("#SerieForm").validate({
 		},
 		fecha_vencimiento:{
 			required: true
-		}
+		},
+		estado_id:{
+			required:true
+		},
 
 	},
 	messages: {
@@ -60,7 +61,10 @@ var validator = $("#SerieForm").validate({
 		},
 		fecha_vencimiento:{
 			required: "Seleccione La Fecha de Vencimiento"
-		}
+		},
+		estado_id:{
+			required:"Debe seleccionar el estado"
+		},
 	
 
 	}

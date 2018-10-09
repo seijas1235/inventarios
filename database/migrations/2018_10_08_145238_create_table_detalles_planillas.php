@@ -22,9 +22,9 @@ class CreateTableDetallesPlanillas extends Migration
             $table->float('igss');
             $table->float('isr');
 
-            $tabla->foreign('empleado_id')->references('id')->on('empleados')->onDelete('cascade');
-            $tabla->foreign('planilla_id')->references('id')->on('planillas')->onDelete('cascade');
-            $tabla->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('empleado_id')->references('id')->on('empleados')->onDelete('cascade');
+            $table->foreign('planilla_id')->references('id')->on('planillas')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

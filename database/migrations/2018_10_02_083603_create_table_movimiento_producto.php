@@ -12,24 +12,24 @@ class CreateTableMovimientoProducto extends Migration
      */
     public function up()
     {
-        Schema::create('movimientos_productos', function($tabla)
+        Schema::create('movimientos_productos', function($table)
         {
-            $tabla->increments('id');
-            $tabla->date('fecha_ingreso');
+            $table->increments('id');
+            $table->date('fecha_ingreso');
             
-            $tabla->integer('producto_id')->unsigned()->nullable();
-            $tabla->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');
+            $table->integer('producto_id')->unsigned()->nullable();
+            $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');
 
-            $tabla->integer('maquinaria_equipo_id')->unsigned()->nullable();
-            $tabla->foreign('maquinaria_equipo_id')->references('id')->on('maquinarias_y_equipos')->onDelete('cascade');
+            $table->integer('maquinaria_equipo_id')->unsigned()->nullable();
+            $table->foreign('maquinaria_equipo_id')->references('id')->on('maquinarias_y_equipos')->onDelete('cascade');
 
-            $tabla->integer('existencias');
-            $tabla->float('precio_compra');
-            $tabla->float('precio_venta')->nullable();
+            $table->integer('existencias');
+            $table->float('precio_compra');
+            $table->float('precio_venta')->nullable();
 
             //campos para controlar inserts y updates
             //created_at updated_at
-            $tabla->timestamps();
+            $table->timestamps();
         });
     }
 
