@@ -16,8 +16,8 @@
 					{!! Form::label("codigo_barra","Codigo de barra:") !!}
 					{!! Form::text( "codigo_barra" , null , ['class' => 'form-control' , 'placeholder' => 'Codigo de barra']) !!}
 				</div>
-				<div class="col-sm-4"></div>
-				<div class="col-sm-4">
+				
+				<div class="col-sm-8">
 					{!! Form::label("nombre","Nombre:") !!}
 					{!! Form::text( "nombre" , null , ['class' => 'form-control' , 'placeholder' => 'Nombre']) !!}
 				</div>

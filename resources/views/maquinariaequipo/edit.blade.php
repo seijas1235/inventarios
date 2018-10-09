@@ -13,10 +13,15 @@
         <br>
         <div class="row">
             <div class="col-sm-4">
-                {!! Form::label("nombre","Nombre:") !!}
-                {!! Form::text( "nombre" , null , ['class' => 'form-control' , 'placeholder' => 'Nombre del equipo' ]) !!}
+                {!! Form::label("codigo_maquina","Codigo:") !!}
+                {!! Form::text( "codigo_maquina" , null , ['class' => 'form-control' , 'placeholder' => 'Nombre del equipo' ]) !!}
             </div>
-            <div class="col-sm-4"></div>
+            
+            <div class="col-sm-4">
+                {!! Form::label("nombre_maquina","Nombre:") !!}
+                {!! Form::text( "nombre_maquina" , null , ['class' => 'form-control' , 'placeholder' => 'Nombre del equipo' ]) !!}
+            </div>
+            
             <div class="col-sm-4">
                 {!! Form::label("marca","Marca :") !!}
                 <select class="selectpicker" id='marca' name="marca" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">

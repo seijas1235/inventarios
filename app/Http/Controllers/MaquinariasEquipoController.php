@@ -102,7 +102,8 @@ class MaquinariasEquipoController extends Controller
     public function updateMaquinariaEquipo(MaquinariaEquipo $maquinariaequipo, array $data )
     {
         $id= $maquinariaequipo->id;
-        $maquinariaequipo->nombre = $data["nombre"];
+        $maquinariaequipo->nombre_maquina = $data["nombre_maquina"];
+        $maquinariaequipo->codigo_maquina = $data["codigo_maquina"];
         $maquinariaequipo->marca = $data["marca"];
         $maquinariaequipo->labadas_limite= $data["labadas_limite"];
         $maquinariaequipo->fecha_adquisicion = $data["fecha_adquisicion"];
@@ -171,7 +172,7 @@ class MaquinariasEquipoController extends Controller
         $api_logsQueriable = DB::table('maquinarias_y_equipos');
         $api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-        $query = "SELECT M.id, M.nombre, M.labadas_limite, M.fecha_adquisicion, MA.nombre as marca
+        $query = "SELECT M.id, M.nombre_maquina as nombre, M.codigo_maquina as codigo, M.labadas_limite, M.fecha_adquisicion, MA.nombre as marca
                 FROM maquinarias_y_equipos M
                 INNER JOIN marcas MA on MA.id = M.marca ";
 

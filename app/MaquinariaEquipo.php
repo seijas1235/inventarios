@@ -10,7 +10,8 @@ class MaquinariaEquipo extends Model
 
     protected $fillable=[
         'id',
-        'nombre',
+        'nombre_maquina',
+        'codigo_maquina',
         'marca',
         'labadas_limite',
         'fecha_adquisicion',
