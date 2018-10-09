@@ -28,21 +28,14 @@
 			<div class="row">
 				<div class="col-sm-4">
 					{!! Form::label("fecha_resolucion","Fecha Resolucion:") !!}
-					{!! Form::text( "fecha_resolucion" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha Resolucion' ]) !!}
+					{!! Form::date( "fecha_resolucion" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha Resolucion' ]) !!}
 				</div>
 				
 				<div class="col-sm-4">
 					{!! Form::label("fecha_vencimiento","Fecha de Vencimiento:") !!}
-					{!! Form::text( "fecha_vencimiento" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha de Vencimiento' ]) !!}
+					{!! Form::date( "fecha_vencimiento" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha de Vencimiento' ]) !!}
 				</div>
-				<div class="col-sm-4">
-					{!! Form::label("estado_id","Estado:") !!}
-					<select class="selectpicker" id='estado_id' name="estado_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
-						@foreach ($estados as $estado)
-						<option value="{{$estado->id}}">{{ $estado->estado}}</option>
-						@endforeach
-					</select>
-				</div>
+				
 			</div>
 			<br>
 			<div class="row">
@@ -57,11 +50,11 @@
 						
 				<div class="col-sm-4">
 					{!! Form::label("inicio","Numero Inicio:") !!}
-					{!! Form::text( "inicio" , null , ['class' => 'form-control' , 'placeholder' => 'Numero Inicio' ]) !!}
+					{!! Form::number( "inicio" , null , ['class' => 'form-control' , 'placeholder' => 'Numero Inicio' ]) !!}
 				</div>
 				<div class="col-sm-4">
 					{!! Form::label("fin","Numero Fin:") !!}
-					{!! Form::text( "fin" , null , ['class' => 'form-control' , 'placeholder' => 'Numero Fin' ]) !!}
+					{!! Form::number( "fin" , null , ['class' => 'form-control' , 'placeholder' => 'Numero Fin' ]) !!}
 				</div>
 			</div>
 			<br>
