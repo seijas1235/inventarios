@@ -1,11 +1,5 @@
 $(document).ready(function() {
 
-	$('#fecha_factura').datetimepicker({
-		format: 'DD-MM-YYYY',
-		showClear: true,
-		showClose: true
-	});
-
 	$('#fecha_ingreso').datetimepicker({
 		format: 'DD-MM-YYYY',
 		showClear: true,
@@ -18,29 +12,6 @@ $(document).ready(function() {
 		if (charCode < 48 || charCode > 57)  return false;
 		return true;
 	});
-
-	/*$("input[name='codigo_barra']").bind("enterKey",function(e){
-		var codigo = $("input[name='codigo_barra'] ").val();
-		var url = "/productos/get/?data=" + codigo;
-		$.getJSON( url , function ( result ) {
-			if (result == 0 ) {
-				$("input[name='nombre'] ").val("");
-				$("input[name='producto_id'] ").val("");
-			}
-			else {
-				$("input[name='nombre'] ").val(result[0].nombre);
-				$("input[name='producto_id'] ").val(result[0].prod_id);
-			}
-		});
-		$("input[name='cantidad']").focus();
-	 });
-
-	 $("input[name='codigo_barra']").keyup(function(e){
-		 if(e.keyCode == 13)
-		 {
-			 $(this).trigger("enterKey");
-		 }
-	 });*/
 
 	$("input[name='codigo_barra']").focusout(function() {
 		var codigo = $("input[name='codigo_barra'] ").val();
@@ -56,22 +27,6 @@ $(document).ready(function() {
 			}
 		});
 	});
-
-	$("input[name='codigo_maquina']").focusout(function() {
-		var codigo = $("input[name='codigo_maquina'] ").val();
-		var url = "/maquinarias_equipo/get/?data=" + codigo;
-		$.getJSON( url , function ( result ) {
-			if (result == 0 ) {
-				$("input[name='nombre_maquina'] ").val("");
-				$("input[name='maquinaria_equipo_id'] ").val("");
-			}
-			else {
-				$("input[name='nombre_maquina'] ").val(result[0].nombre_maquina);
-				$("input[name='maquinaria_equipo_id'] ").val(result[0].maquina_id);
-			}
-		});
-	});
-
 
 	$(document).on("keypress", 'form', function (e) {
 		var code = e.keyCode || e.which;

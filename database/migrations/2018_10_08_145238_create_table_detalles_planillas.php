@@ -16,10 +16,15 @@ class CreateTableDetallesPlanillas extends Migration
             $table->increments('id');
             $table->unsignedInteger('empleado_id');
             $table->unsignedInteger('planilla_id');
+            $table->unsignedInteger('user_id');
             $table->float('bono_incentivo');
             $table->float('horas_extra');
             $table->float('igss');
             $table->float('isr');
+
+            $tabla->foreign('empleado_id')->references('id')->on('empleados')->onDelete('cascade');
+            $tabla->foreign('planilla_id')->references('id')->on('planillas')->onDelete('cascade');
+            $tabla->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -225,7 +225,7 @@ class ProductosController extends Controller
 				return Response::json( $result);
 			}
 
-		}
+	}
 
 
 

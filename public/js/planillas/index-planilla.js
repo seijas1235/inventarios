@@ -1,6 +1,6 @@
-var compras_table = $('#compras-table').DataTable({
+var planillas_table = $('#planillas-table').DataTable({
     /*"ajax": "/pos_v2/ingresoproducto/getJson",*/
-    "ajax": "/compras/getJson",
+    "ajax": "/planillas/getJson",
     "responsive": true,
     "processing": true,
     "serverSide": true,
@@ -40,8 +40,8 @@ var compras_table = $('#compras-table').DataTable({
             return CustomDatatableRenders.fitTextHTML(data);
         },
     }, {
-        "title": "Fecha Factura",
-        "data": "fecha_factura",
+        "title": "Fecha",
+        "data": "fecha",
         "width" : "20%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
@@ -49,16 +49,7 @@ var compras_table = $('#compras-table').DataTable({
         },
     },
     {
-        "title": "Proveedor",
-        "data": "nombre",
-        "width" : "20%",
-        "responsivePriority": 3,
-        "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data);
-        },
-    },
-    {
-        "title": "Total Factura",
+        "title": "Total",
         "data": "total",
         "orderable": false,
         "width" : "20%",
@@ -96,11 +87,11 @@ var compras_table = $('#compras-table').DataTable({
     }
 });
 
-var detalle = $('#detallecompra').text();
+var detalle = $('#detalleplanilla').text();
 
-var venta_detalle = $('#detallecompra-table').DataTable({
-    /*"ajax": "/pos_v2/detallecompra/"+ detalle +"/getJson",*/
-    "ajax": "/detallescompras/"+ detalle +"/getJson",
+var planilla_detalle = $('#detalleplanilla-table').DataTable({
+    /*"ajax": "/pos_v2/detalleplanilla/"+ detalle +"/getJson",*/
+    "ajax": "/detallesplanillas/"+ detalle +"/getJson",
     "responsive": true,
     "processing": true,
     "serverSide": true,
@@ -132,24 +123,24 @@ var venta_detalle = $('#detallecompra-table').DataTable({
         },
     },
     "columns": [ {
-        "title": "No de Compra",
-        "data": "compra_id",
+        "title": "No de planilla",
+        "data": "planilla_id",
         "width" : "10%",
         "responsivePriority": 1,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data);
         },
     }, {
-        "title": "Codigo Barra",
-        "data": "codigo_barra",
+        "title": "Codigo Empleado",
+        "data": "empleado_id",
         "width" : "10%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data);
         },
     },{
-        "title": "Producto",
-        "data": "nombre",
+        "title": "Nombre Completo",
+        "data": "nombre_completo",
         "width" : "10%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
@@ -157,16 +148,16 @@ var venta_detalle = $('#detallecompra-table').DataTable({
         },
     }, 
     {
-        "title": "Codigo Maquina",
-        "data": "codigo_maquina",
+        "title": "Salario",
+        "data": "salario",
         "width" : "10%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data);
         },
     },{
-        "title": "Maquina",
-        "data": "nombre_maquina",
+        "title": "Horas Extra",
+        "data": "horas_extra",
         "width" : "10%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
@@ -174,24 +165,24 @@ var venta_detalle = $('#detallecompra-table').DataTable({
         },
     },
     {
-        "title": "Cantidad",
-        "data": "existencias",
+        "title": "Bono Incentivo",
+        "data": "bono_incentivo",
         "width" : "10%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data);
         },
     }, {
-        "title": "Precio de Compra",
-        "data": "precio_compra",
+        "title": "IGSS",
+        "data": "igss",
         "width" : "15%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML("Q." + parseFloat(Math.round(data * 100) / 100).toFixed(2));
         },
     }, {
-        "title": "Precio de Venta",
-        "data": "precio_venta",
+        "title": "ISR",
+        "data": "isr",
         "width" : "15%",
         "responsivePriority": 5,
         "render": function( data, type, full, meta ) {
@@ -206,7 +197,7 @@ var venta_detalle = $('#detallecompra-table').DataTable({
     "render": function(data, type, full, meta) {
         return "<div id='" + full.id + "' class='text-center'>" + 
             "<div class='float-center three-columns'>" + 
-            "<a href='#' class='remove-detallecompra'>" + 
+            "<a href='#' class='remove-detalleplanilla'>" + 
             "<i class='fa fa-btn fa-trash' title='Delete'></i>" + 
             "</a>" + "</div>" + "</div>";;
     },
