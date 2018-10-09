@@ -16,7 +16,8 @@ class CreateTableUnidadesDeMedida extends Migration
             $table->increments('id');
             $table->string('descripcion');
             $table->float('cantidad');
-            $table->string('equivalente');
+            $table->unsignedInteger('unidad_de_medida_id');
+            $table->foreign('unidad_de_medida_id')->references('id')->on('unidades_de_medida')->onDelete('cascade');
             $table->timestamps();
         });
     }

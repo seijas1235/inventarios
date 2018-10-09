@@ -25,4 +25,8 @@ class Empleado extends Model
     public function puesto(){
         return $this->belongsTo(Puesto::class);
     }
+
+    public function detalles_planillas(){
+        return $this->hasMany(DetallePlanilla::class);
+    }
 }

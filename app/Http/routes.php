@@ -243,9 +243,27 @@ Route::group(['middleware' => ['web']], function ()
         Route::get( '/detallescompras/{compra}/getJson' , 'ComprasController@getJsonDetalle' );
 		Route::patch( '/detallescompras/{compra}/update' , 'ComprasController@update' );
 		Route::delete( '/detallescompras/destroy/{detallecompra}' , 'ComprasController@destroyDetalle' );
-		Route::get('/detallescompras/name/{detallecompra}', 'ComprasController@getDetalle');
-		
+		Route::get('/detallescompras/name/{detallecompra}', 'ComprasController@getDetalle');		
 		Route::get('/compras/edit/{compra}', 'ComprasController@edit');
+
+		//Rutas Planillas
+		Route::get( '/planillas' , 'PlanillasController@index' );
+        Route::get( '/planillas/getJson' , 'PlanillasController@getJson' );
+        Route::get( '/planillas/new' , 'PlanillasController@create' );
+        Route::get( '/planillas/save/' , 'PlanillasController@save');
+        Route::post( '/planillas-detalle/{planilla}' , 'PlanillasController@saveDetalle');
+        Route::patch( '/planillas/{planilla}/update' , 'PlanillasController@update' );
+        Route::resource("planillas", "PlanillasController");
+        Route::get('/planillas/name/{planilla}', 'PlanillasController@getName' );
+		Route::delete('/planillas/destroy/{planilla}' , 'PlanillasController@destroy' );
+		Route::get('/productos/get/', 'ProductosController@getInfo');
+		
+        Route::get('/detallesplanillas/{planilla}', 'PlanillasController@show');
+        Route::get( '/detallesplanillas/{planilla}/getJson' , 'PlanillasController@getJsonDetalle' );
+		Route::patch( '/detallesplanillas/{planilla}/update' , 'PlanillasController@update' );
+		Route::delete( '/detallesplanillas/destroy/{detalleplanilla}' , 'PlanillasController@destroyDetalle' );
+		Route::get('/detallesplanillas/name/{detalleplanilla}', 'PlanillasController@getDetalle');		
+		Route::get('/planillas/edit/{planilla}', 'PlanillasController@edit');
 
 
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
