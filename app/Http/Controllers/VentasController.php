@@ -68,21 +68,35 @@ class VentasController extends Controller
 	{
 		$statsArray = $request->all();
 		foreach($statsArray as $stat) {
-			$producto = MovimientoProducto::where('id', $stat["movimiento_id"])
-			->get()->first();
-			$stat["precio_compra"] = $stat["precio_compra"];
-			$stat["precio_venta"] = $stat["precio_venta"];
-			$stat["subtotal"] = $stat["precio_venta"] * $stat["cantidad"];
-			$stat["movimiento_producto_id"] = $stat["movimiento_id"];
-			$result = $venta_maestro->ventadetalle()->create($stat);
-			$total_venta = $venta_maestro->total_venta + $stat["subtotal"];
-			$venta_maestro->total_venta = $total_venta;
-			$venta_maestro->save();
-			$existencias = $producto->existencias;
-			$cantidad = $stat["cantidad"];
-			$newExistencias = $existencias - $cantidad;
-			$updateExistencia = MovimientoProducto::where('id', $stat["movimiento_id"])
-			->update(['existencias' => $newExistencias]);
+			if(empty ($stat['producto_id'])){
+				
+				$stat["precio_compra"] = 0;
+				$stat["precio_venta"] = $stat["precio_venta"];
+				$stat["servicio_id"] = $stat["servicio_id"];
+				$stat["subtotal"] = $stat["subtotal_venta"];
+				$result = $venta_maestro->ventadetalle()->create($stat);
+				$total_venta = $venta_maestro->total_venta + $stat["subtotal"];
+				$venta_maestro->total_venta = $total_venta;
+				$venta_maestro->save();
+				$cantidad = $stat["cantidad"];
+					
+			}else{
+				$producto = MovimientoProducto::where('id', $stat["movimiento_id"])
+				->get()->first();
+				$stat["precio_compra"] = $stat["precio_compra"];
+				$stat["precio_venta"] = $stat["precio_venta"];
+				$stat["subtotal"] = $stat["precio_venta"] * $stat["cantidad"];
+				$stat["movimiento_producto_id"] = $stat["movimiento_id"];
+				$result = $venta_maestro->ventadetalle()->create($stat);
+				$total_venta = $venta_maestro->total_venta + $stat["subtotal"];
+				$venta_maestro->total_venta = $total_venta;
+				$venta_maestro->save();
+				$existencias = $producto->existencias;
+				$cantidad = $stat["cantidad"];
+				$newExistencias = $existencias - $cantidad;
+				$updateExistencia = MovimientoProducto::where('id', $stat["movimiento_id"])
+				->update(['existencias' => $newExistencias]);
+			}
 		}
 		return Response::json($result);
 	}

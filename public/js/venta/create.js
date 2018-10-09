@@ -229,77 +229,72 @@ $('body').on('click', '#ButtonServicio', function(e)
             }
         });
     }
-    var servicio_id = $("#servicio_id").val();
-    var cantidad = $("input[name='cantidad_s").val();
-    e.preventDefault();
-
-    if (servicio_id && cantidad) {
-    
-        
-        $.LoadingOverlay("show");
-    
         var detalle = new Object();
         var cantidad = $("input[name='cantidad_s'] ").val();
-        var precio_venta = $("input[name='precio'] ").val();
+        var precio_venta =$("input[name='precio'] ").val(); ;
+        var precio_compra = 0;
+        var id =  $("#servicio_id").val();
         var subtotal = cantidad * precio_venta;
-        $("input[name='subtotal'] ").val(subtotal);
-        detalle.servicio_id = $("#servicio_id").val();
-        detalle.cantidad = $("input[name='cantidad_s").val();
-        detalle.precio_venta = $("input[name='precio'] ").val();
-        detalle.subtotal_venta = $("input[name='subtotal_s']").val();
-        detalle.nombre = $("#servicio_id").find("option:selected").text();     
-        
-        var total = $("input[name='total']").val();
-        if(total!=""){
-            var new_total = parseFloat(total) + parseFloat(detalle.subtotal_venta);        
-            $("input[name='total']").val(new_total);
-        }else{
-            var new_total = parseFloat(detalle.subtotal_venta);
-            $("input[name='total']").val(new_total);
-        }
-
-        // anterios
-        dbs.detalles.push(detalle);
-        
-        $("#servicio_id").val("");
-        $("#servicio_id").selectpicker(0, '');
-
-        $('#servicio_id').selectpicker('render');
-
-        $("input[name='cantidad_s").val(1);
-        $("input[name='precio'] ").val(0);
-        $("input[name='subtotal_s']").val(0); 
-        var cantidad = $("input[name='cantidad_s'] ").val();
-        var precio_venta = $("input[name='precio'] ").val();
-        var subtotal = cantidad * precio_venta;
-        $("input[name='subtotal'] ").val(subtotal);
-        var venta_maestro = $("input[name='venta_maestro'] ").val();
-        if($("input[name='venta_maestro']").val() != "") {       
-            $.ajax({
-                /*url: "/pos_v2/venta-detalle/" + venta_maestro,*/
-                url: "/venta-detalle/" + venta_maestro,
-                type: "POST",
-                contentType: "application/json",
-                data: JSON.stringify(dbs.detalles),
-                success: function(addressResponse) {
-                    detalle.venta_detalle = addressResponse.id
-                    db.links.push(detalle);
-                    $("#detalle-grid .jsgrid-search-button").trigger("click");
-                    dbs.detalles = "";
-                    window.dbs = dbs;
-                    dbs.detalles = [];
-                },
-                always: function() {
-                }
-            });
-        }
-        $("#detalle-grid .jsgrid-search-button").trigger("click");
-      
+            
+        if (cantidad != "" && precio_venta != "" && id != "")
+        {
+            $("input[name='subtotal_s'] ").val(subtotal);
+            detalle.cantidad = $("input[name='cantidad_s'] ").val();
+            detalle.precio_venta = $("input[name='precio'] ").val();;
+            detalle.precio_compra = 0;
+            detalle.subtotal_venta = $("input[name='subtotal_s'] ").val();
+            detalle.servicio_id  = $("#servicio_id").val();
+            detalle.nombre = $("#servicio_id").find("option:selected").text();
+            var total2 = $("input[name='total'] ").val();
+            if (total2 != "") {
+                var total2 =parseFloat(total2);
+                var subtotal = parseFloat(subtotal);
+                var total = total2 + subtotal;
+                var total3 = $("input[name='total'] ").val(total);
+            }
+            else {
+                var subtotal = parseFloat(subtotal);
+                var total3 = $("input[name='total'] ").val(subtotal);
+            }
     
-    }
-    else {
+            dbs.detalles.push(detalle);
+            $("#servicio_id").val("");
+            $("#servicio_id").selectpicker(0, '');
+            $('#servicio_id').selectpicker('render');
+            $("input[name='nombre'] ").val("");
+            $("input[name='precio'] ").val("");
+            $("input[name='precio_compra'] ").val("");
+            $("input[name='cantidad_s'] ").val([""]);
+            var cantidad = $("input[name='cantidad_s'] ").val();
+            var precio_compra = 0;
+            var subtotal = cantidad * precio_venta;
+            console.log(cantidad , subtotal+' dblinkd ');
+            var venta_maestro = $("input[name='venta_maestro'] ").val();
+            if($("input[name='venta_maestro']").val() != "") {       
+                $.ajax({
+                    /*url: "/pos_v2/venta-detalle/" + venta_maestro,*/
+                    url: "/venta-detalle/" + venta_maestro,
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(dbs.detalles),
+                    success: function(addressResponse) {
+                        detalle.venta_detalle = addressResponse.id
+                        db.links.push(detalle);
+                        $("#detalle-grid .jsgrid-search-button").trigger("click");
+                        dbs.detalles = "";
+                        window.dbs = dbs;
+                        dbs.detalles = [];
+                    },
+                    always: function() {
+                    }
+                });
+            }
+            $("#detalle-grid .jsgrid-search-button").trigger("click");    
+        }
+        else {
         bootbox.alert("Debe de seleccionar un Servicio");
-    }  
+        }
+    
 });
 
 
@@ -434,6 +429,7 @@ $('body').on('click', '#ButtonServicio', function(e)
                 // { title: "Id", name: "id", type:"number", index:"id", filtering:false, editing:false, inserting:false},
                 { title: "Producto", name: "nombre", type: "text"},
                 { title: "Código", name: "producto_id", type: "text", visible:false},
+                { title: "Código2", name: "servicio_id", type: "text", visible:true},
                 { title: "Precio2", name: "precio_compra", type: "text", visible:false},
                 { title: "venta_detalle", name: "venta_detalle", type: "text", visible:false},
                 { title: "movimiento", name: "movimiento_id", type: "text", visible:false},
