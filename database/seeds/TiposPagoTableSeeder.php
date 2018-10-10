@@ -22,5 +22,9 @@ class TiposPagoTableSeeder extends Seeder
         $tipopago->tipo_pago= "Tarjeta";
         $tipopago->save();
 
+        $tipopago = new TipoPago;
+        $tipopago->tipo_pago= "Credito";
+        $tipopago->save();
+
     }
 }
