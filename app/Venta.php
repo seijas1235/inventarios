@@ -31,4 +31,7 @@ class Venta extends Model
     public function ventadetalle(){
     	return $this->hasMany('App\VentaDetalle', "venta_id", "id");
     }
+    public function cuentas_por_cobrar(){
+    	return $this->hasMany('App\CuentasPorCobrar');
+    }
 }
