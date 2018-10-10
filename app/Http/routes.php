@@ -266,6 +266,16 @@ Route::group(['middleware' => ['web']], function ()
 		//Route::get('/detallesplanillas/name/{detalleplanilla}', 'PlanillasController@getDetalle');		
 		Route::get('/planillas/edit/{planilla}', 'PlanillasController@edit');
 
+		Route::get('/cuentas_por_pagar', 'CuentasPorPagarController@index');
+		Route::get('/cuentas_por_pagar/getJson/' , 'CuentasPorPagarController@getJson');
+		Route::get('/cuentas_por_pagar/new' , 'CuentasPorPagarController@create');
+		Route::post('/cuentas_por_pagar/save/' , 'CuentasPorPagarController@store');
+		Route::get('/cuentas_por_pagar/edit/{cuenta_por_pagar}' , 'CuentasPorPagarController@edit');
+		Route::get('/cuentas_por_pagar/show/{cuenta_por_pagar}' , 'CuentasPorPagarController@show');
+		Route::get( '/cuentas_por_pagar/{cuenta_por_pagar}/getJson' , 'CuentasPorPagarController@getJsonDetalle' );
+		Route::patch('/cuentas_por_pagar/{cuenta_por_pagar}/update' , 'CuentasPorPagarController@update');
+		Route::delete('/cuentas_por_pagar/remove/{cuenta_por_pagar}' , 'CuentasPorPagarController@destroy');
+
 
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
 

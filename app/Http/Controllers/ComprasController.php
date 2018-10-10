@@ -24,6 +24,8 @@ use Illuminate\Support\Facades\Hash;
 use Kodeine\Acl\Models\Eloquent\Role;
 use Kodeine\Acl\Models\Eloquent\Permission;
 use Carbon\Carbon;
+use App\CuentaPorPagar;
+use App\DetalleCuentaPorPagar; 
 
 class ComprasController extends Controller
 {
@@ -111,12 +113,56 @@ class ComprasController extends Controller
      */
     public function save(Request $request)
 	{
+
 		$data = $request->all();
 		$data["user_id"] = Auth::user()->id;
 		$data['fecha_factura'] = Carbon::createFromFormat('d-m-Y', $data['fecha_factura']);
 		$data["edo_ingreso_id"] = 1;
 		$data["tipo_pago_id"] = $request["tipo_pago_id"];
 		$maestro = Compra::create($data);
+
+		if($request["tipo_pago_id"] == 3){
+
+			$existeCuentaProveedor = CuentaPorPagar::where('proveedor_id',$request["proveedor_id"])->first();
+
+			if($existeCuentaProveedor){
+
+				$detalle = array(
+					'compra_id' => $maestro->id,
+					'num_factura' => $request["num_factura"],
+					'fecha' => $data["fecha_factura"],
+					'cargos' => $request["total_factura"],	
+					'abonos' => 0,
+					'saldo' => $existeCuentaProveedor->total + $request["total_factura"]
+				);					
+
+				$existeCuentaProveedor->detalles_cuentas_por_pagar()->create($detalle);
+
+				//$total = $existeCuentaProveedor->total;
+				//$newtotal = $total + $request["total_factura"];
+				$newtotal = $detalle['saldo'];
+				$existeCuentaProveedor->update(['total' => $newtotal]);
+			}
+
+			else{
+				$cuenta = new CuentaPorPagar;
+				$cuenta->total = $request["total_factura"];
+				$cuenta->proveedor_id = $request["proveedor_id"];
+				$cuenta->save();
+
+				$detalle = array(
+					'compra_id' => $maestro->id,
+					'num_factura' => $request["num_factura"],
+					'fecha' => $data["fecha_factura"],
+					'cargos' => $request["total_factura"],	
+					'abonos' => 0,
+					'saldo' => $request["total_factura"]
+				);							
+
+				$cuenta->detalles_cuentas_por_pagar()->create($detalle);
+			}
+			
+		}
 
 		return $maestro;
 	}
@@ -365,8 +411,6 @@ class ComprasController extends Controller
 
 		return Response::json( $api_Result );
 	}
-
-
 
 	public function getJsonDetalle(Request $params, $detalle)
 	{

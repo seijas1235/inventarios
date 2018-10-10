@@ -13,6 +13,7 @@ class DetalleCuentaPorPagar extends Model
         'cuenta_por_pagar_id',
         'compra_id',
         'fecha',
+        'num_factura',
         'cargos',
         'abonos',
         'saldo'
