@@ -15,7 +15,9 @@ class DetallePlanilla extends Model
         'bono_incentivo',
         'horas_extra',
         'igss',
-        'isr'
+        'isr',
+        'user_id',
+        'sueldo'
         ];
 
 

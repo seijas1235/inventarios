@@ -69,7 +69,7 @@ class PlanillasController extends Controller
 	{
 		$data = $request->all();
 		$data["user_id"] = Auth::user()->id;
-		$data['fecha_factura'] = Carbon::createFromFormat('d-m-Y', $data['fecha_factura']);
+		$data['fecha'] = Carbon::createFromFormat('d-m-Y', $data['fecha']);
 		$maestro = Planilla::create($data);
 		return $maestro;
 	}
@@ -80,15 +80,14 @@ class PlanillasController extends Controller
 		foreach($statsArray as $stat) {
 
 			$stat['user_id'] = Auth::user()->id;
-			$stat['producto_id'] = $stat['producto_id'];
-			$stat["precio_venta"] = $stat["precio_venta"];
-			$stat["subtotal"] = $stat["subtotal_venta"];
-			$stat['existencias'] = $stat["cantidad"];
-			$stat["precio_planilla"] = $stat["precio_planilla"];
-			$stat['fecha_ingreso'] = Carbon::now();
+			$stat['empleado_id'] = $stat['empleado_id'];
+			$stat["igss"] = $stat["igss"];
+			$stat["sueldo"] = $stat["sueldo"];
+			$stat["subtotal"] = $stat["subtotal_planilla"];
+			$stat['isr'] = 0;
+			$stat["bono_incentivo"] = $stat["bono_incentivo"];
+			$stat["horas_extra"] = $stat["monto_hora_extra"];
 		
-			$detalle = MovimientoEmpleado::create($stat);
-			$stat["movimiento_producto_id"] = $detalle->id;
 			$planilla->detalles_planillas()->create($stat);
 	
 			
@@ -108,23 +107,6 @@ class PlanillasController extends Controller
 	public function show(Planilla $planilla)
 	{
 		return view('planillas.show')->with('planilla', $planilla);
-	}
-
-
-	public function getName(Planilla $planilla )
-	{
-		$date =Carbon::createFromFormat('Y-m-d H:i:s', $planilla->fecha_factura)->format('d-m-Y');
-		$planilla->fecha_factura = $date;
-		return Response::json($planilla);
-	}
-
-	public function getDetalle( DetallePlanilla $detalleplanilla)
-	{
-		$ingresoplanilla = DetallePlanilla::where( "detalles_planillas.id" , "=" , $detalleplanilla->id )
-		->select( "existencias", "precio_planilla", "precio_venta")
-		->get()
-		->first();
-		return Response::json( $ingresoplanilla);
 	}
 
 	/**
@@ -159,12 +141,7 @@ class PlanillasController extends Controller
 
 	public function updateIngresoEmpleado(Planilla $planilla, array $data )
 	{
-
-		//$data['fecha_factura'] = Carbon::createFromFormat('d-m-Y', $data['fecha_factura']);
-		$planilla->serie_factura = $data["serie_factura"];
-		$planilla->num_factura = $data["num_factura"];
-		$planilla->fecha_factura = $data["fecha_factura"];
-		$planilla->proveedor_id = $data["proveedor_id"];
+		$planilla->fecha = $data["fecha"];
 		$planilla->save();
 		return $planilla;
 	}
@@ -188,14 +165,6 @@ class PlanillasController extends Controller
 		{
 			$detalles = DetallePlanilla::where('planilla_id', $planilla->id)
 			->get();
-			foreach($detalles as $detalle) 
-			{
-				$producto = MovimientoEmpleado::where('id', $detalle["movimiento_producto_id"])
-				->get()->first();
-				$newExistencias = 0;
-				$updateExistencia = MovimientoEmpleado::where('id', $detalle["movimiento_producto_id"])
-				->update(['existencias' => $newExistencias]);
-			}
 			$planilla->delete();
 			$response["response"] = "El registro ha sido borrado";
 			return Response::json( $response );
@@ -217,22 +186,14 @@ class PlanillasController extends Controller
 		}
 		else if( password_verify( $request["password_delete"] , $user1))
 		{
-			$producto = MovimientoEmpleado::where('id', $detalleplanilla->movimiento_producto_id)
+			$planillamaestro = Planilla::where('id', $detalleplanilla->planilla_id)
 			->get()->first();
-			$existencias = $producto->existencias;
-			$cantidad = $detalleplanilla->existencias;
-			$newExistencias = $existencias - $cantidad;
-			$updateExistencia = MovimientoEmpleado::where('id', $detalleplanilla->movimiento_producto_id)
-			->update(['existencias' => $newExistencias]);
-
-
-			$ingresomaestro = Planilla::where('id', $detalleplanilla->planilla_id)
-			->get()->first();
-			$total = $ingresomaestro->total_factura;
-			$totalresta = ($detalleplanilla->precio_planilla * $detalleplanilla->existencias);
+			$total = $planillamaestro->total;
+			$totalresta = ($detalleplanilla->sueldo + $detalleplanilla->bono_incentivo + $detalleplanilla->horas_extra -
+			$detalleplanilla->igss - $detalleplanilla->isr);
 			$newTotal = $total - $totalresta;
 			$updateTotal = Planilla::where('id', $detalleplanilla->planilla_id)
-			->update(['total_factura' => $newTotal]);
+			->update(['total' => $newTotal]);
 
 
 			$detalleplanilla->delete();
@@ -250,14 +211,14 @@ class PlanillasController extends Controller
 	{
 		$api_Result = array();
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("serie_factura", "num_factura","fecha_factura", "nombre_comercial","total_factura");
+		$columnsMapping = array("id, fecha");
 
 		// Initialize query (get all)
 
 		$api_logsQueriable = DB::table("planillas");
 		$api_Result["recordsTotal"] = $api_logsQueriable->count();
 
-		$query = 'SELECT planillas.id, planillas.serie_factura, planillas.num_factura, DATE_FORMAT(planillas.fecha_factura, "%d-%m-%Y") as fecha_factura, proveedores.nombre, TRUNCATE(planillas.total_factura,2) as total FROM planillas INNER JOIN proveedores ON proveedores.id=planillas.proveedor_id ';
+		$query = 'SELECT planillas.id, DATE_FORMAT(planillas.fecha, "%d-%m-%Y") as fecha, TRUNCATE(planillas.total,2) as total FROM planillas ';
 
 		$where = "";
 
@@ -305,7 +266,7 @@ class PlanillasController extends Controller
 	{
 		$api_Result = array();
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("dc.planilla_id", "p.codigo_barra", "p.nombre", "dc.existencias", "dc.precio_planilla", "dc.precio_venta");
+		$columnsMapping = array("dp.id, e.nombre");
 
 		// Initialize query (get all)
 
@@ -313,11 +274,11 @@ class PlanillasController extends Controller
 		$api_logsQueriable = DB::table('detalles_planillas');
 		$api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-		//$query = 'SELECT detalles_planillas.id, detalles_planillas.planilla_id, empleados.codigo_barra, empleados.nombre, detalles_planillas.existencias, detalles_planillas.precio_planilla, detalles_planillas.precio_venta FROM detalles_planillas INNER JOIN empleados ON detalles_planillas.producto_id=empleados.id WHERE detalles_planillas.planilla_id ='.$detalle.' ';
-		$query = 'SELECT dc.id, dc.planilla_id, p.codigo_barra, p.nombre, m.codigo_maquina, m.nombre_maquina, dc.existencias, dc.precio_planilla, dc.precio_venta
-		FROM detalles_planillas dc
-		left join empleados p on p.id = dc.producto_id
-		left join maquinarias_y_equipos m on m.id = dc.maquinaria_equipo_id where dc.planilla_id ='.$detalle.'';
+		$query = 'SELECT dp.id, dp.planilla_id, dp.empleado_id, CONCAT(e.nombre,'."' '".',e.apellido) as nombre_completo, p.sueldo,
+		dp.horas_extra, dp.bono_incentivo, dp.igss, dp.isr
+		FROM detalles_planillas dp
+		INNER JOIN empleados e on e.id = dp.empleado_id
+		INNER JOIN puestos p on p.id = e.puesto_id WHERE dp.planilla_id ='.$detalle.'';
 
 		$where = "";
 

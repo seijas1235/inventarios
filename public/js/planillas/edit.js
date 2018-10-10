@@ -1,25 +1,4 @@
-/*$('body').on('click', 'a.edit-compra', function(e) {
-	e.preventDefault();
-	$("#compraUpdateModal").modal();
-	$("#compraUpdateModal").hide().show();
-	$("#password-changed").addClass("hidden");
-	var id = $(this).parent().parent().attr("id");
-	var url= "/compras/name/"+id;
-	$.getJSON( url , function ( data ) {
-		$('#edit-compra-form').data("id", id);
-		$("#edit-compra-form input[name='serie_factura']").val( data.serie_factura);
-		$("#edit-compra-form input[name='num_factura']").val( data.num_factura);
-		$("#edit-compra-form input[name='fecha_factura']").val( data.fecha_factura);
-		$("#edit-compra-form input[name='proveedor_id']").selectpicker('val', proveedor_id);
-	});
-	$('#fecha_factura').datetimepicker({
-		format: 'DD-MM-YYYY',
-		showClear: true,
-		showClose: true
-	});
-});*/
-
-$(document).ready(function() {
+/*$(document).ready(function() {
 
 	$(document).on("keypress", 'form', function (e) {
 		var code = e.keyCode || e.which;
@@ -28,90 +7,35 @@ $(document).ready(function() {
 			return false;
 		}
 	});
-});
+});*/
 
-$('#fecha_factura').datetimepicker({
+$('#fecha').datetimepicker({
     format: 'YYYY-MM-DD',
     showClear: true,
     showClose: true
 });
 
-var validator = $("#CompraUpdateForm").validate({
+var validator = $("#PlanillaUpdateForm").validate({
 	ignore: [],
 	onkeyup:false,
 	rules: {
-		fecha_factura: {
-			required : true
-		},
-		proveedor_id: {
-			required : true
-		},
-		num_factura: {
-			required : true
-		},
-		serie_factura: {
+		fecha: {
 			required : true
 		}
 	},
 	messages: {
-		fecha_factura: {
+		fecha: {
 			required: "Por favor, seleccione fecha"
-		},
-		proveedor_id: {
-			required : "Por favor, seleccione proveedor"
-		},
-		num_factura: {
-			required : "Por favor, ingrese numero de factura"
-		},
-		serie_factura: {
-			required: "Por favor, ingrese serie"
 		}
 	}
 });
 
 
-$('body').on('click', 'a.detalle-compra', function(e) {
+$('body').on('click', 'a.detalle-planilla', function(e) {
 	e.preventDefault();
 	var id = $(this).parent().parent().attr("id");
-	window.location = "/detallescompras/"+ id;
+	window.location = "/detallesplanillas/"+ id;
 	/*window.location = "/pos_v2/ingresodetalle/"+ id;*/
-});
-
-
-$("#edit-compra-form").submit(function(e) {
-	e.preventDefault();
-	var id = $(this).data("id");
-	var url = "/compras/" + id + "/update";
-	/*var url = "/pos_v2/compra/" + id + "/update";*/
-	var serie_factura = $("#edit-compra-form input[name='serie_factura']").val();
-	var num_factura = $("#edit-compra-form input[name='num_factura']").val();
-	var fecha_factura = $("#edit-compra-form input[name='fecha_factura']").val();
-	var proveedor_id = $("#edit-compra-form #proveedor_id").val();
-	data = {
-		serie_factura: serie_factura,
-		num_factura: num_factura,
-		fecha_factura: fecha_factura,
-		proveedor_id: proveedor_id,
-	};
-	$(".user-created-message").addClass("hidden");
-	$.ajax({
-		method: "PATCH",
-		url: url,
-		data: JSON.stringify(data),
-		contentType: "application/json",
-	}).done(function(data) {
-		$(".user-created-message").removeClass("hidden");
-		$(".user-created-message").addClass("alert-success");
-		$(".user-created-message").fadeIn();
-		$(".user-created-message > p").text("Ingreso Maestro editado exitosamente!");
-		$('#compraUpdateModal').modal("hide");
-		compras_table.ajax.reload();
-	}).fail(function(errors) {
-		/*var errors = JSON.parse(errors.responseText);
-		if (errors.cantidad_ingreso != null) setFieldErrors("cantidad_ingreso", errors.cantidad_ingreso);
-		else unsetFieldErrors("cantidad_ingreso");*/
-	});
-	return false;
 });
 
 
@@ -158,7 +82,7 @@ function setFieldErrors( input_name , text )
 }
 
 
-$('body').on('click', 'a.remove-compra', function(e) {
+$('body').on('click', 'a.remove-planilla', function(e) {
 	$( ".confirm-delete" , "#userDeleteModal").removeAttr("field");
 	unsetPasswordErrors("password_delete");
 	$("input[name='password_delete']").val("");
@@ -167,11 +91,11 @@ $('body').on('click', 'a.remove-compra', function(e) {
 	$("#userDeleteModal").hide().show();
 	$("#userDeleteModal").modal();
 	if (user.length = 1) {
-		$("#message").text("esta  compra?");
+		$("#message").text("esta  planilla?");
 		$(".variable").text("");
 		$(".entity").text("");
 	} else {
-		$("#message").text("estas compras");
+		$("#message").text("estas planillas");
 		$(".variable").text("");
 		$(".entity").text("");
 	}
@@ -198,9 +122,7 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
 	var id  = $(this).attr("id").replace("delete-", "");
 
 	var td  = $("#"+id);
-
-	/*var url = "/pos_v2/compra/destroy/"+id;*/
-	var url = "/compras/destroy/"+id;
+	var url = "/planillas/destroy/"+id;
 	var password_delete = $("input[name='password_delete']").val().trim();
 	data = {
 		password_delete : password_delete
@@ -217,8 +139,8 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
 		$(".user-created-message").removeClass("hidden");
 		$(".user-created-message").addClass("alert-success");
 		$(".user-created-message").fadeIn();
-		$(".user-created-message > p").text("Ingreso Maestro borrado exitosamente!");
-		compras_table.ajax.reload();
+		$(".user-created-message > p").text("Planilla borrada exitosamente!");
+		planillas_table.ajax.reload();
 		$("#userDeleteModal").modal("hide");
 	}).fail(function(errors) {
 		var errors = JSON.parse(errors.responseText);

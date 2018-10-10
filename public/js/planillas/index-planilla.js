@@ -1,5 +1,4 @@
 var planillas_table = $('#planillas-table').DataTable({
-    /*"ajax": "/pos_v2/ingresoproducto/getJson",*/
     "ajax": "/planillas/getJson",
     "responsive": true,
     "processing": true,
@@ -32,7 +31,7 @@ var planillas_table = $('#planillas-table').DataTable({
         },
     },
     "columns": [ {
-        "title": "Cod",
+        "title": "No.Planilla",
         "data": "id",
         "width" : "5%",
         "responsivePriority": 1,
@@ -64,15 +63,15 @@ var planillas_table = $('#planillas-table').DataTable({
         "render": function(data, type, full, meta) {
             return "<div id='" + full.id + "' class='text-center'>" + 
             "<div class='float-left col-lg-4'>" + 
-            "<a href='/compras/edit/"+full.id+"'class='edit-compra'>" + 
-            "<i class='fa fa-btn fa-edit' title='Editar compra'></i>" + 
+            "<a href='/planillas/edit/"+full.id+"'class='edit-planilla'>" + 
+            "<i class='fa fa-btn fa-edit' title='Editar planilla'></i>" + 
             "</a>" + "</div>" + 
             "<div class='float-right col-lg-4'>" + 
-            "<a href='#' class='remove-compra'>" + 
-            "<i class='fa fa-btn fa-trash' title='Eliminar compra'></i>" + 
+            "<a href='#' class='remove-planilla'>" + 
+            "<i class='fa fa-btn fa-trash' title='Eliminar planilla'></i>" + 
             "</a>" + "</div>"+
             "<div class='float-right col-lg-4'>" + 
-            "<a href='#' class='detalle-compra'>" + 
+            "<a href='#' class='detalle-planilla'>" + 
             "<i class='fa fa-btn fa-desktop' title='Detalles'></i>" + 
             "</a>" + "</div>";
         },
@@ -148,12 +147,12 @@ var planilla_detalle = $('#detalleplanilla-table').DataTable({
         },
     }, 
     {
-        "title": "Salario",
-        "data": "salario",
+        "title": "Sueldo",
+        "data": "sueldo",
         "width" : "10%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data);
+            return CustomDatatableRenders.fitTextHTML("Q." + parseFloat(Math.round(data * 100) / 100).toFixed(2));
         },
     },{
         "title": "Horas Extra",
@@ -161,7 +160,7 @@ var planilla_detalle = $('#detalleplanilla-table').DataTable({
         "width" : "10%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data);
+            return CustomDatatableRenders.fitTextHTML("Q." + parseFloat(Math.round(data * 100) / 100).toFixed(2));
         },
     },
     {
@@ -170,7 +169,7 @@ var planilla_detalle = $('#detalleplanilla-table').DataTable({
         "width" : "10%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data);
+            return CustomDatatableRenders.fitTextHTML("Q." + parseFloat(Math.round(data * 100) / 100).toFixed(2));
         },
     }, {
         "title": "IGSS",
@@ -211,3 +210,4 @@ var planilla_detalle = $('#detalleplanilla-table').DataTable({
 "fnPreDrawCallback": function( oSettings ) {
 }
 });
+

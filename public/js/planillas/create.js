@@ -1,21 +1,15 @@
 $(document).ready(function() {
 
-	$('#fecha_ingreso').datetimepicker({
+	$('#fecha').datetimepicker({
 		format: 'DD-MM-YYYY',
 		showClear: true,
 		showClose: true
 	});
 
 
-	$("#cantidad_ingreso").keypress(function(evt) {
-		var charCode = (evt.which) ? evt.which : event.keyCode
-		if (charCode < 48 || charCode > 57)  return false;
-		return true;
-	});
-
-	$("input[name='codigo_barra']").focusout(function() {
-		var codigo = $("input[name='codigo_barra'] ").val();
-		var url = "/productos/get/?data=" + codigo;
+	/*$("input[name='empleado_id']").focusout(function() {
+		var codigo = $("input[name='empleado_id'] ").val();
+		var url = "/empleados/get/?data=" + codigo;
 		$.getJSON( url , function ( result ) {
 			if (result == 0 ) {
 				$("input[name='nombre'] ").val("");
@@ -26,7 +20,7 @@ $(document).ready(function() {
 				$("input[name='producto_id'] ").val(result[0].prod_id);
 			}
 		});
-	});
+	});*/
 
 	$(document).on("keypress", 'form', function (e) {
 		var code = e.keyCode || e.which;
@@ -36,42 +30,17 @@ $(document).ready(function() {
 		}
 	});
 
-	var validator = $("#submit-ingresoproducto").validate({
+	var validator = $("#submit-ingresoplanilla").validate({
 		ignore: [],
 		onkeyup:false,
 		rules: {
-			fecha_ingreso: {
+			fecha: {
 				required : true
-			},
-			serie_factura : {
-				required : true
-			},
-			num_factura : {
-				required : true
-			},
-			fecha_factura : {
-				required : true
-			},
-			proveedor_id : {
-				required : true,
 			}
-
 		},
 		messages: {
-			fecha_ingreso : {
-				required : "Por favor, seleccione la fecha de ingreso"
-			},
-			serie_factura : {
-				required : "Por favor, ingrese la serie de la factura"
-			},
-			num_factura : {
-				required : "Por favor, ingrese el numero de la factura"
-			},
-			fecha_factura : {
-				required : "Por favor, seleccione la fecha de la factura"
-			},
-			proveedor_id : {
-				required : "Por favor, seleccione al proveedor de la factura",
+			fecha : {
+				required : "Por favor, seleccione la fecha de planilla"
 			}
 		}
 	});

@@ -37,7 +37,7 @@
 
 				<div class="col-sm-3">
 					{!! Form::label("sueldo","Sueldo:") !!}
-					{!! Form::text( "sueldo" , null , ['class' => 'form-control' ,'disabled', 'placeholder' => 'SUeldo' ]) !!}
+					{!! Form::number( "sueldo" , null , ['class' => 'form-control' ,'disabled', 'placeholder' => 'Sueldo' ]) !!}
 				</div>
 
 			</div>
@@ -46,19 +46,16 @@
 			<div class="row">
 				<div class="col-sm-3">
 					{!! Form::label("horas_extra","Horas Extra:") !!}
-					{!! Form::text( "horas_extra" , null , ['class' => 'form-control' , 'placeholder' => 'Horas Extra' ]) !!}
-				</div>
-				<div class="col-sm-3">
-					{!! Form::label("monto_hora_extra","Monto Horas Extra:") !!}
-					{!! Form::text( "monto_hora_extra" , null , ['class' => 'form-control' , 'placeholder' => 'Monto' ]) !!}
+					{!! Form::number( "horas_extra" , null , ['class' => 'form-control' , 'placeholder' => 'Horas Extra' ]) !!}
+					{!! Form::hidden("monto_hora_extra" , null , ['class' => 'form-control' , 'disabled']) !!}
 				</div>
 				<div class="col-sm-3">
 					{!! Form::label("igss","IGSS:") !!}
-					{!! Form::text( "igss" , null , ['class' => 'form-control' , 'placeholder' => 'IGSS' ]) !!}
+					{!! Form::number( "igss" , null , ['class' => 'form-control' ,'disabled', 'placeholder' => 'IGSS' ]) !!}
 				</div>
 				<div class="col-sm-3">
 					{!! Form::label("isr","ISR:") !!}
-					{!! Form::text( "isr" , null , ['class' => 'form-control' , 'placeholder' => 'ISR' ]) !!}
+					{!! Form::number( "isr" , null , ['class' => 'form-control' , 'disabled','placeholder' => 'ISR' ]) !!}
 				</div>				
 
 			</div>
@@ -77,7 +74,7 @@
 			<br>
 			<div class="col-sm-4" id="total">
 				<h3>{!! Form::label("total","Total:") !!}</h3>
-				{!! Form::text( "total" , null, ['class' => 'form-control', 'id' => 'total', 'disabled']) !!}
+				{!! Form::number( "total" , null, ['class' => 'form-control', 'id' => 'total', 'disabled']) !!}
 			</div>
 			<div class="text-right m-t-15">
 				<a class='btn btn-primary form-gradient-color form-button' href="{{ url('/planillas') }}">Regresar</a>

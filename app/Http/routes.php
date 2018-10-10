@@ -262,7 +262,7 @@ Route::group(['middleware' => ['web']], function ()
         Route::get( '/detallesplanillas/{planilla}/getJson' , 'PlanillasController@getJsonDetalle' );
 		Route::patch( '/detallesplanillas/{planilla}/update' , 'PlanillasController@update' );
 		Route::delete( '/detallesplanillas/destroy/{detalleplanilla}' , 'PlanillasController@destroyDetalle' );
-		Route::get('/detallesplanillas/name/{detalleplanilla}', 'PlanillasController@getDetalle');		
+		//Route::get('/detallesplanillas/name/{detalleplanilla}', 'PlanillasController@getDetalle');		
 		Route::get('/planillas/edit/{planilla}', 'PlanillasController@edit');
 
 

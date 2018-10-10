@@ -44,38 +44,25 @@ $("input[name='empleado_id']").focusout(function() {
         });
     });
 
-
-/*$("input[name='cantidad']").focusout(function() {
-    var cantidad = $("input[name='cantidad'] ").val();
-    var precio_compra = $("input[name='precio_compra'] ").val();
-
-    var subtotal = cantidad * precio_compra;
-    if (cantidad != 0 ) {
-        $("input[name='subtotal'] ").val(subtotal);
-    }
-    else 
-        $("input[name='subtotal'] ").val("0");
-    return false;
-})*/
-
-
 $('body').on('click', '#addDetalle', function(e) {
 
     var detalle = new Object();
     var sueldo = $("input[name='sueldo'] ").val();
     var horas_extra = $("input[name='horas_extra'] ").val();
-    var bono_incentivo = $("input[name='bono_incentivo'] ").val();
     var id = $("input[name='empleado_id'] ").val();
-    var igss = sueldo * 4.83/100;
-    var monto_hora_extra = horas_extra * (sueldo/30*1.5); 
-    var subtotal = sueldo + bono_incentivo+ monto_hora_extra - igss;
+    var igss = $("input[name='igss'] ").val();
+    var bono_incentivo = 250;
+    var monto_hora_extra = horas_extra * ((sueldo/30)/8*1.5); 
+    var subtotal = parseFloat(sueldo) + parseFloat(monto_hora_extra) + parseFloat(bono_incentivo) - parseFloat(igss);
 
     if (sueldo != ""  && id != "")
     {
         $("input[name='subtotal'] ").val(subtotal);
         $("input[name='monto_hora_extra'] ").val(monto_hora_extra);
         detalle.sueldo = $("input[name='sueldo'] ").val();
+        detalle.igss = $("input[name='igss'] ").val();
         detalle.monto_hora_extra = $("input[name='monto_hora_extra'] ").val();
+        detalle.bono_incentivo = 250;
         detalle.subtotal_planilla = $("input[name='subtotal'] ").val();
         detalle.empleado_id  = $("input[name='empleado_id'] ").val();
         detalle.nombre = $("input[name='nombre'] ").val();
@@ -98,6 +85,8 @@ $('body').on('click', '#addDetalle', function(e) {
         $("input[name='horas_extra'] ").val("");
         $("input[name='apellido'] ").val("");
         $("input[name='monto_hora_extra'] ").val("");
+        $("input[name='igss'] ").val("");
+        $("input[name='sueldo'] ").val("");
         $("input[name='subtotal'] ").val("");
         $("#planilla-grid .jsgrid-search-button").trigger("click");    
     }
@@ -143,29 +132,26 @@ $('body').on('click', '#addDetalle', function(e) {
     db.links = [];
 
     function saveDetalle(button) {
-        var total_planilla = $("input[name='total'] ").val();
+        var total = $("input[name='total'] ").val();
         var fecha = $("#fecha").val();
         if ( fecha != '') 
         {
-            var formData = {total_planilla: total_planilla, fecha: fecha} 
+            var formData = {total: total, fecha: fecha} 
                 $.ajax({
                     type: "GET",
-                    /*url: "../pos_v2/compras/save/",*/
                     url: "/planillas/save/",
                     data: formData,
                     dataType: "json",
                     success: function(data) {
                         var detalle = data;
                         $.ajax({
-                            /*url: "/pos_v2/compras-detalle/" + detalle.id,*/
                             url: "/planillas-detalle/" + detalle.id,
                             type: "POST",
                             contentType: "application/json",
                             data: JSON.stringify(db.links),
                             success: function(addressResponse) {
                                 if (addressResponse.result == "ok") {
-                            /*window.location = "/pos_v2/compras"*/
-                            window.location = "/compras"
+                            window.location = "/planillas"
                                 }
                             },
                             always: function() {
@@ -179,7 +165,7 @@ $('body').on('click', '#addDetalle', function(e) {
             }
             else
             {
-                alert ('Especifique la fecha de la factura');
+                alert ('Especifique la fecha de la planilla');
             }
 
         }
@@ -203,16 +189,17 @@ $('body').on('click', '#addDetalle', function(e) {
                 pagerFormat: "Pages: {prev} {pages} {next} | {pageIndex} of {pageCount} |",
                 pageNextText: '>',
                 pagePrevText: '<',
-                deleteConfirm: "Esta seguro de borrar el producto",
+                deleteConfirm: "Esta seguro de borrar",
                 controller: db,
                 fields: [
                 // { title: "Id", name: "id", type:"number", index:"id", filtering:false, editing:false, inserting:false},
-                { title: "Producto", name: "nombre", type: "text"},
+                { title: "Nombre", name: "nombre", type: "text"},
+                { title: "Apellido", name: "apellido", type: "text"},
                 { title: "Codigo", name: "empleado_id", type: "text", visible:false},
-                { title: "Codigo2", name: "maquinaria_equipo_id", type: "text", visible:false},
-                { title: "Cantidad", name: "cantidad", type: "text"},
-                { title: "Precio Compra", name: "precio_compra", type: "text"},
-                { title: "Precio Venta", name: "horas_extra", type: "text"},
+                { title: "Bono", name: "bono_incentivo", type: "text"},
+                { title: "Sueldo", name: "sueldo", type: "number"},
+                { title: "Horas Extra", name: "monto_hora_extra", type: "text"},
+                { title: "IGSS", name: "igss", type: "text"},
                 { title: "Subtotal", name: "subtotal_planilla", type: "text"},
                 { type: "control" }
                 ],

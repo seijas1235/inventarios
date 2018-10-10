@@ -19,6 +19,7 @@ class CreateTableDetallesPlanillas extends Migration
             $table->unsignedInteger('user_id');
             $table->float('bono_incentivo');
             $table->float('horas_extra');
+            $table->float('sueldo');
             $table->float('igss');
             $table->float('isr');
 
