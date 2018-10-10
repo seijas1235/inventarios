@@ -321,19 +321,36 @@ $('body').on('click', '#ButtonServicio', function(e)
         },
 
         deleteItem: function(deletingLink) {
-            $.ajax({
-                type: "DELETE",
-                /*url: "/pos_v2/ventadetalle2/destroy/"+ deletingLink.venta_detalle+ "/" + deletingLink.movimiento_id,*/
-                url: "/ventadetalle2/destroy/"+ deletingLink.venta_detalle+ "/" + deletingLink.movimiento_id,
-                data: deletingLink,
-                dataType: "json",
-                success: function(data) {
-                    var detalle = data;
-                },
-                error: function() {
-                    alert("Something went wrong, please try again!");
-                }
-            });
+            if(deletingLink.movimiento_id>0){
+                $.ajax({
+                    type: "DELETE",
+                    /*url: "/pos_v2/ventadetalle2/destroy/"+ deletingLink.venta_detalle+ "/" + deletingLink.movimiento_id,*/
+                    url: "/ventadetalle2/destroy/"+ deletingLink.venta_detalle+ "/" + deletingLink.movimiento_id,
+                    data: deletingLink,
+                    dataType: "json",
+                    success: function(data) {
+                        var detalle = data;
+                    },
+                    error: function() {
+                        alert("Something went wrong, please try again!");
+                    }
+                }); 
+            }else{
+                $.ajax({
+                    type: "DELETE",
+                    /*url: "/pos_v2/ventadetalle2/destroy/"+ deletingLink.venta_detalle+ "/" + deletingLink.movimiento_id,*/
+                    url: "/ventadetalle3/destroy/"+ deletingLink.venta_detalle,
+                    data: deletingLink,
+                    dataType: "json",
+                    success: function(data) {
+                        var detalle = data;
+                    },
+                    error: function() {
+                        alert("Something went wrong, please try again!");
+                    }
+                }); 
+
+            }
             var linkIndex = $.inArray(deletingLink, this.links);
             var total2 = $("input[name='total'] ").val();
             var total2 =parseFloat(total2);
@@ -429,7 +446,7 @@ $('body').on('click', '#ButtonServicio', function(e)
                 // { title: "Id", name: "id", type:"number", index:"id", filtering:false, editing:false, inserting:false},
                 { title: "Producto", name: "nombre", type: "text"},
                 { title: "Código", name: "producto_id", type: "text", visible:false},
-                { title: "Código2", name: "servicio_id", type: "text", visible:true},
+                { title: "Código2", name: "servicio_id", type: "text", visible:false},
                 { title: "Precio2", name: "precio_compra", type: "text", visible:false},
                 { title: "venta_detalle", name: "venta_detalle", type: "text", visible:false},
                 { title: "movimiento", name: "movimiento_id", type: "text", visible:false},

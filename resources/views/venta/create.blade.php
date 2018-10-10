@@ -100,9 +100,9 @@
 				{!! Form::label("subtotal_s","Sub-Total:") !!}
 				{!! Form::text( "subtotal_s" , null , ['class' => 'form-control' , 'disabled', 'placeholder' => 'Sub-Total' ]) !!}
 			</div>
-			<div class="col-sm-2 text-right">
-
-				{!! Form::input('submit', 'submit', 'Agregar', ['class' => 'btn btn-danger form-gradient-color form-button2', 'id'=>'ButtonServicio']) !!}
+			<div class="text-right m-t-15">
+					{!! Form::submit('Agregar Servicio' , ['class' => 'btn btn-success' ,
+					'id' => 'ButtonServicio', 'data-loading-text' => 'Processing...' ]) !!}
 			</div>
 		</div>
 		<br>

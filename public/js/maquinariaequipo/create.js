@@ -10,7 +10,10 @@ var validator = $("#MaquinariaEquipoForm").validate({
 	ignore: [],
 	onkeyup:false,
 	rules: {
-		nombre: {
+		nombre_maquina: {
+			required : true
+		},
+		codigo_maquina:{
 			required : true
 		},
 		marca: {
@@ -25,7 +28,7 @@ var validator = $("#MaquinariaEquipoForm").validate({
 
 	},
 	messages: {
-		nombre: {
+		nombre_maquina: {
 			required: "Por favor, ingrese el nombre del Equipo"
 		},
 		apellido: {
@@ -37,6 +40,9 @@ var validator = $("#MaquinariaEquipoForm").validate({
 		direccion: {
 			required: "Por favor, ingrese el numero limite de labadas del equipo"
 		},
+		codigo_maquina:{
+			required:"Debe Ingresar un codigo de maquinaria"
+		}
 	}
 });
 

@@ -16,7 +16,7 @@
 					{!! Form::label("maquinaria_id","Maquinaria :") !!}
 						<select class="selectpicker" id='maquinaria_id' name="maquinaria_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione Maquinaria">
 							@foreach ($maquinarias as $maquinaria)
-							<option value="{{$maquinaria->id}}">{{$maquinaria->nombre}}</option>
+							<option value="{{$maquinaria->id}}">{{$maquinaria->nombre_maquina}}</option>
 							@endforeach
 						</select>
 				</div>

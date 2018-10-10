@@ -63,7 +63,8 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch('/venta/update-total/{venta_maestro}/' , 'VentasController@updateTotal');
 		Route::get('/ventadetalle/{venta_maestro}/getJson' , 'VentasController@getJsonDetalle');
 		Route::delete('/ventadetalle/destroy/{venta_detalle}', 'VentasController@destroyDetalle');
-		Route::delete('/ventadetalle2/destroy/{venta_detalle}/{movimiento_producto}', 'VentaController@destroyDetalle2');
+		Route::delete('/ventadetalle2/destroy/{venta_detalle}/{movimiento_producto}', 'VentasController@destroyDetalle2');
+		Route::delete('/ventadetalle3/destroy/{venta_detalle}', 'VentasController@destroyDetalle3');
 
 
 		Route::get( '/salidaproducto' , 'SalidaProductoController@index' );

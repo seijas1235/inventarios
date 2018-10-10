@@ -42,7 +42,17 @@ var maquinariaequipo_table = $('#maquinariaequipo-table').DataTable({
         },
     },
     "order": [0, 'desc'],
-    "columns": [ {
+    "columns": [ 
+        {
+            "title": "Codigo de Maquina",
+            "data": "codigo",
+            "width" : "15%",
+            "responsivePriority": 1,
+            "render": function( data, type, full, meta ) {
+             return CustomDatatableRenders.fitTextHTML(data);
+        },
+        },
+        {
         "title": "Maquina",
         "data": "nombre",
         "width" : "15%",
@@ -50,7 +60,8 @@ var maquinariaequipo_table = $('#maquinariaequipo-table').DataTable({
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data);
         },
-    }, {
+        }, 
+        {
         "title": "Marca",
         "data": "marca",
         "width" : "15%",
@@ -58,7 +69,7 @@ var maquinariaequipo_table = $('#maquinariaequipo-table').DataTable({
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data);
         },
-    }, {
+        }, {
         "title": "Labadas Limite",
         "data": "labadas_limite",
         "width" : "10%",
@@ -163,8 +174,8 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
         $(".user-created-message").removeClass("hidden");
         $(".user-created-message").addClass("alert-danger");
         $(".user-created-message").fadeIn();
-        $(".user-created-message > p").text("Vehiculo inhabilitado exitosamente!");
-        vehiculos_table.ajax.reload();
+        $(".user-created-message > p").text("Maquina inhabilitada exitosamente!");
+        maquinariaequipo_table.ajax.reload();
         $("#userDeleteModal").modal("hide");
     }).fail(function(errors) {
         var errors = JSON.parse(errors.responseText);

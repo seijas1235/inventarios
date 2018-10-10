@@ -17,7 +17,7 @@
                 <select class="selectpicker" id='maquinaria_id' name="maquinaria_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
                     @foreach ($maquinarias as $maquinaria)
                     @if ( $maquinaria->id == $manttoequipo->maquinaria_id)
-                    <option value="{{$maquinaria->id}}" selected>{{ $maquinaria->nombre}}</option>
+                    <option value="{{$maquinaria->id}}" selected>{{ $maquinaria->nombre_nombre}}</option>
                     @else
                     <option value="{{$maquinaria->id}}">{{ $maquinaria->nombre}}</option>
                     @endif

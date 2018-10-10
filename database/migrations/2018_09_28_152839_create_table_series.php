@@ -20,7 +20,7 @@ class CreateTableSeries extends Migration
             $table->date('fecha_vencimiento');
             $table->integer('inicio');
             $table->integer('fin');
-            $table->unsignedInteger('estado_id');
+            $table->unsignedInteger('estado_id')->default(1)->nullable();
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('documento_id');
 

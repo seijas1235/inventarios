@@ -169,6 +169,7 @@ class VentasController extends Controller
 			->get();
 			foreach($detalles as $detalle) 
 			{
+				if($detalle['producto_id']>0){
 				$producto = MovimientoProducto::where('id', $detalle["movimiento_producto_id"])
 				->get()->first();
 				$existencias = $producto->existencias;
@@ -176,6 +177,9 @@ class VentasController extends Controller
 				$newExistencias = $existencias + $cantidad;
 				$updateExistencia = MovimientoProducto::where('id', $detalle["movimiento_producto_id"])
 				->update(['existencias' => $newExistencias]);
+				}else{
+					$producto = $detalle["servicio_id"];
+				}
 			}
 			$venta_maestro->delete();
 			$response["response"] = "El registro ha sido borrado";
@@ -236,7 +240,6 @@ class VentasController extends Controller
 		$updateExistencia = MovimientoProducto::where('id', $movimiento_producto->id)
 		->update(['existencias' => $newExistencias]);
 
-
 		$ventamaestro = Venta::where('id', $venta_detalle->venta_id)
 		->get()->first();
 		$total = $ventamaestro->total_venta;
@@ -249,7 +252,21 @@ class VentasController extends Controller
 		$response["response"] = "El registro ha sido borrado";
 		return Response::json($response);
 	}
+	public function destroyDetalle3(VentaDetalle $venta_detalle,Request $request)
+	{
+		
+		$ventamaestro = Venta::where('id', $venta_detalle->venta_id)
+		->get()->first();
+		$total = $ventamaestro->total_venta;
+		$totalresta = $venta_detalle->subtotal;
+		$newTotal = $total - $totalresta;
+		$updateTotal = Venta::where('id', $venta_detalle->venta_id)
+		->update(['total_venta' => $newTotal]);
 
+		$venta_detalle->delete();
+		$response["response"] = "El registro ha sido borrado";
+		return Response::json($response);
+	}
 
 
 	public function getTipoPago( Venta $venta_maestro )
@@ -408,8 +425,14 @@ class VentasController extends Controller
 		$api_logsQueriable = DB::table('ventas_detalle');
 		$api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-		$query = 'SELECT venta_id As No_Venta, TRUNCATE(subtotal,4) as  subtotal, ventas_detalle.id, cantidad, nombre from ventas_detalle  inner join productos on ventas_detalle.producto_id=productos.id where venta_id='.$detalle.' ';
-
+		$query ='SELECT vd.venta_id as No_Venta, vd.id, 	
+				IF(vd.producto_id>0,pr.nombre, sr.nombre) as nombre, 
+				vd.cantidad as cantidad, vd.subtotal as subtotal
+				FROM ventas_detalle vd
+				LEFT JOIN productos pr ON vd.producto_id=pr.id
+				LEFT JOIN servicios sr ON vd.servicio_id=sr.id
+				where venta_id='.$detalle.' ';
+		
 		$where = "";
 
 		if (isset($params->search['value']) && !empty($params->search['value'])){

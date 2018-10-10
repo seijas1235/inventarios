@@ -12,32 +12,32 @@ class CreateTableIngresosProductos extends Migration
      */
     public function up()
     {
-        Schema::create('ingresos_productos', function($tabla)
+        Schema::create('ingresos_productos', function($table)
         {
-            $tabla->increments('id');
+            $table->increments('id');
 
-            $tabla->unsignedInteger('producto_id')->nullable();
-            $tabla->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');
+            $table->unsignedInteger('producto_id')->nullable();
+            $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');
 
-            $tabla->integer('cantidad_ingreso');
-            $tabla->date('fecha_ingreso');
+            $table->integer('cantidad_ingreso');
+            $table->date('fecha_ingreso');
             
-            $tabla->integer('user_id')->unsigned()->nullable();
-            $tabla->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $tabla->integer('edo_ingreso_id')->unsigned()->nullable();
-            $tabla->foreign('edo_ingreso_id')->references('id')->on('estado_ingresos')->onDelete('cascade');
+            $table->integer('edo_ingreso_id')->unsigned()->nullable();
+            $table->foreign('edo_ingreso_id')->references('id')->on('estado_ingresos')->onDelete('cascade');
 
-            $tabla->string('serie_factura',3);
-            $tabla->integer('num_factura');
-            $tabla->date('fecha_factura');
+            $table->string('serie_factura',3);
+            $table->integer('num_factura');
+            $table->date('fecha_factura');
             
-            $tabla->integer('proveedor_id')->unsigned()->nullable();
-            $tabla->foreign('proveedor_id')->references('id')->on('proveedores')->onDelete('cascade');
+            $table->integer('proveedor_id')->unsigned()->nullable();
+            $table->foreign('proveedor_id')->references('id')->on('proveedores')->onDelete('cascade');
             
             //campos para controlar inserts y updates
             //created_at updated_at
-            $tabla->timestamps();
+            $table->timestamps();
         });
     }
 

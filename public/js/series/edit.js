@@ -8,32 +8,14 @@ $(document).ready(function() {
 		}
 	});
 });
-$('#fecha_resolucion').datetimepicker({
-    format: 'YYYY-MM-DD',
-    showClear: true,
-    showClose: true
-});
-
-$('#fecha_vencimiento').datetimepicker({
-    format: 'YYYY-MM-DD',
-    showClear: true,
-    showClose: true
-});
-
-
-var validator = $("#SerieForm").validate({
+var validator = $("#SerieUpdateForm").validate({
 	ignore: [],
 	onkeyup:false,
 	rules: {
 		resolucion:{
 			required: true,
 		},
-
 		serie: {
-			required : true
-		},
-
-		estado_id: {
 			required : true
 		},
 		documento_id: {
@@ -45,7 +27,15 @@ var validator = $("#SerieForm").validate({
 		fin:{
 			required : true
 		},
-		
+		fecha_resolucion:{
+			required: true
+		},
+		fecha_vencimiento:{
+			required: true
+		},
+		estado_id:{
+			required:true
+		},
 
 	},
 	messages: {
@@ -57,9 +47,6 @@ var validator = $("#SerieForm").validate({
 			required : "Debe Ingresar La Serie"
 		},
 
-		estado_id: {
-			required : "Seleccione Un Estado"
-		},
 		documento_id: {
 			required : "Seleccione Un Documento"
 		},
@@ -69,7 +56,15 @@ var validator = $("#SerieForm").validate({
 		fin:{
 			required : "Debe Ingresar un número de Fin"
 		},
-		
+		fecha_resolucion:{
+			required: "ingrese La Fecha de Autorizacion de Resolucion"
+		},
+		fecha_vencimiento:{
+			required: "Seleccione La Fecha de Vencimiento"
+		},
+		estado_id:{
+			required:"Debe seleccionar el estado"
+		},
 	
 
 	}
