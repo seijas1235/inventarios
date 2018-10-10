@@ -99,6 +99,9 @@ $(document).ready(function() {
 			},
 			proveedor_id : {
 				required : true,
+			},
+			tipo_pago_id : {
+				required : true,
 			}
 
 		},
@@ -117,6 +120,9 @@ $(document).ready(function() {
 			},
 			proveedor_id : {
 				required : "Por favor, seleccione al proveedor de la factura",
+			},
+			tipo_pago_id : {
+				required : "Por favor, seleccione tipo de pago",
 			}
 		}
 	});

@@ -11,6 +11,7 @@ use App\EstadoIngreso;
 use App\Producto;
 use App\DetalleCompra;
 use App\MovimientoProducto;
+use App\TipoPago;
 use View;
 Use DB;
 use Illuminate\Support\Facades\Redirect;
@@ -55,7 +56,8 @@ class ComprasController extends Controller
 		$proveedores = Proveedor::all();
 		$productos = Producto::all();
 		$maquinarias = MaquinariaEquipo::all();
-		return view("compras.create" , compact("back","proveedores", "productos", "maquinarias") );
+		$tipos_pago = TipoPago::all();
+		return view("compras.create" , compact("back","proveedores", "productos", "maquinarias","tipos_pago") );
     }
 
     /**
@@ -113,7 +115,9 @@ class ComprasController extends Controller
 		$data["user_id"] = Auth::user()->id;
 		$data['fecha_factura'] = Carbon::createFromFormat('d-m-Y', $data['fecha_factura']);
 		$data["edo_ingreso_id"] = 1;
+		$data["tipo_pago_id"] = $request["tipo_pago_id"];
 		$maestro = Compra::create($data);
+
 		return $maestro;
 	}
 
@@ -227,6 +231,7 @@ class ComprasController extends Controller
 		$compra->num_factura = $data["num_factura"];
 		$compra->fecha_factura = $data["fecha_factura"];
 		$compra->proveedor_id = $data["proveedor_id"];
+		//$compra->tipo_pago_id = $data["tipo_pago_id"];
 		$compra->save();
 		return $compra;
 	}

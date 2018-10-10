@@ -16,7 +16,8 @@ class Compra extends Model
         'serie_factura',
         'num_factura',
         'total_factura',
-        'edo_ingreso_id'
+        'edo_ingreso_id',
+        'tipo_pago_id'
         ];
 
     public function proveedor(){
@@ -33,6 +34,10 @@ class Compra extends Model
 
     public function estadoingreso(){
     	return $this->belongsTo(EstadoIngreso::class);
+    }
+
+    public function tipo_pago(){
+    	return $this->belongsTo(TipoPago::class);
     }
 
     public function user(){

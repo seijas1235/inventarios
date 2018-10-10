@@ -18,4 +18,8 @@ class TipoPago extends Model
         return $this->hasMany(Factura::class);
     }
 
+    public function compras(){
+        return $this->hasMany(Compra::class);
+    }
+
 }

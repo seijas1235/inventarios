@@ -18,6 +18,15 @@
 					{!! Form::label("fecha_ingreso","Fecha Compra:") !!}
 					{!! Form::text( "fecha_ingreso" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha', 'id' => 'fecha_ingreso' ]) !!}
 				</div>
+
+				<div class="col-sm-3">
+					{!! Form::label("tipo_pago_id","Tipo de pago:") !!}
+					<select class="selectpicker" id='tipo_pago_id' name="tipo_pago_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+						@foreach ($tipos_pago as $tipo_pago)
+						<option value="{{$tipo_pago->id}}">{{$tipo_pago->tipo_pago}}</option>
+						@endforeach
+					</select>
+				</div>
 			</div>	
 			<br>
 			<div class="row">

@@ -235,12 +235,13 @@ $('body').on('click', '#addDetalleMaquina', function(e) {
         var total_factura = $("input[name='total'] ").val();
         var fecha_factura = $("#fecha_factura").val();
         var proveedor_id = $("#proveedor_id").val();
+        var tipo_pago_id = $("#tipo_pago_id").val();
         var serie_factura = $("#serie_factura").val();
         var num_factura = $("#num_factura").val();
         if ( fecha_factura != '') 
         {
             var formData = {total_factura: total_factura, proveedor_id : proveedor_id, fecha_factura: fecha_factura,
-                serie_factura : serie_factura, num_factura :num_factura} 
+                serie_factura : serie_factura, num_factura :num_factura, tipo_pago_id : tipo_pago_id} 
                 $.ajax({
                     type: "GET",
                     /*url: "../pos_v2/compras/save/",*/
