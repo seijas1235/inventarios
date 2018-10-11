@@ -34,7 +34,7 @@
             </div>
             <div class="col-sm-3">
                 {!! Form::label("fecha_factura","Fecha factura:") !!}
-                {!! Form::text( "fecha_factura" , null , ['class' => 'form-control' , 'placeholder' => 'YYYY-MM-DD', 'id'=>'fecha_factura' ]) !!}
+                {!! Form::date( "fecha_factura" , null , ['class' => 'form-control' , 'id'=>'fecha_factura' ]) !!}
             </div>
         </div>
         <br>

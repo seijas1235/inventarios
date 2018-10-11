@@ -96,7 +96,7 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
 		$(".user-created-message").addClass("alert-success");
 		$(".user-created-message").fadeIn();
 		$(".user-created-message > p").text("Compra borrada exitosamente!");
-		venta_detalle.ajax.reload();
+		compra_detalle.ajax.reload();
 		$("#userDeleteModal").modal("hide");
 	}).fail(function(errors) {
 		var errors = JSON.parse(errors.responseText);

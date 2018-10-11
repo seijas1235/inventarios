@@ -30,12 +30,6 @@ $(document).ready(function() {
 	});
 });
 
-$('#fecha_factura').datetimepicker({
-    format: 'YYYY-MM-DD',
-    showClear: true,
-    showClose: true
-});
-
 var validator = $("#CompraUpdateForm").validate({
 	ignore: [],
 	onkeyup:false,

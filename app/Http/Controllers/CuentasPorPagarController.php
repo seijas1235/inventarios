@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
-Use App\User;
-Use App\PrecioProducto;
-Use App\Producto;
+Use App\DetalleCuentaPorPagar;
+Use App\CuentaPorPagar;
+Use App\Proveedor;
 class CuentasPorPagarController extends Controller
 {
     /**
@@ -68,9 +68,9 @@ class CuentasPorPagarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(CuentaPorPagar $cuenta_por_pagar)
     {
-        return view('compras.show')->with('compra', $compra);
+        return view('cuentas_por_pagar.show')->with('cuenta_por_pagar', $cuenta_por_pagar);
     }
     /**
      * Show the form for editing the specified resource.
@@ -198,19 +198,18 @@ class CuentasPorPagarController extends Controller
 	{
 		$api_Result = array();
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("dc.compra_id", "p.codigo_barra", "p.nombre", "dc.existencias", "dc.precio_compra", "dc.precio_venta");
+		$columnsMapping = array("dc.compra_id", "dc.num_factura", "dc.fecha");
 
 		// Initialize query (get all)
 
 
-		$api_logsQueriable = DB::table('detalles_compras');
+		$api_logsQueriable = DB::table('detalles_cuentas_por_pagar');
 		$api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-		//$query = 'SELECT detalles_compras.id, detalles_compras.compra_id, productos.codigo_barra, productos.nombre, detalles_compras.existencias, detalles_compras.precio_compra, detalles_compras.precio_venta FROM detalles_compras INNER JOIN productos ON detalles_compras.producto_id=productos.id WHERE detalles_compras.compra_id ='.$detalle.' ';
-		$query = 'SELECT dc.id, dc.compra_id, p.codigo_barra, p.nombre, m.codigo_maquina, m.nombre_maquina, dc.existencias, dc.precio_compra, dc.precio_venta
-		FROM detalles_compras dc
-		left join productos p on p.id = dc.producto_id
-		left join maquinarias_y_equipos m on m.id = dc.maquinaria_equipo_id where dc.compra_id ='.$detalle.'';
+		$query = 'SELECT dc.compra_id, dc.num_factura, dc.fecha, dc.cargos, dc.abonos, dc.saldo
+		FROM detalles_cuentas_por_pagar dc
+		INNER JOIN cuentas_por_pagar cpp on cpp.id = dc.cuenta_por_pagar_id
+		WHERE dc.cuenta_por_pagar_id ='.$detalle.'';
 
 		$where = "";
 

@@ -116,7 +116,7 @@ class ComprasController extends Controller
 
 		$data = $request->all();
 		$data["user_id"] = Auth::user()->id;
-		$data['fecha_factura'] = Carbon::createFromFormat('d-m-Y', $data['fecha_factura']);
+		//$data['fecha_factura'] = Carbon::createFromFormat('d/m/Y', $data['fecha_factura']);
 		$data["edo_ingreso_id"] = 1;
 		$data["tipo_pago_id"] = $request["tipo_pago_id"];
 		$maestro = Compra::create($data);

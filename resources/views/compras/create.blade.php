@@ -16,7 +16,7 @@
 				</div>
 				<div class="col-sm-3">
 					{!! Form::label("fecha_ingreso","Fecha Compra:") !!}
-					{!! Form::text( "fecha_ingreso" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha', 'id' => 'fecha_ingreso' ]) !!}
+					{!! Form::date( "fecha_ingreso" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha', 'id' => 'fecha_ingreso' ]) !!}
 				</div>
 
 				<div class="col-sm-3">
@@ -41,7 +41,7 @@
 
 				<div class="col-sm-3">
 					{!! Form::label("fecha_factura","Fecha factura:") !!}
-					{!! Form::text( "fecha_factura" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha', 'id' => 'fecha_factura' ]) !!}
+					{!! Form::date( "fecha_factura" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha', 'id' => 'fecha_factura' ]) !!}
 				</div>
 
 				<div class="col-sm-3">
