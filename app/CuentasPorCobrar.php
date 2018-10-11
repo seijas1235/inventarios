@@ -14,6 +14,7 @@ class CuentasPorCobrar extends Model
         'venta_id',
         'total',
         'estado',
+    
         ];
 
     public function cliente(){

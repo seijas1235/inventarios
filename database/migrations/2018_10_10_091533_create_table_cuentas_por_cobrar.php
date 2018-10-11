@@ -20,6 +20,7 @@ class CreateTableCuentasPorCobrar extends Migration
             $table->unsignedInteger('estado');
             $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
             $table->foreign('venta_id')->references('id')->on('ventas_maestro')->onDelete('cascade');
+            
             $table->timestamps();
         });
     }
