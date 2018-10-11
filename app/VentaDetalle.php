@@ -17,7 +17,8 @@ class VentaDetalle extends Model
     'precio_venta',
     'movimiento_producto_id',
     'subtotal',
-    'servicio_id'
+    'servicio_id',
+    
     ];
 
     public function venta(){

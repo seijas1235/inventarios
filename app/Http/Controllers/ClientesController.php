@@ -160,7 +160,10 @@ class ClientesController extends Controller
         }    
     }
 
+    public function getDatos(cliente $cliente) {
 
+		return Response::json($cliente);
+	}
     public function getJson(Request $params)
     {
         $api_Result = array();

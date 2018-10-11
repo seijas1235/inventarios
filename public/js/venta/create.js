@@ -180,6 +180,25 @@ $('body').on('click', '#addDetalle', function(e)
     }
     l.stop();
 });
+//obtener nit y direccion de cliente
+function changeCliente() {
+    var cliente_id = $("#cliente_id").val();
+    
+    var url = "/cliente/datos/" + cliente_id ;
+    if (cliente_id != "") {
+        $.getJSON( url , function ( result ) {
+            $("input[name='nit_c'] ").val(result.nit);
+            $("input[name='direccion']").val(result.direccion);			
+        });
+    }
+}
+    
+
+$("#cliente_id").change(function () {
+    changeCliente();
+});
+
+
 // agregar servicio a modificar
 function changeService() {
     var servicio_id = $("#servicio_id").val();

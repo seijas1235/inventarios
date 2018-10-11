@@ -6,8 +6,30 @@
 			<div class="col-sm-12">
 				<h3 class="tittle-custom">Creación de Ventas</h3>
 				<line>
-				</div>
 			</div>
+		</div>
+		
+		<br>
+		<div class="row">
+			<div class="col-sm-3">
+				{!! Form::label("cliente","Cliente:") !!}
+				<select class="selectpicker" id='cliente_id' name="cliente_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+					@foreach ($clientes as $cliente)
+					<option value="{{$cliente->id}}"><p id="cliente">{{$cliente->nombres}}  {{$cliente->apellidos}} </p> </option>
+					@endforeach
+				</select>
+			</div>
+			<div class="col-sm-3">
+				{!! Form::label("nit_c","NIT:") !!}
+				{!! Form::text( "nit_c" , null, ['class' => 'form-control' , 'placeholder' => 'NIT']) !!}
+			</div>
+			<div class="col-sm-4">
+				{!! Form::label("direccion","Direccion:") !!}
+				{!! Form::text( "direccion" , null , ['class' => 'form-control', 'placeholder' => 'direccion' ]) !!}
+			</div>
+			
+		</div>
+		<hr>
 		<br>
 		<div class="row">
 			<div class="col-sm-6">

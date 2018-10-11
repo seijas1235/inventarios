@@ -13,7 +13,8 @@ class Venta extends Model
     'tipo_pago_id',
     'total_venta',
     'user_id',
-    'edo_venta_id'
+    'edo_venta_id',
+    'cliente_id'
     ];
 
     public function tipoventa(){

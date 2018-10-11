@@ -49,6 +49,7 @@ Route::group(['middleware' => ['web']], function ()
 		Route::post( '/venta/new' , 'VentasController@addDetalle');
 		Route::get('/venta/get/', 'ProductosController@getInfo');
 		Route::get( '/servicio/precio/{servicio}' , 'ServiciosController@getPrecio');
+		Route::get( '/cliente/datos/{cliente}' , 'ClientesController@getDatos');
 		Route::get('/venta/getpartida/', 'ProductosController@getInfoPartida');
 		Route::get( '/venta/save/' , 'VentasController@save');
 		Route::post( '/venta-detalle/{venta_maestro}' , 'VentasController@saveDetalle');

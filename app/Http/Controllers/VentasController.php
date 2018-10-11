@@ -11,6 +11,7 @@ use App\TipoPago;
 use App\Venta;
 use App\VentaDetalle;
 use App\Servicio;
+use App\Cliente;
 use App\MovimientoProducto;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
@@ -46,7 +47,8 @@ class VentasController extends Controller
 		$today = date("Y/m/d");
 		$tipo_pagos = TipoPago::all();
 		$servicios = Servicio::all();
-		return view("venta.create" , compact( "back", "tipo_pagos", "today",'servicios'));
+		$clientes=Cliente::all();
+		return view("venta.create" , compact( "back", "tipo_pagos", "today",'servicios','clientes'));
 	}
 
 	/**
