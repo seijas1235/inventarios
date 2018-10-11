@@ -43,6 +43,24 @@ var compras_table = $('#compras-table').DataTable({
         "title": "Fecha Factura",
         "data": "fecha_factura",
         "width" : "20%",
+        "responsivePriority": 3,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML(data);
+        },
+    },
+    {
+        "title": "Serie",
+        "data": "serie_factura",
+        "width" : "10%",
+        "responsivePriority": 2,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML(data);
+        },
+    },
+    {
+        "title": "No.Factura",
+        "data": "num_factura",
+        "width" : "15%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data);
@@ -62,7 +80,7 @@ var compras_table = $('#compras-table').DataTable({
         "data": "total",
         "orderable": false,
         "width" : "20%",
-        "responsivePriority": 2,
+        "responsivePriority": 1,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML("Q. " + parseFloat(Math.round(data * 100) / 100).toFixed(2));
         },
@@ -98,7 +116,7 @@ var compras_table = $('#compras-table').DataTable({
 
 var detalle = $('#detallecompra').text();
 
-var venta_detalle = $('#detallecompra-table').DataTable({
+var compra_detalle = $('#detallecompra-table').DataTable({
     /*"ajax": "/pos_v2/detallecompra/"+ detalle +"/getJson",*/
     "ajax": "/detallescompras/"+ detalle +"/getJson",
     "responsive": true,

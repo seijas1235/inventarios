@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	$('#fecha_factura').datetimepicker({
+	/*$('#fecha_factura').datetimepicker({
 		format: 'DD-MM-YYYY',
 		showClear: true,
 		showClose: true
@@ -10,7 +10,7 @@ $(document).ready(function() {
 		format: 'DD-MM-YYYY',
 		showClear: true,
 		showClose: true
-	});
+	});*/
 
 
 	$("#cantidad_ingreso").keypress(function(evt) {
