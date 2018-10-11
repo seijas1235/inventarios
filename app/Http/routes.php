@@ -275,12 +275,22 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/cuentas_por_pagar/new/notadebito' , 'CuentasPorPagarController@notadebito');
 		Route::post('/cuentas_por_pagar/save/notacredito' , 'CuentasPorPagarController@savenotacredito');
 		Route::post('/cuentas_por_pagar/save/notadebito' , 'CuentasPorPagarController@savenotadebito');
-
-
+		
 		//Route::get('/cuentas_por_pagar/edit/{cuenta_por_pagar}' , 'CuentasPorPagarController@edit');
 		//Route::patch('/cuentas_por_pagar/{cuenta_por_pagar}/update' , 'CuentasPorPagarController@update');
 		//Route::delete('/cuentas_por_pagar/remove/{cuenta_por_pagar}' , 'CuentasPorPagarController@destroy');
 
+
+		Route::get('/cuentas_por_cobrar', 'CuentasPorCobrarController@index');
+		Route::get('/cuentas_por_cobrar/getJson/' , 'CuentasPorCobrarController@getJson');
+		Route::get('/cuentas_por_cobrar/show/{cuenta_por_cobrar}' , 'CuentasPorCobrarController@show');
+		Route::get( '/cuentas_por_cobrar/{cuenta_por_cobrar}/getJson' , 'CuentasPorCobrarController@getJsonDetalle' );
+		Route::get('/cuentas_por_cobrar/new/notacredito' , 'CuentasPorCobrarController@notacredito');
+		Route::get('/cuentas_por_cobrar/new/notadebito' , 'CuentasPorCobrarController@notadebito');
+		Route::post('/cuentas_por_cobrar/save/notacredito' , 'CuentasPorCobrarController@savenotacredito');
+		Route::post('/cuentas_por_cobrar/save/notadebito' , 'CuentasPorCobrarController@savenotadebito');
+
+		
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
 
 		Route::get('/home', 'HomeController@index');

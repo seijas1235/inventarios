@@ -62,7 +62,7 @@ class CuentasPorCobrarController extends Controller
 	{
         $data = $request->all();
 
-        $cuentaporcobrar = CuentasPorCobrar::where('Cliente_id',$data["Cliente_id"])->first();
+        $cuentaporcobrar = CuentasPorCobrar::where('cliente_id',$data["cliente_id"])->first();
 
             $detalle = array(
                 'num_factura' => '',
@@ -84,7 +84,7 @@ class CuentasPorCobrarController extends Controller
 	{
 		$data = $request->all();
 
-        $cuentaporcobrar = CuentasPorCobrar::where('Cliente_id',$data["Cliente_id"])->first();
+        $cuentaporcobrar = CuentasPorCobrar::where('cliente_id',$data["cliente_id"])->first();
 
             $detalle = array(
                 'num_factura' => '',
@@ -117,15 +117,15 @@ class CuentasPorCobrarController extends Controller
     {
         $api_Result = array();
         // Create a mapping of our query fields in the order that will be shown in datatable.
-        $columnsMapping = array("cpp.id", "p.nombre");
+        $columnsMapping = array("cpc.id", "c.nombre");
 
         // Initialize query (get all)
 
         $api_logsQueriable = DB::table('precios_producto');
         $api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-        $query = "SELECT cpp.id, cpp.Cliente_id, cpp.total, p.nombre FROM cuentas_por_cobrar cpp 
-        INNER JOIN clientes p on p.id = cpp.Cliente_id";
+        $query = "SELECT cpc.id, cpc.cliente_id, cpc.total, c.nombre FROM cuentas_por_cobrar cpc 
+        INNER JOIN clientes c on c.id = cpc.cliente_id";
 
         $where = "";
 
@@ -181,7 +181,7 @@ class CuentasPorCobrarController extends Controller
 
 		$query = 'SELECT dc.id, if(dc.compra_id is null, 0,dc.compra_id)as compra_id, dc.num_factura, dc.fecha, dc.descripcion, dc.cargos, dc.abonos, dc.saldo
 		FROM cuentas_por_cobrar_detalle dc
-		INNER JOIN cuentas_por_cobrar cpp on cpp.id = dc.cuenta_por_cobrar_id
+		INNER JOIN cuentas_por_cobrar cpc on cpc.id = dc.cuenta_por_cobrar_id
 		WHERE dc.cuenta_por_cobrar_id ='.$detalle.'';
 
 		$where = "";
