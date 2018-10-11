@@ -131,6 +131,7 @@ class ComprasController extends Controller
 					'compra_id' => $maestro->id,
 					'num_factura' => $request["num_factura"],
 					'fecha' => $data["fecha_factura"],
+					'descripcion' => 'Compra',
 					'cargos' => $request["total_factura"],	
 					'abonos' => 0,
 					'saldo' => $existeCuentaProveedor->total + $request["total_factura"]
@@ -154,6 +155,7 @@ class ComprasController extends Controller
 					'compra_id' => $maestro->id,
 					'num_factura' => $request["num_factura"],
 					'fecha' => $data["fecha_factura"],
+					'descripcion' => 'Compra',
 					'cargos' => $request["total_factura"],	
 					'abonos' => 0,
 					'saldo' => $request["total_factura"]
@@ -309,6 +311,26 @@ class ComprasController extends Controller
 				$updateExistencia = MovimientoProducto::where('id', $detalle["movimiento_producto_id"])
 				->update(['existencias' => $newExistencias]);
 			}
+
+			$cuentaporpagar = CuentaPorPagar::where('proveedor_id', $compra->proveedor_id)->first();
+
+			$total = $cuentaporpagar->total;
+			$NuevoTotal = $total - $compra->total_factura;
+
+			$detallecuenta = array(
+				'num_factura' => $compra->num_factura,
+				'fecha' => carbon::now(),
+				'descripcion' => 'Se elimino compra',
+				'cargos' => 0,	
+				'abonos' => $compra->total_factura,
+				'saldo' => $NuevoTotal
+			);
+			
+			$cuentaporpagar->detalles_cuentas_por_pagar()->create($detallecuenta);
+
+
+			$cuentaporpagar->update(['total' => $NuevoTotal]);
+
 			$compra->delete();
 			$response["response"] = "El registro ha sido borrado";
 			return Response::json( $response );
@@ -338,7 +360,6 @@ class ComprasController extends Controller
 			$updateExistencia = MovimientoProducto::where('id', $detallecompra->movimiento_producto_id)
 			->update(['existencias' => $newExistencias]);
 
-
 			$ingresomaestro = Compra::where('id', $detallecompra->compra_id)
 			->get()->first();
 			$total = $ingresomaestro->total_factura;
@@ -346,6 +367,26 @@ class ComprasController extends Controller
 			$newTotal = $total - $totalresta;
 			$updateTotal = Compra::where('id', $detallecompra->compra_id)
 			->update(['total_factura' => $newTotal]);
+
+			//Actualiza cuenta por pagar
+			$cuentaporpagar = CuentaPorPagar::where('proveedor_id', $ingresomaestro->proveedor_id)->first();
+
+			$totalactual = $cuentaporpagar->total;
+			$NuevoTotal = $totalactual - $totalresta;
+
+			$detallecuenta = array(
+				'num_factura' => $ingresomaestro->num_factura,
+				'fecha' => carbon::now(),
+				'descripcion' => 'Se elimino detalle de compra',
+				'cargos' => 0,	
+				'abonos' => $totalresta,
+				'saldo' => $NuevoTotal
+			);
+			
+			$cuentaporpagar->detalles_cuentas_por_pagar()->create($detallecuenta);
+
+
+			$cuentaporpagar->update(['total' => $NuevoTotal]);
 
 
 			$detallecompra->delete();

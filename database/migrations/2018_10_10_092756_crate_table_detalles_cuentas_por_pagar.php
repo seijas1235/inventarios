@@ -14,10 +14,11 @@ class CrateTableDetallesCuentasPorPagar extends Migration
     {
         Schema::create('detalles_cuentas_por_pagar', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('compra_id');
+            $table->unsignedInteger('compra_id')->nullable();
             $table->unsignedInteger('cuenta_por_pagar_id');
             $table->string('num_factura');
             $table->date('fecha');
+            $table->string('descripcion');
             $table->float('cargos')->nullable();
             $table->float('abonos')->nullable();
             $table->float('saldo')->nullable();

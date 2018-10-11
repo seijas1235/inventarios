@@ -38,12 +38,16 @@ class CuentasPorPagarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function notacredito()
     {
-       $user = Auth::user()->id;
-       $productos = Producto::all();
-       $fecha= Carbon::now();
-       return view("precios_producto.create" , compact( "user", "productos", "fecha"));
+        $proveedores = Proveedor::All();
+		return view("cuentas_por_pagar.ncredito" , compact('proveedores'));
+    }
+
+    public function notadebito()
+    {
+        $proveedores = Proveedor::All();
+		return view("cuentas_por_pagar.ndebito" , compact('proveedores'));
     }
 
     /**
@@ -52,15 +56,49 @@ class CuentasPorPagarController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {       
-
+    public function savenotacredito(Request $request)
+	{
         $data = $request->all();
-        $data["user_id"] = Auth::user()->id;
-        $precio_producto = PrecioProducto::create($data);
 
-        return Response::json($precio_producto);
+        $cuentaporpagar = CuentaPorPagar::where('proveedor_id',$data["proveedor_id"])->first();
+
+            $detalle = array(
+                'num_factura' => '',
+                'fecha' => Carbon::now(),
+                'descripcion' => 'Nota de Credito',
+                'cargos' => 0,	
+                'abonos' => $data["total"],
+                'saldo' => $cuentaporpagar->total - $data["total"]
+            );					
+
+            $cuentaporpagar->detalles_cuentas_por_pagar()->create($detalle);
+            $newtotal = $detalle['saldo'];
+            $cuentaporpagar->update(['total' => $newtotal]);        
+
+		return Response::json($cuentaporpagar);
     }
+    
+    public function savenotadebito(Request $request)
+	{
+		$data = $request->all();
+
+        $cuentaporpagar = CuentaPorPagar::where('proveedor_id',$data["proveedor_id"])->first();
+
+            $detalle = array(
+                'num_factura' => '',
+                'fecha' => Carbon::now(),
+                'descripcion' => 'Nota de Debito',
+                'cargos' => $data["total"],	
+                'abonos' => 0,
+                'saldo' => $cuentaporpagar->total + $data["total"]
+            );					
+
+            $cuentaporpagar->detalles_cuentas_por_pagar()->create($detalle);
+            $newtotal = $detalle['saldo'];
+            $cuentaporpagar->update(['total' => $newtotal]);        
+
+		return Response::json($cuentaporpagar);
+	}
 
     /**
      * Display the specified resource.
@@ -72,73 +110,6 @@ class CuentasPorPagarController extends Controller
     {
         return view('cuentas_por_pagar.show')->with('cuenta_por_pagar', $cuenta_por_pagar);
     }
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(PrecioProducto $precio_producto)
-    {
-        $query = "SELECT * FROM precios_producto WHERE id=".$precio_producto->id."";
-        $fieldsArray = DB::select($query);
-
-        $productos = Producto::all();
-        return view('precios_producto.edit', compact('precio_producto', 'fieldsArray', 'productos'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(PrecioProducto $precio_producto, Request $request)
-    {
-        Response::json( $this->updatePrecioProducto($precio_producto , $request->all()));
-        return redirect('/precios_producto');
-    }
-
-    public function updatePrecioProducto(PrecioProducto $precio_producto, array $data )
-    {
-        $id= $precio_producto->id;
-        $precio_producto->precio_venta = $data["precio_venta"];
-        $precio_producto->producto_id = $data["producto_id"];
-        $precio_producto->save();
-
-        return $precio_producto;
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(PrecioProducto $precio_producto, Request $request)
-    {
-        $user1= Auth::user()->password;
-
-        if ($request["password_delete"] == "")
-        {
-            $response["password_delete"]  = "La contraseña es requerida";
-            return Response::json( $response  , 422 );
-        }
-        else if( password_verify( $request["password_delete"] , $user1))
-        {
-            $id= $precio_producto->id;
-            $precio_producto->delete();
-            
-            $response["response"] = "El tipo precio_producto ha sido eliminado";
-            return Response::json( $response );
-        }
-        else {
-            $response["password_delete"] = "La contraseña no coincide";
-            return Response::json( $response  , 422 );
-        }    
-    }
-
 
     public function getJson(Request $params)
     {
@@ -198,7 +169,7 @@ class CuentasPorPagarController extends Controller
 	{
 		$api_Result = array();
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("dc.compra_id", "dc.num_factura", "dc.fecha");
+		$columnsMapping = array("dc.id","dc.compra_id", "dc.num_factura");
 
 		// Initialize query (get all)
 
@@ -206,7 +177,7 @@ class CuentasPorPagarController extends Controller
 		$api_logsQueriable = DB::table('detalles_cuentas_por_pagar');
 		$api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-		$query = 'SELECT dc.compra_id, dc.num_factura, dc.fecha, dc.cargos, dc.abonos, dc.saldo
+		$query = 'SELECT dc.id, if(dc.compra_id is null, 0,dc.compra_id)as compra_id, dc.num_factura, dc.fecha, dc.descripcion, dc.cargos, dc.abonos, dc.saldo
 		FROM detalles_cuentas_por_pagar dc
 		INNER JOIN cuentas_por_pagar cpp on cpp.id = dc.cuenta_por_pagar_id
 		WHERE dc.cuenta_por_pagar_id ='.$detalle.'';

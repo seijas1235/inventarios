@@ -269,14 +269,17 @@ Route::group(['middleware' => ['web']], function ()
 
 		Route::get('/cuentas_por_pagar', 'CuentasPorPagarController@index');
 		Route::get('/cuentas_por_pagar/getJson/' , 'CuentasPorPagarController@getJson');
-		Route::get('/cuentas_por_pagar/new' , 'CuentasPorPagarController@create');
-		Route::post('/cuentas_por_pagar/save/' , 'CuentasPorPagarController@store');
-		Route::get('/cuentas_por_pagar/edit/{cuenta_por_pagar}' , 'CuentasPorPagarController@edit');
 		Route::get('/cuentas_por_pagar/show/{cuenta_por_pagar}' , 'CuentasPorPagarController@show');
 		Route::get( '/cuentas_por_pagar/{cuenta_por_pagar}/getJson' , 'CuentasPorPagarController@getJsonDetalle' );
-		Route::patch('/cuentas_por_pagar/{cuenta_por_pagar}/update' , 'CuentasPorPagarController@update');
-		Route::delete('/cuentas_por_pagar/remove/{cuenta_por_pagar}' , 'CuentasPorPagarController@destroy');
+		Route::get('/cuentas_por_pagar/new/notacredito' , 'CuentasPorPagarController@notacredito');
+		Route::get('/cuentas_por_pagar/new/notadebito' , 'CuentasPorPagarController@notadebito');
+		Route::post('/cuentas_por_pagar/save/notacredito' , 'CuentasPorPagarController@savenotacredito');
+		Route::post('/cuentas_por_pagar/save/notadebito' , 'CuentasPorPagarController@savenotadebito');
 
+
+		//Route::get('/cuentas_por_pagar/edit/{cuenta_por_pagar}' , 'CuentasPorPagarController@edit');
+		//Route::patch('/cuentas_por_pagar/{cuenta_por_pagar}/update' , 'CuentasPorPagarController@update');
+		//Route::delete('/cuentas_por_pagar/remove/{cuenta_por_pagar}' , 'CuentasPorPagarController@destroy');
 
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
 
