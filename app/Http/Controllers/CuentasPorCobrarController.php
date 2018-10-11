@@ -5,8 +5,222 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use DB;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Carbon\Carbon;
+Use App\CuentasPorCobrar;
+Use App\Venta;
+Use App\Cliente;
 
 class CuentasPorCobrarController extends Controller
 {
-    //
+    
+ /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
+    public function index()
+    {
+        return view ("cuentas_por_cobrar.index");
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function notacredito()
+    {
+        $clientes = Cliente::All();
+		return view("cuentas_por_cobrar.ncredito" , compact('clientes'));
+    }
+
+    public function notadebito()
+    {
+        $clientes = Cliente::All();
+		return view("cuentas_por_cobrar.ndebito" , compact('clientes'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function savenotacredito(Request $request)
+	{
+        $data = $request->all();
+
+        $cuentaporcobrar = CuentasPorCobrar::where('Cliente_id',$data["Cliente_id"])->first();
+
+            $detalle = array(
+                'num_factura' => '',
+                'fecha' => Carbon::now(),
+                'descripcion' => 'Nota de Credito',
+                'cargos' => 0,	
+                'abonos' => $data["total"],
+                'saldo' => $cuentaporcobrar->total - $data["total"]
+            );					
+
+            $cuentaporcobrar->cuentas_por_cobrar_detalle()->create($detalle);
+            $newtotal = $detalle['saldo'];
+            $cuentaporcobrar->update(['total' => $newtotal]);        
+
+		return Response::json($cuentaporcobrar);
+    }
+    
+    public function savenotadebito(Request $request)
+	{
+		$data = $request->all();
+
+        $cuentaporcobrar = CuentasPorCobrar::where('Cliente_id',$data["Cliente_id"])->first();
+
+            $detalle = array(
+                'num_factura' => '',
+                'fecha' => Carbon::now(),
+                'descripcion' => 'Nota de Debito',
+                'cargos' => $data["total"],	
+                'abonos' => 0,
+                'saldo' => $cuentaporcobrar->total + $data["total"]
+            );					
+
+            $cuentaporcobrar->cuentas_por_cobrar_detalle()->create($detalle);
+            $newtotal = $detalle['saldo'];
+            $cuentaporcobrar->update(['total' => $newtotal]);        
+
+		return Response::json($cuentaporcobrar);
+	}
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(CuentasPorCobrar $cuenta_por_cobrar)
+    {
+        return view('cuentas_por_cobrar.show')->with('cuenta_por_cobrar', $cuenta_por_cobrar);
+    }
+
+    public function getJson(Request $params)
+    {
+        $api_Result = array();
+        // Create a mapping of our query fields in the order that will be shown in datatable.
+        $columnsMapping = array("cpp.id", "p.nombre");
+
+        // Initialize query (get all)
+
+        $api_logsQueriable = DB::table('precios_producto');
+        $api_Result['recordsTotal'] = $api_logsQueriable->count();
+
+        $query = "SELECT cpp.id, cpp.Cliente_id, cpp.total, p.nombre FROM cuentas_por_cobrar cpp 
+        INNER JOIN clientes p on p.id = cpp.Cliente_id";
+
+        $where = "";
+
+        if (isset($params->search['value']) && !empty($params->search['value'])){
+
+            foreach ($columnsMapping as $column) {
+                if (strlen($where) == 0) {
+                    $where .=" and (".$column." like  '%".$params->search['value']."%' ";
+                } else {
+                    $where .=" or ".$column." like  '%".$params->search['value']."%' ";
+                }
+
+            }
+            $where .= ') ';
+        }
+        $condition = " ";
+        $query = $query . $condition . $where;
+
+        // Sorting
+        $sort = "";
+        foreach ($params->order as $order) {
+            if (strlen($sort) == 0) {
+                $sort .= 'order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
+            } else {
+                $sort .= ', '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
+            }
+        }
+
+        $result = DB::select($query);
+        $api_Result['recordsFiltered'] = count($result);
+
+        $filter = " limit ".$params->length." offset ".$params->start."";
+
+        $query .= $sort . $filter;
+
+        $result = DB::select($query);
+        $api_Result['data'] = $result;
+
+        return Response::json( $api_Result );
+    }
+
+    public function getJsonDetalle(Request $params, $detalle)
+	{
+		$api_Result = array();
+		// Create a mapping of our query fields in the order that will be shown in datatable.
+		$columnsMapping = array("dc.id","dc.compra_id", "dc.num_factura");
+
+		// Initialize query (get all)
+
+
+		$api_logsQueriable = DB::table('cuentas_por_cobrar_detalle');
+		$api_Result['recordsTotal'] = $api_logsQueriable->count();
+
+		$query = 'SELECT dc.id, if(dc.compra_id is null, 0,dc.compra_id)as compra_id, dc.num_factura, dc.fecha, dc.descripcion, dc.cargos, dc.abonos, dc.saldo
+		FROM cuentas_por_cobrar_detalle dc
+		INNER JOIN cuentas_por_cobrar cpp on cpp.id = dc.cuenta_por_cobrar_id
+		WHERE dc.cuenta_por_cobrar_id ='.$detalle.'';
+
+		$where = "";
+
+		if (isset($params->search['value']) && !empty($params->search['value'])){
+
+			foreach ($columnsMapping as $column) {
+				if (strlen($where) == 0) {
+					$where .=" and (".$column." like  '%".$params->search['value']."%' ";
+				} else {
+					$where .=" or ".$column." like  '%".$params->search['value']."%' ";
+				}
+
+			}
+			$where .= ') ';
+		}
+
+		$query = $query . $where;
+
+		// Sorting
+		$sort = "";
+		foreach ($params->order as $order) {
+			if (strlen($sort) == 0) {
+				$sort .= ' order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
+			} else {
+				$sort .= ', '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
+			}
+		}
+
+		$result = DB::select($query);
+		$api_Result['recordsFiltered'] = count($result);
+
+		$filter = " limit ".$params->length." offset ".$params->start."";
+
+		$query .= $sort . $filter;
+
+		$result = DB::select($query);
+		$api_Result['data'] = $result;
+
+		return Response::json( $api_Result );
+	}
 }
