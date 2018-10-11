@@ -3,12 +3,12 @@
 <div id="content">
 	<div class="container-custom">
 		<div class="row">
-				<div class="col-sm-12">
-					<h3 class="tittle-custom">Creación de Ventas</h3>
-					<line>
-					</div>
+			<div class="col-sm-12">
+				<h3 class="tittle-custom">Creación de Ventas</h3>
+				<line>
 				</div>
-				<br>
+			</div>
+		<br>
 		<div class="row">
 			<div class="col-sm-6">
 				{!! Form::label("tipo_pago","Tipo Pago:") !!}
@@ -73,7 +73,9 @@
 			{!! Form::submit('Agregar Nuevo Producto' , ['class' => 'btn btn-success' ,
 			'id' => 'addDetalle', 'data-loading-text' => 'Processing...' ]) !!}
 		</div>
-		<h5> Agregar Servicio</h5>
+		<hr>
+		<h3> Agregar Servicio</h3>
+		<br>
 		<div class="row">
 			<div class="col-sm-3">
 				{!! Form::label("servicio","Servicio:") !!}
@@ -92,19 +94,19 @@
 				<div class="input-group">
 					{!! Form::hidden("venta_maestro" , null , ['class' => 'form-control' , 'disabled']) !!}
 					<span class="input-group-addon">Q</span>
-					{!! Form::number( "precio" , null , ['class' => 'form-control' , 'disabled', 'placeholder' => '0.00' ]) !!}
+					{!! Form::number( "precio" , null , ['class' => 'form-control', 'placeholder' => '0.00' ]) !!}
 				</div>
 			</div>
-			
 			<div class="col-sm-3">
 				{!! Form::label("subtotal_s","Sub-Total:") !!}
 				{!! Form::text( "subtotal_s" , null , ['class' => 'form-control' , 'disabled', 'placeholder' => 'Sub-Total' ]) !!}
 			</div>
-			<div class="text-right m-t-15">
-					{!! Form::submit('Agregar Servicio' , ['class' => 'btn btn-success' ,
-					'id' => 'ButtonServicio', 'data-loading-text' => 'Processing...' ]) !!}
-			</div>
+			
 		</div>
+		<div class="text-right m-t-15">
+			{!! Form::input('submit', 'submit', 'Agregar servicio', ['class' => 'btn btn-danger form-gradient-color form-button2', 'id'=>'addDetalleServicio']) !!}	
+		</div>
+		<hr>
 		<br>
 		<div id="detalle-grid"></div>
 		<div class="row" >
@@ -123,6 +125,7 @@
 			</div>
 		</div>
 		<div class="text-right m-t-15">
+					
 			{!! Form::submit('Guardar Venta' , ['class' => 'btn btn-success' ,
 			'id' => 'ButtonDetalle', 'data-loading-text' => 'Processing...' ]) !!}
 		</div>

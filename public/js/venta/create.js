@@ -14,7 +14,7 @@ $(document).on("keypress", '#addDetalle', function (e) {
     }
 });
 
-$(document).on("keypress", '#ButtonServicio', function (e) {
+$(document).on("keypress", '#addDetalleServicio', function (e) {
 	var code = e.keyCode || e.which;
 	if (code == 13) {
 		e.preventDefault();
@@ -203,9 +203,9 @@ $("#servicio_id").change(function () {
     changeService();
 });
 
-$('body').on('click', '#ButtonServicio', function(e) 
+$('body').on('click', '#addDetalleServicio', function(e) 
 {
-    var l = Ladda.create( document.querySelector( '#ButtonServicio' ) );
+    var l = Ladda.create( document.querySelector( '#addDetalleServicio' ) );
     l.start();
     l.setProgress( 0.5 );
     if($("input[name='venta_maestro']").val() == "") 
@@ -215,7 +215,6 @@ $('body').on('click', '#ButtonServicio', function(e)
         var formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id} 
         $.ajax({
             type: "GET",
-            /*url: "../pos_v2/venta/save/",*/
             url: "/venta/save/",
             data: formData,
             async:false,
@@ -229,72 +228,72 @@ $('body').on('click', '#ButtonServicio', function(e)
             }
         });
     }
+    
+        
+    if ($("input[name='precio'] ").val() != "" && $("input[name='cantidad_s'] ").val() != "")
+    {
         var detalle = new Object();
         var cantidad = $("input[name='cantidad_s'] ").val();
         var precio_venta =$("input[name='precio'] ").val(); ;
         var precio_compra = 0;
         var id =  $("#servicio_id").val();
-        var subtotal = cantidad * precio_venta;
-            
-        if (cantidad != "" && precio_venta != "" && id != "")
-        {
-            $("input[name='subtotal_s'] ").val(subtotal);
-            detalle.cantidad = $("input[name='cantidad_s'] ").val();
-            detalle.precio_venta = $("input[name='precio'] ").val();;
-            detalle.precio_compra = 0;
-            detalle.subtotal_venta = $("input[name='subtotal_s'] ").val();
-            detalle.servicio_id  = $("#servicio_id").val();
-            detalle.nombre = $("#servicio_id").find("option:selected").text();
-            var total2 = $("input[name='total'] ").val();
-            if (total2 != "") {
-                var total2 =parseFloat(total2);
-                var subtotal = parseFloat(subtotal);
-                var total = total2 + subtotal;
-                var total3 = $("input[name='total'] ").val(total);
-            }
-            else {
-                var subtotal = parseFloat(subtotal);
-                var total3 = $("input[name='total'] ").val(subtotal);
-            }
-    
-            dbs.detalles.push(detalle);
-            $("#servicio_id").val("");
-            $("#servicio_id").selectpicker(0, '');
-            $('#servicio_id').selectpicker('render');
-            $("input[name='nombre'] ").val("");
-            $("input[name='precio'] ").val("");
-            $("input[name='precio_compra'] ").val("");
-            $("input[name='cantidad_s'] ").val([""]);
-            var cantidad = $("input[name='cantidad_s'] ").val();
-            var precio_compra = 0;
-            var subtotal = cantidad * precio_venta;
-            console.log(cantidad , subtotal+' dblinkd ');
-            var venta_maestro = $("input[name='venta_maestro'] ").val();
-            if($("input[name='venta_maestro']").val() != "") {       
-                $.ajax({
-                    /*url: "/pos_v2/venta-detalle/" + venta_maestro,*/
-                    url: "/venta-detalle/" + venta_maestro,
-                    type: "POST",
-                    contentType: "application/json",
-                    data: JSON.stringify(dbs.detalles),
-                    success: function(addressResponse) {
-                        detalle.venta_detalle = addressResponse.id
-                        db.links.push(detalle);
-                        $("#detalle-grid .jsgrid-search-button").trigger("click");
-                        dbs.detalles = "";
-                        window.dbs = dbs;
-                        dbs.detalles = [];
-                    },
-                    always: function() {
-                    }
-                });
-            }
-            $("#detalle-grid .jsgrid-search-button").trigger("click");    
+        var subtotal = cantidad * precio_venta; 
+        $("input[name='subtotal_s'] ").val(subtotal);
+        detalle.cantidad = $("input[name='cantidad_s'] ").val();
+        detalle.precio_venta = $("input[name='precio'] ").val();;
+        detalle.precio_compra = 0;
+        detalle.subtotal_venta = $("input[name='subtotal_s'] ").val();
+        detalle.servicio_id  = $("#servicio_id").val();
+        detalle.nombre = $("#servicio_id").find("option:selected").text();
+        var total2 = $("input[name='total'] ").val();
+        if (total2 != "") {
+            var total2 =parseFloat(total2);
+            var subtotal = parseFloat(subtotal);
+            var total = total2 + subtotal;
+            var total3 = $("input[name='total'] ").val(total);
         }
         else {
-        bootbox.alert("Debe de seleccionar un Servicio");
+            var subtotal = parseFloat(subtotal);
+            var total3 = $("input[name='total'] ").val(subtotal);
         }
-    
+
+        dbs.detalles.push(detalle);
+        $("#servicio_id").val("");
+        $("#servicio_id").selectpicker(0, '');
+        $('#servicio_id').selectpicker('render');
+        $("input[name='nombre'] ").val("");
+        $("input[name='precio'] ").val("");
+        $("input[name='precio_compra'] ").val("");
+        $("input[name='cantidad_s'] ").val([""]);
+        var cantidad = $("input[name='cantidad_s'] ").val();
+        var precio_compra = 0;
+        var subtotal = cantidad * precio_venta;
+        var venta_maestro = $("input[name='venta_maestro'] ").val();
+        if($("input[name='venta_maestro']").val() != "") {       
+            $.ajax({
+                /*url: "/pos_v2/venta-detalle/" + venta_maestro,*/
+                url: "/venta-detalle/" + venta_maestro,
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(dbs.detalles),
+                success: function(addressResponse) {
+                    detalle.venta_detalle = addressResponse.id
+                    db.links.push(detalle);
+                    $("#detalle-grid .jsgrid-search-button").trigger("click");
+                    dbs.detalles = "";
+                    window.dbs = dbs;
+                    dbs.detalles = [];
+                },
+                always: function() {
+                }
+            });
+        }$("#detalle-grid .jsgrid-search-button").trigger("click");
+            
+    }
+    else {
+    bootbox.alert("Debe de seleccionar un Servicio");
+    }
+
 });
 
 
