@@ -89,7 +89,8 @@ $('body').on('click', '#addDetalle', function(e)
     {
         var total_venta = $("input[name='total'] ").val();
         var tipo_pago_id = $("#tipo_pago_id").val();
-        var formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id} 
+        var cliente_id = $("#cliente_id").val();
+        var formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id,cliente_id : cliente_id}  
         $.ajax({
             type: "GET",
             /*url: "../pos_v2/venta/save/",*/
@@ -231,7 +232,9 @@ $('body').on('click', '#addDetalleServicio', function(e)
     {
         var total_venta = $("input[name='total'] ").val();
         var tipo_pago_id = $("#tipo_pago_id").val();
-        var formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id} 
+        var cliente_id = $("#cliente_id").val();
+        var formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id,cliente_id : cliente_id} 
+       
         $.ajax({
             type: "GET",
             url: "/venta/save/",
@@ -417,9 +420,29 @@ $('body').on('click', '#addDetalleServicio', function(e)
 
     function saveDetalle(button) {
         var total_venta = $("input[name='total'] ").val();
-        var tipo_pago_id = $("#tipo_pago_id").val();
+        var tipo_pago_id = $("#tipo_pago_id").val();      
         var venta_maestro = $("input[name='venta_maestro'] ").val();
-        var formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id} 
+        var cliente_id = $("#cliente_id").val();
+        var formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id,cliente_id : cliente_id} 
+        
+        if(tipo_pago_id==3){
+            formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id,cliente_id : cliente_id, venta_id: venta_maestro}
+            $.ajax({
+                type: "GET",
+                url: "/cuentascobrar/save/",
+                data: formData,
+                async:false,
+                dataType: 'json',
+                success: function(data) {
+                    var detalle = data;
+                    alert("Cuenta por cobrar Creada exitosamente");
+                },
+                error: function() {
+                    alert("falla de guardado");
+                }
+            });
+        }
+        
         $.ajax({
             type: "PATCH",
             /*url: "../pos_v2/venta/update-total/"+ venta_maestro+ "/",*/

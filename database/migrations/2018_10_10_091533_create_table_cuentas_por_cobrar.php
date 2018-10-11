@@ -12,7 +12,7 @@ class CreateTableCuentasPorCobrar extends Migration
      */
     public function up()
     {
-        Schema::create('cuentas_cobrar', function (Blueprint $table) {
+        Schema::create('cuentas_por_cobrar', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('cliente_id');
             $table->unsignedInteger('venta_id');
@@ -32,6 +32,6 @@ class CreateTableCuentasPorCobrar extends Migration
      */
     public function down()
     {
-        Schema::drop('cuentas_cobrar');
+        Schema::drop('cuentas_por_cobrar');
     }
 }

@@ -35,4 +35,8 @@ class Venta extends Model
     public function cuentas_por_cobrar(){
     	return $this->hasMany('App\CuentasPorCobrar');
     }
+    public function clientes(){
+    	return $this->hasMany(Cliente::class);
+    }
+    
 }
