@@ -33,10 +33,19 @@ var cuenta_por_pagar_detalle = $('#detallecuenta_por_pagar-table').DataTable({
         },
     },
     "columns": [ {
-        "title": "No de Compra",
-        "data": "compra_id",
+        "title": "No. Detalle",
+        "data": "id",
         "width" : "10%",
         "responsivePriority": 1,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML(data);
+        },
+    },
+    {
+        "title": "No. Compra",
+        "data": "compra_id",
+        "width" : "10%",
+        "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data);
         },
@@ -52,6 +61,15 @@ var cuenta_por_pagar_detalle = $('#detallecuenta_por_pagar-table').DataTable({
     {
         "title": "Fecha",
         "data": "fecha",
+        "width" : "10%",
+        "responsivePriority": 2,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML(data);
+        },
+    },
+    {
+        "title": "Descripcion",
+        "data": "descripcion",
         "width" : "10%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
@@ -82,20 +100,7 @@ var cuenta_por_pagar_detalle = $('#detallecuenta_por_pagar-table').DataTable({
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML("Q." + parseFloat(Math.round(data * 100) / 100).toFixed(2));
         },
-    }, 
-   {
-    "title": "Acciones",
-    "width" : "10%",
-    "orderable": false,
-    "render": function(data, type, full, meta) {
-        return "<div id='" + full.id + "' class='text-center'>" + 
-            "<div class='float-center three-columns'>" + 
-            "<a href='#' class='remove-detallecuenta_por_pagar'>" + 
-            "<i class='fa fa-btn fa-trash' title='Delete'></i>" + 
-            "</a>" + "</div>" + "</div>";;
-    },
-    "responsivePriority": 2
-}],
+    }],
 "createdRow": function(row, data, rowIndex) {
     $.each($('td', row), function(colIndex) {
         if (colIndex == 4) $(this).attr('id', data.id);

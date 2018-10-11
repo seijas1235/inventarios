@@ -14,6 +14,7 @@ class DetalleCuentaPorPagar extends Model
         'compra_id',
         'fecha',
         'num_factura',
+        'descripcion',
         'cargos',
         'abonos',
         'saldo'
