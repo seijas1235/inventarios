@@ -52,6 +52,7 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get( '/cliente/datos/{cliente}' , 'ClientesController@getDatos');
 		Route::get('/venta/getpartida/', 'ProductosController@getInfoPartida');
 		Route::get( '/venta/save/' , 'VentasController@save');
+		Route::get( '/venta/savecpc/' , 'VentasController@ccobrar');
 		Route::post( '/venta-detalle/{venta_maestro}' , 'VentasController@saveDetalle');
 		Route::delete( '/venta/destroy/{venta_maestro}' , 'VentasController@destroy');
 		Route::get('/existencia/getJson', 'ProductosController@getJsonExistencia');
@@ -264,7 +265,6 @@ Route::group(['middleware' => ['web']], function ()
         Route::get( '/detallesplanillas/{planilla}/getJson' , 'PlanillasController@getJsonDetalle' );
 		Route::patch( '/detallesplanillas/{planilla}/update' , 'PlanillasController@update' );
 		Route::delete( '/detallesplanillas/destroy/{detalleplanilla}' , 'PlanillasController@destroyDetalle' );
-		//Route::get('/detallesplanillas/name/{detalleplanilla}', 'PlanillasController@getDetalle');		
 		Route::get('/planillas/edit/{planilla}', 'PlanillasController@edit');
 
 		Route::get('/cuentas_por_pagar', 'CuentasPorPagarController@index');
@@ -276,10 +276,6 @@ Route::group(['middleware' => ['web']], function ()
 		Route::post('/cuentas_por_pagar/save/notacredito' , 'CuentasPorPagarController@savenotacredito');
 		Route::post('/cuentas_por_pagar/save/notadebito' , 'CuentasPorPagarController@savenotadebito');
 		
-		//Route::get('/cuentas_por_pagar/edit/{cuenta_por_pagar}' , 'CuentasPorPagarController@edit');
-		//Route::patch('/cuentas_por_pagar/{cuenta_por_pagar}/update' , 'CuentasPorPagarController@update');
-		//Route::delete('/cuentas_por_pagar/remove/{cuenta_por_pagar}' , 'CuentasPorPagarController@destroy');
-
 
 		Route::get('/cuentas_por_cobrar', 'CuentasPorCobrarController@index');
 		Route::get('/cuentas_por_cobrar/getJson/' , 'CuentasPorCobrarController@getJson');

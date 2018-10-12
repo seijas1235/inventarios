@@ -423,26 +423,26 @@ $('body').on('click', '#addDetalleServicio', function(e)
         var tipo_pago_id = $("#tipo_pago_id").val();      
         var venta_maestro = $("input[name='venta_maestro'] ").val();
         var cliente_id = $("#cliente_id").val();
-        var formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id,cliente_id : cliente_id} 
-        
+        var formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id, cliente_id : cliente_id} 
         if(tipo_pago_id==3){
-            formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id,cliente_id : cliente_id, venta_id: venta_maestro}
+            var fecha_venta= $("input[name='fecha_venta'] ").val();
+            formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id, cliente_id : cliente_id,venta_maestro_id: venta_maestro,fecha_venta: fecha_venta}
             $.ajax({
                 type: "GET",
-                url: "/cuentascobrar/save/",
+                url: "/venta/savecpc/",
                 data: formData,
                 async:false,
                 dataType: 'json',
                 success: function(data) {
                     var detalle = data;
-                    alert("Cuenta por cobrar Creada exitosamente");
+                    $("input[name='venta_maestro'] ").val(data.id);
                 },
                 error: function() {
-                    alert("falla de guardado");
+                    alert("Something went wrong, please try again!");
                 }
             });
         }
-        
+           
         $.ajax({
             type: "PATCH",
             /*url: "../pos_v2/venta/update-total/"+ venta_maestro+ "/",*/

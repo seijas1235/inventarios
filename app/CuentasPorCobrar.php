@@ -6,12 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class CuentasPorCobrar extends Model
 {
-    protected $table = 'cuentas_cobrar';
+    protected $table = 'cuentas_por_cobrar';
 
     protected $fillable=[
         'id',
         'cliente_id',
-        'venta_id',
         'total',
         'estado',
     
@@ -22,6 +21,9 @@ class CuentasPorCobrar extends Model
     }
     public function ventas(){
         return $this->belongsTo(Venta::class);
+    }
+    public function cuentas_por_cobrar_detalle(){
+        return $this->hasMany(CuentaPorCobrarDetalle::class);
     }
 
 }

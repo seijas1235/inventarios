@@ -12,6 +12,8 @@ use App\Venta;
 use App\VentaDetalle;
 use App\Servicio;
 use App\Cliente;
+use App\CuentasPorCobrar;
+use App\CuentasPorCobrarDetalle;
 use App\MovimientoProducto;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
@@ -50,6 +52,7 @@ class VentasController extends Controller
 		$clientes=Cliente::all();
 		return view("venta.create" , compact( "back", "tipo_pagos", "today",'servicios','clientes'));
 	}
+	
 
 	/**
 	 * Store a newly created resource in storage.
@@ -63,7 +66,56 @@ class VentasController extends Controller
 		$data["user_id"] = Auth::user()->id;
 		$data["edo_venta_id"] = 1;
 		$maestro = Venta::create($data);
+		
 		return $maestro;
+	}
+	public function ccobrar(Request $request){
+		$data = $request->all();
+		$maestro = $data["venta_maestro_id"];
+		if($request["tipo_pago_id"] == 3){
+
+			$existeCuentaCliente = CuentasPorCobrar::where('cliente_id',$request["cliente_id"])->first();
+
+			if($existeCuentaCliente){
+
+				$detalle = array(
+					'venta_id' => $maestro,
+					'num_factura' => $request["num_factura"],
+					'fecha' => $data["fecha_venta"],
+					'descripcion' => 'Venta',
+					'cargos' => $request["total_venta"],	
+					'abonos' => 0,
+					'saldo' => $existeCuentaCliente->total + $request["total_venta"]
+				);					
+
+				$existeCuentaCliente->cuentas_por_cobrar_detalle()->create($detalle);
+
+				//$total = $existeCuentaCliente->total;
+				//$newtotal = $total + $request["total_factura"];
+				$newtotal = $detalle['saldo'];
+				$existeCuentaCliente->update(['total' => $newtotal]);
+			}
+
+			else{
+				$cuenta = new CuentasPorCobrar;
+				$cuenta->total = $request["total_venta"];
+				$cuenta->cliente_id = $request["cliente_id"];
+				$cuenta->save();
+
+				$detalle = array(
+					'venta_id' => $maestro->id,
+					'num_factura' => $request["num_factura"],
+					'fecha' => $data["fecha_venta"],
+					'descripcion' => 'Venta',
+					'cargos' => $request["total_venta"],	
+					'abonos' => 0,
+					'saldo' => $request["total_venta"]
+				);							
+
+				$cuenta->cuentas_por_cobrar_detalle()->create($detalle);
+			}
+			
+		}
 	}
 
 	public function saveDetalle(Request $request, Venta $venta_maestro)
@@ -99,6 +151,7 @@ class VentasController extends Controller
 				$updateExistencia = MovimientoProducto::where('id', $stat["movimiento_id"])
 				->update(['existencias' => $newExistencias]);
 			}
+			
 		}
 		return Response::json($result);
 	}

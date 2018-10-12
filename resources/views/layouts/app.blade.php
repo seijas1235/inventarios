@@ -195,6 +195,7 @@
 					<li><a href="/planillas"><i class="icon icon-th"></i> <span>Planillas</span></a></li>
 					<li><a href="/ventas"><i class="icon icon-th"></i> <span>Ventas</span></a></li>
 					<li><a href="/cuentas_por_pagar"><i class="icon icon-th"></i> <span>Cuentas Por pagar</span></a></li>
+					<li><a href="/cuentas_por_cobrar"><i class="icon icon-th"></i> <span>Cuentas Por Cobrar</span></a></li>
 					@endif
 				</ul>
 			</li>

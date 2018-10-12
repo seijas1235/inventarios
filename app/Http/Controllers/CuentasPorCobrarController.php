@@ -117,14 +117,14 @@ class CuentasPorCobrarController extends Controller
     {
         $api_Result = array();
         // Create a mapping of our query fields in the order that will be shown in datatable.
-        $columnsMapping = array("cpc.id", "c.nombre");
+        $columnsMapping = array("cpc.id", "c.nombres");
 
         // Initialize query (get all)
 
         $api_logsQueriable = DB::table('precios_producto');
         $api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-        $query = "SELECT cpc.id, cpc.cliente_id, cpc.total, c.nombre FROM cuentas_por_cobrar cpc 
+        $query = "SELECT cpc.id, cpc.cliente_id, cpc.total, concat( c.nombres,' ', c.apellidos) as nombre FROM cuentas_por_cobrar cpc 
         INNER JOIN clientes c on c.id = cpc.cliente_id";
 
         $where = "";
@@ -171,7 +171,7 @@ class CuentasPorCobrarController extends Controller
 	{
 		$api_Result = array();
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("dc.id","dc.compra_id", "dc.num_factura");
+		$columnsMapping = array("dc.id","dc.venta_id", "dc.num_factura");
 
 		// Initialize query (get all)
 
@@ -179,10 +179,10 @@ class CuentasPorCobrarController extends Controller
 		$api_logsQueriable = DB::table('cuentas_por_cobrar_detalle');
 		$api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-		$query = 'SELECT dc.id, if(dc.compra_id is null, 0,dc.compra_id)as compra_id, dc.num_factura, dc.fecha, dc.descripcion, dc.cargos, dc.abonos, dc.saldo
+		$query = 'SELECT dc.id, if(dc.venta_id is null, 0,dc.venta_id)as cventa_id, dc.num_factura, dc.fecha,dc.descripcion ,dc.cargos, dc.abonos, dc.saldo
 		FROM cuentas_por_cobrar_detalle dc
-		INNER JOIN cuentas_por_cobrar cpc on cpc.id = dc.cuenta_por_cobrar_id
-		WHERE dc.cuenta_por_cobrar_id ='.$detalle.'';
+		INNER JOIN cuentas_por_cobrar cpc on cpc.id = dc.cuentas_por_cobrar_id
+		WHERE dc.cuentas_por_cobrar_id ='.$detalle.'';
 
 		$where = "";
 

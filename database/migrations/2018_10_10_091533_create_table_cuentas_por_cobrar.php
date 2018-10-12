@@ -15,12 +15,9 @@ class CreateTableCuentasPorCobrar extends Migration
         Schema::create('cuentas_por_cobrar', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('cliente_id');
-            $table->unsignedInteger('venta_id');
             $table->decimal('total');
-            $table->unsignedInteger('estado');
             $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
-            $table->foreign('venta_id')->references('id')->on('ventas_maestro')->onDelete('cascade');
-            
+                       
             $table->timestamps();
         });
     }

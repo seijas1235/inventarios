@@ -15,15 +15,16 @@ class CuentasPorCobrarDetalleCreateTable extends Migration
         Schema::create('cuentas_por_cobrar_detalle', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('venta_id');
-            $table->unsignedInteger('cuenta_por_cobrar_id');
+            $table->unsignedInteger('cuentas_por_cobrar_id');
             $table->string('num_factura') ->nullable();
-            $table->date('fecha');
+            $table->text('descripcion')->nullable();
+            $table->date('fecha')->nullable();
             $table->float('cargos')->nullable();
             $table->float('abonos')->nullable();
             $table->float('saldo')->nullable();
 
             $table->foreign('venta_id')->references('id')->on('ventas_maestro')->onDelete('cascade');
-            $table->foreign('cuenta_por_cobrar_id')->references('id')->on('cuentas_por_cobrar')->onDelete('cascade');
+            $table->foreign('cuentas_por_cobrar_id')->references('id')->on('cuentas_por_cobrar')->onDelete('cascade');
             $table->timestamps();
         });
     }

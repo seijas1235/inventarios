@@ -27,6 +27,10 @@
 				{!! Form::label("direccion","Direccion:") !!}
 				{!! Form::text( "direccion" , null , ['class' => 'form-control', 'placeholder' => 'direccion' ]) !!}
 			</div>
+			<div class="col-sm-4">
+				{!! Form::label("fecha_venta","Fecha:") !!}
+				{!! Form::date( "fecha_venta" , null , ['class' => 'form-control', 'placeholder' => 'direccion' ]) !!}
+			</div>
 			
 		</div>
 		<hr>
