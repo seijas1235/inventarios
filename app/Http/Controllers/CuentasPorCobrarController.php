@@ -62,7 +62,7 @@ class CuentasPorCobrarController extends Controller
 	{
         $data = $request->all();
 
-        $cuentaporcobrar = CuentasPorCobrar::where('cliente_id',$data["cliente_id"])->first();
+        $cuentasporcobrar = CuentasPorCobrar::where('cliente_id',$data["cliente_id"])->first();
 
             $detalle = array(
                 'num_factura' => '',
@@ -70,21 +70,21 @@ class CuentasPorCobrarController extends Controller
                 'descripcion' => 'Nota de Credito',
                 'cargos' => 0,	
                 'abonos' => $data["total"],
-                'saldo' => $cuentaporcobrar->total - $data["total"]
+                'saldo' => $cuentasporcobrar->total - $data["total"]
             );					
 
-            $cuentaporcobrar->cuentas_por_cobrar_detalle()->create($detalle);
+            $cuentasporcobrar->cuentas_por_cobrar_detalle()->create($detalle);
             $newtotal = $detalle['saldo'];
-            $cuentaporcobrar->update(['total' => $newtotal]);        
+            $cuentasporcobrar->update(['total' => $newtotal]);        
 
-		return Response::json($cuentaporcobrar);
+		return Response::json($cuentasporcobrar);
     }
     
     public function savenotadebito(Request $request)
 	{
 		$data = $request->all();
 
-        $cuentaporcobrar = CuentasPorCobrar::where('cliente_id',$data["cliente_id"])->first();
+        $cuentasporcobrar = CuentasPorCobrar::where('cliente_id',$data["cliente_id"])->first();
 
             $detalle = array(
                 'num_factura' => '',
@@ -92,14 +92,14 @@ class CuentasPorCobrarController extends Controller
                 'descripcion' => 'Nota de Debito',
                 'cargos' => $data["total"],	
                 'abonos' => 0,
-                'saldo' => $cuentaporcobrar->total + $data["total"]
+                'saldo' => $cuentasporcobrar->total + $data["total"]
             );					
 
-            $cuentaporcobrar->cuentas_por_cobrar_detalle()->create($detalle);
+            $cuentasporcobrar->cuentas_por_cobrar_detalle()->create($detalle);
             $newtotal = $detalle['saldo'];
-            $cuentaporcobrar->update(['total' => $newtotal]);        
+            $cuentasporcobrar->update(['total' => $newtotal]);        
 
-		return Response::json($cuentaporcobrar);
+		return Response::json($cuentasporcobrar);
 	}
 
     /**
