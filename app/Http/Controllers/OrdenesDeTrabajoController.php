@@ -41,7 +41,6 @@ class OrdenesDeTrabajoController extends Controller
 		return view("ordenes_de_trabajo.create2", compact('orden_de_trabajo', 'componentesAccesorios'));
         
     }
-<<<<<<< HEAD
    
     /**
      * Store a newly created resource in storage.
@@ -49,9 +48,7 @@ class OrdenesDeTrabajoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-=======
     
->>>>>>> 16fdd5275d3a4a51117ccc5f7d6411c172eff837
     public function save2(Request $request)
 	{
         $data = $request->all();
