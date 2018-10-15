@@ -2,39 +2,45 @@
 @section('content')
 <div id="content">
 	<div class="container-custom">
-		<!-- {!! Form::open(array('class' => 'form', 'id' => 'EmpleadoForm')) !!} -->
-		{!! Form::open( array( 'id' => 'EmpleadoForm') ) !!}
+		{!! Form::open( array( 'id' => 'OrdenDeTrabajoForm') ) !!}
 		<div class="row">
 			<div class="col-sm-12">
-				<h3 class="tittle-custom"> Creación de Empleados </h3>
+				<h3 class="tittle-custom"> Orden de Trabajo </h3>
 				<line>
 				</div>
 			</div>
 			<br>
 			<div class="row">
 				<div class="col-sm-4">
-					{!! Form::label("emp_cui","CUI/DPI:") !!}
-					{!! Form::text( "emp_cui" , null , ['class' => 'form-control' , 'placeholder' => 'CUI/DPI' ]) !!}	
+					{!! Form::label("fecha_hora","Fecha y hora:") !!}
+					<input type="datetime-local" class="form-control" name="fecha_hora">	
 				</div>
-				<div class="col-sm-4"></div>
 				<div class="col-sm-4">
-					{!! Form::label("puesto_id","Puesto del Empleado:") !!}
-						<select class="selectpicker" id='puesto_id' name="puesto_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
-							@foreach ($puestos as $puesto)
-							<option value="{{$puesto->id}}">{{$puesto->nombre}}</option>
-							@endforeach
-						</select>
+					{!! Form::label("resp_recepcion","Responsable de la recepcion:") !!}
+					{!! Form::text( "resp_recepcion" , null , ['class' => 'form-control' , 'placeholder' => 'Responsable de la recepcion' ]) !!}
+				</div>
+				<div class="col-sm-4">
+					{!! Form::label("fecha_prometida","Fecha prometida:") !!}
+					{!! Form::date( "fecha_prometida" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha y Hora' ]) !!}
 				</div>
 			</div>
-
+			<br>
 			<div class="row">
 				<div class="col-sm-6">
-					{!! Form::label("nombre","Nombres:") !!}
-					{!! Form::text( "nombre" , null , ['class' => 'form-control' , 'placeholder' => 'Nombres' ]) !!}
+					{!! Form::label("cliente_id","Cliente:") !!}
+					<select class="selectpicker" id='cliente_id' name="cliente_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+						@foreach ($clientes as $cliente)
+						<option value="{{$cliente->id}}">{{$cliente->nombres.''.$cliente->apellidos}}</option>
+						@endforeach
+					</select>
 				</div>
 				<div class="col-sm-6">
-					{!! Form::label("apellido","Apellidos:") !!}
-					{!! Form::text( "apellido" , null , ['class' => 'form-control' , 'placeholder' => 'Apellidos' ]) !!}
+					{!! Form::label("vehiculo_id","Vehiculo:") !!}
+					<select class="selectpicker" id='vehiculo_id' name="vehiculo_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+						@foreach ($vehiculos as $vehiculo)
+						<option value="{{$vehiculo->id}}">{{$vehiculo->placa}}</option>
+						@endforeach
+					</select>
 				</div>
 			</div>
 			<br>
@@ -42,37 +48,9 @@
 			
 			</div>
 			<br>
-			<div class="row">
-				<div class="col-sm-4">
-				{!! Form::label("telefono","Telefono:") !!}
-					{!! Form::number( "telefono" , null , ['class' => 'form-control' , 'placeholder' => 'Telefono' ]) !!}
-				</div>
-				<div class="col-sm-4">
-					{!! Form::label("nit","NIT:") !!}
-					{!! Form::text( "nit" , null , ['class' => 'form-control' , 'placeholder' => 'NIT' ]) !!}
-				</div>
-				<div class="col-sm-2">
-					{!! Form::label("fecha_inicio","Fecha Inicio:") !!}
-					{!! Form::text( "fecha_inicio" , null , ['class' => 'form-control' , 'placeholder' => 'Fec Inicio' ]) !!}
-				</div>
-				<div class="col-sm-2">
-					{!! Form::label("fecha_nacimiento","Fecha Nacimiento:") !!}
-					{!! Form::text( "fecha_nacimiento" , null , ['class' => 'form-control' , 'placeholder' => 'Fec Nacimiento' ]) !!}
-				</div>
-					
-			</div>
-			<br>
-			<div class="row">
-			<div class="col-sm-12">
-					{!! Form::label("direccion","Dirección:") !!}
-					{!! Form::text( "direccion" , null , ['class' => 'form-control' , 'placeholder' => 'Dirección' ]) !!}
-				</div>
-		
-			</div>
-			<br>
 			<div class="text-right m-t-15">
-				<a class='btn btn-primary form-gradient-color form-button' href="{{ url('/empleados') }}">Regresar</a>
-				{!! Form::input('submit', 'submit', 'Guardar', ['class' => 'btn btn-primary form-gradient-color form-button', 'id'=>'ButtonEmpleado']) !!}
+				<a class='btn btn-primary form-gradient-color form-button' href="{{ url('/ordenes_de_trabajo') }}">Regresar</a>
+				{!! Form::input('submit', 'submit', 'Siguiente', ['class' => 'btn btn-primary form-gradient-color form-button', 'id'=>'ButtonOrdenDeTrabajo']) !!}
 			</div>
 			<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
 		<br>
@@ -82,5 +60,5 @@
 @endsection
 
 @section('scripts')
-{!! HTML::script('/js/empleados/create.js') !!}
+{!! HTML::script('/js/ordenes_de_trabajo/create.js') !!}
 @endsection

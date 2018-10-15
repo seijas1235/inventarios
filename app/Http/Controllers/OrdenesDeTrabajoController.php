@@ -14,12 +14,18 @@ use Carbon\Carbon;
 Use App\Vehiculo;
 Use App\Cliente;
 
-class OredenesDeTrabajoController extends Controller
+class OrdenesDeTrabajoController extends Controller
 {
     public function new()
     {
-        $proveedores = Proveedor::All();
-		return view("cuentas_por_pagar.ndebito" , compact('proveedores'));
+        $clientes = Cliente::All();
+        $vehiculos = Vehiculo::All();
+		return view("ordenes_de_trabajo.create" , compact('clientes', 'vehiculos'));
+    }
+
+    public function create2()
+    {
+		return view("ordenes_de_trabajo.create2");
     }
 
     /**

@@ -288,7 +288,9 @@ Route::group(['middleware' => ['web']], function ()
 
 
 		Route::get('/ordenes_de_trabajo/new' , 'OrdenesDeTrabajoController@new');
+		Route::get('/ordenes_de_trabajo/create2' , 'OrdenesDeTrabajoController@create2');
 		Route::post('/ordenes_de_trabajo/save' , 'OrdenesDeTrabajoController@save');
+
 
 		
 		Route::get( '/vales2/get/' , 'ValesController@getJson');

@@ -225,67 +225,45 @@ $('#fecha_nacimiento').datetimepicker({
 
 
 
-var validator = $("#EmpleadoForm").validate({
+var validator = $("#OrdenDeTrabajoForm").validate({
 	ignore: [],
 	onkeyup:false,
 	rules: {
-		emp_cui: {
-			required : true,
-			cuiUnico : true,
-			dpi : true
+		cliente_id: {
+			required: true
 		},
-		nit:{
-			required: true,
-			nit:true,
-			nitUnico: true
+		vehiculo_id:{
+			required: true
 		},
-		nombre: {
+		fecha_hora: {
 			required : true
 		},
-		apellido: {
+		resp_recepcion: {
 			required : true
 		},
 
-		direccion: {
-			required : true
-		},
-
-		telefono: {
-			ntel:true,
-			required : true
-		},
-
-		puesto_id: {
+		fecha_prometida: {
 			required : true
 		}
 
 	},
 	messages: {
-		nit: {
-			required: "Por favor, ingrese el NIT del empleado"
+		cliente_id: {
+			required: "Por favor, seleccione cliente"
 		},
-		emp_cui: {
-			required: "Por favor, ingrese el CIU/DPI del empleado"
+		vehiculo_id: {
+			required: "Por favor, seleccione vehiculo"
 		},
-		nombre: {
-			required: "Por favor, ingrese el nombre del empleado"
+		fecha_hora: {
+			required: "Por favor, ingrese fecha y hora"
 		},
-		apellido: {
-			required: "Por favor, ingrese el apellido del empleado"
-		},
-
-		direccion: {
-			required: "Por favor, ingrese la direccion del empleado"
+		resp_recepcion: {
+			required: "Por favor, ingrese nombre responsable recepcion"
 		},
 
-		telefono: {
-			required: "Por favor, ingrese el telefono del empleado"
-		},
-
-		puesto_id: {
-			required: "Por favor, seleccione el puesto del empleado"
+		fecha_prometida: {
+			required: "Por favor, ingrese fecha prometida"
 		}
-
 	}
 });
 
@@ -295,8 +273,8 @@ var db = {};
 window.db = db;
 db.detalle = [];
 
-$("#ButtonEmpleado").click(function(event) {
-	if ($('#EmpleadoForm').valid()) {
+$("#ButtonOrdenDeTrabajo").click(function(event) {
+	if ($('#OrdenDeTrabajoForm').valid()) {
 		saveContact();
 	} else {
 		validator.focusInvalid();
@@ -304,18 +282,18 @@ $("#ButtonEmpleado").click(function(event) {
 });
 
 function saveContact(button) {
-	$("#ButtonEmpleado").attr('disabled', 'disabled');
-	var l = Ladda.create(document.querySelector("#ButtonEmpleado"));
+	$("#ButtonOrdenDeTrabajo").attr('disabled', 'disabled');
+	var l = Ladda.create(document.querySelector("#ButtonOrdenDeTrabajo"));
 	l.start();
-	var formData = $("#EmpleadoForm").serialize();
+	var formData = $("#OrdenDeTrabajoForm").serialize();
 	$.ajax({
 		type: "POST",
 		headers: {'X-CSRF-TOKEN': $('#token').val()},
-		url: "/empleados/save",
+		url: "/oredenes_de_trabajo/save",
 		data: formData,
 		dataType: "json",
 		success: function(data) {
-			window.location = "/empleados" 
+			window.location = "/ordenes_de_trabajo/create2" 
 		},
 		always: function() {
 			l.stop();

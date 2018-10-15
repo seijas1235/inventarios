@@ -14,9 +14,9 @@ class OrdenesDeTrabajo extends Migration
     {
         Schema::create('ordenes_de_trabajo', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('fecha_hora');
+            $table->timestamp('fecha_hora');
             $table->string('resp_recepcion');
-            $table->string('fecha_prometida');
+            $table->date('fecha_prometida');
             $table->unsignedInteger('cliente_id');
             $table->unsignedInteger('vehiculo_id');
 
