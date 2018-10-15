@@ -11,7 +11,7 @@ class ComponentesAccesorios extends Model
     protected $fillable=[
         'id',
         'emblemas',
-        'encendedir',
+        'encendedor',
         'espejos',
         'antena',
         'radio',
@@ -20,14 +20,14 @@ class ComponentesAccesorios extends Model
         'platos',
         'tampon_combustible',
         'soporte_bateria',
-        'paleles',
+        'papeles',
         'alfombras',
         'control_alarma',
-        'extinguido',
+        'extinguidor',
         'triangulo',
         'vidrios_electricos',
         'conos',
-        'nebline',
+        'neblineras',
         'luces',
         'llanta_repusto',
         'llave_ruedas',
@@ -37,6 +37,6 @@ class ComponentesAccesorios extends Model
     ];
 
     public function orden_trabajo(){
-        return $this->hasMany(OrdenDeTrabajo::class);
+        return $this->belongsTo(OrdenDeTrabajo::class);
     }
 }
