@@ -66,6 +66,14 @@ class VehiculosController extends Controller
         return Response::json($vehiculo);
     }
 
+    public function store2(Request $request)
+    {
+        $data = $request->all();
+        $vehiculo = Vehiculo::create($data);
+
+        return back();
+    }
+
     /**
      * Display the specified resource.
      *

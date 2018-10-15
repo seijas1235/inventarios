@@ -80,8 +80,6 @@ Route::group(['middleware' => ['web']], function ()
         Route::delete( '/salidaproducto/destroy/{salidaproducto}' , 'SalidaProductoController@destroy' );
 
 
-
-
 		Route::get('/tipos_cliente', 'TiposClienteController@index');
 		Route::get('/tipos_cliente/getJson/' , 'TiposClienteController@getJson');
 		Route::get('/tipos_cliente/new' , 'TiposClienteController@create');
@@ -171,6 +169,7 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/vehiculos/getJson/' , 'VehiculosController@getJson');
 		Route::get('/vehiculos/new' , 'VehiculosController@create');
 		Route::post('/vehiculos/save/' , 'VehiculosController@store');
+		Route::post( '/vehiculos/save/modal' , 'VehiculosController@store2')->name('vehiculos.store2');
 		Route::get('/vehiculos/edit/{vehiculo}' , 'VehiculosController@edit');
 		Route::patch('/vehiculos/{vehiculo}/update' , 'VehiculosController@update');
 		Route::delete('/vehiculos/remove/{vehiculo}' , 'VehiculosController@destroy');
@@ -288,9 +287,8 @@ Route::group(['middleware' => ['web']], function ()
 
 
 		Route::get('/ordenes_de_trabajo/new' , 'OrdenesDeTrabajoController@new');
-		Route::get('/ordenes_de_trabajo/create2' , 'OrdenesDeTrabajoController@create2');
-		Route::post('/ordenes_de_trabajo/save' , 'OrdenesDeTrabajoController@save');
-
+		Route::get('/ordenes_de_trabajo/create2/{orden_de_trabajo}' , 'OrdenesDeTrabajoController@create2')->name('ordenes_de_trabajo.create2');
+		Route::post('/ordenes_de_trabajo/save' , 'OrdenesDeTrabajoController@save')->name('ordenes_de_trabajo.save');
 
 		
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
@@ -426,7 +424,8 @@ Route::get( '/requisicion/getInfo/{requisicion}' , 'RequisicionesController@getI
 			Route::get( '/clientes/new/' , 'ClientesController@create');
 			Route::get( '/clientes/edit/{cliente}' , 'ClientesController@edit');
 			Route::patch( '/clientes/{cliente}/update' , 'ClientesController@update');
-			Route::post( '/clientes/save/' , 'ClientesController@store');
+			Route::post( '/clientes/save/' , 'ClientesController@store')->name('clientes.store');
+			Route::post( '/clientes/save/modal' , 'ClientesController@store2')->name('clientes.store2');
 			Route::delete( '/clientes/active/{cliente}' , 'ClientesController@active');
 			Route::delete( '/clientes/remove/{cliente}' , 'ClientesController@destroy');
 			Route::delete( '/clientes/bloquear/{cliente}' , 'ClientesController@bloquear');
