@@ -289,6 +289,7 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/ordenes_de_trabajo/new' , 'OrdenesDeTrabajoController@new');
 		Route::get('/ordenes_de_trabajo/create2/{orden_de_trabajo}' , 'OrdenesDeTrabajoController@create2')->name('ordenes_de_trabajo.create2');
 		Route::post('/ordenes_de_trabajo/save' , 'OrdenesDeTrabajoController@save')->name('ordenes_de_trabajo.save');
+		Route::get('/ordenes_de_trabajo/createCarroceria/{orden_de_trabajo}' , 'OrdenesDeTrabajoController@createCarroceria')->name('ordenes_de_trabajo.create3');
 		
 
 		Route::get('/ordenes_de_trabajo/save2' , 'OrdenesDeTrabajoController@save2');

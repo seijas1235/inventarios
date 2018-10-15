@@ -41,6 +41,13 @@ class OrdenesDeTrabajoController extends Controller
 		return view("ordenes_de_trabajo.create2", compact('orden_de_trabajo', 'componentesAccesorios'));
         
     }
+
+    public function createCarroceria(OrdenDeTrabajo $orden_de_trabajo)
+    {
+        
+		return view("ordenes_de_trabajo.createCarroceria", compact('orden_de_trabajo'));
+        
+    }
     
     public function save2(Request $request)
 	{
