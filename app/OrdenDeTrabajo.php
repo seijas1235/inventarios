@@ -23,4 +23,7 @@ class OrdenDeTrabajo extends Model
     public function vehiculo(){
         return $this->belongsTo(Vehiculo::class);
     }
+    public function componentes_accesorios(){
+        return $this->hasMany(ComponentesAccesorios::class);
+    }
 }

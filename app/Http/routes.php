@@ -289,6 +289,11 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/ordenes_de_trabajo/new' , 'OrdenesDeTrabajoController@new');
 		Route::get('/ordenes_de_trabajo/create2/{orden_de_trabajo}' , 'OrdenesDeTrabajoController@create2')->name('ordenes_de_trabajo.create2');
 		Route::post('/ordenes_de_trabajo/save' , 'OrdenesDeTrabajoController@save')->name('ordenes_de_trabajo.save');
+		
+
+		Route::get('/ordenes_de_trabajo/save2' , 'OrdenesDeTrabajoController@save2');
+		Route::post('/ordenes_de_trabajo/save' , 'OrdenesDeTrabajoController@save');
+
 
 		
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
@@ -310,7 +315,7 @@ Route::group(['middleware' => ['web']], function ()
 			Route::delete( '/factores/remove/{factor}' , 'FactoresController@destroy');
 		});
 
-		Route::group(array('middleware' => 'acl' , 'is' => 'superadmin|administrator' ), function()
+			Route::group(array('middleware' => 'acl' , 'is' => 'superadmin|administrator' ), function()
 		{
 
 			Route::get( '/requisiciones' , 'RequisicionesController@index');
@@ -322,7 +327,7 @@ Route::group(['middleware' => ['web']], function ()
 			Route::delete( '/requisiciones/remove/{requisicion}' , 'RequisicionesController@destroy');
 			Route::post( '/requisiciones/rechaza/{requisicion}' , 'RequisicionesController@rechaza');
 			Route::get( '/requisiciones/autoriza/{requisicion}' , 'RequisicionesController@autoriza');
-Route::get( '/requisicion/getInfo/{requisicion}' , 'RequisicionesController@getInfo');
+			Route::get( '/requisicion/getInfo/{requisicion}' , 'RequisicionesController@getInfo');
 
 
 			Route::get( '/cheques' , 'ChequesController@index');
