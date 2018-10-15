@@ -112,7 +112,7 @@
 			</div>
 			<br>
 			<div class="row">
-			
+			<input name="orden_id" class="hide" type="text" value="{{$orden_de_trabajo->id}}">
 			</div>
 			<br>
 			<div class="text-right m-t-15">

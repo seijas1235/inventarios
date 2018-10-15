@@ -53,7 +53,7 @@ class OrdenesDeTrabajoController extends Controller
 	{
         $data = $request->all();
 
-
+        
         $componentes=ComponentesAccesorios::create($data);
                    
 
