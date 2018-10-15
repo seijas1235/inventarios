@@ -292,7 +292,7 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/ordenes_de_trabajo/createCarroceria/{orden_de_trabajo}' , 'OrdenesDeTrabajoController@createCarroceria')->name('ordenes_de_trabajo.create3');
 		
 
-		Route::get('/ordenes_de_trabajo/save2' , 'OrdenesDeTrabajoController@save2');
+		Route::post('/ordenes_de_trabajo/save2' , 'OrdenesDeTrabajoController@save2');
 		Route::post('/ordenes_de_trabajo/save' , 'OrdenesDeTrabajoController@save');
 
 

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ComponentesAccesorios extends Model
 {
-    protected $table = 'clientes';
+    protected $table = 'componentes_accesorios';
 
     protected $fillable=[
         'id',
@@ -18,18 +18,18 @@ class ComponentesAccesorios extends Model
         'llavero',
         'placas',
         'platos',
-        'tampon_combustible',
+        'tapon_combustible',
         'soporte_bateria',
         'papeles',
         'alfombras',
         'control_alarma',
         'extinguidor',
-        'triangulo',
+        'triangulos',
         'vidrios_electricos',
         'conos',
         'neblineras',
         'luces',
-        'llanta_repusto',
+        'llanta_repuesto',
         'llave_ruedas',
         'tricket',
         'descripcion',
