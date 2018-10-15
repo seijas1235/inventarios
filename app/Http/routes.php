@@ -293,7 +293,6 @@ Route::group(['middleware' => ['web']], function ()
 		
 
 		Route::post('/ordenes_de_trabajo/save2' , 'OrdenesDeTrabajoController@save2');
-		Route::post('/ordenes_de_trabajo/save' , 'OrdenesDeTrabajoController@save');
 
 
 		
