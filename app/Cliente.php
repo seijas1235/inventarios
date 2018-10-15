@@ -17,6 +17,7 @@ class Cliente extends Model
         'telefonos',
         'record_compra',
         'tipo_cliente_id',
+        'email',
         'user_id'
         ];
 

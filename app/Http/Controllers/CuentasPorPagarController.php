@@ -44,7 +44,7 @@ class CuentasPorPagarController extends Controller
 		return view("cuentas_por_pagar.ncredito" , compact('proveedores'));
     }
 
-    public function notadebito()
+    public function new()
     {
         $proveedores = Proveedor::All();
 		return view("cuentas_por_pagar.ndebito" , compact('proveedores'));
@@ -56,7 +56,7 @@ class CuentasPorPagarController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function savenotacredito(Request $request)
+    public function save(Request $request)
 	{
         $data = $request->all();
 

@@ -19,6 +19,7 @@ class CreateTableClientes extends Migration
             $table->string('nit',20)->unique();
             $table->string('direccion')->nullable();
             $table->string('telefonos',30)->nullable();
+            $table->string('email')->nullable();
             $table->integer('record_compra');
             $table->unsignedInteger('tipo_cliente_id');
             $table->unsignedInteger('user_id');

@@ -18,6 +18,8 @@
                 {!!$errors->first('nit', '<label class="error">:message</label>')!!}
             </div>
             <div class="col-sm-4">
+                {!! Form::label("email","e-mail:") !!}
+                {!! Form::text( "email" , null , ['class' => 'form-control' , 'placeholder' => 'e-mail' ]) !!}
             </div>
             <div class="col-sm-4">
                 {!! Form::label("tipo_cliente_id","Tipo de Cliente:") !!}

@@ -16,7 +16,7 @@ class CrateTableDetallesCuentasPorPagar extends Migration
             $table->increments('id');
             $table->unsignedInteger('compra_id')->nullable();
             $table->unsignedInteger('cuenta_por_pagar_id');
-            $table->string('num_factura');
+            $table->string('num_factura')->nullable();
             $table->date('fecha');
             $table->string('descripcion');
             $table->float('cargos')->nullable();

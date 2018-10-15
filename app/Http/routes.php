@@ -286,6 +286,10 @@ Route::group(['middleware' => ['web']], function ()
 		Route::post('/cuentas_por_cobrar/save/notacredito' , 'CuentasPorCobrarController@savenotacredito');
 		Route::post('/cuentas_por_cobrar/save/notadebito' , 'CuentasPorCobrarController@savenotadebito');
 
+
+		Route::get('/ordenes_de_trabajo/new' , 'OrdenesDeTrabajoController@new');
+		Route::post('/ordenes_de_trabajo/save' , 'OrdenesDeTrabajoController@save');
+
 		
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
 

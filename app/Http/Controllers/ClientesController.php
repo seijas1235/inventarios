@@ -125,6 +125,7 @@ class ClientesController extends Controller
         $cliente->apellidos = $data["apellidos"];
         $cliente->telefonos = $data["telefonos"];
         $cliente->direccion = $data["direccion"];
+        $cliente->email = $data["email"];
         $cliente->tipo_cliente_id = $data["tipo_cliente_id"];
         $cliente->save();
 
