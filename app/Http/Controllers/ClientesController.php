@@ -61,6 +61,16 @@ class ClientesController extends Controller
         return Response::json($cliente);
     }
 
+    public function store2(Request $request)
+    {       
+
+        $data = $request->all();
+        $data["user_id"] = Auth::user()->id;
+        $cliente = cliente::create($data);
+
+        return back();
+    }
+
     /**
      * Display the specified resource.
      *

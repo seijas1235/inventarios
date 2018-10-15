@@ -2,11 +2,10 @@
 @section('content')
 <div id="content">
 	<div class="container-custom">
-		{!! Form::open( array( 'id' => 'OrdenDeTrabajoForm') ) !!}
+		{!! Form::open( array( 'id' => 'OrdenDeTrabajoForm', 'route' => 'ordenes_de_trabajo.save') ) !!}
 		<div class="row">
 			<div class="col-sm-12">
 				<h3 class="tittle-custom"> Orden de Trabajo </h3>
-				<line>
 				</div>
 			</div>
 			<br>
@@ -30,10 +29,13 @@
 					{!! Form::label("cliente_id","Cliente:") !!}
 					<select class="selectpicker" id='cliente_id' name="cliente_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
 						@foreach ($clientes as $cliente)
-						<option value="{{$cliente->id}}">{{$cliente->nombres.''.$cliente->apellidos}}</option>
+						<option value="{{$cliente->id}}">{{$cliente->nombres.' '.$cliente->apellidos}}</option>
 						@endforeach
 					</select>
+					<button class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal" id="modalCliente" type="button">
+							<i class="fa fa-plus"></i>Nuevo Cliente</button>
 				</div>
+
 				<div class="col-sm-6">
 					{!! Form::label("vehiculo_id","Vehiculo:") !!}
 					<select class="selectpicker" id='vehiculo_id' name="vehiculo_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
@@ -41,11 +43,13 @@
 						<option value="{{$vehiculo->id}}">{{$vehiculo->placa}}</option>
 						@endforeach
 					</select>
+					<button class="btn btn-primary pull-right" data-toggle="modal" data-target="#ModalVehiculo" id="modalvehiculo" type="button">
+							<i class="fa fa-plus"></i>Nuevo Vehiculo</button>
 				</div>
 			</div>
 			<br>
 			<div class="row">
-			
+		
 			</div>
 			<br>
 			<div class="text-right m-t-15">
@@ -59,6 +63,16 @@
 </div>
 @endsection
 
+	@include('ordenes_de_trabajo.createModal')
+
+
+	@include('ordenes_de_trabajo.createModalVehiculo')
+
+
+@stack('scripts')
+
 @section('scripts')
 {!! HTML::script('/js/ordenes_de_trabajo/create.js') !!}
+{!! HTML::script('/js/clientes/create.js') !!}
+{!! HTML::script('/js/vehiculos/create.js') !!}
 @endsection
