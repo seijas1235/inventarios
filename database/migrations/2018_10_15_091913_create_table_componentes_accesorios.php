@@ -22,7 +22,7 @@ class CreateTableComponentesAccesorios extends Migration
             $table->boolean('llavero')->nullable();
             $table->boolean('placas')->nullable();
             $table->boolean('platos')->nullable();
-            $table->boolean('tampon_combustible')->nullable();
+            $table->boolean('tapon_combustible')->nullable();
             $table->boolean('soporte_bateria')->nullable();    
             $table->boolean('papeles')->nullable();
             $table->boolean('alfombras')->nullable();
@@ -38,7 +38,7 @@ class CreateTableComponentesAccesorios extends Migration
             $table->boolean('tricket')->nullable();
             $table->text('descripcion')->nullable();
             
-            $table->unsignedInteger('orden_id');
+            $table->unsignedInteger('orden_id')->nullable();
             $table->foreign('orden_id')->references('id')->on('ordenes_de_trabajo')->onDelete('cascade');
             
             $table->timestamps();

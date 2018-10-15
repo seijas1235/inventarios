@@ -5,7 +5,7 @@ window.db = db;
 db.detalle = [];
 
 $("#ButtonOrdenDeTrabajo2").click(function(event) {
-		ssaveDescription();
+		saveDescription();
 	
 });
 
@@ -17,7 +17,7 @@ function saveDescription(button) {
 	$.ajax({
 		type: "POST",
 		headers: {'X-CSRF-TOKEN': $('#token').val()},
-		url: "/oredenes_de_trabajo/save2",
+		url: "/ordenes_de_trabajo/save2",
 		data: formData,
 		dataType: "json",
 		success: function(data) {
