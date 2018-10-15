@@ -66,6 +66,13 @@ class OrdenesDeTrabajoController extends Controller
 
 		return Response::json($componentes);
     }
+
+    public function saveCarroceria(OrdenDeTrabajo $orden_de_trabajo, Request $request)
+	{
+        $data = $request->all();
+
+    }
+
     public function save(Request $request)
 	{
         $data = $request->all();

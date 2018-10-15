@@ -2,7 +2,8 @@
 @section('content')
 <div id="content">
 	<div class="container-custom">
-		{!! Form::open( array( 'id' => 'OrdenDeTrabajoForm') ) !!}
+		<form method="POST" action="{{route('orden_de_trabajo', $orden_de_trabajo)}}">
+			{{csrf_field()}} {{ method_field('PUT') }}
 		<div class="row">
 			<div class="col-sm-12">
 				<h3 class="tittle-custom"> Carroceria (golpes) y combustible</h3>
@@ -34,12 +35,11 @@
 			</div>
 			<br>
 			<div class="text-right m-t-15">
-				<a class='btn btn-primary form-gradient-color form-button' href="{{ url('/ordenes_de_trabajo') }}">Regresar</a>
 				{!! Form::input('submit', 'submit', 'Siguiente', ['class' => 'btn btn-primary form-gradient-color form-button', 'id'=>'ButtonOrdenDeTrabajo']) !!}
 			</div>
 			<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
 		<br>
-		{!! Form::close() !!}
+		</form>
 	</div>
 </div>
 @endsection
