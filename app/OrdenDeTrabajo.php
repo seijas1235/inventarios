@@ -14,7 +14,8 @@ class OrdenDeTrabajo extends Model
         'resp_recepcion',
         'fecha_prometida',
         'cliente_id',
-        'vehiculo_id'
+        'vehiculo_id',
+        'total'
         ];
 
     public function cliente(){
@@ -25,5 +26,9 @@ class OrdenDeTrabajo extends Model
     }
     public function componentes_accesorios(){
         return $this->hasMany(ComponentesAccesorios::class);
+    }
+
+    public function orden_trabajo_servicio(){
+        return $this->hasMany(OrdenTrabajoServicio::class);
     }
 }

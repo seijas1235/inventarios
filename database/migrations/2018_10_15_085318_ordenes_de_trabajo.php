@@ -19,6 +19,7 @@ class OrdenesDeTrabajo extends Migration
             $table->date('fecha_prometida');
             $table->unsignedInteger('cliente_id');
             $table->unsignedInteger('vehiculo_id');
+            $table->float('total')->nullable();
 
 
             $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');

@@ -286,14 +286,22 @@ Route::group(['middleware' => ['web']], function ()
 		Route::post('/cuentas_por_cobrar/save/notadebito' , 'CuentasPorCobrarController@savenotadebito');
 
 
+		Route::get('/ordenes_de_trabajo' , 'OrdenesDeTrabajoController@index');
+		Route::get('/ordenes_de_trabajo/getJson/' , 'OrdenesDeTrabajoController@getJson');
 		Route::get('/ordenes_de_trabajo/new' , 'OrdenesDeTrabajoController@new');
 		Route::get('/ordenes_de_trabajo/create2/{orden_de_trabajo}' , 'OrdenesDeTrabajoController@create2')->name('ordenes_de_trabajo.create2');
 		Route::post('/ordenes_de_trabajo/save' , 'OrdenesDeTrabajoController@save')->name('ordenes_de_trabajo.save');
-		Route::get('/ordenes_de_trabajo/createCarroceria/{orden_de_trabajo}' , 'OrdenesDeTrabajoController@createCarroceria')->name('ordenes_de_trabajo.create3');
-		Route::post('/ordenes_de_trabajo/saveCarroceria{orden_de_trabajo}' , 'OrdenesDeTrabajoController@saveCarroceria')->name('ordenes_de_trabajo.save3');
+		Route::get('/ordenes_de_trabajo/createServicios/{orden_de_trabajo}' , 'OrdenesDeTrabajoController@createServicios')->name('ordenes_de_trabajo.create3');
+		Route::post('/ordenes_de_trabajo/saveServicios/{orden_de_trabajo}' , 'OrdenesDeTrabajoController@saveServicios')->name('ordenes_de_trabajo.save3');
+		Route::patch('/ordenes_de_trabajo/total/{orden_de_trabajo}/' , 'OrdenesDeTrabajoController@updateTotal');
 		
 
 		Route::post('/ordenes_de_trabajo/save2' , 'OrdenesDeTrabajoController@save2');
+
+
+
+		//Reporte Ordenes
+		Route::get( '/rpt_orden_trabajo' , 'PdfController@rpt_orden_trabajo');
 
 
 		

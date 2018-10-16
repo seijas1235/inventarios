@@ -19,9 +19,15 @@ Use App\TipoVehiculo;
 Use App\Marca;
 use App\TipoTransmision;
 Use App\ComponentesAccesorios;
+Use App\Servicio;
 
 class OrdenesDeTrabajoController extends Controller
 {
+    public function index()
+    {
+        return view ("ordenes_de_trabajo.index");
+    }
+
     public function new()
     {
         $query = "SELECT * FROM marcas WHERE tipo_marca_id=".'1'." OR tipo_marca_id='2'";
@@ -42,12 +48,20 @@ class OrdenesDeTrabajoController extends Controller
         
     }
 
-    public function createCarroceria(OrdenDeTrabajo $orden_de_trabajo)
+    public function createServicios(OrdenDeTrabajo $orden_de_trabajo)
     {
+        $servicios = Servicio::all();
         
-		return view("ordenes_de_trabajo.createCarroceria", compact('orden_de_trabajo'));
+		return view("ordenes_de_trabajo.createServicios", compact('orden_de_trabajo', 'servicios'));
         
     }
+
+    public function updateTotal(OrdenDeTrabajo $orden_de_trabajo, Request $request)
+	{
+        $data = $request->all();
+        $orden_de_trabajo->update(['total' => $request['total']]);
+        return $orden_de_trabajo;		
+	}
    
     /**
      * Store a newly created resource in storage.
@@ -67,9 +81,19 @@ class OrdenesDeTrabajoController extends Controller
 		return Response::json($componentes);
     }
 
-    public function saveCarroceria(OrdenDeTrabajo $orden_de_trabajo, Request $request)
+    public function saveServicios(OrdenDeTrabajo $orden_de_trabajo, Request $request)
 	{
-        $data = $request->all();
+        $statsArray = $request->all();
+		foreach($statsArray as $stat) {
+
+            $stat['servicio_id'] = $stat['servicio_id'];
+            $stat['mano_obra'] = $stat['mano_obra'];
+            //$stat["subtotal"] = $stat["subtotal_venta"];
+        
+            $orden_de_trabajo->orden_trabajo_servicio()->create($stat);
+            
+		}
+		return Response::json(['result' => 'ok']);
 
     }
 
@@ -81,5 +105,58 @@ class OrdenesDeTrabajoController extends Controller
 
         //return Response::json($orden_de_trabajo);
         return redirect()->route('ordenes_de_trabajo.create2', $orden_de_trabajo);
+    }
+
+    public function getJson(Request $params)
+    {
+        $api_Result = array();
+        // Create a mapping of our query fields in the order that will be shown in datatable.
+        $columnsMapping = array("id");
+
+        // Initialize query (get all)
+
+        $api_logsQueriable = DB::table('ordenes_de_trabajo');
+        $api_Result['recordsTotal'] = $api_logsQueriable->count();
+
+        $query = "SELECT * FROM ordenes_de_trabajo";
+
+        $where = "";
+
+        if (isset($params->search['value']) && !empty($params->search['value'])){
+
+            foreach ($columnsMapping as $column) {
+                if (strlen($where) == 0) {
+                    $where .=" and (".$column." like  '%".$params->search['value']."%' ";
+                } else {
+                    $where .=" or ".$column." like  '%".$params->search['value']."%' ";
+                }
+
+            }
+            $where .= ') ';
+        }
+        $condition = " ";
+        $query = $query . $condition . $where;
+
+        // Sorting
+        $sort = "";
+        foreach ($params->order as $order) {
+            if (strlen($sort) == 0) {
+                $sort .= 'order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
+            } else {
+                $sort .= ', '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
+            }
+        }
+
+        $result = DB::select($query);
+        $api_Result['recordsFiltered'] = count($result);
+
+        $filter = " limit ".$params->length." offset ".$params->start."";
+
+        $query .= $sort . $filter;
+
+        $result = DB::select($query);
+        $api_Result['data'] = $result;
+
+        return Response::json( $api_Result );
     }
 }
