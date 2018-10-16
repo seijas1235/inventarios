@@ -19,7 +19,11 @@ Use App\TipoVehiculo;
 Use App\Marca;
 use App\TipoTransmision;
 Use App\ComponentesAccesorios;
+<<<<<<< HEAD
+use Image;
+=======
 Use App\Servicio;
+>>>>>>> 0dacd6bf12a3823c58b703b633936d6fa03732f4
 
 class OrdenesDeTrabajoController extends Controller
 {
@@ -44,7 +48,9 @@ class OrdenesDeTrabajoController extends Controller
     public function create2(OrdenDeTrabajo $orden_de_trabajo)
     {
         $componentesAccesorios = ComponentesAccesorios::All();
-		return view("ordenes_de_trabajo.create2", compact('orden_de_trabajo', 'componentesAccesorios'));
+        $id=$orden_de_trabajo->id;
+        
+        return view("ordenes_de_trabajo.create2", compact('orden_de_trabajo', 'componentesAccesorios'));
         
     }
 
@@ -69,12 +75,11 @@ class OrdenesDeTrabajoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    
-    public function save2(Request $request)
+
+     public function save2(Request $request)
 	{
         $data = $request->all();
-
-        
+               
         $componentes=ComponentesAccesorios::create($data);
                    
 
@@ -107,6 +112,7 @@ class OrdenesDeTrabajoController extends Controller
         return redirect()->route('ordenes_de_trabajo.create2', $orden_de_trabajo);
     }
 
+    
     public function getJson(Request $params)
     {
         $api_Result = array();

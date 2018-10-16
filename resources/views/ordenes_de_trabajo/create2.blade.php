@@ -13,108 +13,118 @@
 			<div class="row">
 				<div class="col-sm-4">
                     
-                    <input type="checkbox" name="emblemas" id="emblemas">
+                    <input type="checkbox" value="1" name="emblemas" id="emblemas">
                     {!! Form::label("emblemas","Emblemas") !!}
                 </div>
 				<div class="col-sm-4">
-                    <input type="checkbox" name="encendedor" id="encendedor">
+                    <input type="checkbox" value="1" name="encendedor" id="encendedor">
                     {!! Form::label("encendedor","Encendedor") !!}
                 </div>
                 <div class="col-sm-4">
-                    <input type="checkbox" name="espejos" id="espejos">
+                    <input type="checkbox" value="1" name="espejos" id="espejos">
                     {!! Form::label("espejos","Espejos") !!}
                 </div>
                 <div class="col-sm-4">
-                    <input type="checkbox" name="antena" id="antena">
+                    <input type="checkbox" value="1" name="antena" id="antena">
                     {!! Form::label("antena","Antena") !!}
                 </div>
                 <div class="col-sm-4">
-                    <input type="checkbox" name="radio" id="radio">
+                    <input type="checkbox" value="1" name="radio" id="radio">
                     {!! Form::label("radio","Radio") !!}
                 </div>
                 <div class="col-sm-4">
-                    <input type="checkbox" name="llavero" id="llavero">
+                    <input type="checkbox" value="1" name="llavero" id="llavero">
                     {!! Form::label("llavero","Llavero") !!}
                 </div>
                 <div class="col-sm-4">
-                    <input type="checkbox" name="placas" id="placas">
+                    <input type="checkbox" value="1" name="placas" id="placas">
                     {!! Form::label("placas","Placas") !!}
                 </div>
 
                 <div class="col-sm-4">
-                    <input type="checkbox" name="platos" id="platos">
+                    <input type="checkbox" value="1" name="platos" id="platos">
                     {!! Form::label("platos","platos") !!}
                 </div>
                 <div class="col-sm-4">
-                    <input type="checkbox" name="tapon_combustible" id="tapon_combustible">
+                    <input type="checkbox" value="1" name="tapon_combustible" id="tapon_combustible">
                     {!! Form::label("tapon_combustible","Tapon de combustible") !!}
                 </div>
                 <div class="col-sm-4">
-                    <input type="checkbox" name="soporte_bateria" id="soporte_bateria">
+                    <input type="checkbox" value="1" name="soporte_bateria" id="soporte_bateria">
                     {!! Form::label("soporte_bateria","Soporte de Bateria") !!}
                 </div>
                 <div class="col-sm-4">
-                    <input type="checkbox" name="papeles" id="papeles">
+                    <input type="checkbox" value="1" name="papeles" id="papeles">
                     {!! Form::label("papeles","Papeles") !!}
                 </div>
                 <div class="col-sm-4">
-                    <input type="checkbox" name="alfombras" id="alfombras">
+                    <input type="checkbox" value="1" name="alfombras" id="alfombras">
                     {!! Form::label("alfombras","Alfombras") !!}
                 </div>
                 <div class="col-sm-4">
-                    <input type="checkbox" name="control_alarma" id="control_alarma">
+                    <input type="checkbox" value="1" name="control_alarma" id="control_alarma">
                     {!! Form::label("control_alarma","Control de Alarma") !!}
                 </div>
                 <div class="col-sm-4">
-                    <input type="checkbox" name="extinguidor" id="extinguidor">
+                    <input type="checkbox" value="1" name="extinguidor" id="extinguidor">
                     {!! Form::label("extinguidor","Extinguidor") !!}
                 </div>     
             
                 <div class="col-sm-4">
-                    <input type="checkbox" name="triangulos" id="triangulos">
+                    <input type="checkbox" value="1" name="triangulos" id="triangulos">
                     {!! Form::label("triangulos","Triangulos") !!}
                 </div>
                 <div class="col-sm-4">
-                    <input type="checkbox" name="vidrios_electricos" id="vidrios_electricos">
+                    <input type="checkbox" value="1" name="vidrios_electricos" id="vidrios_electricos">
                     {!! Form::label("vidrios_electricos","Vidrios Electricos") !!}
                 </div>
                 <div class="col-sm-4">
-                    <input type="checkbox" name="conos" id="conos">
+                    <input type="checkbox" value="1" name="conos" id="conos">
                     {!! Form::label("conos","Conos") !!}
                 </div>
                 <div class="col-sm-4">
-                    <input type="checkbox" name="neblineras" id="neblineras">
+                    <input type="checkbox" value="1" name="neblineras" id="neblineras">
                     {!! Form::label("neblineras","Neblineras") !!}
                 </div>
                 <div class="col-sm-4">
-                    <input type="checkbox" name="luces" id="luces">
+                    <input type="checkbox" value="1" name="luces" id="luces">
                     {!! Form::label("luces","Luces") !!}
                 </div>
                 <div class="col-sm-4">
-                    <input type="checkbox" name="llanta_repuesto" id="llanta_repuesto">
+                    <input type="checkbox" value="1" name="llanta_repuesto" id="llanta_repuesto">
                     {!! Form::label("llanta_repuesto","Llanta de Repuesto") !!}
                 </div>
                 <div class="col-sm-4">
-                    <input type="checkbox" name="llave_ruedas" id="llave_ruedas">
+                    <input type="checkbox" value="1" name="llave_ruedas" id="llave_ruedas">
                     {!! Form::label("llave_ruedas","Llave de Ruedas") !!}
                 </div>
 
                 <div class="col-sm-4">
-                    <input type="checkbox" name="tricket" id="tricket">
+                    <input type="checkbox" value="1" name="tricket" id="tricket">
                     {!! Form::label("tricket","Tricket") !!}
                 </div>
             </div>
 			<br>
-			<div class="col-sm-4" >
+			<div class="col-sm-12">
                     {!! Form::label("descripcion","Observaciones:") !!}
-					{!! Form::text( "descripcion" , null , ['class' => 'form-control' , 'placeholder' => 'Descripcion' ]) !!}
+					{!! Form::text( "descripcion" , null , ['class' => 'form-control' , 'placeholder' => 'Descripcion']) !!}
             </div>
 			</div>
 			<br>
 			<div class="row">
 			<input name="orden_id" class="hide" type="text" value="{{$orden_de_trabajo->id}}">
-			</div>
-			<br>
+            </div>
+            <hr>
+            
+            <div class="form-group">
+                <div class="dropzone">
+
+                </div>
+            </div>
+
+
+
+
 			<div class="text-right m-t-15">
 				<a class='btn btn-primary form-gradient-color form-button' href="{{ url('/ordenes_de_trabajo') }}">Regresar</a>
 				{!! Form::input('submit', 'submit', 'Siguiente', ['class' => 'btn btn-primary form-gradient-color form-button', 'id'=>'ButtonOrdenDeTrabajo2']) !!}
@@ -127,5 +137,18 @@
 @endsection
 
 @section('scripts')
+<script>    
+ new Dropzone('.dropzone',{
+     url:'/ordenes_de_trabajo/{{ $orden_de_trabajo->id }}/golpes',
+     acceptedFiles: 'image/*',
+     maxFilesize: 2,
+     paramName:'photo',
+     headers:{
+         'X-CSRF-TOKEN':'{{ csrf_token() }}'
+     },
+     dictDefaultMessage:'Arrastra las fotos aquí para subirlas'
+ });
+ Dropzone.autoDiscover=false;
+</script>
 {!! HTML::script('/js/ordenes_de_trabajo/create2.js') !!}
 @endsection

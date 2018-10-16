@@ -12,7 +12,8 @@
   src="https://code.jquery.com/jquery-3.3.1.js"
   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
   crossorigin="anonymous"></script>
-
+ 
+	
 	{{--<script src="{{ URL::to("js/jquery.min.js")  }}"></script>--}}
 	<script src="{{ URL::to("js/bootstrap.min.js")  }}"></script>
 	<script src="{{ URL::to("js/jquery.validate.js")  }}"></script>
@@ -21,7 +22,7 @@
 	<script src="{{ URL::to("js/bootstrap-datetimepicker.min.js")  }}"></script>
 
 	<!--    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script> -->
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js" ></script>
 	<script src="{{ URL::to("js/datatable/initialize.js")  }}"></script>
 	<script src="{{ URL::to("js/datatable/custom_render.js")  }}"></script>
 	<script src="{{ URL::to("js/datatable/jquery.dataTables.min.js")  }}"></script>
@@ -50,7 +51,7 @@
 	<link href="/css/font_awesome.css" rel="stylesheet">
 	<link rel="stylesheet" href="/css/jquery.gritter.css">
 	<link rel="stylesheet" href="/css/responsive.css">
-
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css">
 	<link rel="stylesheet" href="/css/dataTables.bootstrap.min.css">
 	<link rel="stylesheet" href="/css/jquery.dataTables.min.css">
 	<link rel="stylesheet" href="/css/responsive.bootstrap.min.css"">
