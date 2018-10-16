@@ -19,11 +19,8 @@ Use App\TipoVehiculo;
 Use App\Marca;
 use App\TipoTransmision;
 Use App\ComponentesAccesorios;
-<<<<<<< HEAD
 use Image;
-=======
 Use App\Servicio;
->>>>>>> 0dacd6bf12a3823c58b703b633936d6fa03732f4
 
 class OrdenesDeTrabajoController extends Controller
 {

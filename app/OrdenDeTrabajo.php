@@ -29,7 +29,7 @@ class OrdenDeTrabajo extends Model
     }
     public function photos(){
         return $this->hasMany(Photo::class);
-
+    }
     public function orden_trabajo_servicio(){
         return $this->hasMany(OrdenTrabajoServicio::class);
     }
