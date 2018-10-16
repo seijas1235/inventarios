@@ -10,7 +10,7 @@
         "kodeine/laravel-acl": "~1.0@dev",
         "illuminate/view": "5.2.*",
         "laravelcollective/html": "5.2.*",
-        "barryvdh/laravel-dompdf":"0.7.*",
+        "barryvdh/laravel-dompdf":"0.8.*",
         "maatwebsite/excel": "^2.1",
         "doctrine/dbal": "^2.5",
         "arielcr/numero-a-letras": "dev-master",

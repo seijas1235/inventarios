@@ -12,14 +12,15 @@
 			<div class="row">
 				<div class="col-sm-4">
 					{!! Form::label("fecha_hora","Fecha y hora:") !!}
-					<input type="datetime-local" class="form-control" name="fecha_hora">	
+					{{--<input type="datetime-local" class="form-control" name="fecha_hora" value="{{\Carbon\Carbon::now()}}"> --}}
+					{!! Form::datetime( "fecha_hora" , \Carbon\Carbon::now()->format('d-m-y h:i:s A') , ['class' => 'form-control', 'readonly']) !!}	
 				</div>
 				<div class="col-sm-4">
 					{!! Form::label("resp_recepcion","Responsable de la recepcion:") !!}
 					{!! Form::text( "resp_recepcion" , null , ['class' => 'form-control' , 'placeholder' => 'Responsable de la recepcion' ]) !!}
 				</div>
 				<div class="col-sm-4">
-					{!! Form::label("fecha_prometida","Fecha prometida:") !!}
+					{!! Form::label("fecha_prometida","Fecha de entrega prometida:") !!}
 					{!! Form::date( "fecha_prometida" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha y Hora' ]) !!}
 				</div>
 			</div>

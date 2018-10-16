@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\vale_maestro;
 use App\vale_detalle;
-use App\cliente;
+use App\Cliente;
 use App\Cuenta;
 use App\combustible;
 use App\empleado;
@@ -1597,6 +1597,28 @@ WHERE month(fecha_corte) = ".$mes." AND year(fecha_corte) = ".$anio." ORDER BY f
 
         $rpt_nc = DB::select($query);
         return $rpt_nc;
+    }
+
+    public function rpt_orden_trabajo()
+    {
+
+        $pdf = PDF::loadView('pdf.rpt_orden_trabajo');
+
+        //return $pdf->download('listado.pdf');
+        return $pdf->stream('Orden de Trabajo.pdf');
+
+
+    }
+
+    public function getDataOrdenTrabajo() 
+    {
+        /*$data =  [
+            'quantity'      => '1' ,
+            'description'   => 'some ramdom text',
+            'price'   => '500',
+            'total'     => '500'
+        ];
+        return $data;*/
     }
 
 }
