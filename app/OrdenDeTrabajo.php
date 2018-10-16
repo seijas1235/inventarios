@@ -26,4 +26,7 @@ class OrdenDeTrabajo extends Model
     public function componentes_accesorios(){
         return $this->hasMany(ComponentesAccesorios::class);
     }
+    public function photos(){
+        return $this->hasMany(Photo::class);
+    }
 }

@@ -80,6 +80,10 @@ return [
 
     'fallback_locale' => 'en',
 
+       /*
+    / Aliases
+    */
+    
     /*
     |--------------------------------------------------------------------------
     | Encryption Key
@@ -149,6 +153,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -212,6 +217,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Excel' => Collective\Bus\Dispatcher::class,
+        'Image' => Intervention\Image\Facades\Image::class,
 
     ],
 
