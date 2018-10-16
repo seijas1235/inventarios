@@ -137,6 +137,8 @@ class VehiculosController extends Controller
         $vehiculo->marca_id = $data["marca_id"];
         $vehiculo->cliente_id = $data["cliente_id"];
         $vehiculo->fecha_ultimo_servicio = $data["fecha_ultimo_servicio"];
+        $vehiculo->chasis = $data["chasis"];
+        $vehiculo->vin = $data["vin"];
         $vehiculo->save();
 
         return $vehiculo;

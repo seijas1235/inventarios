@@ -76,6 +76,7 @@ class OrdenesDeTrabajoController extends Controller
     public function save(Request $request)
 	{
         $data = $request->all();
+        $data['fecha_hora'] = Carbon::createFromFormat('d-m-y h:i:s A', $request['fecha_hora']);
         $orden_de_trabajo = OrdenDeTrabajo::create($data);
 
         //return Response::json($orden_de_trabajo);

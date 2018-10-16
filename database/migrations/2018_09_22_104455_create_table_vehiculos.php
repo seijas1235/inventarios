@@ -23,6 +23,8 @@ class CreateTableVehiculos extends Migration
             $table->float('kilometraje');
             $table->string('observaciones');
             $table->string('linea');
+            $table->string('chasis')->nullable();
+            $table->string('vin')->nullable();
             $table->unsignedInteger('tipo_vehiculo_id');
             $table->unsignedInteger('marca_id');
             $table->unsignedInteger('tipo_transmision_id');

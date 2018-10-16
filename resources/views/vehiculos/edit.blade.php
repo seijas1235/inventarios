@@ -78,7 +78,7 @@
         </div>
         <br>
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 {!! Form::label("tipo_transmision_id","Tipo de Transmision:") !!}
                 <select class="selectpicker" id='tipo_transmision_id' name="tipo_transmision_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
                     @foreach ($tipos_transmision as $tipo_transmision)
@@ -90,7 +90,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 {!! Form::label("cliente_id","Dueño:") !!}
                 <select class="selectpicker" id='cliente_id' name="cliente_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
                     @foreach ($clientes as $cliente)
@@ -101,6 +101,14 @@
                     @endif
                     @endforeach
                 </select>
+            </div>
+            <div class="col-sm-3">
+                {!! Form::label("chasis","Chasis:") !!}
+                {!! Form::text( "chasis" , null , ['class' => 'form-control' , 'placeholder' => 'Chasis' ]) !!}
+            </div>
+            <div class="col-sm-3">
+                {!! Form::label("vin","VIN:") !!}
+                {!! Form::text( "vin" , null , ['class' => 'form-control' , 'placeholder' => 'VIN' ]) !!}
             </div>
         </div>
         <br>

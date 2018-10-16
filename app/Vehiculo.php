@@ -22,7 +22,9 @@ class Vehiculo extends Model
         'tipo_transmision_id',
         'linea',
         'observaciones',
-        'cliente_id'
+        'cliente_id',
+        'chasis',
+        'vin'
         ];
 
 
