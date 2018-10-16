@@ -13,8 +13,8 @@ class CreateTableImagenesGolpes extends Migration
     public function up()
     {
         Schema::create('photos', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('orden_id');
+            $table->increments('id')->nullable();
+            $table->unsignedInteger('orden_id')->nullable();
             $table->foreign('orden_id')->references('id')->on('ordenes_de_trabajo')->onDelete('cascade');
             $table->string('url');
             $table->timestamps();
