@@ -14,6 +14,8 @@ function saveDescription(button) {
 	var l = Ladda.create(document.querySelector("#ButtonOrdenDeTrabajo2"));
 	l.start();
 	var formData = $("#OrdenDeTrabajoForm2").serialize();
+	var id = $('#orden_id').val();
+	console.log(id);
 	$.ajax({
 		type: "POST",
 		headers: {'X-CSRF-TOKEN': $('#token').val()},
@@ -21,7 +23,7 @@ function saveDescription(button) {
 		data: formData,
 		dataType: "json",
 		success: function(data) {
-			window.location = "/home/" 
+			window.location = "/ordenes_de_trabajo/createServicios/" +id 
 		},
 		always: function() {
 			l.stop();

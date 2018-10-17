@@ -78,7 +78,10 @@ class OrdenesDeTrabajoController extends Controller
         $data = $request->all();
                
         $componentes=ComponentesAccesorios::create($data);
-                   
+
+        $orden_de_trabajo = $request['orden_id'];
+
+        //return redirect()->route('ordenes_de_trabajo.create3', $orden_de_trabajo);                   
 
 		return Response::json($componentes);
     }
