@@ -106,8 +106,9 @@
             </div>
 			<br>
 			<div class="col-sm-12">
-                    {!! Form::label("descripcion","Observaciones:") !!}
-					{!! Form::text( "descripcion" , null , ['class' => 'form-control' , 'placeholder' => 'Descripcion']) !!}
+                {!! Form::label("descripcion","Observaciones:") !!}<br>
+                <input class="col-sm-12" type="text" name="descripcion"style="height: 80px; "  placeholder="Descripcion"> 
+                
             </div>
 			</div>
 			<br>
@@ -133,7 +134,6 @@
 		<br>
 		{!! Form::close() !!}
 	</div>
-</div>
 @endsection
 
 @section('scripts')
