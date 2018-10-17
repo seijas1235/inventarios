@@ -16,7 +16,7 @@
 				</div>
 				<div class="col-sm-6">
 					{!! Form::label("resp_recepcion","Responsable de la recepcion:") !!}
-					{!! Form::text( "resp_recepcion" , null , ['class' => 'form-control' , 'placeholder' => 'Responsable de la recepcion' ]) !!}
+					{!! Form::text( "resp_recepcion" , Auth::user()->name , ['class' => 'form-control' , 'placeholder' => 'Responsable de la recepcion' ]) !!}
 				</div>
 				<div class="col-sm-6">
 					{!! Form::label("fecha_prometida","Fecha de entrega prometida:") !!}
