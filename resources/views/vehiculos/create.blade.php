@@ -46,7 +46,7 @@
 				</div>
 				<div class="col-sm-4">
 					{!! Form::label("fecha_ultimo_servicio","Fecha Ultimo Servicio:") !!}
-					{!! Form::text( "fecha_ultimo_servicio" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha Ultimo Servicio' ]) !!}
+					{!! Form::date( "fecha_ultimo_servicio" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha Ultimo Servicio' ]) !!}
 				</div>
 			</div>
 			<br>

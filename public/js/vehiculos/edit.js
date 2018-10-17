@@ -1,8 +1,8 @@
-$('#fecha_ultimo_servicio').datetimepicker({
+/*$('#fecha_ultimo_servicio').datetimepicker({
     format: 'YYYY-MM-DD',
     showClear: true,
     showClose: true
-});
+});*/
 
 function ValidaPlaca(valorPlaca){
 	var digitos = valorPlaca.length;
