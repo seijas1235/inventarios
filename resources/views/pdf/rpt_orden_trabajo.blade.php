@@ -27,6 +27,25 @@
       width: 92%;
     }
 
+    .circulo {
+     width: 10px;
+     height: 10px;
+     -moz-border-radius: 50%;
+     -webkit-border-radius: 50%;
+     border-radius: 50%;
+     position: absolute;
+     border: solid 3px red;
+     overflow: hidden;
+}
+
+.triangulo-2 {
+     width: 0; 
+     height: 0; 
+     border-left: 30px solid #ff0000;
+     border-top: 15px solid transparent;
+     border-bottom: 15px solid transparent;
+     position: absolute; 
+}
 </style>
 
 </head>
@@ -137,7 +156,8 @@
   @endforeach
 
   <div class="row" style="padding-bottom:0.2cm">
-    <table border="1" width="50%">
+  <div class="col-xs-6">
+    <table border="1" width="100%">
       <tr>
         <td colspan="4" align="center" style="border: 3px solid"><b>Componentes/accesorios</b></td>
       </tr>
@@ -257,10 +277,35 @@
       @endforeach
 
       <tr>
-        <td colspan="4">Observaciones:
-        </td>
+        <td colspan="4">Observaciones: {{$componente->descripcion}}  </td>
       </tr>
     </table>
+  </div>
+
+    <div class="col-xs-6">
+        @foreach ($componentes as $componente)
+        <img src="./img/tanque.jpg" alt="No hay imagen" width="90%">    
+        {{--<input type="checkbox" style="position:absolute; top:88px; left:55px;" value="0" placeholder="E" {{$componente->combustible ==0 ? 'checked': ''}}>
+        <input type="checkbox" style="position:absolute; top:76px; left:83px;" value="1" placeholder="1/8" {{$componente->combustible ==1 ? 'checked': ''}}>
+        <input type="checkbox" style="position:absolute; top:70px; left:120px;" value="2" placeholder="1/4" {{$componente->combustible ==2 ? 'checked': ''}}>
+        <input type="checkbox" style="position:absolute; top:63px; left:148px;" value="3" placeholder="3/8" {{$componente->combustible ==3 ? 'checked': ''}}>
+        <input type="checkbox" style="position:absolute; top:61px; left:181px;" value="4" placeholder="1/2" {{$componente->combustible ==4 ? 'checked': ''}}>
+        <input type="checkbox" style="position:absolute; top:63px; left:215px;" value="5" placeholder="5/8" {{$componente->combustible ==5 ? 'checked': ''}}>
+        <input type="checkbox" style="position:absolute; top:70px; left:250px;" value="6" placeholder="3/4" {{$componente->combustible ==6 ? 'checked': ''}}>
+        <input type="checkbox" style="position:absolute; top:79px; left:283px;" value="7" placeholder="7/8" {{$componente->combustible ==7 ? 'checked': ''}}>
+        <input type="checkbox" style="position:absolute; top:90px; left:317px;" value="8" placeholder="Full" {{$componente->combustible ==8 ? 'checked': ''}}>--}}
+
+        <div class="circulo {{$componente->combustible ==1 ? '': 'hidden'}}" style="top:76px; left:83px"></div>
+        <div class="circulo {{$componente->combustible ==2 ? '': 'hidden'}}" style="top:70px; left:120px"></div>
+        <div class="circulo {{$componente->combustible ==3 ? '': 'hidden'}}" style="top:63px; left:148px"></div>
+        <div class="circulo {{$componente->combustible ==4 ? '': 'hidden'}}" style="top:61px; left:181px"></div>
+        <div class="circulo {{$componente->combustible ==5 ? '': 'hidden'}}" style="top:63px; left:215px"></div>
+        <div class="circulo {{$componente->combustible ==6 ? '': 'hidden'}}" style="top:70px; left:250px"></div>
+        <div class="circulo {{$componente->combustible ==7 ? '': 'hidden'}}" style="top:79px; left:283px"></div>
+        <div class="circulo {{$componente->combustible ==8 ? '': 'hidden'}}" style="top:90px; left:317px"></div>
+        {{--<div class="triangulo-2 {{$componente->combustible ==8 ? '': 'hidden'}}" style="top:90px; left:317px"></div>--}}        
+        @endforeach
+    </div>
   </div>
 
 
