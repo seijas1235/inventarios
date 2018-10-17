@@ -37,6 +37,7 @@ class CreateTableComponentesAccesorios extends Migration
             $table->boolean('llave_ruedas')->nullable();
             $table->boolean('tricket')->nullable();
             $table->text('descripcion')->nullable();
+            $table->integer('combustible')->nullable();
             
             $table->unsignedInteger('orden_id')->nullable();
             $table->foreign('orden_id')->references('id')->on('ordenes_de_trabajo')->onDelete('cascade');

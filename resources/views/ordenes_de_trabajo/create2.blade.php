@@ -117,14 +117,25 @@
             </div>
             <hr>
             
-            <div class="form-group">
-                <div class="dropzone">
+                <div class="form-group">
+                    <div class="dropzone">
 
+                    </div>
                 </div>
-            </div>
-
-
-
+            
+                <div class="col-sm-4" style="">
+                    <input type="checkbox" name="combustible" style="position:absolute; top:230px; left:75px;" value="0" placeholder="E">
+                    <input type="checkbox" name="combustible" style="position:absolute; top:210px; left:120px;" value="1" placeholder="1/8">
+                    <input type="checkbox" name="combustible" style="position:absolute; top:190px; left:170px;" value="2" placeholder="1/4">
+                    <input type="checkbox" name="combustible" style="position:absolute; top:180px; left:218px;" value="3" placeholder="3/8">
+                    <input type="checkbox" name="combustible" style="position:absolute; top:178px; left:263px;" value="4" placeholder="1/2">
+                    <input type="checkbox" name="combustible" style="position:absolute; top:183px; left:315px;" value="5" placeholder="5/8">
+                    <input type="checkbox" name="combustible" style="position:absolute; top:193px; left:365px;" value="6" placeholder="3/4">
+                    <input type="checkbox" name="combustible" style="position:absolute; top:215px; left:412px;" value="7" placeholder="7/8">
+                    <input type="checkbox" name="combustible" style="position:absolute; top:240px; left:457px;" value="8" placeholder="Full">
+                    <img src="/img/tanque.png" width="500" height="300">
+                </div>
+            
 
 			<div class="text-right m-t-15">
 				<a class='btn btn-primary form-gradient-color form-button' href="{{ url('/ordenes_de_trabajo') }}">Regresar</a>
