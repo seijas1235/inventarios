@@ -33,7 +33,8 @@ class ComponentesAccesorios extends Model
         'llave_ruedas',
         'tricket',
         'descripcion',
-        'orden_id'
+        'orden_id',
+        'combustible'
     ];
 
     public function orden_trabajo(){
