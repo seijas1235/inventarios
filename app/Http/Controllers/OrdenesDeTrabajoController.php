@@ -21,6 +21,7 @@ use App\TipoTransmision;
 Use App\ComponentesAccesorios;
 Use App\Servicio;
 Use App\Golpe;
+Use App\Rayon;
 
 class OrdenesDeTrabajoController extends Controller
 {
@@ -50,7 +51,14 @@ class OrdenesDeTrabajoController extends Controller
         return view("ordenes_de_trabajo.create2", compact('orden_de_trabajo', 'componentesAccesorios'));
         
     }
-
+    public function create3(OrdenDeTrabajo $orden_de_trabajo)
+    {
+        $id=$orden_de_trabajo->id;
+        
+        return view("ordenes_de_trabajo.create3", compact('orden_de_trabajo'));
+        
+    }
+    
     public function createServicios(OrdenDeTrabajo $orden_de_trabajo)
     {
         $servicios = Servicio::all();
@@ -76,12 +84,10 @@ class OrdenesDeTrabajoController extends Controller
      public function save2(Request $request)
 	{
         $data = $request->all();
-        //dd('2');   
         $componentes=ComponentesAccesorios::create($data);
 
         $orden_de_trabajo = $request['orden_id'];
-
-        //return redirect()->route('ordenes_de_trabajo.create3', $orden_de_trabajo);                   
+               
 
 		return Response::json($componentes);
     }
@@ -89,12 +95,19 @@ class OrdenesDeTrabajoController extends Controller
 	{
         $data = $request->all();  
         $golpes=Golpe::create($data);
-
         $orden_de_trabajo = $request['orden_id'];
-
-        //return redirect()->route('ordenes_de_trabajo.create3', $orden_de_trabajo);                   
+              
 
 		return Response::json($golpes);
+    }
+    public function rayones(Request $request)
+	{
+        $data = $request->all();  
+        $rayones=Rayon::create($data);
+        $orden_de_trabajo = $request['orden_id'];
+              
+
+		return Response::json($rayones);
     }
 
 
