@@ -12,6 +12,7 @@
 					<div class="col-sm-3">
 						<label for="servicio_id">Servicios</label>
 						<select class="selectpicker" id='servicio_id' name="servicio_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+							<option value="0" selected="selected">Seleccione</option>
 							@foreach ($servicios as $servicio)
 							<option value="{{$servicio->id}}"><p id="servicio">{{$servicio->nombre}}</p> </option>
 							@endforeach

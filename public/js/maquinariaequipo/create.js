@@ -1,8 +1,8 @@
-$('#fecha_adquisicion').datetimepicker({
+/*$('#fecha_adquisicion').datetimepicker({
     format: 'YYYY-MM-DD',
     showClear: true,
     showClose: true
-});
+});*/
 
 
 

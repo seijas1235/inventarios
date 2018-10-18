@@ -38,7 +38,7 @@
             </div>
             <div class="col-sm-4">
                 {!! Form::label("fecha_servicio","Fecha Servicio:") !!}
-                {!! Form::text( "fecha_servicio" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha Servicio:' ]) !!}
+                {!! Form::date( "fecha_servicio" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha Servicio:' ]) !!}
             </div>
         </div>
         <br>
@@ -57,7 +57,7 @@
                  
             <div class="col-sm-4">
                 {!! Form::label("fecha_proximo_servicio","Fecha Proximo Servicio:") !!}
-                {!! Form::text( "fecha_proximo_servicio" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha Proximo Servicio' ]) !!}
+                {!! Form::date( "fecha_proximo_servicio" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha Proximo Servicio' ]) !!}
             </div>
         
         </div>

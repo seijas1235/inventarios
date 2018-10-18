@@ -40,7 +40,7 @@
 			<div class="row">
 				<div class="col-sm-4">
 					{!! Form::label("fecha","Fecha:") !!}
-					{!! Form::text( "fecha" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha' ]) !!}
+					{!! Form::date( "fecha" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha' ]) !!}
 				</div>
 				<div class="col-sm-4">
 					{!! Form::label("total","Total:") !!}

@@ -157,8 +157,8 @@ $(document).ready(function(){
 		
 	});
 	
-
-	$('#lightbox').live('click', function() { 
+//.live
+	$('#lightbox').on('click','a.offsite', function() { 
 		$('#lightbox').hide(200);
 	});
 	

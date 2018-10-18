@@ -156,7 +156,7 @@
   @endforeach
 
   <div class="row" style="padding-bottom:0.2cm">
-  <div class="col-xs-6">
+  <div class="col-xs-6" style="margin-left:-15px">
     <table border="1" width="100%">
       <tr>
         <td colspan="4" align="center" style="border: 3px solid"><b>Componentes/accesorios</b></td>
@@ -295,14 +295,15 @@
         <input type="checkbox" style="position:absolute; top:79px; left:283px;" value="7" placeholder="7/8" {{$componente->combustible ==7 ? 'checked': ''}}>
         <input type="checkbox" style="position:absolute; top:90px; left:317px;" value="8" placeholder="Full" {{$componente->combustible ==8 ? 'checked': ''}}>--}}
 
-        <div class="circulo {{$componente->combustible ==1 ? '': 'hidden'}}" style="top:76px; left:83px"></div>
-        <div class="circulo {{$componente->combustible ==2 ? '': 'hidden'}}" style="top:70px; left:120px"></div>
-        <div class="circulo {{$componente->combustible ==3 ? '': 'hidden'}}" style="top:63px; left:148px"></div>
-        <div class="circulo {{$componente->combustible ==4 ? '': 'hidden'}}" style="top:61px; left:181px"></div>
-        <div class="circulo {{$componente->combustible ==5 ? '': 'hidden'}}" style="top:63px; left:215px"></div>
-        <div class="circulo {{$componente->combustible ==6 ? '': 'hidden'}}" style="top:70px; left:250px"></div>
-        <div class="circulo {{$componente->combustible ==7 ? '': 'hidden'}}" style="top:79px; left:283px"></div>
-        <div class="circulo {{$componente->combustible ==8 ? '': 'hidden'}}" style="top:90px; left:317px"></div>
+        <div class="circulo {{$componente->combustible ==0 ? '': 'hidden'}}" style="top:89px; left:52px"></div>
+        <div class="circulo {{$componente->combustible ==1 ? '': 'hidden'}}" style="top:80px; left:77px"></div>
+        <div class="circulo {{$componente->combustible ==2 ? '': 'hidden'}}" style="top:71px; left:112px"></div>
+        <div class="circulo {{$componente->combustible ==3 ? '': 'hidden'}}" style="top:66px; left:148px"></div>
+        <div class="circulo {{$componente->combustible ==4 ? '': 'hidden'}}" style="top:64px; left:179px"></div>
+        <div class="circulo {{$componente->combustible ==5 ? '': 'hidden'}}" style="top:66px; left:216px"></div>
+        <div class="circulo {{$componente->combustible ==6 ? '': 'hidden'}}" style="top:73px; left:255px"></div>
+        <div class="circulo {{$componente->combustible ==7 ? '': 'hidden'}}" style="top:82px; left:286px"></div>
+        <div class="circulo {{$componente->combustible ==8 ? '': 'hidden'}}" style="top:97px; left:317px"></div>
         {{--<div class="triangulo-2 {{$componente->combustible ==8 ? '': 'hidden'}}" style="top:90px; left:317px"></div>--}}        
         @endforeach
     </div>

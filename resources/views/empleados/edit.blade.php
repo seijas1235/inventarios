@@ -59,11 +59,11 @@
                  
             <div class="col-sm-2">
                 {!! Form::label("fecha_inicio","Fecha Inicio:") !!}
-                {!! Form::text( "fecha_inicio" , null , ['class' => 'form-control' , 'placeholder' => 'Fec Inicio' ]) !!}
+                {!! Form::date( "fecha_inicio" , null , ['class' => 'form-control' , 'placeholder' => 'Fec Inicio' ]) !!}
             </div>
             <div class="col-sm-2">
                 {!! Form::label("fecha_nacimiento","Fecha Nacimiento:") !!}
-                {!! Form::text( "fecha_nacimiento" , null , ['class' => 'form-control' , 'placeholder' => 'Fec Nacimiento' ]) !!}
+                {!! Form::date( "fecha_nacimiento" , null , ['class' => 'form-control' , 'placeholder' => 'Fec Nacimiento' ]) !!}
             </div>
 
         </div>

@@ -16,11 +16,7 @@ Use App\CuentaPorPagar;
 Use App\Proveedor;
 class CuentasPorPagarController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
 
     public function __construct()
     {
@@ -33,30 +29,20 @@ class CuentasPorPagarController extends Controller
         return view ("cuentas_por_pagar.index");
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function notacredito()
     {
         $proveedores = Proveedor::All();
 		return view("cuentas_por_pagar.ncredito" , compact('proveedores'));
     }
 
-    public function new()
+    public function notadebito()
     {
         $proveedores = Proveedor::All();
 		return view("cuentas_por_pagar.ndebito" , compact('proveedores'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function save(Request $request)
+
+    public function savenotacredito(Request $request)
 	{
         $data = $request->all();
 
@@ -77,7 +63,7 @@ class CuentasPorPagarController extends Controller
 
 		return Response::json($cuentaporpagar);
     }
-    
+
     public function savenotadebito(Request $request)
 	{
 		$data = $request->all();
@@ -100,12 +86,7 @@ class CuentasPorPagarController extends Controller
 		return Response::json($cuentaporpagar);
 	}
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(CuentaPorPagar $cuenta_por_pagar)
     {
         return view('cuentas_por_pagar.show')->with('cuenta_por_pagar', $cuenta_por_pagar);

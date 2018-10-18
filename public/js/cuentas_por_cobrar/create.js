@@ -37,21 +37,20 @@ db.detalle = [];
 
 $("#ButtonNotaCredito").click(function(event) {
 	if ($('#NotaCreditoForm').valid()) {
-		saveContact();
+		saveCredito();
 	} else {
 		validator.focusInvalid();
 	}
 });
 
-function saveContact(button) {
+function saveCredito(button) {
 	$("#ButtonNotaCredito").attr('disabled', 'disabled');
 	var l = Ladda.create(document.querySelector("#ButtonNotaCredito"));
 	l.start();
 	var formData = $("#NotaCreditoForm").serialize();
 	$.ajax({
 		type: "POST",
-		headers: {'X-CSRF-TOKEN':'{{ csrf_token() }}',
-		},
+		headers: {'X-CSRF-TOKEN': $('#tokenCredito').val()},
 		url: "/cuentas_por_cobrar/save/notacredito",
 		data: formData,
 		dataType: "json",
