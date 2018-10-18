@@ -8,10 +8,10 @@ $(document).ready(function() {
 		}
 	});
 });
-$('#fecha').datetimepicker({
+/*$('#fecha').datetimepicker({
     format: 'DD/MM/YYYY',
 
-});
+});*/
 
 
 var validator = $("#FacturaForm").validate({

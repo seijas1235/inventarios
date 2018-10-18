@@ -74,6 +74,9 @@ $('body').on('click', '#addDetalle', function(e) {
         $("input[name='nombre'] ").val("");
         $("input[name='precio'] ").val("");
         $("input[name='mano_obra'] ").val("");
+        $('#servicio_id option').prop('selected', function() {
+            return this.defaultSelected;
+        });
         var precio = $("input[name='precio'] ").val();
         var subtotal = precio;
         $("input[name='subtotal'] ").val(subtotal);

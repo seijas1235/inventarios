@@ -49,7 +49,7 @@
 	<link rel="stylesheet" href="/css/matrix-media.css">
 	<link href="/css/font-awesome.min.css" rel="stylesheet">
 	<link href="/css/font_awesome.css" rel="stylesheet">
-	<link rel="stylesheet" href="/css/jquery.gritter.css">
+	<!--<link rel="stylesheet" href="/css/jquery.gritter.css"> -->
 	<link rel="stylesheet" href="/css/responsive.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css">
 	<link rel="stylesheet" href="/css/dataTables.bootstrap.min.css">
@@ -76,7 +76,7 @@
 	<script src="/js/fullcalendar.min.js"></script> 
 	<script src="/js/matrix.js"></script> 
 	<script src="/js/matrix.dashboard.js"></script> 
-	<script src="/js/jquery.gritter.min.js"></script> 
+	<!--<script src="/js/jquery.gritter.min.js"></script> -->
 	<script src="/js/matrix.interface.js"></script> 
 	<script src="/js/matrix.chat.js"></script> 
 	<script src="/js/matrix.form_validation.js"></script> 

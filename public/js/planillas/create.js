@@ -1,10 +1,10 @@
 $(document).ready(function() {
 
-	$('#fecha').datetimepicker({
+	/*$('#fecha').datetimepicker({
 		format: 'DD-MM-YYYY',
 		showClear: true,
 		showClose: true
-	});
+	});*/
 
 
 	/*$("input[name='empleado_id']").focusout(function() {

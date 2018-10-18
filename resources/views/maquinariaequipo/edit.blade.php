@@ -45,7 +45,7 @@
             </div>
             <div class="col-sm-4">
                 {!! Form::label("fecha_adquisicion","Fecha de Adquisicion:") !!}
-                {!! Form::text( "fecha_adquisicion" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha Adquisicion' ]) !!}
+                {!! Form::date( "fecha_adquisicion" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha Adquisicion' ]) !!}
             </div>
             <div class="col-sm-4">
                     {!! Form::label("precio_costo","Precio:") !!}

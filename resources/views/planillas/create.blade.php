@@ -12,7 +12,7 @@
 			<div class="row">
 				<div class="col-sm-3">
 					{!! Form::label("fecha","Fecha:") !!}
-					{!! Form::text( "fecha" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha', 'id' => 'fecha' ]) !!}
+					{!! Form::date( "fecha" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha', 'id' => 'fecha' ]) !!}
 				</div>
 			</div>	
 			<br>

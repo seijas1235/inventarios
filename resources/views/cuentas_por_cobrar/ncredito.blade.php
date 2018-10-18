@@ -29,7 +29,7 @@
 				<a class='btn btn-primary form-gradient-color form-button' href="{{ url('/cuentas_por_cobrar') }}">Regresar</a>
 				{!! Form::input('submit', 'submit', 'Guardar', ['class' => 'btn btn-primary form-gradient-color form-button', 'id'=>'ButtonNotaCredito']) !!}
 			</div>
-			<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+			<input type="hidden" name="_token" id="tokenCredito" value="{{ csrf_token() }}">
 		<br>
 		{!! Form::close() !!}
 	</div>

@@ -69,7 +69,7 @@ class PlanillasController extends Controller
 	{
 		$data = $request->all();
 		$data["user_id"] = Auth::user()->id;
-		$data['fecha'] = Carbon::createFromFormat('d-m-Y', $data['fecha']);
+		//$data['fecha'] = Carbon::createFromFormat('d-m-Y', $data['fecha']);
 		$maestro = Planilla::create($data);
 		return $maestro;
 	}

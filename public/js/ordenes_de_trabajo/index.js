@@ -100,7 +100,7 @@ var ordenes_table = $('#ordenes-table').DataTable({
             "</a>" + "</div>" +
             "<div class='float-right col-lg-4'>" + 
             "<a href='/rpt_orden_trabajo/"+ full.id +"' class='pdf-orden'>" + 
-            "<i class='fa fa-btn fa-desktop' title='PDF'></i>" + 
+            "<i class='fa fa-file-pdf-o' title='PDF'></i>" + 
             "</a>" + "</div>"
             ;
             

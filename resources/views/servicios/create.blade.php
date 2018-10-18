@@ -28,7 +28,7 @@
 							data-placeholder="Seleccione una o mas maquinarias"
 							style="width: 100%;" name="maquinarias[]">
 							@foreach($maquinarias as $maquinaria)
-							<option value="{{$maquinaria->id}}">{{$maquinaria->nombre}}</option>
+							<option value="{{$maquinaria->id}}">{{$maquinaria->nombre_maquina}}</option>
 							@endforeach
 					</select>
 					</div>
