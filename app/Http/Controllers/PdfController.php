@@ -27,6 +27,8 @@ use Illuminate\Support\Facades\Hash;
 use Barryvdh\DomPDF\Facade as PDF;
 use Maatwebsite\Excel\Facades\Excel;
 
+use App\OrdenDeTrabajo;
+
 class PdfController extends Controller
 {
 
@@ -1599,26 +1601,45 @@ WHERE month(fecha_corte) = ".$mes." AND year(fecha_corte) = ".$anio." ORDER BY f
         return $rpt_nc;
     }
 
-    public function rpt_orden_trabajo()
+    public function rpt_orden_trabajo(OrdenDeTrabajo $orden_de_trabajo)
     {
+        $id = $orden_de_trabajo->id;
 
-        $pdf = PDF::loadView('pdf.rpt_orden_trabajo');
+        $data = $this->getDataOrdenTrabajo($id);
 
-        //return $pdf->download('listado.pdf');
+        $query = "SELECT ot.id, s.nombre, s.precio, ots.mano_obra, (s.precio + ots.mano_obra)as subtotal  
+        FROM orden_trabajo_servicio ots 
+        INNER JOIN ordenes_de_trabajo ot on ot.id = ots.orden_de_trabajo_id
+        INNER JOIN servicios s on s.id = ots.servicio_id
+        WHERE ot.id =".$id.'';
+        $detalles = DB::select($query);
+
+        $query2 = "SELECT * from componentes_accesorios WHERE orden_id =".$id.'';
+        $componentes = DB::select($query2);
+    
+        $pdf = PDF::loadView('pdf.rpt_orden_trabajo', compact('data', 'detalles','componentes'));
         return $pdf->stream('Orden de Trabajo.pdf');
 
-
+        //return $pdf->download('listado.pdf');
+        //dd($componentes);
+        
+        /*$view =  \View::make('pdf.rpt_orden_trabajo')->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        return $pdf->stream('Orden de Trabajo.pdf');*/
     }
 
-    public function getDataOrdenTrabajo() 
+    public function getDataOrdenTrabajo($id) 
     {
-        /*$data =  [
-            'quantity'      => '1' ,
-            'description'   => 'some ramdom text',
-            'price'   => '500',
-            'total'     => '500'
-        ];
-        return $data;*/
+        $query = "SELECT ot.id, ot.resp_recepcion, ot.fecha_hora, ot.fecha_prometida, ot.total, CONCAT(c.nombres,' ', c.apellidos) as nombrecliente, 
+        v.linea, v.color, v.`año`, v.chasis, v.placa, v.kilometraje, m.nombre as marca, c.email, c.nit, c.telefonos  
+        FROM ordenes_de_trabajo ot 
+        INNER JOIN clientes c on c.id = ot.cliente_id
+        INNER JOIN vehiculos v on v.id = ot.vehiculo_id
+        INNER JOIN marcas m on m.id = v.marca_id
+        WHERE ot.id =".$id.'';
+        $data = DB::select($query);
+        return $data;
     }
 
 }

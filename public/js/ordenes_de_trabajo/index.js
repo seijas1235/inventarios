@@ -90,14 +90,19 @@ var ordenes_table = $('#ordenes-table').DataTable({
         "width" : "20%",
         "render": function(data, type, full, meta) {
             return "<div id='" + full.id + "' class='text-center'>" + 
-            "<div class='float-left col-lg-6'>" + 
+            "<div class='float-left col-lg-4'>" + 
             "<a href='/empleados/edit/"+ full.id +"' class='edit-puesto'>" + 
             "<i class='fa fa-btn fa-edit' title='Editar Puesto'></i>" + 
             "</a>" + "</div>" + 
-            "<div class='float-right col-lg-6'>" + 
+            "<div class='float-right col-lg-4'>" + 
             "<a href='#' class='remove-Puesto'>" + 
             "<i class='fa fa-btn fa-trash' title='Eliminar Puesto'></i>" + 
-            "</a>" + "</div>";
+            "</a>" + "</div>" +
+            "<div class='float-right col-lg-4'>" + 
+            "<a href='/rpt_orden_trabajo/"+ full.id +"' class='pdf-orden'>" + 
+            "<i class='fa fa-btn fa-desktop' title='PDF'></i>" + 
+            "</a>" + "</div>"
+            ;
             
         },
         "responsivePriority": 2
