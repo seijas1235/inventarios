@@ -117,10 +117,14 @@
             </div>
             <hr>
             
-                <div class="form-group">
-                    <div class="dropzone">
+                <div class="row">
+                    <div class="col-sm-3"><img src="/img/imagen1.png" width="250"> </div>
+                    <div class="col-sm-3"><img src="/img/imagen2.png" width="250"> </div>
+                    <div class="col-sm-3"><img src="/img/imagen3.png" width="250"> </div>
+                    <div class="col-sm-3"><img src="/img/imagen4.png" width="250"> </div>
+                    
 
-                    </div>
+                   
                 </div>
             
                 <div class="col-sm-4" style="">
@@ -148,18 +152,6 @@
 @endsection
 
 @section('scripts')
-<script>    
- new Dropzone('.dropzone',{
-     url:'/ordenes_de_trabajo/{{ $orden_de_trabajo->id }}/golpes',
-     acceptedFiles: 'image/*',
-     maxFilesize: 2,
-     paramName:'photo',
-     headers:{
-         'X-CSRF-TOKEN':'{{ csrf_token() }}'
-     },
-     dictDefaultMessage:'Arrastra las fotos aquí para subirlas'
- });
- Dropzone.autoDiscover=false;
-</script>
+
 {!! HTML::script('/js/ordenes_de_trabajo/create2.js') !!}
 @endsection

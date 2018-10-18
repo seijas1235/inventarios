@@ -50,7 +50,8 @@ function saveContact(button) {
 	var formData = $("#NotaCreditoForm").serialize();
 	$.ajax({
 		type: "POST",
-		headers: {'X-CSRF-TOKEN': $('#token').val()},
+		headers: {'X-CSRF-TOKEN':'{{ csrf_token() }}',
+		},
 		url: "/cuentas_por_cobrar/save/notacredito",
 		data: formData,
 		dataType: "json",

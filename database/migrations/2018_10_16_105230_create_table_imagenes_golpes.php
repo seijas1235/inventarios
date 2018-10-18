@@ -16,7 +16,8 @@ class CreateTableImagenesGolpes extends Migration
             $table->increments('id');
             $table->unsignedInteger('orden_id')->nullable();
             $table->foreign('orden_id')->references('id')->on('ordenes_de_trabajo')->onDelete('cascade');
-            $table->string('url')->nullable();
+            $table->string('nombre_img')->nullable();
+            $table->boolean('estado')->nullable(); 
             $table->timestamps();
         });
     }
