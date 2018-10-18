@@ -1616,8 +1616,11 @@ WHERE month(fecha_corte) = ".$mes." AND year(fecha_corte) = ".$anio." ORDER BY f
 
         $query2 = "SELECT * from componentes_accesorios WHERE orden_id =".$id.'';
         $componentes = DB::select($query2);
+
+        $query3 = "SELECT * from golpes WHERE orden_id =".$id.'';
+        $golpes = DB::select($query3);
     
-        $pdf = PDF::loadView('pdf.rpt_orden_trabajo', compact('data', 'detalles','componentes'));
+        $pdf = PDF::loadView('pdf.rpt_orden_trabajo', compact('data', 'detalles','componentes', 'golpes'));
         return $pdf->stream('Orden de Trabajo.pdf');
 
         //return $pdf->download('listado.pdf');

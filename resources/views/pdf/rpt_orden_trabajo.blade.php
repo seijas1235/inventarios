@@ -38,14 +38,27 @@
      overflow: hidden;
 }
 
-.triangulo-2 {
-     width: 0; 
-     height: 0; 
-     border-left: 30px solid #ff0000;
-     border-top: 15px solid transparent;
-     border-bottom: 15px solid transparent;
-     position: absolute; 
+    .circulo-2 {
+     width: 7px;
+     height: 7px;
+     -moz-border-radius: 50%;
+     -webkit-border-radius: 50%;
+     border-radius: 50%;
+     position: absolute;
+     border: solid 2px orange;
+     overflow: hidden;
 }
+
+.circulo-3 {
+     width: 5px;
+     height: 5px;
+     radius: 50%;
+     position: absolute;
+     background-color: red;
+     overflow: hidden;
+}
+
+
 </style>
 
 </head>
@@ -282,19 +295,11 @@
     </table>
   </div>
 
+<!-- Combustible -->
     <div class="col-xs-6">
         @foreach ($componentes as $componente)
         <img src="./img/tanque.jpg" alt="No hay imagen" width="90%">    
-        {{--<input type="checkbox" style="position:absolute; top:88px; left:55px;" value="0" placeholder="E" {{$componente->combustible ==0 ? 'checked': ''}}>
-        <input type="checkbox" style="position:absolute; top:76px; left:83px;" value="1" placeholder="1/8" {{$componente->combustible ==1 ? 'checked': ''}}>
-        <input type="checkbox" style="position:absolute; top:70px; left:120px;" value="2" placeholder="1/4" {{$componente->combustible ==2 ? 'checked': ''}}>
-        <input type="checkbox" style="position:absolute; top:63px; left:148px;" value="3" placeholder="3/8" {{$componente->combustible ==3 ? 'checked': ''}}>
-        <input type="checkbox" style="position:absolute; top:61px; left:181px;" value="4" placeholder="1/2" {{$componente->combustible ==4 ? 'checked': ''}}>
-        <input type="checkbox" style="position:absolute; top:63px; left:215px;" value="5" placeholder="5/8" {{$componente->combustible ==5 ? 'checked': ''}}>
-        <input type="checkbox" style="position:absolute; top:70px; left:250px;" value="6" placeholder="3/4" {{$componente->combustible ==6 ? 'checked': ''}}>
-        <input type="checkbox" style="position:absolute; top:79px; left:283px;" value="7" placeholder="7/8" {{$componente->combustible ==7 ? 'checked': ''}}>
-        <input type="checkbox" style="position:absolute; top:90px; left:317px;" value="8" placeholder="Full" {{$componente->combustible ==8 ? 'checked': ''}}>--}}
-
+    
         <div class="circulo {{$componente->combustible ==0 ? '': 'hidden'}}" style="top:89px; left:52px"></div>
         <div class="circulo {{$componente->combustible ==1 ? '': 'hidden'}}" style="top:80px; left:77px"></div>
         <div class="circulo {{$componente->combustible ==2 ? '': 'hidden'}}" style="top:71px; left:112px"></div>
@@ -303,13 +308,78 @@
         <div class="circulo {{$componente->combustible ==5 ? '': 'hidden'}}" style="top:66px; left:216px"></div>
         <div class="circulo {{$componente->combustible ==6 ? '': 'hidden'}}" style="top:73px; left:255px"></div>
         <div class="circulo {{$componente->combustible ==7 ? '': 'hidden'}}" style="top:82px; left:286px"></div>
-        <div class="circulo {{$componente->combustible ==8 ? '': 'hidden'}}" style="top:97px; left:317px"></div>
-        {{--<div class="triangulo-2 {{$componente->combustible ==8 ? '': 'hidden'}}" style="top:90px; left:317px"></div>--}}        
+        <div class="circulo {{$componente->combustible ==8 ? '': 'hidden'}}" style="top:97px; left:317px"></div>   
         @endforeach
     </div>
   </div>
+<!-- Golpes -->
+  <div class="row">
+    <div class="col-xs-3" style="padding:0">
+        <!-- imagen frente 1 -->
+        @foreach ($golpes as $golpe)
+            
+        <div class="circulo-2 {{$golpe->img1_1 ==1 ? '': 'hidden'}}" style="top:20px; left:15px"></div>
+        <div class="circulo-3 {{$golpe->img1_1 ==1 ? '': 'hidden'}}" style="top:20px; left:15px"></div>
+        <div class="circulo-2 {{$golpe->img1_2 ==1 ? '': 'hidden'}}" style="top:23px; left:40px"></div>
+        <div class="circulo-2 {{$golpe->img1_3 ==1 ? '': 'hidden'}}" style="top:20px; left:63px"></div>
+        <div class="circulo-2 {{$golpe->img1_4 ==1 ? '': 'hidden'}}" style="top:40px; left:15px"></div>
+        <div class="circulo-2 {{$golpe->img1_5 ==1 ? '': 'hidden'}}" style="top:40px; left:40px"></div>
+        <div class="circulo-2 {{$golpe->img1_6 ==1 ? '': 'hidden'}}" style="top:40px; left:63px"></div>
 
+        <!-- imagen tracera 1 -->
+        <div class="circulo-2 {{$golpe->img1_7 ==1 ? '': 'hidden'}}" style="top:18px; left:108px"></div>
+        <div class="circulo-2 {{$golpe->img1_8 ==1 ? '': 'hidden'}}" style="top:19px; left:130px"></div>
+        <div class="circulo-2 {{$golpe->img1_9 ==1 ? '': 'hidden'}}" style="top:19px; left:152px"></div>
+        <div class="circulo-2 {{$golpe->img1_10 ==1 ? '': 'hidden'}}" style="top:40px; left:102px"></div>
+        <div class="circulo-2 {{$golpe->img1_11 ==1 ? '': 'hidden'}}" style="top:40px; left:130px"></div>
+        <div class="circulo-2 {{$golpe->img1_12 ==1 ? '': 'hidden'}}" style="top:40px; left:157px"></div> 
 
+        @endforeach
+        <img src="./img/imagen1.png" width="180">
+    </div>
+                        
+    <div class="col-xs-3" style="padding:0">
+        <!-- imagen costado 1 -->
+        @foreach ($golpes as $golpe)
+        <div class="circulo-2 {{$golpe->img2_1 ==1 ? '': 'hidden'}}" style="top:14px; left:21px"></div>
+        <div class="circulo-2 {{$golpe->img2_2 ==1 ? '': 'hidden'}}" style="top:25px; left:10px"></div>
+        <div class="circulo-2 {{$golpe->img2_3 ==1 ? '': 'hidden'}}" style="top:25px; left:65px"></div>
+        <div class="circulo-2 {{$golpe->img2_4 ==1 ? '': 'hidden'}}" style="top:25px; left:100px"></div>
+        <div class="circulo-2 {{$golpe->img2_5 ==1 ? '': 'hidden'}}" style="top:15px; left:133px"></div>
+        <div class="circulo-2 {{$golpe->img2_6 ==1 ? '': 'hidden'}}" style="top:28px; left:158px"></div>
+
+        @endforeach    
+        <img src="./img/imagen2.png" width="180">
+    </div>
+    <div class="col-xs-3" style="padding:0">
+        <!-- imagen costado 2 -->
+        @foreach ($golpes as $golpe)
+            
+        <div class="circulo-2 {{$golpe->img3_1 ==1 ? '': 'hidden'}}" style="top:32px; left:12px"></div>
+        <div class="circulo-2 {{$golpe->img3_2 ==1 ? '': 'hidden'}}" style="top:19px; left:28px"></div>
+        <div class="circulo-2 {{$golpe->img3_3 ==1 ? '': 'hidden'}}" style="top:25px; left:75px"></div>
+        <div class="circulo-2 {{$golpe->img3_4 ==1 ? '': 'hidden'}}" style="top:25px; left:108px"></div>
+        <div class="circulo-2 {{$golpe->img3_5 ==1 ? '': 'hidden'}}" style="top:16px; left:146px"></div>
+        <div class="circulo-2 {{$golpe->img3_6 ==1 ? '': 'hidden'}}" style="top:30px; left:162px"></div>
+        @endforeach    
+        <img src="./img/imagen3.png" width="180">
+    </div>
+    <div class="col-xs-3" style="padding:0">
+        <!-- imagen arriba 1 -->
+        @foreach ($golpes as $golpe)    
+        <div class="circulo-2 {{$golpe->img4_1 ==1 ? '': 'hidden'}}" style="top:3px; left:14px"></div>
+        <div class="circulo-2 {{$golpe->img4_2 ==1 ? '': 'hidden'}}" style="top:27px; left:14px"></div>
+        <div class="circulo-2 {{$golpe->img4_3 ==1 ? '': 'hidden'}}" style="top:54px; left:14px"></div>
+        <div class="circulo-2 {{$golpe->img4_4 ==1 ? '': 'hidden'}}" style="top:27px; left:31px"></div>
+        <div class="circulo-2 {{$golpe->img4_5 ==1 ? '': 'hidden'}}" style="top:27px; left:72px"></div>
+        <div class="circulo-2 {{$golpe->img4_6 ==1 ? '': 'hidden'}}" style="top:27px; left:113px"></div>
+        @endforeach
+        <img src="./img/imagen4.png" width="180">
+    </div>
+
+  </div>
+
+  <!-- Servicios solicitados -->
   <div class="row">
       <table border="1" width="100%">
         <tr>

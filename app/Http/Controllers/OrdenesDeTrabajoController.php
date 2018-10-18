@@ -76,7 +76,7 @@ class OrdenesDeTrabajoController extends Controller
      public function save2(Request $request)
 	{
         $data = $request->all();
-        dd('2');   
+        //dd('2');   
         $componentes=ComponentesAccesorios::create($data);
 
         $orden_de_trabajo = $request['orden_id'];
