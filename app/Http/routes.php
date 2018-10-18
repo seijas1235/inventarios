@@ -297,7 +297,7 @@ Route::group(['middleware' => ['web']], function ()
 		
 
 		Route::post('/ordenes_de_trabajo/save2' , 'OrdenesDeTrabajoController@save2');
-		Route::post('/ordenes_de_trabajo/{orden}/golpes/' , 'PhotosController@store')->name('ordenes_de_trabajo.fotos');
+		Route::post('/ordenes_de_trabajo/{orden}/golpes/' , 'OrdenesDeTrabajoController@golpes')->name('ordenes_de_trabajo.fotos');
 
 
 

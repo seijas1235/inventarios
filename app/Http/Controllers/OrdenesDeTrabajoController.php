@@ -19,8 +19,8 @@ Use App\TipoVehiculo;
 Use App\Marca;
 use App\TipoTransmision;
 Use App\ComponentesAccesorios;
-use Image;
 Use App\Servicio;
+Use App\Golpe;
 
 class OrdenesDeTrabajoController extends Controller
 {
@@ -76,7 +76,7 @@ class OrdenesDeTrabajoController extends Controller
      public function save2(Request $request)
 	{
         $data = $request->all();
-            
+        dd('2');   
         $componentes=ComponentesAccesorios::create($data);
 
         $orden_de_trabajo = $request['orden_id'];
@@ -85,6 +85,19 @@ class OrdenesDeTrabajoController extends Controller
 
 		return Response::json($componentes);
     }
+    public function golpes(Request $request)
+	{
+        $data = $request->all();  
+        $golpes=Golpe::create($data);
+
+        $orden_de_trabajo = $request['orden_id'];
+
+        //return redirect()->route('ordenes_de_trabajo.create3', $orden_de_trabajo);                   
+
+		return Response::json($golpes);
+    }
+
+
 
     public function saveServicios(OrdenDeTrabajo $orden_de_trabajo, Request $request)
 	{
