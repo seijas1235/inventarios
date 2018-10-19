@@ -13,6 +13,9 @@ class Cliente extends Model
         'nombres',
         'apellidos',
         'nit',
+        'dpi',
+        'fecha_nacimiento',
+        'clasificacion_cliente_id',
         'direccion',
         'telefonos',
         'record_compra',
@@ -34,5 +37,9 @@ class Cliente extends Model
     }
     public function ventas(){
         return $this->hasMany(Venta::class);
+    }
+
+    public function clasificacion_cliente(){
+        return $this->belongsTo(ClasificacionCliente::class);
     }
 }

@@ -17,13 +17,17 @@ class CreateTableClientes extends Migration
             $table->string('nombres');
             $table->string('apellidos');
             $table->string('nit',20)->unique();
+            $table->string('dpi', 30)->unique();
+            $table->date('fecha_nacimiento');
             $table->string('direccion')->nullable();
             $table->string('telefonos',30)->nullable();
             $table->string('email')->nullable();
             $table->integer('record_compra');
             $table->unsignedInteger('tipo_cliente_id');
             $table->unsignedInteger('user_id');
+            $table->unsignedInteger('clasificacion_cliente_id');
 
+            $table->foreign('clasificacion_cliente_id')->references('id')->on('clasificaciones_cliente')->onDelete('cascade');
             $table->foreign('tipo_cliente_id')->references('id')->on('tipos_cliente')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 

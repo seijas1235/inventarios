@@ -96,6 +96,7 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch('/clientes/{cliente}/update' , 'ClientesController@update');
 		Route::delete('/clientes/remove/{cliente}' , 'ClientesController@destroy');
 		Route::get('/clientes/nitDisponible/', 'ClientesController@nitDisponible');
+		Route::get( '/clientes/dpiDisponible/', 'ClientesController@dpiDisponible');
 
 		Route::get('/tipos_vehiculo', 'TiposVehiculoController@index');
 		Route::get('/tipos_vehiculo/getJson/' , 'TiposVehiculoController@getJson');
