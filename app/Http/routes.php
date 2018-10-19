@@ -199,6 +199,16 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch('/marcas/{marca}/update' , 'MarcasController@update');
 		Route::delete('/marcas/remove/{marca}' , 'MarcasController@destroy');
 
+
+		// Rutas de lineas
+		Route::get('/lineas', 'LineasController@index');
+		Route::get('/lineas/getJson/' , 'LineasController@getJson');
+		Route::get('/lineas/new' , 'LineasController@create');
+		Route::post('/lineas/save/' , 'LineasController@store');
+		Route::get('/lineas/edit/{linea}' , 'LineasController@edit');
+		Route::patch('/lineas/{linea}/update' , 'LineasController@update');
+		Route::delete('/lineas/remove/{linea}' , 'LineasController@destroy');
+
 		Route::get('/productos', 'ProductosController@index');
 		Route::get('/productos/getJson/' , 'ProductosController@getJson');
 		Route::get('/productos/new' , 'ProductosController@create');
