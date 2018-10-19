@@ -21,6 +21,8 @@
                     {!! Form::number( "descuento" , null , ['class' => 'form-control' , 'placeholder' => 'Porcentaje de descuento' ]) !!}
                 </div>
                 <div class="col-sm-4">
+                    {!! Form::label("monto_mensual","Monto mensual:") !!}
+                    {!! Form::number( "monto_mensual" , null , ['class' => 'form-control' , 'placeholder' => 'Monto mensual' ]) !!}
                 </div>
             </div>
         <br>

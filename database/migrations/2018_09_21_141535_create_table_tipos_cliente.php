@@ -15,6 +15,7 @@ class CreateTableTiposCliente extends Migration
         Schema::create('tipos_cliente', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
+            $table->float('monto_mensual')->nullable();
             $table->float('descuento');
             $table->timestamps();
         });

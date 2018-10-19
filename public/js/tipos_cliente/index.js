@@ -62,9 +62,17 @@ var tiposcliente_table = $('#tiposcliente-table').DataTable({
         "title": "Porcentaje de descuento",
         "data": "descuento",
         "width" : "20%",
-        "responsivePriority": 2,
+        "responsivePriority": 3,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data);},
+    },
+    {
+        "title": "Monto mensual",
+        "data": "monto_mensual",
+        "width" : "20%",
+        "responsivePriority": 2,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML("Q. " + parseFloat(Math.round(data * 100) / 100).toFixed(2));},
     },
        
     {

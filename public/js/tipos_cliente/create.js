@@ -19,6 +19,10 @@ var validator = $("#TipoClienteForm").validate({
 		},
 		descuento: {
 			required : true
+		},
+		monto_mensual: {
+			required: true
+
 		}
 
 	},
@@ -28,6 +32,9 @@ var validator = $("#TipoClienteForm").validate({
 		},
 		descuento: {
 			required: "Por favor, ingrese el % de decuento del tipo de cliente"
+		},
+		monto_mensual: {
+			required: "Por favor, ingrese el monto mensual del tipo de cliente"
 		}
 	}
 });

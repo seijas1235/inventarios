@@ -8,7 +8,7 @@ class TipoCliente extends Model
 {
     protected $table = 'tipos_cliente';
     protected $fillable=[
-        'id', 'nombre', 'descuento'
+        'id', 'nombre', 'descuento', 'monto_mensual'
     ];
 
     public function clientes(){
