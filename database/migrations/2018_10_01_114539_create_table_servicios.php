@@ -17,6 +17,10 @@ class CreateTableServicios extends Migration
             $table->string('codigo');
             $table->string('nombre');
             $table->float('precio');
+            $table->float('precio_costo');
+            $table->unsignedInteger('tipo_servicio_id');
+
+            $table->foreign('tipo_servicio_id')->references('id')->on('tipos_servicio')->onDelete('cascade');
             $table->timestamps();
         });
     }

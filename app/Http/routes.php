@@ -233,6 +233,14 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch('/documentos/{documento}/update' , 'DocumentosController@update');
 		Route::delete('/documentos/remove/{documento}' , 'DocumentosController@destroy');
 
+		Route::get('/tipos_servicio', 'TiposServicioController@index');
+		Route::get('/tipos_servicio/getJson/' , 'TiposServicioController@getJson');
+		Route::get('/tipos_servicio/new' , 'TiposServicioController@create');
+		Route::post('/tipos_servicio/save/' , 'TiposServicioController@store');
+		Route::get('/tipos_servicio/edit/{tipo_servicio}' , 'TiposServicioController@edit');
+		Route::patch('/tipos_servicio/{tipo_servicio}/update' , 'TiposServicioController@update');
+		Route::delete('/tipos_servicio/remove/{tipo_servicio}' , 'TiposServicioController@destroy');
+
 		Route::get('/servicios', 'ServiciosController@index');
 		Route::get('/servicios/getJson/' , 'ServiciosController@getJson');
 		Route::get('/servicios/new' , 'ServiciosController@create');
