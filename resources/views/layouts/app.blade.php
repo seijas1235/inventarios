@@ -215,7 +215,8 @@
 					<li class="{{request()->is('tipos_vehiculo*')? 'open active': ''}}"><a href="/tipos_vehiculo">Tipos de Vehiculo</a></li>
 
 					<li class="{{request()->is('marcas*')? 'open active': ''}}"><a href="/marcas">Marcas</a></li>
-
+					
+					<li class="{{request()->is('lineas*')? 'open active': ''}}"><a href="/lineas">Lineas</a></li>
 					<li class="{{request()->is('vehiculos*')? 'open active': ''}}"><a href="/vehiculos">Vehiculos</a></li>
 					
 					<li class="{{request()->is('puestos*')? 'open active': ''}}"><a href="/puestos">Puestos</a></li>
