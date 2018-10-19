@@ -168,129 +168,63 @@
   <br>
   @endforeach
 
-  <div class="row" style="padding-bottom:0.2cm">
+  <div class="row" style="padding-bottom:0.2cm; padding-right:0">
   <div class="col-xs-6" style="margin-left:-15px">
     <table border="1" width="100%">
       <tr>
-        <td colspan="4" align="center" style="border: 3px solid"><b>Componentes/accesorios</b></td>
+        <td colspan="6" align="center" style="border: 3px solid"><b>Componentes/accesorios</b></td>
       </tr>
       @foreach ($componentes as $componente)
-      @if($componente->emblemas == 1) 
         <tr>     
-          <td colspan="4"><input type="checkbox" checked/> Emblemas</td>
+          <td colspan="2"><input type="checkbox" {{$componente->emblemas == 1 ? 'checked': ''}}> Emblemas</td>
+          <td colspan="2"><input type="checkbox" {{$componente->encendedor == 1 ? 'checked': ''}}/> Encendedor</td>
+          <td colspan="2"><input type="checkbox" {{$componente->espejos == 1 ? 'checked': ''}}/> Espejos</td>
         </tr>
-      @endif
 
-      @if($componente->encendedor == 1)
         <tr>     
-          <td colspan="4"><input type="checkbox" checked/> Encendedor</td>
+          <td colspan="2"><input type="checkbox" {{$componente->antena == 1 ? 'checked': ''}}/> Antena</td>
+          <td colspan="2"><input type="checkbox" {{$componente->radio == 1 ? 'checked': ''}}/> Radio</td>
+          <td colspan="2"><input type="checkbox" {{$componente->llavero == 1 ? 'checked': ''}}/> Llavero</td>
         </tr>
-      @endif
-      @if($componente->espejos == 1)
-      <tr>     
-        <td colspan="4"><input type="checkbox" checked/> Espejos</td>
-      </tr>
-      @endif
-      @if($componente->antena == 1)
-      <tr>     
-        <td colspan="4"><input type="checkbox" checked/> Antena</td>
-      </tr>
-      @endif
-      @if($componente->radio == 1)
-      <tr>     
-        <td colspan="4"><input type="checkbox" checked/> Radio</td>
-      </tr>
-      @endif
-      @if($componente->llavero == 1)
-      <tr>     
-        <td colspan="4"><input type="checkbox" checked/> Llavero</td>
-      </tr>
-      @endif
-      @if($componente->placas == 1)
-      <tr>     
-        <td colspan="4"><input type="checkbox" checked/> Placas</td>
-      </tr>
-      @endif
-      @if($componente->platos == 1)
-      <tr>     
-        <td colspan="4"><input type="checkbox" checked/> Platos</td>
-      </tr>
-      @endif
-      @if($componente->tapon_combustible == 1)
-      <tr>     
-        <td colspan="4"><input type="checkbox" checked/> Tapon combustible</td>
-      </tr>
-      @endif
-      @if($componente->soporte_bateria == 1)
-      <tr>     
-        <td colspan="4"><input type="checkbox" checked/> Soporte bateria</td>
-      </tr>
-      @endif
-      @if($componente->papeles == 1)
-      <tr>     
-        <td colspan="4"><input type="checkbox" checked/> Papeles</td>
-      </tr>
-      @endif
-      @if($componente->alfombras == 1)
-      <tr>     
-        <td colspan="4"><input type="checkbox" checked/> Alfombras</td>
-      </tr>
-      @endif
-      @if($componente->control_alarma == 1)
-      <tr>     
-        <td colspan="4"><input type="checkbox" checked/> Control alarma</td>
-      </tr>
-      @endif
-      @if($componente->extinguidor == 1)
-      <tr>     
-        <td colspan="4"><input type="checkbox" checked/> Extinguidor</td>
-      </tr>
-      @endif
-      @if($componente->triangulos == 1)
-      <tr>     
-        <td colspan="4"><input type="checkbox" checked/> Triangulos</td>
-      </tr>
-      @endif
-      @if($componente->vidrios_electricos == 1)
-      <tr>     
-        <td colspan="4"><input type="checkbox" checked/> Vidrios Electricos</td>
-      </tr>
-      @endif
-      @if($componente->conos == 1)
-      <tr>     
-        <td colspan="4"><input type="checkbox" checked/> Conos</td>
-      </tr>
-      @endif
-      @if($componente->neblineras == 1)
-      <tr>     
-        <td colspan="4"><input type="checkbox" checked/> Neblineras</td>
-      </tr>
-      @endif
-      @if($componente->luces == 1)
-      <tr>     
-        <td colspan="4"><input type="checkbox" checked/> Luces</td>
-      </tr>
-      @endif
-      @if($componente->llanta_repuesto == 1)
-      <tr>     
-        <td colspan="4"><input type="checkbox" checked/> Llanta repuesto</td>
-      </tr>
-      @endif
-      @if($componente->llave_ruedas == 1)
-      <tr>     
-        <td colspan="4"><input type="checkbox" checked/> Llave ruedas</td>
-      </tr>
-      @endif
-      @if($componente->tricket == 1)
-      <tr>     
-        <td colspan="4"><input type="checkbox" checked/> Tricket</td>
-      </tr>
-      @endif
+   
+        <tr>     
+          <td colspan="2"><input type="checkbox" {{$componente->placas == 1 ? 'checked': ''}}/> Placas</td>
+          <td colspan="2"><input type="checkbox" {{$componente->platos == 1 ? 'checked': ''}}/> Platos</td>
+          <td colspan="2"><input type="checkbox" {{$componente->tapon_combustible == 1 ? 'checked': ''}}/> Tapon de combustible</td>
+        </tr>
+
+        <tr>     
+          <td colspan="2"><input type="checkbox" {{$componente->soporte_bateria == 1 ? 'checked': ''}}/> Soporte bateria</td>
+          <td colspan="2"><input type="checkbox" {{$componente->papeles == 1 ? 'checked': ''}}/> Papeles</td>
+          <td colspan="2"><input type="checkbox" {{$componente->alfombras == 1 ? 'checked': ''}}/> Alfombras</td>
+        </tr>
+
+        <tr>     
+          <td colspan="2"><input type="checkbox" {{$componente->control_alarma == 1 ? 'checked': ''}}/> Control alarma</td>
+          <td colspan="2"><input type="checkbox" {{$componente->extinguidor == 1 ? 'checked': ''}}/> Extinguidor</td>
+          <td colspan="2"><input type="checkbox" {{$componente->triangulos == 1 ? 'checked': ''}}/> Triangulos</td>
+        </tr>
+  
+        <tr>     
+          <td colspan="2"><input type="checkbox" {{$componente->conos == 1 ? 'checked': ''}}/> Conos</td>
+          <td colspan="2"><input type="checkbox" {{$componente->neblineras == 1 ? 'checked': ''}}/> Neblineras</td>
+          <td colspan="2"><input type="checkbox" {{$componente->tricket == 1 ? 'checked': ''}}/> Tricket</td>
+        </tr>
+
+        <tr>
+          <td colspan="2"><input type="checkbox" {{$componente->luces == 1 ? 'checked': ''}}/> Luces</td>
+          <td colspan="2"><input type="checkbox" {{$componente->llanta_repuesto == 1 ? 'checked': ''}}/> Llanta repuesto</td>
+          <td colspan="2"><input type="checkbox" {{$componente->llave_ruedas == 1 ? 'checked': ''}}/> Llave ruedas</td>
+        </tr>
+
+        <tr>     
+          <td colspan="6"><input type="checkbox" {{$componente->vidrios_electricos == 1 ? 'checked': ''}}/> Vidrios Electricos</td>
+        </tr>
 
       @endforeach
 
       <tr>
-        <td colspan="4">Observaciones: {{$componente->descripcion}}  </td>
+        <td colspan="6"> <b>Observaciones:</b>  {{$componente->descripcion}}  </td>
       </tr>
     </table>
   </div>
@@ -311,20 +245,15 @@
         <div class="circulo {{$componente->combustible ==8 ? '': 'hidden'}}" style="top:97px; left:317px"></div>   
         @endforeach
       
-            <div class="circulo-2" style="top:150px; left:15px"> </div>
+          <div class="circulo-2" style="top:157px; left:90px"> </div>
 
-            <div class="circulo-3" style="top:170px; left:15px"></div>
+          <div class="circulo-3" style="top:179px; left:150px"></div>
 
-
-
-         <div style="position:absolute; top:147px; left:28px">: Rayones</div> 
-         <div style="position:absolute; top:164px; left:28px">: Golpes y abollenes</div>
-        
-
-
+         <div>Rayones =</div> 
+         <div>Golpes y abollenes =</div>
     </div>
   </div>
-<!-- rayones y golpes -->
+  <!-- rayones y golpes -->
   <div class="row">
     <div class="col-xs-3" style="padding:0">
         <!-- imagen frente 1 -->
@@ -432,6 +361,19 @@
         <img src="./img/imagen4.png" width="180">
     </div>
 
+  </div>
+  <div class="row" style="padding-bottom:0.2cm">
+    @foreach ($rayones as $rayon)
+      <table border="1" width="100%">
+        <tr>
+          <td style="border: 3px solid"> <b>Observaciones</b> </td>
+        </tr>
+        <tr>
+          <td>{{$rayon->descripcion}}</td>
+        </tr>
+      </table> 
+    @endforeach
+    
   </div>
 
   <!-- Servicios solicitados -->
