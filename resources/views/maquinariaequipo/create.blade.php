@@ -33,17 +33,13 @@
 			</div>
 			<br>
 			<div class="row">
-				<div class="col-sm-4">
+				<div class="col-sm-6">
 					{!! Form::label("labadas_limite","Horas Limite:") !!}
 					{!! Form::text( "labadas_limite" , null , ['class' => 'form-control' , 'placeholder' => 'Horas de Vida de la Maquinaria' ]) !!}
 				</div>
-				<div class="col-sm-4">
+				<div class="col-sm-6">
 					{!! Form::label("fecha_adquisicion","Fecha de Adquisicion:") !!}
 					{!! Form::date( "fecha_adquisicion" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha Adquisicion' ]) !!}
-				</div>
-				<div class="col-sm-4">
-						{!! Form::label("precio_costo","Precio:") !!}
-						{!! Form::text( "precio_costo" , null , ['class' => 'form-control' , 'placeholder' => 'Precio' ]) !!}
 				</div>
 			</div>
 			<br>

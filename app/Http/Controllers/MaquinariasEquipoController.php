@@ -107,7 +107,6 @@ class MaquinariasEquipoController extends Controller
         $maquinariaequipo->marca = $data["marca"];
         $maquinariaequipo->labadas_limite= $data["labadas_limite"];
         $maquinariaequipo->fecha_adquisicion = $data["fecha_adquisicion"];
-        $maquinariaequipo->precio_costo = $data["precio_costo"];
         $maquinariaequipo->descripcion = $data["descripcion"];
         $maquinariaequipo->save();
 

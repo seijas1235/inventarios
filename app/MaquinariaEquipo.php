@@ -15,7 +15,6 @@ class MaquinariaEquipo extends Model
         'marca',
         'labadas_limite',
         'fecha_adquisicion',
-        'precio_costo',
         'descripcion'
         ];
     public function mantto_equipo(){
