@@ -14,6 +14,7 @@ class CreateTableTransmision extends Migration
     {
         Schema::create('transmision', function (Blueprint $table) {
             $table->increments('id');
+            $table->text('transmision');
             $table->timestamps();
         });
     }

@@ -3,20 +3,22 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableTiposTransmision extends Migration
+class SeedCombustibleTable extends Migration
 {
-    /**
+       /**
      * Run the migrations.
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('tipos_transmision', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nombre');
-            $table->timestamps();
-        });
+        DB::table('combustible')->insert(
+            array(
+                array('combustible' => 'Gasolina'),
+                array('combustible' => 'Diesel'),
+              
+                )
+            );
     }
 
     /**
@@ -26,6 +28,6 @@ class CreateTableTiposTransmision extends Migration
      */
     public function down()
     {
-        Schema::drop('tipos_transmision');
+        DB::table('combustible')->delete();
     }
 }

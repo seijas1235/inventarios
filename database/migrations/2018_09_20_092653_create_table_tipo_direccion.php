@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableTiposCaja extends Migration
+class CreateTableTipoDireccion extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,9 @@ class CreateTableTiposCaja extends Migration
      */
     public function up()
     {
-        Schema::create('tipos_caja', function (Blueprint $table) {
+        Schema::create('direccion', function (Blueprint $table) {
             $table->increments('id');
+            $table->text('tipo_direccion');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ class CreateTableTiposCaja extends Migration
      */
     public function down()
     {
-        Schema::drop('tipos_caja');
+        Schema::drop('direccion');
     }
 }

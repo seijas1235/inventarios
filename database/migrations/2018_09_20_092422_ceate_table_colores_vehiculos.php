@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableTraccion extends Migration
+class CeateTableColoresVehiculos extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,9 @@ class CreateTableTraccion extends Migration
      */
     public function up()
     {
-        Schema::create('traccion', function (Blueprint $table) {
+        Schema::create('colores', function (Blueprint $table) {
             $table->increments('id');
+            $table->text('color');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ class CreateTableTraccion extends Migration
      */
     public function down()
     {
-        Schema::drop('traccion');
+        Schema::drop('colores');
     }
 }

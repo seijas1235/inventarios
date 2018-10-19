@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableCombustible extends Migration
+class CreateTableTiposCaja extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,9 @@ class CreateTableCombustible extends Migration
      */
     public function up()
     {
-        Schema::create('direccion', function (Blueprint $table) {
+        Schema::create('tipos_caja', function (Blueprint $table) {
             $table->increments('id');
+            $table->text('tipo_caja');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ class CreateTableCombustible extends Migration
      */
     public function down()
     {
-        Schema::drop('direccion');
+        Schema::drop('tipos_caja');
     }
 }

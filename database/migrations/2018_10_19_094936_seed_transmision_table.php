@@ -3,19 +3,21 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CeateTableColoresVehiculos extends Migration
+class SeedTransmisionTable extends Migration
 {
-    /**
+     /**
      * Run the migrations.
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('colores', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-        });
+        DB::table('transmision')->insert(
+            array(
+                array('transmision' => 'Automática'),
+                array('transmision' => 'Mecánica'),
+                )
+            );
     }
 
     /**
@@ -25,6 +27,6 @@ class CeateTableColoresVehiculos extends Migration
      */
     public function down()
     {
-        Schema::drop('colores');
+        DB::table('transmision')->delete();
     }
 }
