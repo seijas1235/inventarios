@@ -13,6 +13,7 @@ use Carbon\Carbon;
 Use App\User;
 Use App\Cliente;
 Use App\TipoCliente;
+use App\ClasificacionCliente;
 
 class ClientesController extends Controller
 {
@@ -42,7 +43,8 @@ class ClientesController extends Controller
     {
        $user = Auth::user()->id;
        $tipos_clientes = TipoCliente::all();
-       return view("clientes.create" , compact( "user", "tipos_clientes"));
+       $clasificaciones = ClasificacionCliente::all();
+       return view("clientes.create" , compact( "user", "tipos_clientes", 'clasificaciones'));
     }
 
     /**
@@ -95,6 +97,21 @@ class ClientesController extends Controller
 		{
 			return 'true';
 		}
+    }
+    
+    public function dpiDisponible()
+	{
+		$dato = Input::get("dpi");
+		$query = Cliente::where("dpi",$dato)->get();
+		$contador = count($query);
+		if ($contador == 0)
+		{
+			return 'false';
+		}
+		else
+		{
+			return 'true';
+		}
 	}
 
     /**
@@ -108,8 +125,9 @@ class ClientesController extends Controller
         $query = "SELECT * FROM clientes WHERE id=".$cliente->id."";
         $fieldsArray = DB::select($query);
 
+        $clasificaciones = ClasificacionCliente::all();
         $tipos_clientes = TipoCliente::all();
-        return view('clientes.edit', compact('cliente', 'fieldsArray', 'tipos_clientes'));
+        return view('clientes.edit', compact('cliente', 'fieldsArray', 'tipos_clientes', 'clasificaciones'));
     }
 
     /**
@@ -122,6 +140,8 @@ class ClientesController extends Controller
     public function update(Cliente $cliente, Request $request)
     {
         $this->validate($request,['nit' => 'required|unique:clientes,nit,'.$cliente->id
+        ]);
+        $this->validate($request,['dpi' => 'required|unique:clientes,dpi,'.$cliente->id
         ]);
         Response::json( $this->updateCliente($cliente , $request->all()));
         return redirect('/clientes');
