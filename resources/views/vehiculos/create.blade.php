@@ -127,10 +127,8 @@
 				</div>
 				<div class="col-sm-3">
 					{!! Form::label("tipo_caja_id","Tipo de Caja:") !!}
-					<select class="selectpicker" id='tipo_caja_id' name="tipo_caja_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
-						@foreach ($tipos_caja as $caja)
-						<option value="{{$caja->id}}">{{$caja->tipo_caja}}</option>							
-						@endforeach
+					<select  class="form-control" id='tipo_caja_id' name="tipo_caja_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda">
+
 					</select>
 				</div>		
 			</div>

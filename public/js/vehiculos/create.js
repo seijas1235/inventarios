@@ -167,13 +167,26 @@ function changediferencial() {
     }
 }
 
-
-
-
-
 $("#traccion_id").change(function () {
     changediferencial();
 });
+
+//funcion para cambiar el tipo de caja dependiendo del tipo de transmision seleccionado
+function changeTipoCaja() {
+    var transmision_id = $("#transmision_id").val();
+    if (transmision_id == 1) {
+      		$('#tipo_caja_id').html('<option value= "1"> Secuencial</option>  <option value= "2"> CBT</option>');
+		}
+	else{
+		$('#tipo_caja_id').html('<option value= "3"> Mecanica</option>');
+    }
+}
+
+$("#transmision_id").change(function () {
+    changeTipoCaja();
+});
+
+
 
 var db = {};
 
