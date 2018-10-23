@@ -52,7 +52,7 @@ var vehiculos_table = $('#vehiculos-table').DataTable({
         },
     }, {
         "title": "Tipo",
-        "data": "tipo_vehiculo_id",
+        "data": "tipo_vehiculo",
         "width" : "15%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {

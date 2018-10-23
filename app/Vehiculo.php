@@ -20,6 +20,7 @@ class Vehiculo extends Model
         'fecha_ultimo_servicio',
         'vin',
         'cliente_id',
+        'direccion_id',
 
         'transmision_id',
         'traccion_id',
