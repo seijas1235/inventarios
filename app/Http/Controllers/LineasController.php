@@ -138,8 +138,21 @@ class LineasController extends Controller
             return Response::json( $response  , 422 );
         }    
     }
-
-
+    public function getDatos($marca_id, Linea $linea) {
+        $marca=$marca_id;
+            if ($marca == "")
+            {
+                $result = "";
+                return Response::json( $result);
+                
+            }
+            else {
+                $query = "SELECT * FROM linea
+                            where linea.marca_id='$marca'";
+                $result = DB::select($query);
+                return Response::json( $result);
+            }
+    }
     public function getJson(Request $params)
     {
         $api_Result = array();

@@ -20,7 +20,7 @@ class CreateTableVehiculos extends Migration
             $table->unsignedInteger('marca_id');
             $table->unsignedInteger('linea_id');
             $table->float('kilometraje');
-            $table->string('año');
+            $table->year('anio');
             $table->unsignedInteger('color_id');
             $table->date('fecha_ultimo_servicio');
             $table->string('vin')->nullable();

@@ -131,6 +131,49 @@ var validator = $("#VehiculoForm").validate({
 	}
 });
 
+//funcion para cambiar las lineas referentes a las marcas del vehiculo
+function changeLinea() {
+    var marca_id = $("#marca_id").val();
+    
+    var url = "/linea/obtener/" + marca_id ;
+    if (marca_id != "") {
+        $.getJSON( url , function ( result ) {
+			
+			var selector =''
+			for (let index = 0; index < result.length; index++) {
+				selector += '<option value="'+result[index].id+'">'+result[index].linea+'</option>';	
+			}
+			selector += ""
+			
+			$('#linea_id').html(selector).fadeIn();
+        });
+    }
+}
+    
+
+$("#marca_id").change(function () {
+    changeLinea();
+});
+
+//funcion para inserter el numero de diferenciales referentes al tipo de traccion del vehiculo
+function changediferencial() {
+    var traccion_id = $("#traccion_id").val();
+
+    if (traccion_id == 1 || traccion_id == 3) {
+      			$('#diferencial').val(1);
+		}
+	else{
+		$('#diferencial').val(2);
+    }
+}
+
+
+
+
+
+$("#traccion_id").change(function () {
+    changediferencial();
+});
 
 var db = {};
 
