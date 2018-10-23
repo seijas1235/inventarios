@@ -282,13 +282,13 @@ function changeAceite() {
 	var Tipo_caja_id = $("#tipo_caja_id").val();
 	console.log(Tipo_caja_id);
     if (Tipo_caja_id == 1) {
-      		$('#viscosidad_caja').val('ATF');
+      		$('#aceite_caja').val('ATF');
 		}
 	else if(Tipo_caja_id==2){
-		$('#viscosidad_caja').val('CBT');
+		$('#aceite_caja').val('CBT');
 	}
 	else{
-		$('#viscosidad_caja').val('75W/90');
+		$('#aceite_caja').val('75W/90');
 	}
 }
 
