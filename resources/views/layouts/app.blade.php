@@ -235,6 +235,8 @@
 
 					<li class="{{request()->is('mantto_equipo*')? 'open active': ''}}"><a href="/mantto_equipo">Mantenimientos</a></li>
 
+					<li class="{{request()->is('tipos_servicio*')? 'open active': ''}}"><a href="/tipos_servicio">Tipos de Servicio</a></li>
+
 					<li class="{{request()->is('servicios*')? 'open active': ''}}"><a href="/servicios">Servicios</a></li>
 
 					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
