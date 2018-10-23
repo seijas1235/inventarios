@@ -25,7 +25,7 @@ class CreateTableVehiculos extends Migration
             $table->date('fecha_ultimo_servicio');
             $table->string('vin')->nullable();
             $table->unsignedInteger('cliente_id');
-            
+            $table->unsignedInteger('direccion_id');
             /* parte Transmision*/
             $table->unsignedInteger('transmision_id');
             $table->unsignedInteger('traccion_id');
@@ -53,7 +53,8 @@ class CreateTableVehiculos extends Migration
             $table->foreign('linea_id')->references('id')->on('linea')->onDelete('cascade');
             $table->foreign('color_id')->references('id')->on('colores')->onDelete('cascade');
             $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
-            
+            $table->foreign('direccion_id')->references('id')->on('direccion')->onDelete('cascade');
+
             $table->foreign('transmision_id')->references('id')->on('transmision')->onDelete('cascade');
             $table->foreign('traccion_id')->references('id')->on('tracciones')->onDelete('cascade');
             $table->foreign('tipo_caja_id')->references('id')->on('tipos_caja')->onDelete('cascade');

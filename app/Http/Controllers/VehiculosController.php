@@ -112,13 +112,24 @@ class VehiculosController extends Controller
 
         $query2 = "SELECT * FROM marcas WHERE tipo_marca_id=".'1'." OR tipo_marca_id='2'";
         $marcas = DB::select($query2);
+        if($vehiculo->transmision_id==1){
+            $query4= "SELECT * from tipos_caja limit 2";
+        }else{
+        $query4= "SELECT * from tipos_caja order by id desc limit 1";
+        }
 
-        $tipos_transmision = TipoTransmision::all();
         $tipos_vehiculos = TipoVehiculo::all();
-        $marcas = Marca::all();
+        $tipos_transmision = Transmision::all();
         $clientes = Cliente::all();
+        $query3= "SELECT * FROM linea WHERE linea.marca_id=".$vehiculo->marca_id."";
+        $lineas = DB::select($query3);
+        $colores= Color::all();
+        $direcciones= Direccion::all();
+        $tipos_caja= DB::select($query4);
+        $combustibles= Combustible::all();
+        $tracciones= Traccion::all();
 
-        return view('vehiculos.edit', compact('vehiculo', 'fieldsArray', 'tipos_vehiculos','marcas', 'tipos_transmision','clientes'));
+        return view('vehiculos.edit', compact('vehiculo', 'fieldsArray', "colores","lineas","combustibles","tipos_caja","direcciones","tracciones","tipos_vehiculos", "marcas","tipos_transmision", "clientes"));
     }
 
     /**
