@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Traccion extends Model
 {
-    protected $table = 'traccion';
+    protected $table = 'tracciones';
     protected $fillable=[
         'id', 
         'traccion'

@@ -20,7 +20,7 @@ class CreateTableVehiculos extends Migration
             $table->unsignedInteger('marca_id');
             $table->unsignedInteger('linea_id');
             $table->float('kilometraje');
-            $table->string('año');
+            $table->integer('anio');
             $table->unsignedInteger('color_id');
             $table->date('fecha_ultimo_servicio');
             $table->string('vin')->nullable();
@@ -33,7 +33,7 @@ class CreateTableVehiculos extends Migration
             $table->unsignedInteger('tipo_caja_id');
             $table->string('aceite_caja_fabrica');
             $table->string('aceite_caja');
-            $table->integer('cantidad_aceite_caja');
+            $table->string('cantidad_aceite_caja');
             $table->string('viscosidad_caja');
             
             
@@ -44,7 +44,7 @@ class CreateTableVehiculos extends Migration
             $table->string('cilindros');
             $table->string('aceite_motor_fabrica');
             $table->string('aceite_motor');
-            $table->integer('cantidad_aceite_motor');
+            $table->string('cantidad_aceite_motor');
             $table->string('viscosidad_motor');
             $table->string('observaciones');
             

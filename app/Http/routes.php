@@ -174,6 +174,7 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/vehiculos/edit/{vehiculo}' , 'VehiculosController@edit');
 		Route::patch('/vehiculos/{vehiculo}/update' , 'VehiculosController@update');
 		Route::delete('/vehiculos/remove/{vehiculo}' , 'VehiculosController@destroy');
+		Route::get( '/linea/obtener/{marca}' , 'LineasController@getDatos');
 
 		Route::get('/unidades_de_medida', 'UnidadesDeMedidaController@index');
 		Route::get('/unidades_de_medida/getJson/' , 'UnidadesDeMedidaController@getJson');

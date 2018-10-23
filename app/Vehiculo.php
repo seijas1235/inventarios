@@ -15,7 +15,7 @@ class Vehiculo extends Model
         'marca_id',
         'linea_id',
         'kilometraje',
-        'año',
+        'anio',
         'color_id',
         'fecha_ultimo_servicio',
         'vin',

@@ -15,8 +15,14 @@ use App\Vehiculo;
 use App\TipoVehiculo;
 use App\Marca;
 use App\User;
-use App\TipoTransmision;
+use App\Transmision;
 use App\Cliente;
+use App\Traccion;
+use App\Tipo_caja;
+use App\Combustible;
+use App\Direccion;
+use App\Linea;
+use App\Color;
 
 class VehiculosController extends Controller
 {
@@ -47,9 +53,16 @@ class VehiculosController extends Controller
         $marcas = DB::select($query);
 
         $tipos_vehiculos = TipoVehiculo::all();
-        $tipos_transmision = TipoTransmision::all();
+        $tipos_transmision = Transmision::all();
         $clientes = Cliente::all();
-        return view("vehiculos.create" , compact("tipos_vehiculos", "marcas","tipos_transmision", "clientes"));
+        $lineas= Linea::all();
+        $colores= Color::all();
+        $direcciones= Direccion::all();
+        $tipos_caja= Tipo_caja::all();
+        $combustibles= Combustible::all();
+        $tracciones= Traccion::all();
+
+        return view("vehiculos.create" , compact("colores","lineas","combustibles","tipos_caja","direcciones","tracciones","tipos_vehiculos", "marcas","tipos_transmision", "clientes"));
     }
 
     /**
@@ -62,6 +75,7 @@ class VehiculosController extends Controller
     {
         $data = $request->all();
         $vehiculo = Vehiculo::create($data);
+
 
         return Response::json($vehiculo);
     }
