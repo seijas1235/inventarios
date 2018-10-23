@@ -183,6 +183,7 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/unidades_de_medida/edit/{unidad_de_medida}' , 'UnidadesDeMedidaController@edit');
 		Route::patch('/unidades_de_medida/{unidad_de_medida}/update' , 'UnidadesDeMedidaController@update');
 		Route::delete('/unidades_de_medida/remove/{unidad_de_medida}' , 'UnidadesDeMedidaController@destroy');
+		Route::get( '/unidad_de_medida/cantidad/{unidad_de_medida}' , 'UnidadesDeMedidaController@getCantidad');
 
 		Route::get('/tipos_proveedor', 'TiposProveedorController@index');
 		Route::get('/tipos_proveedor/getJson/' , 'TiposProveedorController@getJson');
@@ -250,6 +251,10 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/servicios/edit/{servicio}' , 'ServiciosController@edit');
 		Route::patch('/servicios/{servicio}/update' , 'ServiciosController@update');
 		Route::delete('/servicios/remove/{servicio}' , 'ServiciosController@destroy');
+		Route::get( '/servicios/save/' , 'ServiciosController@save');
+		Route::post( '/servicios-detalle/{servicio}' , 'ServiciosController@saveDetalle');
+		Route::get('/servicios/show/{servicio}' , 'ServiciosController@show');
+		Route::get( '/servicios/{servicio}/getJson' , 'ServiciosController@getJsonDetalle' );
 
 		Route::get( '/compras' , 'ComprasController@index' );
         Route::get( '/compras/getJson' , 'ComprasController@getJson' );

@@ -18,8 +18,8 @@ class CreateTableDetallesServicios extends Migration
             $table->unsignedInteger('servicio_id');
             $table->unsignedInteger('maquinaria_equipo_id')->nullable();
             $table->unsignedInteger('user_id');
-            $table->float('costo_producto')->nullable();
-            $table->float('costo_maquinaria')->nullable();
+            $table->float('costo')->nullable();
+            $table->float('cantidad')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');

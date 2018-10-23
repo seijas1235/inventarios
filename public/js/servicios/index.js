@@ -63,8 +63,16 @@ var servicios_table = $('#servicios-table').DataTable({
     }, 
     
     {
-        "title": "Precio",
+        "title": "Precio Venta S/MO",
         "data": "precio",
+        "width" : "20%",
+        "responsivePriority": 2,
+        "render": $.fn.dataTable.render.number( ',', '.', 2, 'Q.' )
+    }, 
+
+    {
+        "title": "Precio Costo S/MO",
+        "data": "precio_costo",
         "width" : "20%",
         "responsivePriority": 2,
         "render": $.fn.dataTable.render.number( ',', '.', 2, 'Q.' )
@@ -76,13 +84,17 @@ var servicios_table = $('#servicios-table').DataTable({
         "width" : "20%",
         "render": function(data, type, full, meta) {
             return "<div id='" + full.id + "' class='text-center'>" + 
-            "<div class='float-left col-lg-6'>" + 
+            "<div class='float-left col-lg-4'>" + 
             "<a href='/servicios/edit/"+ full.id +"' class='edit-servicio'>" + 
             "<i class='fa fa-btn fa-edit' title='Editar Servicio'></i>" + 
             "</a>" + "</div>" + 
-            "<div class='float-right col-lg-6'>" + 
+            "<div class='float-right col-lg-4'>" + 
             "<a href='#' class='remove-servicio'>" + 
             "<i class='fa fa-btn fa-trash' title='Eliminar Servicio'></i>" + 
+            "</a>" + "</div>"+
+            "<div class='float-left col-lg-4'>" + 
+            "<a href='/servicios/show/"+ full.id +"' class='detalle-servicio'>" + 
+            "<i class='fa fa-btn fa-desktop' title='Detalle Servicio'></i>" + 
             "</a>" + "</div>";
             
         },

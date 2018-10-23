@@ -69,6 +69,11 @@ class UnidadesDeMedidaController extends Controller
         //
     }
 
+    public function getCantidad(UnidadDeMedida $unidad_de_medida) {
+
+		return Response::json($unidad_de_medida);
+	}
+
     /**
      * Show the form for editing the specified resource.
      *

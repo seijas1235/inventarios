@@ -12,26 +12,42 @@
         </div>
         <br>
         <div class="row">
-                <div class="col-sm-4">
-                    {!! Form::label("nombre","Nombre servicio") !!}
-                    {!! Form::text( "nombre" , null , ['class' => 'form-control' , 'placeholder' => 'servicio' ]) !!}
-                </div>
-
-                <div class="col-sm-4">
-                        {!! Form::label("precio","Precio:") !!}
-                        {!! Form::text( "precio" , null , ['class' => 'form-control' , 'placeholder' => 'precio' ]) !!}
-                </div>
-                <div class="col-sm-4">
-                    {!! Form::label("maquinaria_equipo_id","Maquinaria utilizada:") !!}
-                    <select class="form-control select2" multiple="multiple" 
-                            data-placeholder="Seleccione una o mas maquinarias"
-                            style="width: 100%;" name="maquinarias[]">
-                            @foreach($maquinarias as $maquinaria)
-                            <option {{collect(old('maquinarias', $servicio->maquinarias->pluck('id') ))->contains($maquinaria->id)? 'selected' : '' }} value="{{$maquinaria->id}}">{{$maquinaria->nombre}}</option>
-                          @endforeach  
-                    </select>
-                </div>
+            <div class="col-sm-2">
+                {!! Form::label("tipo_servicio_id","Tipo de Servicio:") !!}
+                <select class="selectpicker" id='tipo_servicio_id' name="tipo_servicio_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+                    @foreach ($tipos_servicio as $tipo_servicio)
+                    @if($tipo_servicio->id == $servicio->tipo_servicio_id)
+                    <option value="{{$tipo_servicio->id}}" selected>{{$tipo_servicio->nombre}}</option>
+                    @else
+                    <option value="{{$tipo_servicio->id}}">{{$tipo_servicio->nombre}}</option>
+                    @endif							
+                    @endforeach
+                </select>
             </div>
+            <div class="col-sm-2">
+                {!! Form::label("codigo","Codigo Interno:") !!}
+                {!! Form::text( "codigo" , null , ['class' => 'form-control' , 'placeholder' => 'Codigo de servicio' ]) !!}
+            </div>
+            <div class="col-sm-8">
+                {!! Form::label("nombre","Nombre Servicio:") !!}
+                {!! Form::text( "nombre" , null , ['class' => 'form-control' , 'placeholder' => 'Nombre servicio' ]) !!}
+            </div>
+            
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-4">
+                {!! Form::label("precio_costo","Precio Costo sin Mano de Obra:") !!}
+                {!! Form::number( "precio_costo" , null , ['class' => 'form-control' , 'placeholder' => 'Precio Costo sin Mano de Obra' ]) !!}
+
+            </div>
+            <div class="col-sm-4">
+                {!! Form::label("precio","Precio Venta sin Mano de Obra:") !!}
+                {!! Form::number( "precio" , null , ['class' => 'form-control' , 'placeholder' => 'Precio Venta sin Mano de Obra' ]) !!}
+
+            </div>
+
+        </div>
         <br>
         <div class="text-right m-t-15">
             <a class='btn btn-primary form-gradient-color form-button' href="{{ url('/servicios') }}">Regresar</a>

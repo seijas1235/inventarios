@@ -20,7 +20,21 @@ $(document).on("keypress", 'form', function (e) {
 $("#producto_id").change(function () {
     changeProducto();
 });*/
-    
+	
+function changeUnidad() {
+    var unidad_de_medida_id = $("#unidad_de_medida_id").val();
+    var url = "/unidad_de_medida/cantidad/" + unidad_de_medida_id ;
+    if (unidad_de_medida_id != "") {
+        $.getJSON( url , function ( result ) {
+            $("input[name='unidad_cantidad'] ").val(result.cantidad);
+			
+        });
+    }
+}
+
+$("#unidad_de_medida_id").change(function () {
+    changeUnidad();
+});
 
 $(document).on("keypress", '#addProducto', function (e) {
     var code = e.keyCode || e.which;
@@ -53,16 +67,16 @@ $('body').on('click', '#addMaquinaria', function(e) {
 	var costo_maquinaria = $("input[name='costo_maquinaria'] ").val();
 	var cantidad = $("input[name='cantidad_maquina'] ").val();
     var subtotal = parseFloat(cantidad) * parseFloat(costo_maquinaria);
-    
+    var unidad =  $("#unidad_de_medida_id2").find("option:selected").text();
 
-    if (cantidad != "" && maquina_equipo_id != "")
+    if (cantidad != "" && maquinaria_equipo_id != "" && costo_maquinaria != "" && unidad != "")
     {
         $("input[name='subtotal'] ").val(subtotal);
         detalle.costo = $("input[name='costo_maquinaria'] ").val();
         detalle.subtotal_servicio = $("input[name='subtotal'] ").val();
-		detalle.maquina_equipo_id  = $("#maquina_equipo_id").val();
+		detalle.maquinaria_equipo_id  = $("#maquinaria_equipo_id").val();
 		detalle.cantidad  = $("input[name='cantidad_maquina'] ").val();
-		detalle.nombre =  $("#maquina_equipo_id").find("option:selected").text();
+		detalle.nombre =  $("#maquinaria_equipo_id").find("option:selected").text();
 		detalle.unidad_de_medida =  $("#unidad_de_medida_id2").find("option:selected").text();
         var total2 = $("input[name='total'] ").val();
         if (total2 != "") {
@@ -77,10 +91,10 @@ $('body').on('click', '#addMaquinaria', function(e) {
         }
 
         db.links.push(detalle);
-        $("input[name='maquina_equipo_id'] ").val("");
+        $("input[name='maquinaria_equipo_id'] ").val("");
 		$("input[name='costo_maquinaria'] ").val("");
 		$("input[name='cantidad_maquina'] ").val("");
-        $('#maquina_equipo_id option').prop('selected', function() {
+        $('#maquinaria_equipo_id option').prop('selected', function() {
             return this.defaultSelected;
         });
         var precio = $("input[name='costo_maquinaria'] ").val();
@@ -101,10 +115,12 @@ $('body').on('click', '#addProducto', function(e) {
     var detalle = new Object();
 	var costo_producto = $("input[name='costo_producto'] ").val();
 	var cantidad = $("input[name='cantidad'] ").val();
-    var subtotal = parseFloat(cantidad) * parseFloat(costo_producto);
+	//var unidad_cantidad = $("input[name='unidad_cantidad'] ").val();
+	var subtotal = parseFloat(cantidad) * parseFloat(costo_producto);
+	var unidad = $("#unidad_de_medida_id").find("option:selected").text();
     
 
-    if (cantidad != "" && producto_id != "")
+    if (cantidad != "" && producto_id != "" && costo_producto != "" && unidad != "")
     {
         $("input[name='subtotal'] ").val(subtotal);
         detalle.costo = $("input[name='costo_producto'] ").val();
@@ -129,9 +145,7 @@ $('body').on('click', '#addProducto', function(e) {
         $("input[name='producto_id'] ").val("");
 		$("input[name='costo_producto'] ").val("");
 		$("input[name='cantidad'] ").val("");
-        $('#producto_id option').prop('selected', function() {
-            return this.defaultSelected;
-        });
+        $('#producto_id option').removeAttr('selected');
         var precio = $("input[name='costo_producto'] ").val();
         var subtotal = precio;
         $("input[name='subtotal'] ").val(subtotal);
@@ -187,7 +201,9 @@ $('body').on('click', '#addProducto', function(e) {
 		var nombre = $("input[name='nombre'] ").val();
 		var tipo_servicio_id = $("#tipo_servicio_id").val();
 
-
+			if(codigo !="" && precio !="" && precio_costo !="" && nombre != "" && tipo_servicio_id !="")
+			{
+				
 			var formData = {total: total,codigo:codigo, tipo_servicio_id : tipo_servicio_id, precio_costo:precio_costo, precio:precio, nombre:nombre } 
 				$.ajax({
 					type: "GET",
@@ -214,6 +230,11 @@ $('body').on('click', '#addProducto', function(e) {
 						alert("Something went wrong, please try again!");
 					}
 				});
+			}
+
+			else{
+				alert("Falta ingresar codigo, nombre, tipo de servicio");
+			}
 		}
 
 		$("#ButtonServicio").click(function(event) {
@@ -259,21 +280,7 @@ $('body').on('click', '#addProducto', function(e) {
     });
 }());
 
-
-/*
-
-$(document).ready(function() {
-
-	$(document).on("keypress", 'form', function (e) {
-		var code = e.keyCode || e.which;
-		if (code == 13) {
-			e.preventDefault();
-			return false;
-		}
-	});
-});
-
-var validator = $("#ServicioForm").validate({
+/*var validator = $("#ServicioForm").validate({
 	ignore: [],
 	onkeyup:false,
 	rules: {
@@ -282,6 +289,15 @@ var validator = $("#ServicioForm").validate({
 		},
 		precio: {
 			required : true
+		},
+		precio_costo: {
+			required : true
+		},
+		tipo_servicio_id:{
+			required: true
+		},
+		codigo: {
+			required : true
 		}
 	},
 	messages: {
@@ -289,12 +305,20 @@ var validator = $("#ServicioForm").validate({
 			required: "Por favor, ingrese el nombre de un servicio"
 		},
 		precio: {
-			required: "Por favor, ingrese el Sueldo"
+			required: "Por favor, ingrese el precio venta sin mano de obra"
+		},
+		precio_costo: {
+			required: "Por favor, ingrese el precio costo sin mano de obra"
+		},
+		tipo_servicio_id: {
+			required: "Por favor, seleccione tipo de servicio"
+		},
+		codigo: {
+			required: "Por favor, ingrese codigo"
 		}
 	}
-});
-
-
+});*/
+/*
 var db = {};
 
 window.db = db;

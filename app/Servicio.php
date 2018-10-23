@@ -17,10 +17,11 @@ class Servicio extends Model
         'tipo_servicio_id'
         ];
 
-    public function Maquinarias(){
-        return $this->belongsToMany(MaquinariaEquipo::class);
-    }
     public function tipo_servicio(){
         return $this->belongsTo(TipoServicio::class);
+    }
+
+    public function detalles_servicios(){
+        return $this->hasMany(DetalleServicio::class);
     }
 }

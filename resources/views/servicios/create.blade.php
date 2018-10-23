@@ -54,6 +54,7 @@
 			<div class="row">
 				<div class="col-sm-3">
 					{!! Form::number( "cantidad" , null , ['class' => 'form-control' , 'placeholder' => 'Cantidad' ]) !!}
+					{!! Form::hidden("unidad_cantidad" , null , ['class' => 'form-control' , 'disabled']) !!}
 				</div>
 				<div class="col-sm-3">
 					<select class="selectpicker" id='unidad_de_medida_id' name="unidad_de_medida_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
@@ -96,7 +97,7 @@
 					</select>
 				</div>
 				<div class="col-sm-3">
-					<select class="selectpicker" id='maquina_equipo_id' name="maquina_equipo_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+					<select class="selectpicker" id='maquinaria_equipo_id' name="maquinaria_equipo_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
 						@foreach ($maquinarias as $maquinaria)
 						<option value="{{$maquinaria->id}}">{{$maquinaria->nombre_maquina}}</option>							
 						@endforeach
@@ -120,7 +121,7 @@
 			</div>
 			<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
 		<br>
-	{{--{!! Form::close() !!} --}}
+	{{--{!! Form::close() !!}--}}
 	</div>
 </div>
 </div>
