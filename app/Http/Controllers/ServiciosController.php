@@ -12,6 +12,9 @@ use App\Servicio;
 Use App\User;
 Use App\MaquinariaEquipo;
 use Illuminate\Http\Request;
+use App\TipoServicio;
+use App\Producto;
+use App\UnidadDeMedida;
 
 class ServiciosController extends Controller
 {
@@ -42,7 +45,10 @@ class ServiciosController extends Controller
     public function create()
     {
         $maquinarias = MaquinariaEquipo::all();
-        return view("servicios.create", compact('maquinarias'));
+        $tipos_servicio = TipoServicio::all();
+        $productos = Producto::all();
+        $unidades_de_medida = UnidadDeMedida::all();
+        return view("servicios.create", compact('maquinarias', 'tipos_servicio', 'productos', 'unidades_de_medida'));
     }
 
     /**
@@ -90,12 +96,6 @@ class ServiciosController extends Controller
         $fieldsArray = DB::select($query);
 
         $maquinarias = MaquinariaEquipo::all();
-        //$query2 = "SELECT m.maquinaria_equipo_id FROM servicios s INNER JOIN maquinaria_equipo_servicio m on s.id= m.servicio_id where s.id =".$servicio->id."";
-        //$fieldsArray = DB::select($query2);
-        //$maquinarias2 = collect($fieldsArray); 
-        //dd($servicio->maquinarias->pluck('id'));
-
-        //dd($maquinarias2->pluck('maquinaria_equipo_id'));
 
         return view('servicios.edit', [
             'servicio' => $servicio,
@@ -165,7 +165,7 @@ class ServiciosController extends Controller
             return Response::json( $response  , 422 );
         }    
     }
-    public function getPrecio(servicio $servicio) {
+    public function getPrecio(Servicio $servicio) {
 
 		return Response::json($servicio);
 	}
