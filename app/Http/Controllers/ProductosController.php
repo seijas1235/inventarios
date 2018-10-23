@@ -227,6 +227,10 @@ class ProductosController extends Controller
 
 	}
 
+	public function getPrecio(Producto $producto) {
+
+		return Response::json($producto);
+	}
 
 
 	public function getJsonExistencia(Request $params)

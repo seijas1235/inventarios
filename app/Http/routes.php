@@ -217,6 +217,7 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/productos/edit/{producto}' , 'ProductosController@edit');
 		Route::patch('/productos/{producto}/update' , 'ProductosController@update');
 		Route::delete('/productos/remove/{producto}' , 'ProductosController@destroy');
+		Route::get( '/producto/precio/{producto}' , 'ProductosController@getPrecio');
 
 		Route::get('/precios_producto', 'PreciosProductoController@index');
 		Route::get('/precios_producto/getJson/' , 'PreciosProductoController@getJson');
