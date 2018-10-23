@@ -122,8 +122,9 @@
 					</select>
 				</div>
 				<div class="col-sm-3">
-					{!! Form::label("direfencial","Diferenciales:") !!}
-					{!! Form::text( "diferencial" , null , ['class' => 'form-control' , 'placeholder' => 'Diferenciales', 'id'=>'diferencial' ]) !!}
+					{!! Form::label("direfenciales","Diferenciales:") !!}
+					<input type="text" name="diferenciales" id="diferenciales" class='form-control disabled' placeholder="Diferencial">
+					
 				</div>
 				<div class="col-sm-3">
 					{!! Form::label("tipo_caja_id","Tipo de Caja:") !!}
@@ -152,7 +153,8 @@
 				</div>
 				<div class="col-sm-3">
 					{!! Form::label("viscosidad_caja","Viscosidad:") !!}
-					{!! Form::text( "viscosidad_caja" , null , ['class' => 'form-control' , 'placeholder' => 'Viscosidad' ]) !!}
+					<input type="text" name="viscosidad_caja" id="viscosidad_caja" class='form-control disabled' placeholder="Viscosidad">
+					
 				</div>
 			
 			</div>

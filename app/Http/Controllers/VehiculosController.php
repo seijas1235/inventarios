@@ -74,8 +74,8 @@ class VehiculosController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        dd($data);
         $vehiculo = Vehiculo::create($data);
+
 
         return Response::json($vehiculo);
     }
