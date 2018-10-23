@@ -50,6 +50,7 @@ class VehiculosController extends Controller
     public function create()
     {
         $query = "SELECT * FROM marcas WHERE tipo_marca_id=".'1'." OR tipo_marca_id='2'";
+        
         $marcas = DB::select($query);
 
         $tipos_vehiculos = TipoVehiculo::all();
@@ -74,6 +75,7 @@ class VehiculosController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        
         $vehiculo = Vehiculo::create($data);
 
 
@@ -149,23 +151,38 @@ class VehiculosController extends Controller
     public function updateVehiculo(Vehiculo $vehiculo, array $data )
     {
         $id= $vehiculo->id;
-        $vehiculo->placa = $data["placa"];
-        $vehiculo->aceite_caja = $data["aceite_caja"];
-        $vehiculo->aceite_motor = $data["aceite_motor"];
-        $vehiculo->año = $data["año"];
-        $vehiculo->color = $data["color"];
-        $vehiculo->kilometraje = $data["kilometraje"];
-        $vehiculo->linea = $data['linea'];
-        $vehiculo->observaciones = $data['observaciones'];
+        $vehiculo->placa = $data["placa"];   
         $vehiculo->tipo_vehiculo_id = $data["tipo_vehiculo_id"];
-        $vehiculo->tipo_transmision_id = $data["tipo_transmision_id"];
         $vehiculo->marca_id = $data["marca_id"];
-        $vehiculo->cliente_id = $data["cliente_id"];
+        $vehiculo->linea_id = $data["linea_id"];
+        $vehiculo->kilometraje = $data["kilometraje"];
+        $vehiculo->anio = $data["anio"];
+        $vehiculo->color_id = $data["color_id"];
         $vehiculo->fecha_ultimo_servicio = $data["fecha_ultimo_servicio"];
-        $vehiculo->chasis = $data["chasis"];
         $vehiculo->vin = $data["vin"];
-        $vehiculo->save();
+        $vehiculo->cliente_id = $data["cliente_id"];
+        $vehiculo->direccion_id = $data["direccion_id"];
 
+        $vehiculo->transmision_id = $data["transmision_id"];
+        $vehiculo->traccion_id = $data["traccion_id"];
+        $vehiculo->diferenciales = $data["diferenciales"];
+        $vehiculo->tipo_caja_id = $data["tipo_caja_id"];
+        $vehiculo->aceite_caja_fabrica = $data["aceite_caja_fabrica"];
+        $vehiculo->aceite_caja = $data["aceite_caja"];
+        $vehiculo->cantidad_aceite_caja = $data["cantidad_aceite_caja"];
+        $vehiculo->viscosidad_caja = $data["viscosidad_caja"];
+
+
+        $vehiculo->combustible_id = $data["combustible_id"];
+        $vehiculo->no_motor = $data["no_motor"];
+        $vehiculo->ccs = $data["ccs"];
+        $vehiculo->cilindros = $data["cilindros"];
+        $vehiculo->aceite_motor_fabrica = $data["aceite_motor_fabrica"];
+        $vehiculo->aceite_motor = $data["aceite_motor"];
+        $vehiculo->cantidad_aceite_motor = $data["cantidad_aceite_motor"];
+        $vehiculo->viscosidad_motor = $data["viscosidad_motor"];
+        $vehiculo->observaciones = $data["observaciones"];
+        $vehiculo->save();
         return $vehiculo;
     }
 
@@ -212,7 +229,9 @@ class VehiculosController extends Controller
         $api_logsQueriable = DB::table('vehiculos');
         $api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-        $query = "SELECT * FROM vehiculos";
+        $query = "SELECT V.id AS id, V.placa, V.aceite_caja, V.aceite_motor, V.fecha_ultimo_servicio, V.kilometraje, TV.nombre as tipo_vehiculo 
+                    from vehiculos V
+                    inner Join tipos_vehiculo TV on TV.id = V.tipo_vehiculo_id";
 
         $where = "";
 

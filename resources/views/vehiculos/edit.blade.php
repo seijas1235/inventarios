@@ -191,7 +191,8 @@
             </div>
             <div class="col-sm-3">
                 {!! Form::label("aceite_caja","Aceite De Caja:") !!}
-                <input type="text" name="aceite_caja" id="aceite_caja" class='form-control disabled' placeholder="Viscosidad">
+                {!! Form::text( "aceite_caja" , null , ['class' => 'form-control' , 'id'=>'aceite_caja','placeholder' => 'Aceite de caja' ]) !!}
+  
                 
             </div>
             <div class="col-sm-3">
@@ -279,7 +280,7 @@
         <br>
         <div class="text-right m-t-15">
             <a class='btn btn-primary form-gradient-color form-button' href="{{ url('/vehiculos') }}">Regresar</a>
-            {!! Form::input('submit', 'submit', 'Guardar', ['class' => 'btn btn-primary form-gradient-color form-button', 'id'=>'ButtonVehiculo']) !!}
+            {!! Form::input('submit', 'submit', 'Editar', ['class' => 'btn btn-primary form-gradient-color form-button', 'id'=>'ButtonUpdateVehiculo']) !!}
         </div>
         <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
     </br>

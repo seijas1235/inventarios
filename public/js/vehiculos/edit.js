@@ -41,7 +41,7 @@ $.validator.addMethod("placa", function(value, element){
 }, "Verfique, placa incorrecta o incompleta");
 
 
-var validator = $("#VehiculoForm").validate({
+var validator = $("#VehiculoUpdateForm").validate({
 	ignore: [],
 	onkeyup:false,
 	rules: {
