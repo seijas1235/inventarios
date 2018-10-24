@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
 Use App\CuentasPorCobrar;
+Use App\CuentaPorCobrarDetalle;
 Use App\Venta;
 Use App\Cliente;
 
@@ -63,19 +64,22 @@ class CuentasPorCobrarController extends Controller
         $data = $request->all();
 
         $cuentasporcobrar = CuentasPorCobrar::where('cliente_id',$data["cliente_id"])->first();
+        $cuenta_id=$cuentasporcobrar["id"];
+        $detalle = array(
+            
+            'num_factura' => '',
+            'cuentas_por_cobrar_id' => $cuenta_id,
+            'fecha' => Carbon::now(),
+            'descripcion' => 'Nota de Credito',
+            'cargos' => 0,	
+            'abonos' => $data["total"],
+            'saldo' => $cuentasporcobrar->total - $data["total"]
+        );					
 
-            $detalle = array(
-                'num_factura' => '',
-                'fecha' => Carbon::now(),
-                'descripcion' => 'Nota de Credito',
-                'cargos' => 0,	
-                'abonos' => $data["total"],
-                'saldo' => $cuentasporcobrar->total - $data["total"]
-            );					
-
-            $cuentasporcobrar->cuentas_por_cobrar_detalle()->create($detalle);
-            $newtotal = $detalle['saldo'];
-            $cuentasporcobrar->update(['total' => $newtotal]);        
+        $cuenta2 = new CuentaPorCobrarDetalle;
+        $cuenta2->create($detalle);
+        $newtotal = $detalle['saldo'];
+        $cuentasporcobrar->update(['total' => $newtotal]);        
 
 		return Response::json($cuentasporcobrar);
     }
@@ -85,19 +89,21 @@ class CuentasPorCobrarController extends Controller
 		$data = $request->all();
 
         $cuentasporcobrar = CuentasPorCobrar::where('cliente_id',$data["cliente_id"])->first();
-
-            $detalle = array(
-                'num_factura' => '',
-                'fecha' => Carbon::now(),
-                'descripcion' => 'Nota de Debito',
-                'cargos' => $data["total"],	
-                'abonos' => 0,
-                'saldo' => $cuentasporcobrar->total + $data["total"]
-            );					
-
-            $cuentasporcobrar->cuentas_por_cobrar_detalle()->create($detalle);
-            $newtotal = $detalle['saldo'];
-            $cuentasporcobrar->update(['total' => $newtotal]);        
+        $cuenta_id=$cuentasporcobrar["id"];
+        
+        $detalle = array(
+            'num_factura' => '',
+            'cuentas_por_cobrar_id' => $cuenta_id,
+            'fecha' => Carbon::now(),
+            'descripcion' => 'Nota de Debito',
+            'cargos' => $data["total"],	
+            'abonos' => 0,
+            'saldo' => $cuentasporcobrar->total + $data["total"]
+        );					
+        $cuenta2 = new CuentaPorCobrarDetalle;
+        $cuenta2->create($detalle);
+        $newtotal = $detalle['saldo'];
+        $cuentasporcobrar->update(['total' => $newtotal]);        
 
 		return Response::json($cuentasporcobrar);
 	}
