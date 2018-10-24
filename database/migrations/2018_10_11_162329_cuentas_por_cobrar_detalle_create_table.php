@@ -14,8 +14,8 @@ class CuentasPorCobrarDetalleCreateTable extends Migration
     {
         Schema::create('cuentas_por_cobrar_detalle', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('venta_id');
-            $table->unsignedInteger('cuentas_por_cobrar_id');
+            $table->unsignedInteger('venta_id')->nullable();
+            $table->unsignedInteger('cuentas_por_cobrar_id')->nullable();
             $table->string('num_factura') ->nullable();
             $table->text('descripcion')->nullable();
             $table->date('fecha')->nullable();
