@@ -64,10 +64,11 @@ $(document).on("keypress", '#ButtonServicio', function (e) {
 $('body').on('click', '#addMaquinaria', function(e) {
 
     var detalle = new Object();
-	var costo_maquinaria = $("input[name='costo_maquinaria'] ").val();
+    var costo_maquinaria = $("input[name='costo_maquinaria'] ").val();
+    var maquinaria_equipo_id  = $("#maquinaria_equipo_id").val();
 	var cantidad = $("input[name='cantidad_maquina'] ").val();
     var subtotal = parseFloat(cantidad) * parseFloat(costo_maquinaria);
-    var unidad =  $("#unidad_de_medida_id2").find("option:selected").text();
+    var unidad =  $("#unidad_de_medida_id2").val();
 
     if (cantidad != "" && maquinaria_equipo_id != "" && costo_maquinaria != "" && unidad != "")
     {
@@ -91,12 +92,12 @@ $('body').on('click', '#addMaquinaria', function(e) {
         }
 
         db.links.push(detalle);
-        $("input[name='maquinaria_equipo_id'] ").val("");
+        $('#maquinaria_equipo_id').val('');
+        $('#maquinaria_equipo_id').change();
+        $('#unidad_de_medida_id2').val('');
+        $('#unidad_de_medida_id2').change();
 		$("input[name='costo_maquinaria'] ").val("");
 		$("input[name='cantidad_maquina'] ").val("");
-        $('#maquinaria_equipo_id option').prop('selected', function() {
-            return this.defaultSelected;
-        });
         var precio = $("input[name='costo_maquinaria'] ").val();
         var subtotal = precio;
         $("input[name='subtotal'] ").val(subtotal);
@@ -114,10 +115,11 @@ $('body').on('click', '#addProducto', function(e) {
 
     var detalle = new Object();
 	var costo_producto = $("input[name='costo_producto'] ").val();
-	var cantidad = $("input[name='cantidad'] ").val();
+    var cantidad = $("input[name='cantidad'] ").val();
+    var producto_id  = $("#producto_id").val();
 	//var unidad_cantidad = $("input[name='unidad_cantidad'] ").val();
 	var subtotal = parseFloat(cantidad) * parseFloat(costo_producto);
-	var unidad = $("#unidad_de_medida_id").find("option:selected").text();
+	var unidad = $("#unidad_de_medida_id").val();
     
 
     if (cantidad != "" && producto_id != "" && costo_producto != "" && unidad != "")
@@ -142,7 +144,11 @@ $('body').on('click', '#addProducto', function(e) {
         }
 
         db.links.push(detalle);
-        $("input[name='producto_id'] ").val("");
+        //$("input[name='producto_id'] ").val("");
+        $('#producto_id').val('');
+        $('#producto_id').change();
+        $('#unidad_de_medida_id').val('');
+        $('#unidad_de_medida_id').change();
 		$("input[name='costo_producto'] ").val("");
 		$("input[name='cantidad'] ").val("");
         $('#producto_id option').removeAttr('selected');

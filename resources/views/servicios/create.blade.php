@@ -15,6 +15,7 @@
 				<div class="col-sm-2">
 					{!! Form::label("tipo_servicio_id","Tipo de Servicio:") !!}
 					<select class="selectpicker" id='tipo_servicio_id' name="tipo_servicio_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+						<option disabled selected>Selecciona</option>
 						@foreach ($tipos_servicio as $tipo_servicio)
 						<option value="{{$tipo_servicio->id}}">{{$tipo_servicio->nombre}}</option>							
 						@endforeach
@@ -58,6 +59,7 @@
 				</div>
 				<div class="col-sm-3">
 					<select class="selectpicker" id='unidad_de_medida_id' name="unidad_de_medida_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+						<option value="" selected>Selecciona</option>
 						@foreach ($unidades_de_medida as $unidad_de_medida)
 						<option value="{{$unidad_de_medida->id}}">{{$unidad_de_medida->descripcion}}</option>							
 						@endforeach
@@ -65,6 +67,7 @@
 				</div>
 				<div class="col-sm-3">
 					<select class="selectpicker" id='producto_id' name="producto_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+						<option value="" selected>Selecciona</option>
 						@foreach ($productos as $producto)
 						<option value="{{$producto->id}}">{{$producto->nombre}}</option>							
 						@endforeach
@@ -91,6 +94,7 @@
 				</div>
 				<div class="col-sm-3">
 					<select class="selectpicker" id='unidad_de_medida_id2' name="unidad_de_medida_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+						<option value="" selected>Selecciona</option>
 						@foreach ($unidades_de_medida as $unidad_de_medida)
 						<option value="{{$unidad_de_medida->id}}">{{$unidad_de_medida->descripcion}}</option>							
 						@endforeach
@@ -98,6 +102,7 @@
 				</div>
 				<div class="col-sm-3">
 					<select class="selectpicker" id='maquinaria_equipo_id' name="maquinaria_equipo_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+						<option value="" selected>Selecciona</option>
 						@foreach ($maquinarias as $maquinaria)
 						<option value="{{$maquinaria->id}}">{{$maquinaria->nombre_maquina}}</option>							
 						@endforeach
