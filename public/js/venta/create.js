@@ -424,6 +424,7 @@ $('body').on('click', '#addDetalleServicio', function(e)
         var venta_maestro = $("input[name='venta_maestro'] ").val();
         var cliente_id = $("#cliente_id").val();
         var formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id, cliente_id : cliente_id} 
+        
         if(tipo_pago_id==3){
             var fecha_venta= $("input[name='fecha_venta'] ").val();
             formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id, cliente_id : cliente_id,venta_maestro_id: venta_maestro,fecha_venta: fecha_venta}

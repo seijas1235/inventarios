@@ -10,7 +10,7 @@ class CuentaPorCobrarDetalle extends Model
 
     protected $fillable=[
         'id',
-        'cuenta_por_cobrar_id',
+        'cuentas_por_cobrar_id',
         'venta_id',
         'fecha',
         'num_factura',

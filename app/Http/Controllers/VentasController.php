@@ -13,7 +13,7 @@ use App\VentaDetalle;
 use App\Servicio;
 use App\Cliente;
 use App\CuentasPorCobrar;
-use App\CuentasPorCobrarDetalle;
+use App\CuentaPorCobrarDetalle;
 use App\MovimientoProducto;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
@@ -72,50 +72,54 @@ class VentasController extends Controller
 	public function ccobrar(Request $request){
 		$data = $request->all();
 		$maestro = $data["venta_maestro_id"];
-		if($request["tipo_pago_id"] == 3){
 
-			$existeCuentaCliente = CuentasPorCobrar::where('cliente_id',$request["cliente_id"])->first();
+		$existeCuentaCliente = CuentasPorCobrar::where('cliente_id',$request["cliente_id"])->first();
+		
+		$cuenta_id=$existeCuentaCliente["id"];
+		
+		if($existeCuentaCliente){
 
-			if($existeCuentaCliente){
-
-				$detalle = array(
-					'venta_id' => $maestro,
-					'num_factura' => $request["num_factura"],
-					'fecha' => $data["fecha_venta"],
-					'descripcion' => 'Venta',
-					'cargos' => $request["total_venta"],	
-					'abonos' => 0,
-					'saldo' => $existeCuentaCliente->total + $request["total_venta"]
-				);					
-
-				$existeCuentaCliente->cuentas_por_cobrar_detalle()->create($detalle);
-
-				//$total = $existeCuentaCliente->total;
-				//$newtotal = $total + $request["total_factura"];
-				$newtotal = $detalle['saldo'];
-				$existeCuentaCliente->update(['total' => $newtotal]);
-			}
-
-			else{
-				$cuenta = new CuentasPorCobrar;
-				$cuenta->total = $request["total_venta"];
-				$cuenta->cliente_id = $request["cliente_id"];
-				$cuenta->save();
-
-				$detalle = array(
-					'venta_id' => $maestro->id,
-					'num_factura' => $request["num_factura"],
-					'fecha' => $data["fecha_venta"],
-					'descripcion' => 'Venta',
-					'cargos' => $request["total_venta"],	
-					'abonos' => 0,
-					'saldo' => $request["total_venta"]
-				);							
-
-				$cuenta->cuentas_por_cobrar_detalle()->create($detalle);
-			}
-			
+			$detalle1 = array(
+				
+				'venta_id' => $maestro,
+				'cuentas_por_cobrar_id' => $cuenta_id,
+				'num_factura' => $request["num_factura"],
+				'fecha' => $data["fecha_venta"],
+				'descripcion' => 'Venta',
+				'cargos' => $request["total_venta"],	
+				'abonos' => 0,
+				'saldo' => $existeCuentaCliente->total + $request["total_venta"]
+			);					
+			$cuenta3 = new CuentaPorCobrarDetalle;	
+			$cuenta3->create($detalle1);
+			$newtotal = $detalle1['saldo'];
+			$existeCuentaCliente->update(['total' => $newtotal]);
+			return Response::json($detalle1);
 		}
+
+		else{
+			$cuenta = new CuentasPorCobrar;
+			$cuenta->total = $request["total_venta"];
+			$cuenta->cliente_id = $request["cliente_id"];
+			$cuenta->save();
+			$cuenta_id=$cuenta["id"];
+					
+			$detalle = array(
+				'venta_id'=>$maestro,
+				'cuentas_por_cobrar_id'=>$cuenta_id,
+				'num_factura'=> $request["num_factura"],
+				'fecha'=>$request["fecha_venta"],
+				'descripcion'=> 'Venta',
+				'cargos'=>$request["total_venta"],	
+				'abonos'=> 0,
+				'saldo'=>$request["total_venta"]
+			);							
+			$cuenta2 = new CuentaPorCobrarDetalle;
+			$cuenta2->create($detalle);
+			return Response::json($cuenta2);
+		}
+		
+	
 	}
 
 	public function saveDetalle(Request $request, Venta $venta_maestro)
@@ -153,6 +157,7 @@ class VentasController extends Controller
 			}
 			
 		}
+		
 		return Response::json($result);
 	}
 
@@ -195,9 +200,11 @@ class VentasController extends Controller
 	
 	public function updateTotal(Venta $venta_maestro, Request $request)
 	{
+	
 		$data = $request->all();
 		$venta_maestro->tipo_pago_id = $data["tipo_pago_id"];
 		$venta_maestro->save();
+		
 		return $venta_maestro;
 		
 	}
