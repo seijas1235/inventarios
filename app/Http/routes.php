@@ -332,6 +332,15 @@ Route::group(['middleware' => ['web']], function ()
 		//Route::get('/ordenes_de_trabajo/pdf/{orden_de_trabajo}' , 'PdfController@getDataOrdenTrabajo');
 
 
+		Route::get('/cajas_chicas', 'CajasChicasController@index');
+		Route::get('/cajas_chicas/getJson/' , 'CajasChicasController@getJson');
+		Route::get('/cajas_chicas/new/egreso' , 'CajasChicasController@newegreso');
+		Route::get('/cajas_chicas/new/ingreso' , 'CajasChicasController@newingreso');
+		Route::post('/cajas_chicas/save/egreso' , 'CajasChicasController@saveegreso');
+		Route::post('/cajas_chicas/save/ingreso' , 'CajasChicasController@saveingreso');
+		Route::get( '/caja_chica/saldo' , 'CajasChicasController@getSaldo');
+
+
 		
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
 
