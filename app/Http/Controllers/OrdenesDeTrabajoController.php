@@ -17,11 +17,18 @@ Use App\OrdenDeTrabajo;
 Use App\TipoCliente;
 Use App\TipoVehiculo;
 Use App\Marca;
-use App\TipoTransmision;
 Use App\ComponentesAccesorios;
 Use App\Servicio;
 Use App\Golpe;
 Use App\Rayon;
+Use App\ClasificacionCliente;
+use App\Transmision;
+use App\Traccion;
+use App\Tipo_caja;
+use App\Combustible;
+use App\Direccion;
+use App\Linea;
+use App\Color;
 
 class OrdenesDeTrabajoController extends Controller
 {
@@ -35,12 +42,20 @@ class OrdenesDeTrabajoController extends Controller
         $query = "SELECT * FROM marcas WHERE tipo_marca_id=".'1'." OR tipo_marca_id='2'";
         $marcas = DB::select($query);
 
-        $clientes = Cliente::All();
-        $vehiculos = Vehiculo::All();
+        $tipos_transmision = Transmision::all();
+        $lineas= Linea::all();
+        $colores= Color::all();
+        $direcciones= Direccion::all();
+        $tipos_caja= Tipo_caja::all();
+        $combustibles= Combustible::all();
+        $tracciones= Traccion::all();
+
+        $clientes = Cliente::all();
+        $vehiculos = Vehiculo::all();
         $tipos_clientes = TipoCliente::all();
         $tipos_vehiculos = TipoVehiculo::all();
-        $tipos_transmision = TipoTransmision::all();
-		return view("ordenes_de_trabajo.create" , compact('clientes', 'vehiculos', 'tipos_clientes', 'tipos_vehiculos', 'marcas', 'tipos_transmision'));
+        $clasificaciones = ClasificacionCliente::all();
+		return view("ordenes_de_trabajo.create" , compact('clientes', 'vehiculos', 'tipos_clientes', 'tipos_vehiculos', 'marcas', 'clasificaciones', 'tipos_transmision', 'lineas', 'colores', 'direcciones', 'tipos_caja', 'combustibles', 'tracciones'));
     }
 
     public function create2(OrdenDeTrabajo $orden_de_trabajo)
