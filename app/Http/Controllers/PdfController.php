@@ -1638,11 +1638,22 @@ WHERE month(fecha_corte) = ".$mes." AND year(fecha_corte) = ".$anio." ORDER BY f
     public function getDataOrdenTrabajo($id) 
     {
         $query = "SELECT ot.id, ot.resp_recepcion, ot.fecha_hora, ot.fecha_prometida, ot.total, CONCAT(c.nombres,' ', c.apellidos) as nombrecliente, 
-        v.linea, v.color, v.`año`, v.chasis, v.placa, v.kilometraje, m.nombre as marca, c.email, c.nit, c.telefonos  
+        l.linea , col.color, v.anio as año, v.no_motor as chasis, v.placa, v.kilometraje, m.nombre as marca, d.tipo_direccion,
+        t.transmision, tra.traccion, v.diferenciales, tc.tipo_caja, v.aceite_caja_fabrica, v.aceite_caja, v.cantidad_aceite_caja,
+        v.viscosidad_caja, com.combustible, v.ccs, v.cilindros, v.aceite_motor_fabrica, v.aceite_motor, v.cantidad_aceite_motor,
+        v.viscosidad_motor,v.vin, v.fecha_ultimo_servicio, tv.nombre as tipo_vehiculo, c.email, c.nit, c.telefonos  
         FROM ordenes_de_trabajo ot 
         INNER JOIN clientes c on c.id = ot.cliente_id
         INNER JOIN vehiculos v on v.id = ot.vehiculo_id
         INNER JOIN marcas m on m.id = v.marca_id
+        INNER JOIN linea l on l.id = v.linea_id
+        INNER JOIN colores col on col.id = v.color_id
+        INNER JOIN direccion d on d.id = v.direccion_id
+        INNER JOIN transmision t on t.id = v.transmision_id
+        INNER JOIN  tracciones tra on tra.id = v.traccion_id
+        INNER JOIN tipos_caja tc on tc.id = v.tipo_caja_id
+        INNER JOIN combustible com on com.id = v.combustible_id
+        INNER JOIN tipos_vehiculo tv on tv.id = v.tipo_vehiculo_id
         WHERE ot.id =".$id.'';
         $data = DB::select($query);
         return $data;

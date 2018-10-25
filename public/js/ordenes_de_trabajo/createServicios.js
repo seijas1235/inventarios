@@ -70,13 +70,12 @@ $('body').on('click', '#addDetalle', function(e) {
         }
 
         db.links.push(detalle);
-        $("input[name='servicio_id'] ").val("");
+        //$("input[name='servicio_id'] ").val("");
         $("input[name='nombre'] ").val("");
         $("input[name='precio'] ").val("");
         $("input[name='mano_obra'] ").val("");
-        $('#servicio_id option').prop('selected', function() {
-            return this.defaultSelected;
-        });
+        $('#servicio_id').val('');
+        $('#servicio_id').change();
         var precio = $("input[name='precio'] ").val();
         var subtotal = precio;
         $("input[name='subtotal'] ").val(subtotal);

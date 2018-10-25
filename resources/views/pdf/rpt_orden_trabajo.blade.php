@@ -71,7 +71,7 @@
         </tr>
     
         <tr>
-          <td><center>  <h5>Orden de Trabajo</h5> <p>
+          <td><center><h5>Orden de Trabajo</h5> <p>
           Recepcion de vehiculos/ mecánica automotriz </center>
           </td> 
         </tr>
@@ -107,67 +107,86 @@
     </div>
   </div>
   <br>
+  <div class="row" style="padding-bottom:0.3cm">
+    <table border="1" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+        <td colspan="12" align="center" style="border: 3px solid"> <b>Datos del Cliente</b> </td>
+        </tr>
+        <tr>
+          <td colspan="6">Nombre: {{$item->nombrecliente}} </td>
+          <td colspan="6">e-mail: {{$item->email}} </td>
+        </tr>
+        <tr>
+          <td colspan="6">Nit: {{$item->nit}} </td>
+          <td colspan="6">Teléfono: {{$item->telefonos}} </td>
+        </tr>
+    </table>
+  </div>
   <div class="row">
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">      
-      <tbody>
+      
+    <table border="1" cellpadding="0" cellspacing="0" width="100%">      
         <tr>
-          <td style="width: 50%; vertical-align: top;">
-            <table border="1" cellpadding="0" cellspacing="0" width="100%">
-
-              <tbody>
-                <tr>
-                <td colspan="4" align="center" style="border: 3px solid"> <b>Datos del Cliente</b> </td>
-                </tr>
-                <tr>
-                  <td colspan="4">Nombre: {{$item->nombrecliente}} </td>
-                </tr>
-                <tr>
-                  <td colspan="4">e-mail: {{$item->email}} </td>
-                </tr>
-                <tr>
-                  <td colspan="2">Nit: {{$item->nit}} </td>
-                  <td colspan="2">Teléfono: {{$item->telefonos}} </td>
-                </tr>
-              </tbody>
-
-            </table>
-          </td>
-        <td style="width: 50%; vertical-align: top;">
-
-        <table border="1" cellpadding="0" cellspacing="0" width="100%">         
-        <tbody>
-
-        <tr>
-        <td colspan="4" align="center" style="border: 3px solid"> <b> Datos del vehiculo</b></td>
-        </tr>
-        <tr>
-          <td colspan="2">Marca: {{$item->marca}}</td>
-          <td colspan="2">Linea: {{$item->linea}}</td>
-        </tr>
-        <tr>
-          <td colspan="2">Color: {{$item->color}}</td>
-          <td colspan="2">Año: {{$item->año}}</td>
-        </tr>
-        <tr>
-          <td colspan="2">Placa: {{$item->placa}}</td>
-          <td colspan="2">Chasis: {{$item->chasis}}</td>
-        </tr>
-        <tr>
-          <td colspan="4">Kilometraje: {{$item->kilometraje}}</td>
+        <td colspan="12" align="center" style="border: 3px solid"> <b> Datos del vehiculo</b></td>
         </tr>
 
-        </tbody>
-
-        </table>
-
-        </td>
+        <tr>
+          <td colspan="3">Marca: {{$item->marca}}</td>
+          <td colspan="3">Linea: {{$item->linea}}</td>
+          <td colspan="3">Color: {{$item->color}}</td>
+          <td colspan="3">Año: {{$item->año}}</td>
         </tr>
-      </tbody>
+
+        <tr>
+          <td colspan="3">Tipo de vehiculo: {{$item->tipo_vehiculo}}</td>
+          <td colspan="3">Placa: {{$item->placa}}</td>
+          <td colspan="3">Kilometraje: {{$item->kilometraje}}</td>
+          <td colspan="3">Fecha ultimo servicio: {{$item->fecha_ultimo_servicio}}</td>
+        </tr>
+        <tr>
+          <td colspan="6">VIN: {{$item->vin}}</td>
+          <td colspan="6">Tipo de direccion: {{$item->tipo_direccion}}</td>
+        </tr>
+        <tr>
+          <td colspan="6" align="center" style="border: 3px solid"> <b> Transmision</b></td>
+          <td colspan="6" align="center" style="border: 3px solid"> <b> Motor</b></td>
+        </tr>
+        <tr>
+            <td colspan="3">Tipo de transmision: {{$item->transmision}}</td>
+            <td colspan="3">Tipo de traccion: {{$item->traccion}}</td>
+
+            <td colspan="3">Combustible: {{$item->combustible}}</td>
+            <td colspan="3">No. Motor: {{$item->chasis}}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">Diferenciales: {{$item->diferenciales}}</td>
+            <td colspan="3">Tipo de caja: {{$item->tipo_caja}}</td>
+
+            <td colspan="3">CC's: {{$item->ccs}}</td>
+            <td colspan="3">Cilindros: {{$item->cilindros}}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">Aceite de caja de fabrica: {{$item->aceite_caja_fabrica}}</td>
+            <td colspan="3">Aceite de caja: {{$item->aceite_caja}}</td>
+
+            <td colspan="3">Aceite de motor de fabrica: {{$item->aceite_motor_fabrica}}</td>
+            <td colspan="3">Aceite de motor que utiliza: {{$item->aceite_motor}}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">Cantidad: {{$item->cantidad_aceite_caja}}</td>
+            <td colspan="3">Viscosidad: {{$item->viscosidad_caja}}</td>
+
+            <td colspan="3">Cantidad: {{$item->cantidad_aceite_motor}}</td>
+            <td colspan="3">Viscosidad: {{$item->viscosidad_motor}}</td>
+        </tr>
+
     </table>
   </div>
   <br>
   @endforeach
-
+  <!-- Componentes/accesorios -->
   <div class="row" style="padding-bottom:0.2cm; padding-right:0">
   <div class="col-xs-6" style="margin-left:-15px">
     <table border="1" width="100%">
@@ -245,15 +264,20 @@
         <div class="circulo {{$componente->combustible ==8 ? '': 'hidden'}}" style="top:97px; left:317px"></div>   
         @endforeach
       
-          <div class="circulo-2" style="top:157px; left:90px"> </div>
+         <!-- <div class="circulo-2" style="top:157px; left:90px"> </div>
 
           <div class="circulo-3" style="top:179px; left:150px"></div>
 
          <div>Rayones =</div> 
-         <div>Golpes y abollenes =</div>
+         <div>Golpes y abollenes =</div> -->
     </div>
   </div>
+  <div class="row" style="padding:0.5cm">
+  <br>
+  </div>
   <!-- rayones y golpes -->
+  <div class="row" style="padding:0.5cm"><center><b><h3>Rayones, golpes y abollones</h3></b></center></div>
+  
   <div class="row">
     <div class="col-xs-3" style="padding:0">
         <!-- imagen frente 1 -->
@@ -362,15 +386,32 @@
     </div>
 
   </div>
+
   <div class="row" style="padding-bottom:0.2cm">
+    <div class="circulo-2" style="top:162px; left:80px"> </div>
+
+    <div class="circulo-3" style="top:166px; left:292px"></div>
+
+    <div class="col-xs-2">Rayones =</div> 
+    <div class="col-xs-3">Golpes y abollenes =</div>
+    <div class="col-xs-7"></div>
+  </div>
+
+  <div class="row" style="padding-bottom:0.3cm">
     @foreach ($rayones as $rayon)
       <table border="1" width="100%">
         <tr>
           <td style="border: 3px solid"> <b>Observaciones</b> </td>
         </tr>
+        @if($rayon->descripcion)
         <tr>
           <td>{{$rayon->descripcion}}</td>
         </tr>
+        @else
+        <tr>
+          <td>No hay observaciones</td>
+        </tr>
+        @endif
       </table> 
     @endforeach
     
