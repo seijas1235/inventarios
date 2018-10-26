@@ -11,55 +11,24 @@ class IngresoProducto extends Model
 	protected $fillable=[
 	'id',
 	'producto_id',
-	'cantidad_ingreso',
+	'cantidad',
 	'fecha_ingreso',
 	'user_id',
-	'edo_ingreso_id',
-	'serie_factura',
-	'num_factura',
-	'fecha_factura',
-	'proveedor_id'
+	'precio_venta',
+	'movimiento_producto_id',
+	'precio_compra'
 	];
 
 	public function producto(){
-		return $this->belongsTo('App\Producto');
+		return $this->belongsTo(Producto::class);
 	}
 
 	public function user(){
-		return $this->belongsTo('App\User');
+		return $this->belongsTo(User::class);
 	}
 
-	public function estadoingreso(){
-		return $this->belongsTo('App\EstadoIngreso');
+	public function movimiento_producto(){
+		return $this->belongsTo(MovimientoProducto::class);
 	}
 
-	public function proveedor(){
-		return $this->belongsTo('App\Proveedor');
-	}
-
-	public function getFechaFacturaAttribute ($value) 
-	{
-		if ( $value != NULL )
-		{
-			return Carbon::parse($value)->format('d-m-Y');
-		}
-		else 
-		{
-			$value = "";
-			return $value;
-		}
-	}
-
-		public function getFechaIngresoAttribute ($value) 
-	{
-		if ( $value != NULL )
-		{
-			return Carbon::parse($value)->format('d-m-Y');
-		}
-		else 
-		{
-			$value = "";
-			return $value;
-		}
-	}
 }

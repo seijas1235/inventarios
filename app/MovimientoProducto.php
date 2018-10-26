@@ -38,4 +38,8 @@ class MovimientoProducto extends Model
         return $this->hasMany(SalidaProducto::class);
     }
 
+    public function ingresos_productos(){
+        return $this->hasMany(IngresoProducto::class);
+    }
+
 }

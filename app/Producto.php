@@ -34,4 +34,8 @@ class Producto extends Model
         return $this->hasMany(DetalleServicio::class);
     }
 
+    public function ingresos_productos(){
+        return $this->hasMany(IngresoProducto::class);
+    }
+
 }

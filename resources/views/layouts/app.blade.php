@@ -202,6 +202,16 @@
 			</li>
 
 			@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
+			<li class="submenu"> <a href="#"><i class="fa fa-cogs"></i> <span>Ajustes</span> <span class="label label-important"></span></a>
+				@endif
+				<ul>
+					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
+					<li><a href="/ingresos_productos"><i class="icon icon-th"></i> <span>Ingreso Producto</span></a></li>
+					@endif
+				</ul>
+			</li>
+
+			@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
 			<li class="submenu {{request()->is('tipos_cliente*', 'clientes*','maquinarias_equipo*' ,'tipos_vehiculo*','marcas*','vehiculos*','puestos*', 'empleados*','proveedores*')? 'open active': ''}}">
 				<a href="#"><i class="icon icon-file"></i> <span>Catálogos Generales</span> <span class="label label-important"></span></a>
 				@endif
