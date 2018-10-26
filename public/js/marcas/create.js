@@ -53,7 +53,7 @@ function saveContact(button) {
 	var formData = $("#MarcaForm").serialize();
 	$.ajax({
 		type: "POST",
-		headers: {'X-CSRF-TOKEN': $('#token').val()},
+		headers: {'X-CSRF-TOKEN': $('#tokenMarca').val()},
 		url: "/marcas/save",
 		data: formData,
 		dataType: "json",

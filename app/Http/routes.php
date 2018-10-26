@@ -343,22 +343,10 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get( '/ingresos_productos' , 'IngresosProductoController@index' );
         Route::get( '/ingresos_productos/getJson' , 'IngresosProductoController@getJson' );
         Route::get( '/ingresos_productos/new' , 'IngresosProductoController@create' );
-        Route::get( '/ingresos_productos/save/' , 'IngresosProductoController@save');
-        Route::post( '/ingresos_productos-detalle/{ingreso_producto}' , 'IngresosProductoController@saveDetalle');
-        Route::patch( '/ingresos_productos/{ingreso_producto}/update' , 'IngresosProductoController@update' );
-        Route::resource("ingresos_productos", "IngresosProductoController");
-        Route::get('/ingresos_productos/name/{ingreso_producto}', 'IngresosProductoController@getName' );
-		Route::delete('/ingresos_productos/destroy/{ingreso_producto}' , 'IngresosProductoController@destroy' );
-		Route::get('/productos/get/', 'ProductosController@getInfo');
-		
-        Route::get('/detallesingresos_productos/{ingreso_producto}', 'IngresosProductoController@show');
-        Route::get( '/detallesingresos_productos/{ingreso_producto}/getJson' , 'IngresosProductoController@getJsonDetalle' );
-		Route::patch( '/detallesingresos_productos/{ingreso_producto}/update' , 'IngresosProductoController@update' );
-		Route::delete( '/detallesingresos_productos/destroy/{detalleingreso_producto}' , 'IngresosProductoController@destroyDetalle' );
-		Route::get('/detallesingresos_productos/name/{detalleingreso_producto}', 'IngresosProductoController@getDetalle');		
+        Route::post( '/ingresos_productos/save/' , 'IngresosProductoController@save');
+		Route::patch( '/ingresos_productos/{ingreso_producto}/update' , 'IngresosProductoController@update' );
 		Route::get('/ingresos_productos/edit/{ingreso_producto}', 'IngresosProductoController@edit');
-
-
+		Route::delete('/ingresos_productos/destroy/{ingreso_producto}' , 'IngresosProductoController@destroy' );
 		
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
 

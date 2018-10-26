@@ -4,58 +4,17 @@
 	<div class="container-custom">
 		<div class="row">
 			<div class="col-sm-12">
-				<h3 class="tittle-custom"> Creación de Compras </h3>
+				<h3 class="tittle-custom"> Creación de Ingreso </h3>
 				<line>
 				</div>
 		</div>
 			<br>
 			<div class="row">
-				<div class="col-sm-3">
-					{!! Form::label("edo_ingreso_id","Estado:") !!}
-					{!! Form::text( "edo_ingreso_id" , "Activo", ['class' => 'form-control' , 'disabled' ]) !!}
-				</div>
-				<div class="col-sm-3">
-					{!! Form::label("fecha_ingreso","Fecha Compra:") !!}
-					{!! Form::date( "fecha_ingreso" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha', 'id' => 'fecha_ingreso' ]) !!}
-				</div>
-
-				<div class="col-sm-3">
-					{!! Form::label("tipo_pago_id","Tipo de pago:") !!}
-					<select class="selectpicker" id='tipo_pago_id' name="tipo_pago_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
-						@foreach ($tipos_pago as $tipo_pago)
-						<option value="{{$tipo_pago->id}}">{{$tipo_pago->tipo_pago}}</option>
-						@endforeach
-					</select>
+				<div class="col-sm-4">
+					{!! Form::hidden( "fecha_ingreso" ,\Carbon\Carbon::now()->format('d-m-y') , ['class' => 'form-control' , 'placeholder' => 'Fecha', 'id' => 'fecha_ingreso' ]) !!}
 				</div>
 			</div>	
 			<br>
-			<div class="row">
-				<div class="col-sm-3">
-					{!! Form::label("proveedor_id","Proveedor:") !!}
-					<select class="selectpicker" id='proveedor_id' name="proveedor_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
-						@foreach ($proveedores as $proveedor)
-						<option value="{{$proveedor->id}}">{{$proveedor->nombre}}</option>
-						@endforeach
-					</select>
-				</div>
-
-				<div class="col-sm-3">
-					{!! Form::label("fecha_factura","Fecha factura:") !!}
-					{!! Form::date( "fecha_factura" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha', 'id' => 'fecha_factura' ]) !!}
-				</div>
-
-				<div class="col-sm-3">
-					{!! Form::label("serie_factura","No. Serie:") !!}
-					{!! Form::text( "serie_factura" , null , ['class' => 'form-control' , 'placeholder' => 'No. Serie' ]) !!}
-				</div>
-
-				<div class="col-sm-3">
-					{!! Form::label("num_factura","No. Factura:") !!}
-					{!! Form::text( "num_factura" , null , ['class' => 'form-control' , 'placeholder' => 'No. Factura' ]) !!}
-				</div>	
-			</div>
-			<hr>
-
 			<div class="row">
 				<div class="col-sm-3">
 					{!! Form::label("codigo_barra","Codigo de Barra:") !!}
@@ -70,7 +29,7 @@
 				</div>
 
 				<div class="col-sm-2">
-					{!! Form::label("cantidad_ingreso","Cantidad:") !!}
+					{!! Form::label("cantidad","Cantidad:") !!}
 					{!! Form::text( "cantidad" , null , ['class' => 'form-control' , 'placeholder' => 'Cantidad' ]) !!}
 				</div>
 
@@ -88,42 +47,12 @@
 			<br>
 	
 				<div class="text-right m-t-15">
-					{!! Form::button('Agregar Nuevo Producto' , ['class' => 'btn btn-success' ,'id' => 'addDetalle', 'data-loading-text' => 'Processing...' ]) !!}
+					{!! Form::button('Agregar Producto' , ['class' => 'btn btn-success' ,'id' => 'addDetalle', 'data-loading-text' => 'Processing...' ]) !!}
 				</div>				
 			<br>
-			<hr>
-			<div class="row">
-					<div class="col-sm-3">
-						{!! Form::label("codigo_maquina","Codigo de Maquina:") !!}
-						{!! Form::hidden("maquinaria_equipo_id" , null , ['class' => 'form-control' , 'disabled']) !!}
-						{!! Form::hidden("subtotalmaquina" , null , ['class' => 'form-control' , 'disabled']) !!}
-						{!! Form::text( "codigo_maquina" , null , ['class' => 'form-control' , 'placeholder' => 'Codigo Maquina' ]) !!}
-					</div>
-	
-					<div class="col-sm-3">
-						{!! Form::label("nombre_maquina","Descripcion:") !!}
-						{!! Form::text( "nombre_maquina" , null , ['class' => 'form-control' , 'disabled','placeholder' => 'Descripcion de maquinaria' ]) !!}
-					</div>
-	
-					<div class="col-sm-2">
-						{!! Form::label("cantidad_ingreso","Cantidad:") !!}
-						{!! Form::text( "cantidad_maquina" , null , ['class' => 'form-control' , 'placeholder' => 'Cantidad' ]) !!}
-					</div>
-	
-					<div class="col-sm-2">
-						{!! Form::label("precio_compra_maquina","Precio Compra:") !!}
-						{!! Form::text( "precio_compra_maquina" , null , ['class' => 'form-control' , 'placeholder' => 'Precio Compra' ]) !!}
-					</div>
-	
-				</div>
-				<br>
-					<div class="text-right m-t-15">
-						{!! Form::button('Agregar Nueva maquina' , ['class' => 'btn btn-success' ,'id' => 'addDetalleMaquina', 'data-loading-text' => 'Processing...' ]) !!}
-					</div>
-				<br>
 				<hr>	
 
-			<div id="compradetalle-grid">
+			<div id="detalle-grid">
 
 			</div>
 			<br>
@@ -132,8 +61,8 @@
 				{!! Form::text( "total" , null, ['class' => 'form-control', 'id' => 'total', 'disabled']) !!}
 			</div>
 			<div class="text-right m-t-15">
-				<a class='btn btn-primary form-gradient-color form-button' href="{{ url('/compras') }}">Regresar</a>
-				{!! Form::submit('Agregar Nueva Compra' , ['class' => 'btn btn-success btn-submit-ingresoproducto', 'id' => 'ButtonDetalle', 'data-loading-text' => 'Processing...' ]) !!}
+				<a class='btn btn-primary form-gradient-color form-button' href="{{ url('/ingresos_productos') }}">Regresar</a>
+				{!! Form::submit('Guardar' , ['class' => 'btn btn-success btn-submit-ingresoproducto', 'id' => 'ButtonGuardar', 'data-loading-text' => 'Processing...' ]) !!}
 			</div>
 			<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
 		<br>
@@ -144,7 +73,6 @@
 
 @section('scripts')
 
-{!! HTML::script('/js/compras/create.js') !!}
-{!! HTML::script('/js/compras/grid.js') !!}
+{!! HTML::script('/js/ingresos_productos/create.js') !!}
 
 @endsection

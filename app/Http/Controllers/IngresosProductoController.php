@@ -36,9 +36,8 @@ class IngresosProductoController extends Controller
 
     public function index()
     {
-        $proveedores = Proveedor::all();
         $productos = Producto::all();
-        return view ("compras.index", compact('proveedores', 'productos'));
+        return view ("ingresos_productos.index", compact('productos'));
     }
 
     /**
@@ -48,54 +47,8 @@ class IngresosProductoController extends Controller
      */
     public function create()
     {
-		$proveedores = Proveedor::all();
 		$productos = Producto::all();
-		$maquinarias = MaquinariaEquipo::all();
-		$tipos_pago = TipoPago::all();
-		return view("compras.create" , compact("back","proveedores", "productos", "maquinarias","tipos_pago") );
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {/*
-        try{
-            DB:beginTransaction();
-
-            //Aqui Compra
-            $compra = new Compra();
-            $compra->fecha = $request->fecha;
-
-            //Aqui detalle
-
-            $detalles = $request->data;
-
-            foreach($detalles as $ep=>$det)
-            {
-                $detalle = new DetalleCompra();
-
-                $detalle->producto_id = $det['producto_id'];
-                $detalle->compra_id = $compra->id;
-                $detalle->cantidad = $det['cantidad'];
-                $detalle->precio_costo = $det['precio_costo'];
-                $detalle->subtotal = $det['subtotal'];
-                $detalle->maquinaria_equipo_id = $det['maquinaria_equipo_id'];
-                $detalle->save();
-            }
-
-            DB::commit();
-        }catch(Exception $e){
-            DB::rollBack();
-        }       
-
-        $data = $request->all();
-        $compra = compra::create($data);
-
-        return Response::json($compra);*/
+		return view("ingresos_productos.create" , compact("back","productos") );
     }
 
     /**
@@ -106,83 +59,39 @@ class IngresosProductoController extends Controller
      */
     public function save(Request $request)
 	{
+		try{
+			DB::beginTransaction();
 
-		$data = $request->all();
-		$data["user_id"] = Auth::user()->id;
-		//$data['fecha_factura'] = Carbon::createFromFormat('d/m/Y', $data['fecha_factura']);
-		$data["edo_ingreso_id"] = 1;
-		$data["tipo_pago_id"] = $request["tipo_pago_id"];
-		$maestro = Compra::create($data);
+			$statsArray = $request->all();
+			foreach($statsArray as $stat) {
 
-		return $maestro;
-	}
+			$ingreso_producto = new IngresoProducto();
 
-	public function saveDetalle(Request $request, Compra $compra)
-	{
-		$statsArray = $request->all();
-		foreach($statsArray as $stat) {
+			$ingreso_producto->fecha_ingreso = Carbon::now();
+			$ingreso_producto->producto_id = $stat["producto_id"];
+			$ingreso_producto->user_id = Auth::user()->id;
+			$ingreso_producto->precio_compra = $stat["precio_compra"];
+			$ingreso_producto->precio_venta = $stat["precio_venta"];
+			$ingreso_producto->cantidad = $stat["cantidad"];
 
-			if(empty($stat['producto_id'])){
-				$stat['user_id'] = Auth::user()->id;
-				$stat['maquinaria_equipo_id'] = $stat['maquinaria_equipo_id'];
-				$stat["precio_venta"] = 0;
-				$stat["subtotal"] = $stat["subtotal_venta"];
-				$stat['existencias'] = $stat["cantidad"];
-				$stat["precio_compra"] = $stat["precio_compra"];
-				$stat['fecha_ingreso'] = Carbon::now();
-			
-				$detalle = MovimientoProducto::create($stat);
-				$stat["movimiento_producto_id"] = $detalle->id;
-				$compra->detalles_compras()->create($stat);
-			}
+			$stat["existencias"] = $ingreso_producto->cantidad;
+			$stat["fecha_ingreso"] = $ingreso_producto->fecha_ingreso;
 
-			else{
-				$stat['user_id'] = Auth::user()->id;
-				$stat['producto_id'] = $stat['producto_id'];
-				$stat["precio_venta"] = $stat["precio_venta"];
-				$stat["subtotal"] = $stat["subtotal_venta"];
-				$stat['existencias'] = $stat["cantidad"];
-				$stat["precio_compra"] = $stat["precio_compra"];
-				$stat['fecha_ingreso'] = Carbon::now();
-			
-				$detalle = MovimientoProducto::create($stat);
-				$stat["movimiento_producto_id"] = $detalle->id;
-				$compra->detalles_compras()->create($stat);
-			}		
-			
+			$detalle = MovimientoProducto::create($stat);
+			$ingreso_producto->movimiento_producto_id = $detalle->id;
+			$ingreso_producto->save();			
 		}
+
+		DB::commit();
 		return Response::json(['result' => 'ok']);
+		
+		}
 
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
-
-
-	public function show(Compra $compra)
-	{
-		return view('compras.show')->with('compra', $compra);
-	}
-
-
-	public function getName(Compra $compra )
-	{
-		$date =Carbon::createFromFormat('Y-m-d H:i:s', $compra->fecha_factura)->format('d-m-Y');
-		$compra->fecha_factura = $date;
-		return Response::json($compra);
-	}
-
-	public function getDetalle( DetalleCompra $detallecompra)
-	{
-		$ingresoproducto = DetalleCompra::where( "detalles_compras.id" , "=" , $detallecompra->id )
-		->select( "existencias", "precio_compra", "precio_venta")
-		->get()
-		->first();
-		return Response::json( $ingresoproducto);
+		catch(Exception $e)
+		{
+            DB::rollBack();
+		}
+			
 	}
 
 	/**
@@ -191,13 +100,12 @@ class IngresosProductoController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit(Compra $compra)
+	public function edit(IngresoProducto $ingreso_producto)
 	{
-		$query = "SELECT * FROM compras WHERE id=".$compra->id."";
+		$query = "SELECT * FROM ingresos_productos WHERE id=".$ingreso_producto->id."";
 		$fieldsArray = DB::select($query);
 		
-		$proveedores = Proveedor::all();
-        return view ("compras.edit", compact('compra', 'fieldsArray','proveedores'));
+        return view ("ingresos_productos.edit", compact('ingreso_producto', 'fieldsArray'));
 	}
 
 	/**
@@ -209,27 +117,30 @@ class IngresosProductoController extends Controller
 	 */
 
 
-	public function update(Compra $compra, Request $request )
+	public function update(IngresoProducto $ingreso_producto, Request $request )
 	{
-		Response::json($this->updateIngresoProducto($compra , $request->all()));
-        return redirect('/compras');
-
-		//return Response::json( $this->updateIngresoProducto($compra, $request->all())); 
+		Response::json($this->updateIngresoProducto($ingreso_producto , $request->all()));
+        return redirect('/ingresos_productos');
 	}
 
 
 
-	public function updateIngresoProducto(Compra $compra, array $data )
+	public function updateIngresoProducto(IngresoProducto $ingreso_producto, array $data )
 	{
 
-		//$data['fecha_factura'] = Carbon::createFromFormat('d-m-Y', $data['fecha_factura']);
-		$compra->serie_factura = $data["serie_factura"];
-		$compra->num_factura = $data["num_factura"];
-		$compra->fecha_factura = $data["fecha_factura"];
-		$compra->proveedor_id = $data["proveedor_id"];
-		//$compra->tipo_pago_id = $data["tipo_pago_id"];
-		$compra->save();
-		return $compra;
+		$ingreso_producto->precio_compra = $data["precio_compra"];
+		$ingreso_producto->precio_venta = $data["precio_venta"];
+		$ingreso_producto->cantidad = $data["cantidad"];
+		$ingreso_producto->save();
+
+			$updateExistencia = MovimientoProducto::where('id', $ingreso_producto->movimiento_producto_id)
+			->update(
+				['existencias' => $data["cantidad"],
+				 'precio_compra' => $data["precio_compra"],
+				 'precio_venta' => $data["precio_venta"]
+				]);
+
+		return $ingreso_producto;
 	}
 
 	/**
@@ -238,7 +149,7 @@ class IngresosProductoController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy( Compra $compra,  Request $request)
+	public function destroy( IngresoProducto $ingreso_producto,  Request $request)
 	{
 		$user1= Auth::user()->password;
 
@@ -249,55 +160,13 @@ class IngresosProductoController extends Controller
 		}
 		else if( password_verify( $request["password_delete"] , $user1))
 		{
-			$detalles = DetalleCompra::where('compra_id', $compra->id)
-			->get();
-			foreach($detalles as $detalle) 
-			{
-				$producto = MovimientoProducto::where('id', $detalle["movimiento_producto_id"])
-				->get()->first();
-				$newExistencias = 0;
-				$updateExistencia = MovimientoProducto::where('id', $detalle["movimiento_producto_id"])
-				->update(['existencias' => $newExistencias]);
-			}
 
-			$compra->delete();
-			$response["response"] = "El registro ha sido borrado";
-			return Response::json( $response );
-		}
-		else {
-			$response["password_delete"] = "La contraseña no coincide";
-			return Response::json( $response  , 422 );
-		}
-	}
-
-	public function destroyDetalle(DetalleCompra $detallecompra,  Request $request)
-	{
-		$user1= Auth::user()->password;
-
-		if ($request["password_delete"] == "")
-		{
-			$response["password_delete"]  = "La contraseña es requerida";
-			return Response::json( $response  , 422 );
-		}
-		else if( password_verify( $request["password_delete"] , $user1))
-		{
-			$producto = MovimientoProducto::where('id', $detallecompra->movimiento_producto_id)
-			->get()->first();
-			$existencias = $producto->existencias;
-			$cantidad = $detallecompra->existencias;
-			$newExistencias = $existencias - $cantidad;
-			$updateExistencia = MovimientoProducto::where('id', $detallecompra->movimiento_producto_id)
+			//$producto = MovimientoProducto::where('id', $ingreso_producto->movimiento_producto_id)->get()->first();
+			$newExistencias = 0;
+			$updateExistencia = MovimientoProducto::where('id', $ingreso_producto->movimiento_producto_id)
 			->update(['existencias' => $newExistencias]);
 
-			$ingresomaestro = Compra::where('id', $detallecompra->compra_id)
-			->get()->first();
-			$total = $ingresomaestro->total_factura;
-			$totalresta = ($detallecompra->precio_compra * $detallecompra->existencias);
-			$newTotal = $total - $totalresta;
-			$updateTotal = Compra::where('id', $detallecompra->compra_id)
-			->update(['total_factura' => $newTotal]);
-
-			$detallecompra->delete();
+			$ingreso_producto->delete();
 			$response["response"] = "El registro ha sido borrado";
 			return Response::json( $response );
 		}
@@ -312,14 +181,15 @@ class IngresosProductoController extends Controller
 	{
 		$api_Result = array();
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("serie_factura", "num_factura","fecha_factura", "nombre_comercial","total_factura");
+		$columnsMapping = array("i.id");
 
 		// Initialize query (get all)
 
-		$api_logsQueriable = DB::table("compras");
+		$api_logsQueriable = DB::table("ingresos_productos");
 		$api_Result["recordsTotal"] = $api_logsQueriable->count();
 
-		$query = 'SELECT compras.id, compras.serie_factura, compras.num_factura, DATE_FORMAT(compras.fecha_factura, "%d-%m-%Y") as fecha_factura, proveedores.nombre, TRUNCATE(compras.total_factura,2) as total FROM compras INNER JOIN proveedores ON proveedores.id=compras.proveedor_id ';
+		$query = 'SELECT i.id, DATE_FORMAT(i.fecha_ingreso, "%d-%m-%Y") as fecha_ingreso, i.precio_compra, i.precio_venta, i.cantidad, p.nombre FROM ingresos_productos i 
+		INNER JOIN productos p on p.id = i.producto_id ';
 
 		$where = "";
 
@@ -355,64 +225,6 @@ class IngresosProductoController extends Controller
 
 		$query .= $sort . $filter;
 		
-		$result = DB::select($query);
-		$api_Result['data'] = $result;
-
-		return Response::json( $api_Result );
-	}
-
-	public function getJsonDetalle(Request $params, $detalle)
-	{
-		$api_Result = array();
-		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("dc.compra_id", "p.codigo_barra", "p.nombre", "dc.existencias", "dc.precio_compra", "dc.precio_venta");
-
-		// Initialize query (get all)
-
-
-		$api_logsQueriable = DB::table('detalles_compras');
-		$api_Result['recordsTotal'] = $api_logsQueriable->count();
-
-		//$query = 'SELECT detalles_compras.id, detalles_compras.compra_id, productos.codigo_barra, productos.nombre, detalles_compras.existencias, detalles_compras.precio_compra, detalles_compras.precio_venta FROM detalles_compras INNER JOIN productos ON detalles_compras.producto_id=productos.id WHERE detalles_compras.compra_id ='.$detalle.' ';
-		$query = 'SELECT dc.id, dc.compra_id, p.codigo_barra, p.nombre, m.codigo_maquina, m.nombre_maquina, dc.existencias, dc.precio_compra, dc.precio_venta
-		FROM detalles_compras dc
-		left join productos p on p.id = dc.producto_id
-		left join maquinarias_y_equipos m on m.id = dc.maquinaria_equipo_id where dc.compra_id ='.$detalle.'';
-
-		$where = "";
-
-		if (isset($params->search['value']) && !empty($params->search['value'])){
-
-			foreach ($columnsMapping as $column) {
-				if (strlen($where) == 0) {
-					$where .=" and (".$column." like  '%".$params->search['value']."%' ";
-				} else {
-					$where .=" or ".$column." like  '%".$params->search['value']."%' ";
-				}
-
-			}
-			$where .= ') ';
-		}
-
-		$query = $query . $where;
-
-		// Sorting
-		$sort = "";
-		foreach ($params->order as $order) {
-			if (strlen($sort) == 0) {
-				$sort .= ' order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-			} else {
-				$sort .= ', '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-			}
-		}
-
-		$result = DB::select($query);
-		$api_Result['recordsFiltered'] = count($result);
-
-		$filter = " limit ".$params->length." offset ".$params->start."";
-
-		$query .= $sort . $filter;
-
 		$result = DB::select($query);
 		$api_Result['data'] = $result;
 
