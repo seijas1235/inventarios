@@ -31,13 +31,17 @@ class CuentasPorPagarController extends Controller
 
     public function notacredito()
     {
-        $proveedores = Proveedor::All();
+        $proveedores = DB::table('proveedores')
+        ->join('cuentas_por_pagar', 'proveedores.id', '=' ,'cuentas_por_pagar.proveedor_id')
+        ->select('proveedores.id', 'proveedores.nombre')
+        ->get();
 		return view("cuentas_por_pagar.ncredito" , compact('proveedores'));
     }
 
     public function notadebito()
     {
         $proveedores = Proveedor::All();
+
 		return view("cuentas_por_pagar.ndebito" , compact('proveedores'));
     }
 
@@ -48,6 +52,8 @@ class CuentasPorPagarController extends Controller
 
         $cuentaporpagar = CuentaPorPagar::where('proveedor_id',$data["proveedor_id"])->first();
 
+        if($cuentaporpagar)
+        {
             $detalle = array(
                 'num_factura' => '',
                 'fecha' => Carbon::now(),
@@ -59,9 +65,14 @@ class CuentasPorPagarController extends Controller
 
             $cuentaporpagar->detalles_cuentas_por_pagar()->create($detalle);
             $newtotal = $detalle['saldo'];
-            $cuentaporpagar->update(['total' => $newtotal]);        
+            $cuentaporpagar->update(['total' => $newtotal]);
 
-		return Response::json($cuentaporpagar);
+            return Response::json($cuentaporpagar);
+        }
+        else
+        {
+            return Response::json($cuentaporpagar);
+        }		
     }
 
     public function savenotadebito(Request $request)
@@ -70,6 +81,8 @@ class CuentasPorPagarController extends Controller
 
         $cuentaporpagar = CuentaPorPagar::where('proveedor_id',$data["proveedor_id"])->first();
 
+        if($cuentaporpagar)
+        {
             $detalle = array(
                 'num_factura' => '',
                 'fecha' => Carbon::now(),
@@ -81,9 +94,33 @@ class CuentasPorPagarController extends Controller
 
             $cuentaporpagar->detalles_cuentas_por_pagar()->create($detalle);
             $newtotal = $detalle['saldo'];
-            $cuentaporpagar->update(['total' => $newtotal]);        
+            $cuentaporpagar->update(['total' => $newtotal]); 
+             
+        }
 
-		return Response::json($cuentaporpagar);
+        else
+        {
+            $detalle = array(
+                'num_factura' => '',
+                'fecha' => Carbon::now(),
+                'descripcion' => 'Nota de Debito',
+                'cargos' => $data["total"],	
+                'abonos' => 0,
+                'saldo' => $data["total"]
+            );
+            
+            $cuentaporpagar = new CuentaPorPagar();
+            $cuentaporpagar->total = $data["total"];
+            $cuentaporpagar->proveedor_id = $data["proveedor_id"];
+            $cuentaporpagar->save();
+
+            $cuentaporpagar->detalles_cuentas_por_pagar()->create($detalle);
+
+        }
+
+        return Response::json($cuentaporpagar);
+
+    
 	}
 
 

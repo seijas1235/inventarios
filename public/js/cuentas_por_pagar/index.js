@@ -82,15 +82,15 @@ var cuentas_por_pagar_table = $('#cuentas_por_pagar-table').DataTable({
         "width" : "20%",
         "render": function(data, type, full, meta) {
             return "<div id='" + full.id + "' class='text-center'>" + 
-            "<div class='float-left col-lg-4'>" + 
+            /*"<div class='float-left col-lg-6'>" + 
             "<a href='/cuentas_por_pagar/edit/"+ full.id +"' class='edit-cuenta_por_pagar'>" + 
             "<i class='fa fa-btn fa-edit' title='Editar Cuenta por Pagar'></i>" + 
             "</a>" + "</div>" + 
             "<div class='float-right col-lg-4'>" + 
             "<a href='#' class='remove-cuenta_por_pagar'>" + 
             "<i class='fa fa-btn fa-trash' title='Eliminar Cuenta por Pagar'></i>" + 
-            "</a>" + "</div>"+
-            "<div class='float-left col-lg-4'>" + 
+            "</a>" + "</div>"+*/
+            "<div class='float-left col-lg-12'>" + 
             "<a href='/cuentas_por_pagar/show/"+ full.id +"' class='detalle-cuenta_por_pagar'>" + 
             "<i class='fa fa-btn fa-desktop' title='Detalle Cuenta por Pagar'></i>" + 
             "</a>" + "</div>";
