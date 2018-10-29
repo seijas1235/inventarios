@@ -11,6 +11,7 @@ use App\SalidaProducto;
 use App\User;
 use App\Producto;
 use App\TipoSalida;
+use App\MovimientoProducto;
 use View;
 Use DB;
 use Illuminate\Support\Facades\Redirect;
@@ -25,7 +26,7 @@ use Carbon\Carbon;
 
 class SalidaProductoController extends Controller
 {
-    /**
+      /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -34,12 +35,13 @@ class SalidaProductoController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-    }
+	}
+	
 
     public function index()
     {
-        $tipo_salidas = TipoSalida::all();
-        return view("salidaproducto.index", compact("tipo_salidas"));
+        $productos = Producto::all();
+        return view ("salidas_productos.index", compact('productos'));
     }
 
     /**
@@ -49,220 +51,193 @@ class SalidaProductoController extends Controller
      */
     public function create()
     {
-       $back = "salidaproducto";
-       $tipo_salidas = TipoSalida::all();
-       $productos = Producto::all();
-       return view("salidaproducto.create" , compact( "back", "tipo_salidas", "productos"));
-   }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $data = $request->all();
-        $data['fecha_salida'] = Carbon::createFromFormat('d-m-Y', $data['fecha_salida']);
-        $data["user_id"] = Auth::user()->id;
-        $salidaproducto = SalidaProducto::create($data);
-        $producto = Producto::where('id', $data["producto_id"])
-        ->get()->first();
-        $existencias = $producto->existencias;
-        $cantidad = $data["cantidad_salida"];
-        $newExistencias = $existencias - $cantidad;
-        $updateExistencia = Producto::where('id', $data["producto_id"])
-        ->update(['existencias' => $newExistencias]);
-        return Redirect::route('salidaproducto.index');
+		$productos = Producto::all();
+		$tipos_salida = TipoSalida::all();
+		return view("salidas_productos.create" , compact("back","productos", 'tipos_salida') );
     }
 
-
-    public function getName( SalidaProducto $salidaproducto )
-    {
-        $salidaproducto = SalidaProducto::where( "salidas_productos.id" , "=" , $salidaproducto->id )
-        ->select( "salidas_productos.id","salidas_productos.producto_id", "salidas_productos.cantidad_salida" , "salidas_productos.fecha_salida", "salidas_productos.user_id","salidas_productos.tipo_salida_id")
-        ->get()
-        ->first();
-        return Response::json( $salidaproducto);
-    }
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+    public function save(Request $request)
+	{
+		try{
+			DB::beginTransaction();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+			$statsArray = $request->all();
+			foreach($statsArray as $stat) {
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+			$salida_producto = new SalidaProducto();
 
-    public function update( SalidaProducto $salidaproducto, Request $request )
-    {
-        $data = $request->all();
-        $salidaproducto->tipo_salida_id = $data["tipo_salida_id"];
-        $salidaproducto->save();
-        return $salidaproducto;  
-    }
-/*
-    public function update( SalidaProducto $salidaproducto, Request $request )
-    {
-        if( $request["cantidad_salida"] == "") 
-        {
-            $response["cantidad_salida"]  = "Cantidad de Salida es requerida";
-            return Response::json( $response  , 422 );
-        }
-        else 
-        {
-            return Response::json( $this->updateSalidaProducto($salidaproducto , $request->all()));
-        }
-    }*/
+			$salida_producto->fecha_salida = Carbon::now();
+			$salida_producto->producto_id = $stat["producto_id"];
+			$salida_producto->user_id = Auth::user()->id;
+			$salida_producto->cantidad_salida = $stat["cantidad_salida"];
+			$salida_producto->tipo_salida_id = $stat["tipo_salida_id"];
 
-    public function getTipoSalida( SalidaProducto $salida_producto )
-    {
-        $result = SalidaProducto::where( "id" , "=" , $salida_producto->id )
-        ->get()
-        ->first();
-        return Response::json( $result);
-    }
+			$mp = MovimientoProducto::where('producto_id', $salida_producto->producto_id)->first();
+			$existenciaanterior = $mp->existencias;
 
+			$stat["existencias"] = $existenciaanterior - $salida_producto->cantidad_salida;
+			$stat["fecha_salida"] = $salida_producto->fecha_salida;
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+			$mp->update($stat);
+			$salida_producto->movimiento_producto_id = $mp->id;
+			$salida_producto->save();			
+		}
 
-    public function updateSalidaProducto( SalidaProducto $salidaproducto , array $data )
-    {
-        $producto = Producto::where('id', $salidaproducto->producto_id)
-        ->get()->first();
-        $existencias = $producto->existencias;
-        $cantidad = $salidaproducto->cantidad_salida;
-        $newExistencias = $existencias + $cantidad;
-        $updateExistencia = Producto::where('id', $salidaproducto->producto_id)
-        ->update(['existencias' => $newExistencias]);
+		DB::commit();
+		return Response::json(['result' => 'ok']);
+		
+		}
+
+		catch(Exception $e)
+		{
+            DB::rollBack();
+		}
+			
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function edit(SalidaProducto $salida_producto)
+	{
+		$tipos_salida = TipoSalida::all();
+		$query = "SELECT * FROM salidas_productos WHERE id=".$salida_producto->id."";
+		$fieldsArray = DB::select($query);
+		
+        return view ("salidas_productos.edit", compact('salida_producto', 'fieldsArray', 'tipos_salida'));
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
 
 
-        $id= $salidaproducto->id;
-        $data['fecha_salida'] = Carbon::createFromFormat('d-m-Y', $data['fecha_salida']);
-        $salidaproducto->cantidad_salida = $data["cantidad_salida"];
-        $salidaproducto->fecha_salida = $data["fecha_salida"];
-        $salidaproducto->tipo_salida_id = $data["tipo_salida_id"];
-        $salidaproducto->save();
-
-        $producto = Producto::where('id', $salidaproducto->producto_id)
-        ->get()->first();
-        $existencias = $producto->existencias;
-        $cantidad = $data["cantidad_salida"];
-        $newExistencias2 = $existencias - $cantidad;
-        $updateExistencia = Producto::where('id', $salidaproducto->producto_id)
-        ->update(['existencias' => $newExistencias2]);
-        return $salidaproducto;
-    }
+	public function update(SalidaProducto $salida_producto, Request $request )
+	{
+		Response::json($this->updateSalidaProducto($salida_producto , $request->all()));
+        return redirect('/salidas_productos');
+	}
 
 
-    public function destroy( SalidaProducto $salidaproducto, Request $request)
-    {
-        $user1= Auth::user()->password;
 
-        if ($request["password_delete"] == "")
-        {
-            $response["password_delete"]  = "La contraseña es requerida";
-            return Response::json( $response  , 422 );
-        }
-        else if( password_verify( $request["password_delete"] , $user1))
-        {
-            $producto = Producto::where('id', $salidaproducto->producto_id)
-            ->get()->first();
-            $existencias = $producto->existencias;
-            $cantidad = $salidaproducto->cantidad_salida;
-            $newExistencias = $existencias + $cantidad;
-            $updateExistencia = Producto::where('id', $salidaproducto->producto_id)
-            ->update(['existencias' => $newExistencias]);
-            $salidaproducto->delete();
-            $response["response"] = "El registro ha sido borrado";
-            return Response::json( $response );
-        }
-        else {
-            $response["password_delete"] = "La contraseña no coincide";
-            return Response::json( $response  , 422 );
-        }
-    }
+	public function updateSalidaProducto(SalidaProducto $salida_producto, array $data )
+	{
+		$cantidad_anterior = $salida_producto->cantidad_salida;
+		$salida_producto->cantidad_salida = $data["cantidad_salida"];
+		$salida_producto->tipo_salida_id = $data["tipo_salida_id"];
+		$salida_producto->save();
 
-    public function getJson(Request $params)
 
-    {
-        $api_Result = array();
-        // Create a mapping of our query fields in the order that will be shown in datatable.
-        $columnsMapping = array("SP.id","SP.producto_id", "PR.codigobarra", "PR.prod_nombre", "SP.fecha_salida", "SP.cantidad_salida", "TS.tipo_salida");
+		$mp = MovimientoProducto::where('id', $salida_producto->movimiento_producto_id)->first();
 
-        // Initialize query (get all)
+		$nuevaexistencia = $mp->existencias + $cantidad_anterior - $data["cantidad_salida"];
 
-        $api_logsQueriable = DB::table('salidas_productos');
-        $api_Result['recordsTotal'] = $api_logsQueriable->count();
+			$mp->update(
+				['existencias' => $nuevaexistencia]);
 
-        $query = "SELECT SP.id, SP.producto_id as codigo, PR.codigobarra,  PR.prod_nombre, DATE_FORMAT(SP.fecha_salida, '%d-%m-%Y') as fecha_salida, SP.cantidad_salida, TS.tipo_salida FROM salidas_productos SP INNER JOIN productos PR ON PR.id=SP.producto_id INNER JOIN tipos_salida TS ON SP.tipo_salida_id=TS.id  ";
+		return $salida_producto;
+	}
 
-        $where = "";
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function destroy( SalidaProducto $salida_producto,  Request $request)
+	{
+		$user1= Auth::user()->password;
 
-        if (isset($params->search['value']) && !empty($params->search['value'])){
+		if ($request["password_delete"] == "")
+		{
+			$response["password_delete"]  = "La contraseña es requerida";
+			return Response::json( $response  , 422 );
+		}
+		else if( password_verify( $request["password_delete"] , $user1))
+		{
 
-            foreach ($columnsMapping as $column) {
-                if (strlen($where) == 0) {
-                    $where .=" and (".$column." like  '%".$params->search['value']."%' ";
-                } else {
-                    $where .=" or ".$column." like  '%".$params->search['value']."%' ";
-                }
+			$mp = MovimientoProducto::where('id',$salida_producto->movimiento_producto_id)->first();
+			$newExistencias = $mp->existencias + $salida_producto->cantidad_salida;
+			$mp->update(['existencias' => $newExistencias]);
 
-            }
-            $where .= ') ';
-        }
+			$salida_producto->delete();
+			$response["response"] = "El registro ha sido borrado";
+			return Response::json( $response );
+		}
+		else {
+			$response["password_delete"] = "La contraseña no coincide";
+			return Response::json( $response  , 422 );
+		}
+	}
 
-        $query = $query . $where;
+	public function getJson(Request $params)
 
-        // Sorting
-        $sort = " ORDER BY SP.producto_id ASC ";
-        /*foreach ($params->order as $order) {
-            if (strlen($sort) == 0) {
-                $sort .= ' order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-            } else {
-                $sort .= ', '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-            }
-        }*/
+	{
+		$api_Result = array();
+		// Create a mapping of our query fields in the order that will be shown in datatable.
+		$columnsMapping = array("s.id");
 
-        $result = DB::select($query);
-        $api_Result['recordsFiltered'] = count($result);
+		// Initialize query (get all)
 
-        $filter = " limit ".$params->length." offset ".$params->start."";
+		$api_logsQueriable = DB::table("salidas_productos");
+		$api_Result["recordsTotal"] = $api_logsQueriable->count();
 
-        $query .= $sort . $filter;
-        
-        $result = DB::select($query);
-        $api_Result['data'] = $result;
+		$query = 'SELECT s.id, DATE_FORMAT(s.fecha_salida, "%d-%m-%Y") as fecha_salida, s.cantidad_salida, p.nombre, ts.tipo_salida 
+		FROM salidas_productos s 
+		INNER JOIN productos p on p.id = s.producto_id  
+		INNER JOIN tipos_salida ts on ts.id = s.tipo_salida_id ';
 
-        return Response::json( $api_Result );
-    }
+		$where = "";
 
+		if (isset($params->search['value']) && !empty($params->search['value'])){
+
+			foreach ($columnsMapping as $column) {
+				if (strlen($where) == 0) {
+					$where .=" where (".$column." like  '%".$params->search['value']."%' ";
+				} else {
+					$where .=" or ".$column." like  '%".$params->search['value']."%' ";
+				}
+
+			}
+			$where .= ') ';
+		}
+
+		$query = $query . $where;
+
+		// Sorting
+		$sort = "";
+		foreach ($params->order as $order) {
+			if (strlen($sort) == 0) {
+				$sort .= 'order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
+			} else {
+				$sort .= ', '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
+			}
+		}
+
+		$result = DB::select($query);
+		$api_Result['recordsFiltered'] = count($result);
+
+		$filter = " limit ".$params->length." offset ".$params->start."";
+
+		$query .= $sort . $filter;
+		
+		$result = DB::select($query);
+		$api_Result['data'] = $result;
+
+		return Response::json( $api_Result );
+	}
 
 }
