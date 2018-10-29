@@ -2,6 +2,7 @@
 @section('content')
 <div id="content">
 	<div class="container-custom">
+		{!! Form::open( array( 'id' => 'VentasForm') ) !!}
 		<div class="row">
 			<div class="col-sm-12">
 				<h3 class="tittle-custom">Creación de Ventas</h3>
@@ -27,15 +28,13 @@
 				{!! Form::label("direccion","Direccion:") !!}
 				{!! Form::text( "direccion" , null , ['class' => 'form-control', 'placeholder' => 'direccion' ]) !!}
 			</div>
+		</div>
+		<br>
+		<div class="row">
 			<div class="col-sm-4">
 				{!! Form::label("fecha_venta","Fecha:") !!}
 				{!! Form::date( "fecha_venta" , null , ['class' => 'form-control', 'placeholder' => 'direccion' ]) !!}
 			</div>
-			
-		</div>
-		<hr>
-		<br>
-		<div class="row">
 			<div class="col-sm-6">
 				{!! Form::label("tipo_pago","Tipo Pago:") !!}
 				<select class="form-control" id='tipo_pago_id' name="tipo_pago_id" value="{{ old('role')}}">
@@ -47,15 +46,8 @@
 					<strong></strong>
 				</span>
 			</div>
-			<div class="col-sm-3">
-				{!! Form::label("tienda","Tienda:") !!}
-				{!! Form::text( "tienda" , "Car Wash Ankara", ['class' => 'form-control' , 'disabled' ]) !!}
-			</div>
-			<div class="col-sm-3">
-				{!! Form::label("estado","Estado:") !!}
-				{!! Form::text( "estado" , "Activo", ['class' => 'form-control' , 'disabled' ]) !!}
-			</div>
 		</div>
+		<hr>
 		<br>
 		<div class="row">
 			<div class="col-sm-6">
@@ -71,6 +63,7 @@
 				{!! Form::text( "subtotal" , null , ['class' => 'form-control' , 'disabled', 'placeholder' => 'Sub-Total' ]) !!}
 			</div>
 		</div>
+		<br>
 		<div class="row">
 			<div class="col-sm-6">
 				{!! Form::label("Descripción","Descripción:") !!}
@@ -120,7 +113,15 @@
 				<div class="input-group">
 					{!! Form::hidden("venta_maestro" , null , ['class' => 'form-control' , 'disabled']) !!}
 					<span class="input-group-addon">Q</span>
-					{!! Form::number( "precio" , null , ['class' => 'form-control', 'placeholder' => '0.00' ]) !!}
+					{!! Form::number( "precio" , null , ['class' => 'form-control', 'disabled', 'placeholder' => '0.00' ]) !!}
+				</div>
+			</div>
+			<div class="col-sm-2">
+				{!! Form::label("mano_obra","Mano de Obra:") !!}
+				<div class="input-group">
+					{!! Form::hidden("Q." , null , ['class' => 'form-control' , 'disabled']) !!}
+					<span class="input-group-addon">Q</span>
+					{!! Form::number( "mano_obra" , null , ['class' => 'form-control', 'placeholder' => '0.00' ]) !!}
 				</div>
 			</div>
 			<div class="col-sm-3">
@@ -129,10 +130,12 @@
 			</div>
 			
 		</div>
+		<br>
 		<div class="text-right m-t-15">
 			{!! Form::input('submit', 'submit', 'Agregar servicio', ['class' => 'btn btn-danger form-gradient-color form-button2', 'id'=>'addDetalleServicio']) !!}	
 		</div>
 		<hr>
+
 		<br>
 		<div id="detalle-grid"></div>
 		<div class="row" >
