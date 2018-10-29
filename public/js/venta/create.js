@@ -225,7 +225,6 @@ function changeCliente() {
         });
     }
 }
-    
 
 $("#cliente_id").change(function () {
     changeCliente();

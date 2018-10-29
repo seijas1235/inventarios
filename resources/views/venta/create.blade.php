@@ -130,6 +130,7 @@
 			</div>
 			
 		</div>
+		<br>
 		<div class="text-right m-t-15">
 			{!! Form::input('submit', 'submit', 'Agregar servicio', ['class' => 'btn btn-danger form-gradient-color form-button2', 'id'=>'addDetalleServicio']) !!}	
 		</div>
