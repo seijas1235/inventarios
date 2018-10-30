@@ -53,7 +53,13 @@ class UnidadesDeMedidaController extends Controller
     public function store(Request $request)
     {       
         $data = $request->all();
+
+        if($data['unidad_de_medida_id'] == ""){
+            $data['unidad_de_medida_id'] = null;
+        }
+
         $unidad_de_medida = UnidadDeMedida::create($data);
+        //dd($data);
 
         return Response::json($unidad_de_medida);
     }
@@ -107,6 +113,10 @@ class UnidadesDeMedidaController extends Controller
         $id= $unidad_de_medida->id;
         $unidad_de_medida->descripcion = $data["descripcion"];
         $unidad_de_medida->cantidad = $data["cantidad"];
+        
+        if($data['unidad_de_medida_id'] == ""){
+            $data['unidad_de_medida_id'] = null;
+        }
         $unidad_de_medida->unidad_de_medida_id = $data['unidad_de_medida_id'];
         $unidad_de_medida->save();
 
@@ -154,7 +164,8 @@ class UnidadesDeMedidaController extends Controller
         $api_logsQueriable = DB::table('unidades_de_medida');
         $api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-        $query = "SELECT * FROM unidades_de_medida";
+        $query = "SELECT u.id, u.descripcion, u.cantidad, u2.descripcion as unidad_de_medida FROM unidades_de_medida u
+        LEFT JOIN unidades_de_medida u2 on u2.id = u.unidad_de_medida_id";
 
         $where = "";
 
