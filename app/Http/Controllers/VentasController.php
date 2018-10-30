@@ -63,6 +63,9 @@ class VentasController extends Controller
 	public function save(Request $request)
 	{
 		$data = $request->all();
+		if(empty ($data['cliente_id'])){
+			$data["cliente_id"]=1;
+		}
 		$data["user_id"] = Auth::user()->id;
 		$data["edo_venta_id"] = 1;
 		$maestro = Venta::create($data);

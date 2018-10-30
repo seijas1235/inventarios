@@ -236,7 +236,7 @@ $('body').on('click', '#addManoObra', function(e)
 {
     var l = Ladda.create( document.querySelector( '#addManoObra' ) );
     l.start();
-    l.setProgress( 0.5 );
+    l.setProgress(0.5);
     if($("input[name='venta_maestro']").val() == "") 
     {
         var total_venta = $("input[name='total'] ").val();
@@ -308,7 +308,7 @@ $('body').on('click', '#addManoObra', function(e)
                     dbs.detalles = [];
                 },
                 always: function() {
-                }
+                },
             });
         }$("#detalle-grid .jsgrid-search-button").trigger("click");
             
@@ -316,6 +316,7 @@ $('body').on('click', '#addManoObra', function(e)
     else {
     bootbox.alert("Debe ingresar una descripcion y un precio de mano de obra");
     }
+    l.stop();
 });
 
 
@@ -406,7 +407,8 @@ $('body').on('click', '#addDetalleServicio', function(e)
                     dbs.detalles = [];
                 },
                 always: function() {
-                }
+                    l.stop();
+                },
             });
         }$("#detalle-grid .jsgrid-search-button").trigger("click");
             
@@ -414,6 +416,7 @@ $('body').on('click', '#addDetalleServicio', function(e)
     else {
     bootbox.alert("Debe de seleccionar un Servicio");
     }
+    l.stop();
 });
 
 

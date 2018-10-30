@@ -139,7 +139,7 @@
 			</div>
 			<br>
 		<div class="text-right m-t-15">
-			{!! Form::submit('Agregar Mano de Obra' , ['class' => 'btn btn-success' ,
+			{!! Form::submit('Agregar Mano de Obra' , ['class' => 'btn btn-danger' ,
 			'id' => 'addManoObra', 'data-loading-text' => 'Processing...' ]) !!}
 		</div>
 		<hr>
