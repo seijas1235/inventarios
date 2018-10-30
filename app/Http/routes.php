@@ -45,8 +45,7 @@ Route::group(['middleware' => ['web']], function ()
 		/* ========== RUTAS PARA LA GESTIÓN DE VENTAS =========== */
 		Route::get( '/ventas' , 'VentasController@index');
 		Route::get( '/venta/getJson' , 'VentasController@getJson');
-		Route::get( '/venta/new' , 'VentasController@create');
-		Route::post( '/venta/new' , 'VentasController@addDetalle');
+		Route::get( '/venta/new' , 'VentasController@create');	
 		Route::get('/venta/get/', 'ProductosController@getInfo');
 		Route::get( '/servicio/precio/{servicio}' , 'ServiciosController@getPrecio');
 		Route::get( '/cliente/datos/{cliente}' , 'ClientesController@getDatos');

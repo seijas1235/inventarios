@@ -22,6 +22,13 @@ $(document).on("keypress", '#addDetalleServicio', function (e) {
 	}
 });
 
+$(document).on("keypress", '#addManoObra', function (e) {
+	var code = e.keyCode || e.which;
+	if (code == 13) {
+		e.preventDefault();
+		return false;
+	}
+});
 
 
 $(document).on("keypress", '#ButtonDetalle', function (e) {
@@ -29,32 +36,6 @@ $(document).on("keypress", '#ButtonDetalle', function (e) {
     if (code == 13) {
         e.preventDefault();
         return false;
-    }
-});
-var validator = $("#VentasForm").validate({
-    ignore: [],
-    onkeyup:false,
-    rules: {
-        cliente_id: {
-            required : true
-        },
-        fecha_venta:{
-            required : true
-        },
-        tipo_pago_id:{
-            required: true
-        }
-    },
-    messages: {
-        cliente_id: {
-            required : "Debe Seleccionar un Cliente"
-        },
-        fecha_venta:{
-            required : "Debe Ingresar la Fecha de la Venta"
-        },
-        tipo_pago_id:{
-            required: "Debe Seleccionar un Tipo de Pago"
-        }
     }
 });
 
@@ -108,212 +89,51 @@ $("input[name='cantidad']").focusout(function() {
 
 $('body').on('click', '#addDetalle', function(e) 
 {
-    if ($('#VentasForm').valid()) {
-        var l = Ladda.create( document.querySelector( '#addDetalle' ) );
-        l.start();
-        l.setProgress( 0.5 );
-        if($("input[name='venta_maestro']").val() == "") 
-        {
-            var total_venta = $("input[name='total'] ").val();
-            var tipo_pago_id = $("#tipo_pago_id").val();
-            var cliente_id = $("#cliente_id").val();
-            var formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id,cliente_id : cliente_id}  
-            $.ajax({
-                type: "GET",
-                /*url: "../pos_v2/venta/save/",*/
-                url: "/venta/save/",
-                data: formData,
-                async:false,
-                dataType: 'json',
-                success: function(data) {
-                    var detalle = data;
-                    $("input[name='venta_maestro'] ").val(data.id);
-                },
-                error: function() {
-                    alert("Something went wrong, please try again!");
-                }
-            });
-        }
-    
-        if (parseInt($("input[name='existencias'] ").val()) >= parseInt($("input[name='cantidad'] ").val()))
-        {
-
-            if ($("input[name='descripcion'] ").val() != "" && $("input[name='cantidad'] ").val() != "")
-            {
-
-                var detalle = new Object();
-                var cantidad = $("input[name='cantidad'] ").val();
-                var precio_venta = $("input[name='precio_venta'] ").val();
-                var subtotal = cantidad * precio_venta;
-                $("input[name='subtotal'] ").val(subtotal);
-                detalle.cantidad = $("input[name='cantidad'] ").val();
-                detalle.precio_venta = $("input[name='precio_venta'] ").val();
-                detalle.subtotal_venta = $("input[name='subtotal'] ").val();
-                detalle.producto_id  = $("input[name='producto_id'] ").val();
-                detalle.movimiento_id  = $("input[name='movimiento_id'] ").val();
-                detalle.codigoballa = $("input[name='codigo_barra'] ").val();
-                detalle.nombre = $("input[name='descripcion'] ").val();
-                detalle.precio_compra = $("input[name='precio_compra'] ").val();
-                var total2 = $("input[name='total'] ").val();
-                if (total2 != "") {
-                    var total2 =parseFloat(total2);
-                    var subtotal = parseFloat(subtotal);
-                    var total = total2 + subtotal;
-                    var total3 = $("input[name='total'] ").val(total);
-                }
-                else {
-                    var subtotal = parseFloat(subtotal);
-                    var total3 = $("input[name='total'] ").val(subtotal);
-                }
-
-                dbs.detalles.push(detalle);
-                $("input[name='producto_id'] ").val("");
-                $("input[name='codigo_barra'] ").val("");
-                $("input[name='descripcion'] ").val("");
-                $("input[name='precio_venta'] ").val("");
-                $("input[name='precio_compra'] ").val("");
-                $("input[name='cantidad'] ").val(1);
-                var cantidad = $("input[name='cantidad'] ").val();
-                var precio_venta = $("input[name='precio_venta'] ").val();
-                var subtotal = cantidad * precio_venta;
-                $("input[name='subtotal'] ").val(subtotal);
-                var venta_maestro = $("input[name='venta_maestro'] ").val();
-                if($("input[name='venta_maestro']").val() != "") {       
-                    $.ajax({
-                        /*url: "/pos_v2/venta-detalle/" + venta_maestro,*/
-                        url: "/venta-detalle/" + venta_maestro,
-                        type: "POST",
-                        contentType: "application/json",
-                        data: JSON.stringify(dbs.detalles),
-                        success: function(addressResponse) {
-                            detalle.venta_detalle = addressResponse.id
-                            db.links.push(detalle);
-                            $("#detalle-grid .jsgrid-search-button").trigger("click");
-                            dbs.detalles = "";
-                            window.dbs = dbs;
-                            dbs.detalles = [];
-                        },
-                        always: function() {
-                        }
-                    });
-                }
-                $("#detalle-grid .jsgrid-search-button").trigger("click");
+    var l = Ladda.create( document.querySelector( '#addDetalle' ) );
+    l.start();
+    l.setProgress( 0.5 );
+    if($("input[name='venta_maestro']").val() == "") 
+    {
+        var total_venta = $("input[name='total'] ").val();
+        var tipo_pago_id = $("#tipo_pago_id").val();
+        var cliente_id = $("#cliente_id").val();
+        var formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id,cliente_id : cliente_id}  
+        $.ajax({
+            type: "GET",
+            /*url: "../pos_v2/venta/save/",*/
+            url: "/venta/save/",
+            data: formData,
+            async:false,
+            dataType: 'json',
+            success: function(data) {
+                var detalle = data;
+                $("input[name='venta_maestro'] ").val(data.id);
+            },
+            error: function() {
+                alert("Something went wrong, please try again!");
             }
-            else {
-                alert("Especifique un producto valido o cantidad");
-            }
-        }
-        else {
-            alert("No se puede realizar la venta, revise las existencias del producto");
-        }
-        l.stop();
-    }
-    else {
-        validator.focusInvalid();
-    }
-
-});
-//obtener nit y direccion de cliente
-function changeCliente() {
-    var cliente_id = $("#cliente_id").val();
-    
-    var url = "/cliente/datos/" + cliente_id ;
-    if (cliente_id != "") {
-        $.getJSON( url , function ( result ) {
-            $("input[name='nit_c'] ").val(result.nit);
-            $("input[name='direccion']").val(result.direccion);			
         });
     }
-}
+   
+    if (parseInt($("input[name='existencias'] ").val()) >= parseInt($("input[name='cantidad'] ").val()))
+    {
 
-$("#cliente_id").change(function () {
-    changeCliente();
-});
-
-
-// agregar servicio a modificar
-function changeService() {
-    var servicio_id = $("#servicio_id").val();
-    var cantidad = $("input[name='cantidad_s").val();
-    var url = "/servicio/precio/" + servicio_id ;
-    if (servicio_id != "") {
-        $.getJSON( url , function ( result ) {
-            $("input[name='precio'] ").val(result.precio);
-            $("input[name='subtotal_s']").val(result.precio * cantidad);			
-        });
-    }
-}
-    
- $("input[name='cantidad_s").change(function () {
-    $("input[name='subtotal_s']").val("");
-    var cantidad = parseInt($("input[name='cantidad_s").val());
-    var precio = parseFloat($("input[name='precio").val());
-    var mano_obra = parseFloat($("input[name='mano_obra").val());
-    var total = (precio + mano_obra  )* cantidad;
-
-    $("input[name='subtotal_s']").val(total);
-});
-
-$("input[name='mano_obra").change(function () {
-    $("input[name='subtotal_s']").val("");
-    var cantidad = parseInt($("input[name='cantidad_s").val());
-    var precio = parseFloat($("input[name='precio").val());
-    var mano_obra = parseFloat($("input[name='mano_obra").val());
-    
-    var total = (precio + mano_obra  )* cantidad;
-    $("input[name='subtotal_s']").val(total);
-});
-
-$("#servicio_id").change(function () {
-    changeService();
-});
-
-$('body').on('click', '#addDetalleServicio', function(e) {
-    if ($('#VentasForm').valid()) {
-        var l = Ladda.create( document.querySelector( '#addDetalleServicio' ) );
-        l.start();
-        l.setProgress( 0.5 );
-        if($("input[name='venta_maestro']").val() == "") 
+        if ($("input[name='descripcion'] ").val() != "" && $("input[name='cantidad'] ").val() != "")
         {
-            var total_venta = $("input[name='total'] ").val();
-            var tipo_pago_id = $("#tipo_pago_id").val();
-            var cliente_id = $("#cliente_id").val();
-            var formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id,cliente_id : cliente_id} 
-        
-            $.ajax({
-                type: "GET",
-                url: "/venta/save/",
-                data: formData,
-                async:false,
-                dataType: 'json',
-                success: function(data) {
-                    var detalle = data;
-                    $("input[name='venta_maestro'] ").val(data.id);
-                },
-                error: function() {
-                    alert("Something went wrong, please try again!");
-                }
-            });
-        }
-        
-            
-        if ($("input[name='precio'] ").val() != "" && $("input[name='cantidad_s'] ").val() != "")
-        {
+
             var detalle = new Object();
-            var cantidad = parseInt($("input[name='cantidad_s").val());
-            var precio = parseFloat($("input[name='precio").val());
-            var mano_obra = parseFloat($("input[name='mano_obra").val());
-        
-            var precio_compra = 0;
-            var id =  $("#servicio_id").val();
-            var subtotal = (precio + mano_obra  )* cantidad; 
-            $("input[name='subtotal_s'] ").val(subtotal);
-            detalle.cantidad = $("input[name='cantidad_s'] ").val();
-            detalle.precio_venta = precio + mano_obra;
-            detalle.precio_compra = 0;
-            detalle.subtotal_venta = $("input[name='subtotal_s'] ").val();
-            detalle.servicio_id  = $("#servicio_id").val();
-            detalle.nombre = $("#servicio_id").find("option:selected").text();
+            var cantidad = $("input[name='cantidad'] ").val();
+            var precio_venta = $("input[name='precio_venta'] ").val();
+            var subtotal = cantidad * precio_venta;
+            $("input[name='subtotal'] ").val(subtotal);
+            detalle.cantidad = $("input[name='cantidad'] ").val();
+            detalle.precio_venta = $("input[name='precio_venta'] ").val();
+            detalle.subtotal_venta = $("input[name='subtotal'] ").val();
+            detalle.producto_id  = $("input[name='producto_id'] ").val();
+            detalle.movimiento_id  = $("input[name='movimiento_id'] ").val();
+            detalle.codigoballa = $("input[name='codigo_barra'] ").val();
+            detalle.nombre = $("input[name='descripcion'] ").val();
+            detalle.precio_compra = $("input[name='precio_compra'] ").val();
             var total2 = $("input[name='total'] ").val();
             if (total2 != "") {
                 var total2 =parseFloat(total2);
@@ -327,16 +147,16 @@ $('body').on('click', '#addDetalleServicio', function(e) {
             }
 
             dbs.detalles.push(detalle);
-            $("#servicio_id").val("");
-            $("#servicio_id").selectpicker(0, '');
-            $('#servicio_id').selectpicker('render');
-            $("input[name='nombre'] ").val("");
-            $("input[name='precio'] ").val("");
+            $("input[name='producto_id'] ").val("");
+            $("input[name='codigo_barra'] ").val("");
+            $("input[name='descripcion'] ").val("");
+            $("input[name='precio_venta'] ").val("");
             $("input[name='precio_compra'] ").val("");
-            $("input[name='cantidad_s'] ").val([""]);
-            var cantidad = parseInt($("input[name='cantidad_s'] ").val());
-            var precio_compra = 0;
-            var subtotal = (precio + mano_obra  )* cantidad;
+            $("input[name='cantidad'] ").val(1);
+            var cantidad = $("input[name='cantidad'] ").val();
+            var precio_venta = $("input[name='precio_venta'] ").val();
+            var subtotal = cantidad * precio_venta;
+            $("input[name='subtotal'] ").val(subtotal);
             var venta_maestro = $("input[name='venta_maestro'] ").val();
             if($("input[name='venta_maestro']").val() != "") {       
                 $.ajax({
@@ -356,16 +176,243 @@ $('body').on('click', '#addDetalleServicio', function(e) {
                     always: function() {
                     }
                 });
-            }$("#detalle-grid .jsgrid-search-button").trigger("click");
-                
+            }
+            $("#detalle-grid .jsgrid-search-button").trigger("click");
         }
         else {
-        bootbox.alert("Debe de seleccionar un Servicio");
+            alert("Especifique un producto valido o cantidad");
         }
-
     }
     else {
-        validator.focusInvalid();
+        alert("No se puede realizar la venta, revise las existencias del producto");
+    }
+    l.stop();
+});
+//obtener nit y direccion de cliente
+function changeCliente() {
+    var cliente_id = $("#cliente_id").val();
+    
+    var url = "/cliente/datos/" + cliente_id ;
+    if (cliente_id != "") {
+        $.getJSON( url , function ( result ) {
+            $("input[name='nit_c'] ").val(result.nit);
+            $("input[name='direccion']").val(result.direccion);			
+        });
+    }
+}
+    
+
+$("#cliente_id").change(function () {
+    changeCliente();
+});
+
+
+// agregar servicio a modificar
+function changeService() {
+    var servicio_id = $("#servicio_id").val();
+    var cantidad = $("input[name='cantidad_s").val();
+    var url = "/servicio/precio/" + servicio_id ;
+    if (servicio_id != "") {
+        $.getJSON( url , function ( result ) {
+            $("input[name='precio'] ").val(result.precio);
+            $("input[name='subtotal_s']").val(result.precio * cantidad);			
+        });
+    }
+}
+    
+$("input[name='cantidad_s").change(function () {
+
+    var cantidad = $("input[name='cantidad_s").val();
+    var precio = $("input[name='precio").val();
+    $("input[name='subtotal_s']").val(precio * cantidad);
+});
+$("#servicio_id").change(function () {
+    changeService();
+});
+
+
+// funcion para agregar la mano de obra a base de datos
+$('body').on('click', '#addManoObra', function(e) 
+{
+    var l = Ladda.create( document.querySelector( '#addManoObra' ) );
+    l.start();
+    l.setProgress( 0.5 );
+    if($("input[name='venta_maestro']").val() == "") 
+    {
+        var total_venta = $("input[name='total'] ").val();
+        var tipo_pago_id = $("#tipo_pago_id").val();
+        var cliente_id = $("#cliente_id").val();
+        var formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id,cliente_id : cliente_id} 
+       
+        $.ajax({
+            type: "GET",
+            url: "/venta/save/",
+            data: formData,
+            async:false,
+            dataType: 'json',
+            success: function(data) {
+                var detalle = data;
+                $("input[name='venta_maestro'] ").val(data.id);
+            },
+            error: function() {
+                alert("Something went wrong, please try again!");
+            }
+        });
+    }
+    
+        
+    if ($("input[name='precio_m'] ").val() != "" && $("input[name='descripcion_m'] ").val() != "")
+    {
+        var detalle = new Object();
+        var cantidad = 1;
+        var precio_venta =$("input[name='precio_m'] ").val(); ;
+        var precio_compra = 0;
+        var id =  $("#servicio_id").val();
+        var subtotal = precio_venta; 
+        detalle.cantidad = 1;
+        detalle.precio_venta = $("input[name='precio_m'] ").val();;
+        detalle.precio_compra = 0;
+        detalle.subtotal_venta = $("input[name='precio_m'] ").val();
+        detalle.nombre = $("input[name='descripcion_m'] ").val();
+        var total2 = $("input[name='total'] ").val();
+        if (total2 != "") {
+            var total2 =parseFloat(total2);
+            var subtotal = parseFloat(subtotal);
+            var total = total2 + subtotal;
+            var total3 = $("input[name='total'] ").val(total);
+        }
+        else {
+            var subtotal = parseFloat(subtotal);
+            var total3 = $("input[name='total'] ").val(subtotal);
+        }
+
+        dbs.detalles.push(detalle);
+        $("input[name='precio_m'] ").val("");
+        $("input[name='descripcion_m'] ").val([""]);
+        var precio_compra = 0;
+        var subtotal = cantidad * precio_venta;
+        var venta_maestro = $("input[name='venta_maestro'] ").val();
+        if($("input[name='venta_maestro']").val() != "") {       
+            $.ajax({
+                /*url: "/pos_v2/venta-detalle/" + venta_maestro,*/
+                url: "/venta-detalle/" + venta_maestro,
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(dbs.detalles),
+                success: function(addressResponse) {
+                    detalle.venta_detalle = addressResponse.id
+                    db.links.push(detalle);
+                    $("#detalle-grid .jsgrid-search-button").trigger("click");
+                    dbs.detalles = "";
+                    window.dbs = dbs;
+                    dbs.detalles = [];
+                },
+                always: function() {
+                }
+            });
+        }$("#detalle-grid .jsgrid-search-button").trigger("click");
+            
+    }
+    else {
+    bootbox.alert("Debe ingresar una descripcion y un precio de mano de obra");
+    }
+});
+
+
+
+//funcion para agregar el detalle de servicios a base de datos
+
+$('body').on('click', '#addDetalleServicio', function(e) 
+{
+    var l = Ladda.create( document.querySelector( '#addDetalleServicio' ) );
+    l.start();
+    l.setProgress( 0.5 );
+    if($("input[name='venta_maestro']").val() == "") 
+    {
+        var total_venta = $("input[name='total'] ").val();
+        var tipo_pago_id = $("#tipo_pago_id").val();
+        var cliente_id = $("#cliente_id").val();
+        var formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id,cliente_id : cliente_id} 
+       
+        $.ajax({
+            type: "GET",
+            url: "/venta/save/",
+            data: formData,
+            async:false,
+            dataType: 'json',
+            success: function(data) {
+                var detalle = data;
+                $("input[name='venta_maestro'] ").val(data.id);
+            },
+            error: function() {
+                alert("Something went wrong, please try again!");
+            }
+        });
+    }
+    
+        
+    if ($("input[name='precio'] ").val() != "" && $("input[name='cantidad_s'] ").val() != "")
+    {
+        var detalle = new Object();
+        var cantidad = $("input[name='cantidad_s'] ").val();
+        var precio_venta =$("input[name='precio'] ").val(); ;
+        var precio_compra = 0;
+        var id =  $("#servicio_id").val();
+        var subtotal = cantidad * precio_venta; 
+        $("input[name='subtotal_s'] ").val(subtotal);
+        detalle.cantidad = $("input[name='cantidad_s'] ").val();
+        detalle.precio_venta = $("input[name='precio'] ").val();;
+        detalle.precio_compra = 0;
+        detalle.subtotal_venta = $("input[name='subtotal_s'] ").val();
+        detalle.servicio_id  = $("#servicio_id").val();
+        detalle.nombre = $("#servicio_id").find("option:selected").text();
+        var total2 = $("input[name='total'] ").val();
+        if (total2 != "") {
+            var total2 =parseFloat(total2);
+            var subtotal = parseFloat(subtotal);
+            var total = total2 + subtotal;
+            var total3 = $("input[name='total'] ").val(total);
+        }
+        else {
+            var subtotal = parseFloat(subtotal);
+            var total3 = $("input[name='total'] ").val(subtotal);
+        }
+
+        dbs.detalles.push(detalle);
+        $("#servicio_id").val("");
+        $("#servicio_id").selectpicker(0, '');
+        $('#servicio_id').selectpicker('render');
+        $("input[name='nombre'] ").val("");
+        $("input[name='precio'] ").val("");
+        $("input[name='precio_compra'] ").val("");
+        $("input[name='cantidad_s'] ").val([""]);
+        var cantidad = $("input[name='cantidad_s'] ").val();
+        var precio_compra = 0;
+        var subtotal = cantidad * precio_venta;
+        var venta_maestro = $("input[name='venta_maestro'] ").val();
+        if($("input[name='venta_maestro']").val() != "") {       
+            $.ajax({
+                /*url: "/pos_v2/venta-detalle/" + venta_maestro,*/
+                url: "/venta-detalle/" + venta_maestro,
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(dbs.detalles),
+                success: function(addressResponse) {
+                    detalle.venta_detalle = addressResponse.id
+                    db.links.push(detalle);
+                    $("#detalle-grid .jsgrid-search-button").trigger("click");
+                    dbs.detalles = "";
+                    window.dbs = dbs;
+                    dbs.detalles = [];
+                },
+                always: function() {
+                }
+            });
+        }$("#detalle-grid .jsgrid-search-button").trigger("click");
+            
+    }
+    else {
+    bootbox.alert("Debe de seleccionar un Servicio");
     }
 });
 
@@ -463,7 +510,6 @@ $('body').on('click', '#addDetalleServicio', function(e) {
         }
 
     };
-    
 
     window.db = db;
     window.dbs = dbs;
@@ -514,7 +560,6 @@ $('body').on('click', '#addDetalleServicio', function(e) {
     }
 
     $("#ButtonDetalle").click(function(event) {
-       
         saveDetalle();
     });
 

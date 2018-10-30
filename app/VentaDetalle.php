@@ -18,6 +18,7 @@ class VentaDetalle extends Model
     'movimiento_producto_id',
     'subtotal',
     'servicio_id',
+    'detalle_mano_obra',
     
     ];
 
