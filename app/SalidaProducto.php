@@ -15,36 +15,23 @@ class SalidaProducto extends Model
     'fecha_salida',
     'user_id',
     'tipo_salida_id',
-    'razon_salida',
     'movimiento_producto_id'
     ];
 
     public function producto(){
-    	return $this->belongsTo('App\Producto');
+    	return $this->belongsTo(Producto::class);
     }
 
-    public function movimientoproducto(){
-        return $this->belongsTo('App\MovimientoProducto');
+    public function movimiento_producto(){
+        return $this->belongsTo(MovimientoProducto::class);
     }
 
     public function user(){
-    	return $this->belongsTo('App\User');
+    	return $this->belongsTo(User::class);
     }
 
-    public function tiposalida(){
-    	return $this->belongsTo('App\TipoSalida');
+    public function tipo_salida(){
+    	return $this->belongsTo(TipoSalida::class);
     }
 
-    public function getFechaSalidaAttribute ($value) 
-    {
-        if ( $value != NULL )
-        {
-            return Carbon::parse($value)->format('d-m-Y');
-        }
-        else 
-        {
-            $value = "";
-            return $value;
-        }
-    }
 }

@@ -20,8 +20,8 @@
 					{!! Form::number( "cantidad" , null , ['class' => 'form-control' , 'placeholder' => 'Cantidad' ]) !!}
 				</div>
 				<div class="col-sm-4">
-					{!! Form::label("unidad_de_media_id","Unidad de medida") !!}
-					<select class="selectpicker" id='unidad_de_media_id' name="unidad_de_media_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+					{!! Form::label("unidad_de_medida_id","Unidad de medida") !!}
+					<select class="selectpicker" id='unidad_de_medida_id' name="unidad_de_medida_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
 						@foreach ($unidades_de_medida as $unidad_de_medida)
 						<option value="{{$unidad_de_medida->id}}">{{$unidad_de_medida->descripcion}}</option>
 						@endforeach

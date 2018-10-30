@@ -7,7 +7,7 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <h3 class="tittle-custom"> Edición de Compra </h3>
+                <h3 class="tittle-custom"> Edición de Ingreso </h3>
             </div>
         </div>
         <br>

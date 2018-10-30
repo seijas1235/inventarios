@@ -55,7 +55,7 @@ function saveCredito(button) {
 		data: formData,
 		dataType: "json",
 		success: function(data) {
-			window.location = "/cuentas_por_pagar" 
+			window.location = "/cuentas_por_pagar"
 		},
 		always: function() {
 			l.stop();

@@ -68,7 +68,7 @@ Route::group(['middleware' => ['web']], function ()
 		Route::delete('/ventadetalle3/destroy/{venta_detalle}', 'VentasController@destroyDetalle3');
 
 
-		Route::get( '/salidaproducto' , 'SalidaProductoController@index' );
+		/*Route::get( '/salidaproducto' , 'SalidaProductoController@index' );
         Route::get( '/salidaproducto/getJson' , 'SalidaProductoController@getJson' );
         Route::get( '/salidaproducto/new' , 'SalidaProductoController@create' );
         Route::post( '/salidaproducto' , 'SalidaProductoController@store' );
@@ -76,7 +76,7 @@ Route::group(['middleware' => ['web']], function ()
         Route::patch( '/salidaproducto/{salidaproducto}/update' , 'SalidaProductoController@update' );
         Route::resource("salidaproducto", "SalidaProductoController");
         Route::get('/salidaproducto/name/{salidaproducto}', 'SalidaProductoController@getName' );
-        Route::delete( '/salidaproducto/destroy/{salidaproducto}' , 'SalidaProductoController@destroy' );
+        Route::delete( '/salidaproducto/destroy/{salidaproducto}' , 'SalidaProductoController@destroy' );*/
 
 
 		Route::get('/tipos_cliente', 'TiposClienteController@index');
@@ -346,6 +346,14 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch( '/ingresos_productos/{ingreso_producto}/update' , 'IngresosProductoController@update' );
 		Route::get('/ingresos_productos/edit/{ingreso_producto}', 'IngresosProductoController@edit');
 		Route::delete('/ingresos_productos/destroy/{ingreso_producto}' , 'IngresosProductoController@destroy' );
+
+		Route::get( '/salidas_productos' , 'SalidaProductoController@index' );
+        Route::get( '/salidas_productos/getJson' , 'SalidaProductoController@getJson' );
+        Route::get( '/salidas_productos/new' , 'SalidaProductoController@create' );
+        Route::post( '/salidas_productos/save/' , 'SalidaProductoController@save');
+		Route::patch( '/salidas_productos/{salida_producto}/update' , 'SalidaProductoController@update' );
+		Route::get('/salidas_productos/edit/{salida_producto}', 'SalidaProductoController@edit');
+		Route::delete('/salidas_productos/destroy/{salida_producto}' , 'SalidaProductoController@destroy' );
 		
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
 

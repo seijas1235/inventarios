@@ -1,21 +1,10 @@
-var cuentas_por_pagar_table = $('#cuentas_por_pagar-table').DataTable({
-    "ajax": "/cuentas_por_pagar/getJson",
+var salidas_productos_table = $('#salidas_productos-table').DataTable({
+    "ajax": "/salidas_productos/getJson",
     "responsive": true,
     "processing": true,
     "serverSide": true,
     "info": true,
     "showNEntries": true,
-    "dom": 'Bfrtip',
-    "buttons": [
-    {
-        extend: 'pdfHtml5',
-        exportOptions: {
-            columns: [ 0, 1, 2, 3, 4, 5,6]
-        }
-    },
-    'excelHtml5',
-    'csvHtml5'
-    ],
     "paging": true,
     "language": {
         "sProcessing":     "Procesando...",
@@ -41,66 +30,69 @@ var cuentas_por_pagar_table = $('#cuentas_por_pagar-table').DataTable({
             "sSortDescending": ": Activar para ordenar la columna de manera descendente"
         },
     },
-    "order": [0, 'asc'],
-    "columns": [ 
-    {
-        "title": "No.Cuenta",
+    "columns": [ {
+        "title": "Cod",
         "data": "id",
+        "width" : "5%",
+        "responsivePriority": 1,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML(data);
+        },
+    }, {
+        "title": "Fecha Salida",
+        "data": "fecha_salida",
         "width" : "20%",
         "responsivePriority": 3,
         "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data); },
+            return CustomDatatableRenders.fitTextHTML(data);
+        },
+    },{
+        "title": "Producto",
+        "data": "nombre",
+        "width" : "20%",
+        "responsivePriority": 3,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML(data);
+        },
+    },
+    {
+        "title": "Cantidad",
+        "data": "cantidad_salida",
+        "orderable": false,
+        "width" : "20%",
+        "responsivePriority": 1,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML(parseFloat(Math.round(data * 100) / 100).toFixed(2));
+        },
     }, 
     {
-        "title": "Codigo Proveedor",
-        "data": "proveedor_id",
+        "title": "Tipo Salida",
+        "data": "tipo_salida",
         "width" : "20%",
-        "responsivePriority": 2,
-        "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data); },
-    },
-    {
-        "title": "Nombre",
-        "data": "nombre",
-        "width" : "15%",
         "responsivePriority": 3,
         "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data); },
-    },
-    {
-        "title": "Saldo Actual",
-        "data": "total",
-        "width" : "15%",
-        "responsivePriority": 3,
-        "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML("Q." + parseFloat(Math.round(data * 100) / 100).toFixed(2));
-    },
-},       
-    {
+            return CustomDatatableRenders.fitTextHTML(data);
+        },
+    }, {
         "title": "Acciones",
         "orderable": false,
         "width" : "20%",
         "render": function(data, type, full, meta) {
             return "<div id='" + full.id + "' class='text-center'>" + 
-            /*"<div class='float-left col-lg-6'>" + 
-            "<a href='/cuentas_por_pagar/edit/"+ full.id +"' class='edit-cuenta_por_pagar'>" + 
-            "<i class='fa fa-btn fa-edit' title='Editar Cuenta por Pagar'></i>" + 
+            "<div class='float-left col-lg-6'>" + 
+            "<a href='/salidas_productos/edit/"+full.id+"'class='edit-salida'>" + 
+            "<i class='fa fa-btn fa-edit' title='Editar salida'></i>" + 
             "</a>" + "</div>" + 
-            "<div class='float-right col-lg-4'>" + 
-            "<a href='#' class='remove-cuenta_por_pagar'>" + 
-            "<i class='fa fa-btn fa-trash' title='Eliminar Cuenta por Pagar'></i>" + 
-            "</a>" + "</div>"+*/
-            "<div class='float-left col-lg-12'>" + 
-            "<a href='/cuentas_por_pagar/show/"+ full.id +"' class='detalle-cuenta_por_pagar'>" + 
-            "<i class='fa fa-btn fa-desktop' title='Detalle Cuenta por Pagar'></i>" + 
+            "<div class='float-right col-lg-6'>" + 
+            "<a href='#' class='remove-salida'>" + 
+            "<i class='fa fa-btn fa-trash' title='Eliminar salida'></i>" + 
             "</a>" + "</div>";
-            
         },
         "responsivePriority": 2
     }],
     "createdRow": function(row, data, rowIndex) {
         $.each($('td', row), function(colIndex) {
-            if (colIndex == 6) $(this).attr('id', data.id);
+            if (colIndex == 4) $(this).attr('id', data.id);
         });
     },
     "fnPreDrawCallback": function( oSettings ) {
@@ -108,8 +100,8 @@ var cuentas_por_pagar_table = $('#cuentas_por_pagar-table').DataTable({
 });
 
 
-
-$('body').on('click', 'a.remove-cuenta_por_pagar', function(e) {
+//Borrar 
+$('body').on('click', 'a.remove-salida', function(e) {
     $( ".confirm-delete" , "#userDeleteModal").removeAttr("field");
     var id = $(this).parent().parent().attr("id");
     $("input[name='password_delete']").val("");
@@ -118,11 +110,11 @@ $('body').on('click', 'a.remove-cuenta_por_pagar', function(e) {
     $("#userDeleteModal").hide().show();
     $("#userDeleteModal").modal();
     if (user.length = 1) {
-        $("#message").text("esta Cuenta?");
+        $("#message").text("este tipo de salida?");
         $(".variable").text("");
         $(".entity").text("");
     } else {
-        $("#message").text("esta Cuenta");
+        $("#message").text("este tipo de salida");
         $(".variable").text("");
         $(".entity").text("");
     }
@@ -150,7 +142,7 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
 
     var td  = $("#"+id);
 
-    var url = "/cuentas_por_pagar/remove/"+id;
+    var url = "/salidas_productos/destroy/"+id;
     var password_delete = $("input[name='password_delete']").val().trim();
     data = {
         password_delete : password_delete
@@ -167,8 +159,8 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
         $(".user-created-message").removeClass("hidden");
         $(".user-created-message").addClass("alert-danger");
         $(".user-created-message").fadeIn();
-        $(".user-created-message > p").text("Cuenta eliminado exitosamente!");
-        cuentas_por_pagar_table.ajax.reload();
+        $(".user-created-message > p").text("Salida eliminada exitosamente!");
+        salidas_productos_table.ajax.reload();
         $("#userDeleteModal").modal("hide");
     }).fail(function(errors) {
         var errors = JSON.parse(errors.responseText);

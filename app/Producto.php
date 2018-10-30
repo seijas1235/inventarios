@@ -38,4 +38,8 @@ class Producto extends Model
         return $this->hasMany(IngresoProducto::class);
     }
 
+    public function salidas_productos(){
+        return $this->hasMany(SalidaProducto::class);
+    }
+
 }

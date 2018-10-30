@@ -207,6 +207,7 @@
 				<ul>
 					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
 					<li><a href="/ingresos_productos"><i class="icon icon-th"></i> <span>Ingreso Producto</span></a></li>
+					<li><a href="/salidas_productos"><i class="icon icon-th"></i> <span>Salida Producto</span></a></li>
 					@endif
 				</ul>
 			</li>
