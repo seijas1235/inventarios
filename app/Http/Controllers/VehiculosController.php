@@ -101,6 +101,36 @@ class VehiculosController extends Controller
         //
     }
 
+    public function placaDisponible()
+	{
+		$dato = Input::get("placa");
+		$query = Vehiculo::where("placa",$dato)->get();
+		$contador = count($query);
+		if ($contador == 0)
+		{
+			return 'false';
+		}
+		else
+		{
+			return 'true';
+		}
+    }
+    
+    public function vinDisponible()
+	{
+		$dato = Input::get("vin");
+		$query = Vehiculo::where("vin",$dato)->get();
+		$contador = count($query);
+		if ($contador == 0)
+		{
+			return 'false';
+		}
+		else
+		{
+			return 'true';
+		}
+	}
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -143,6 +173,10 @@ class VehiculosController extends Controller
      */
     public function update(Vehiculo $vehiculo, Request $request)
     {
+        $this->validate($request,['placa' => 'required|unique:vehiculos,placa,'.$vehiculo->id, 'vin' => 'required|unique:vehiculos,vin,'.$vehiculo->id
+        ]);
+        
+
         Response::json( $this->updateVehiculo($vehiculo , $request->all()));
         return redirect('/vehiculos');
     }
