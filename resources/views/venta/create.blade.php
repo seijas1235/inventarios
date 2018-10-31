@@ -23,27 +23,27 @@
 				{!! Form::label("nit_c","NIT:") !!}
 				{!! Form::text( "nit_c" , null, ['class' => 'form-control' , 'placeholder' => 'NIT']) !!}
 			</div>
-			<div class="col-sm-4">
+			<div class="col-sm-3">
 				{!! Form::label("direccion","Direccion:") !!}
 				{!! Form::text( "direccion" , null , ['class' => 'form-control', 'placeholder' => 'direccion' ]) !!}
+			</div>
+			<div class="col-sm-3">
+				{!! Form::label("tipo_pago","Tipo Pago:") !!}
+				<select class="form-control" id='tipo_pago_id' name="tipo_pago_id" value="{{ old('role')}}">
+					@foreach ($tipo_pagos as $tipo_pago)
+					<option value="{{$tipo_pago->id}}">{{ $tipo_pago->tipo_pago}}</option>;
+					@endforeach
+				</select>
+				<span id="api-type-error" class="help-block hidden">
+					<strong></strong>
+				</span>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-4">
-				{!! Form::label("fecha_venta","Fecha:") !!}
-				{!! Form::text( "fecha_venta" , $today, ['class' => 'form-control', 'disabled', 'placeholder' => 'Precio de Compra' ]) !!}
+				{!! Form::hidden( "fecha_venta" , $today, ['class' => 'form-control', 'disabled', 'placeholder' => 'Precio de Compra' ]) !!}
 			</div>
-			<div class="col-sm-6">
-					{!! Form::label("tipo_pago","Tipo Pago:") !!}
-					<select class="form-control" id='tipo_pago_id' name="tipo_pago_id" value="{{ old('role')}}">
-						@foreach ($tipo_pagos as $tipo_pago)
-						<option value="{{$tipo_pago->id}}">{{ $tipo_pago->tipo_pago}}</option>;
-						@endforeach
-					</select>
-					<span id="api-type-error" class="help-block hidden">
-						<strong></strong>
-					</span>
-				</div>
+			
 		</div>
 		<hr>
 		<h3> Agregar Producto</h3>

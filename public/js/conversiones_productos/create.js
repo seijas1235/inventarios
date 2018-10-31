@@ -52,11 +52,19 @@ $("input[name='codigo_barra']").focusout(function() {
                 if( cantidad_medida_sale >= result[0].cantidad)
                 {
                     $("input[name='cantidad_ingreso'] ").val(cantidad_medida_sale * cantidad_sale * result[0].cantidad);
+                    var precio=parseFloat($("input[name='precio_sale'] ").val());
+                    var costo=parseFloat(precio/cantidad_medida_sale);
+                    var num3 = costo.toFixed(2);            
+                    $("input[name='precio_compra'] ").val(num3);
                 }
 
                 else
                 {
                     $("input[name='cantidad_ingreso'] ").val((cantidad_medida_sale * cantidad_sale) / result[0].cantidad);
+                    var precio=parseFloat($("input[name='precio_sale'] ").val());
+                    var costo=parseFloat(precio*cantidad_sale);
+                    var num3 = costo.toFixed(2);            
+                    $("input[name='precio_compra'] ").val(num3);
                 }
 
                 
@@ -75,6 +83,7 @@ $("input[name='codigo_barra_sale']").focusout(function() {
                 $("input[name='cantidad_medida_sale'] ").val("");
             }
             else {
+                $("input[name='precio_sale'] ").val(result[0].precio_compra);
                 $("input[name='nombre_sale'] ").val(result[0].nombre);
                 $("input[name='producto_id_sale'] ").val(result[0].prod_id);
                 $("input[name='unidad_de_medida_sale'] ").val(result[0].medida);
