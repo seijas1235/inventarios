@@ -2,7 +2,6 @@
 @section('content')
 <div id="content">
 	<div class="container-custom">
-		{!! Form::open( array( 'id' => 'VentasForm') ) !!}
 		<div class="row">
 			<div class="col-sm-12">
 				<h3 class="tittle-custom">Creación de Ventas</h3>
@@ -29,25 +28,25 @@
 				{!! Form::text( "direccion" , null , ['class' => 'form-control', 'placeholder' => 'direccion' ]) !!}
 			</div>
 		</div>
-		<br>
 		<div class="row">
 			<div class="col-sm-4">
 				{!! Form::label("fecha_venta","Fecha:") !!}
-				{!! Form::date( "fecha_venta" , null , ['class' => 'form-control', 'placeholder' => 'direccion' ]) !!}
+				{!! Form::text( "fecha_venta" , $today, ['class' => 'form-control', 'disabled', 'placeholder' => 'Precio de Compra' ]) !!}
 			</div>
 			<div class="col-sm-6">
-				{!! Form::label("tipo_pago","Tipo Pago:") !!}
-				<select class="form-control" id='tipo_pago_id' name="tipo_pago_id" value="{{ old('role')}}">
-					@foreach ($tipo_pagos as $tipo_pago)
-					<option value="{{$tipo_pago->id}}">{{ $tipo_pago->tipo_pago}}</option>;
-					@endforeach
-				</select>
-				<span id="api-type-error" class="help-block hidden">
-					<strong></strong>
-				</span>
-			</div>
+					{!! Form::label("tipo_pago","Tipo Pago:") !!}
+					<select class="form-control" id='tipo_pago_id' name="tipo_pago_id" value="{{ old('role')}}">
+						@foreach ($tipo_pagos as $tipo_pago)
+						<option value="{{$tipo_pago->id}}">{{ $tipo_pago->tipo_pago}}</option>;
+						@endforeach
+					</select>
+					<span id="api-type-error" class="help-block hidden">
+						<strong></strong>
+					</span>
+				</div>
 		</div>
 		<hr>
+		<h3> Agregar Producto</h3>
 		<br>
 		<div class="row">
 			<div class="col-sm-6">
@@ -63,7 +62,6 @@
 				{!! Form::text( "subtotal" , null , ['class' => 'form-control' , 'disabled', 'placeholder' => 'Sub-Total' ]) !!}
 			</div>
 		</div>
-		<br>
 		<div class="row">
 			<div class="col-sm-6">
 				{!! Form::label("Descripción","Descripción:") !!}
@@ -81,10 +79,7 @@
 				{!! Form::hidden("existencias" , null , ['class' => 'form-control' , 'disabled']) !!}
 				{!! Form::hidden("venta_maestro" , null , ['class' => 'form-control' , 'disabled']) !!}
 			</div>
-			<div class="col-sm-3">
-				{!! Form::label("fecha","Fecha:") !!}
-				{!! Form::text( "created_at" , $today, ['class' => 'form-control', 'disabled', 'placeholder' => 'Precio de Compra' ]) !!}
-			</div>
+			
 		</div>
 		<div id='total_existencia' style="font-size:16px; font-weight:bold; color:green"> </div>
 		<br>
@@ -113,15 +108,7 @@
 				<div class="input-group">
 					{!! Form::hidden("venta_maestro" , null , ['class' => 'form-control' , 'disabled']) !!}
 					<span class="input-group-addon">Q</span>
-					{!! Form::number( "precio" , null , ['class' => 'form-control', 'disabled', 'placeholder' => '0.00' ]) !!}
-				</div>
-			</div>
-			<div class="col-sm-2">
-				{!! Form::label("mano_obra","Mano de Obra:") !!}
-				<div class="input-group">
-					{!! Form::hidden("Q." , null , ['class' => 'form-control' , 'disabled']) !!}
-					<span class="input-group-addon">Q</span>
-					{!! Form::number( "mano_obra" , null , ['class' => 'form-control', 'placeholder' => '0.00' ]) !!}
+					{!! Form::number( "precio" , null , ['class' => 'form-control', 'placeholder' => '0.00' ]) !!}
 				</div>
 			</div>
 			<div class="col-sm-3">
@@ -130,9 +117,30 @@
 			</div>
 			
 		</div>
-		<br>
 		<div class="text-right m-t-15">
-			{!! Form::input('submit', 'submit', 'Agregar servicio', ['class' => 'btn btn-danger form-gradient-color form-button2', 'id'=>'addDetalleServicio']) !!}	
+			{!! Form::submit('Agregar servicio', ['class' => 'btn btn-danger', 'id'=>'addDetalleServicio']) !!}	
+		</div>
+		<hr>
+		<h3> Agregar Mano de Obra</h3>
+		<br>
+		<div class="row">
+			<div class="col-sm-8">
+				{!! Form::label("descripcion_m","Descripcion :") !!}
+				{!! Form::text( "descripcion_m" , null , ['class' => 'form-control' , 'placeholder' => 'Descripcion' ]) !!}
+			</div>
+			<div class="col-sm-3">
+				{!! Form::label("precio_m","Precio:") !!}
+				<div class="input-group">
+					<span class="input-group-addon">Q</span>
+					{!! Form::number( "precio_m" , null , ['class' => 'form-control', 'placeholder' => '0.00' ]) !!}
+		
+				</div>
+			</div>
+			</div>
+			<br>
+		<div class="text-right m-t-15">
+			{!! Form::submit('Agregar Mano de Obra' , ['class' => 'btn btn-danger' ,
+			'id' => 'addManoObra', 'data-loading-text' => 'Processing...' ]) !!}
 		</div>
 		<hr>
 
@@ -153,12 +161,13 @@
 				{!! Form::text( "cambio", null, ['class' => 'form-control', 'id' => 'cambio', 'disabled']) !!}
 			</div>
 		</div>
+		<br>
 		<div class="text-right m-t-15">
 					
 			{!! Form::submit('Guardar Venta' , ['class' => 'btn btn-success' ,
 			'id' => 'ButtonDetalle', 'data-loading-text' => 'Processing...' ]) !!}
 		</div>
-		{!! Form::close() !!}
+		
 	</div>
 </div>
 @endsection

@@ -20,7 +20,7 @@ class CreateTableVentas extends Migration
             $table->foreign('tipo_pago_id')->references('id')->on('tipos_pago')->onDelete('cascade');
 
             $table->float('total_venta');
-            $table->integer('cliente_id')->unsigned()->nullable();
+            $table->integer('cliente_id')->unsigned()->nullable()->default(1);
             $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
 
             

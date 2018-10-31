@@ -63,6 +63,9 @@ class VentasController extends Controller
 	public function save(Request $request)
 	{
 		$data = $request->all();
+		if(empty ($data['cliente_id'])){
+			$data["cliente_id"]=1;
+		}
 		$data["user_id"] = Auth::user()->id;
 		$data["edo_venta_id"] = 1;
 		$maestro = Venta::create($data);
@@ -126,7 +129,21 @@ class VentasController extends Controller
 	{
 		$statsArray = $request->all();
 		foreach($statsArray as $stat) {
-			if(empty ($stat['producto_id'])){
+			if(empty ($stat['producto_id']) && empty ($stat['servicio_id']) ){
+				
+				$stat["cantidad"] = 1;
+				$stat["precio_compra"] = 0;
+				$stat["precio_venta"] = $stat["precio_venta"];
+				$stat["subtotal"] = $stat["precio_venta"];
+				$stat["detalle_mano_obra"] = $stat["nombre"];
+								
+				$result = $venta_maestro->ventadetalle()->create($stat);
+				$total_venta = $venta_maestro->total_venta + $stat["subtotal"];
+				$venta_maestro->total_venta = $total_venta;
+				$venta_maestro->save();
+				$cantidad = $stat["cantidad"];
+					
+			}else if(empty ($stat['producto_id'])){
 				
 				$stat["precio_compra"] = 0;
 				$stat["precio_venta"] = $stat["precio_venta"];
@@ -488,7 +505,7 @@ class VentasController extends Controller
 		$api_Result['recordsTotal'] = $api_logsQueriable->count();
 
 		$query ='SELECT vd.venta_id as No_Venta, vd.id, 	
-				IF(vd.producto_id>0,pr.nombre, sr.nombre) as nombre, 
+				IF(vd.producto_id>0,pr.nombre, if(vd.servicio_id>0,sr.nombre, vd.detalle_mano_obra)) as nombre, 
 				vd.cantidad as cantidad, vd.subtotal as subtotal
 				FROM ventas_detalle vd
 				LEFT JOIN productos pr ON vd.producto_id=pr.id
