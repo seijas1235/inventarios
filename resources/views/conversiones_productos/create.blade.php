@@ -17,6 +17,7 @@
 			<br>
 			<div class="row">
 				<div class="col-sm-2">
+					{!! Form::hidden("precio_sale" , null , ['class' => 'form-control' , 'disabled']) !!}
 					{!! Form::label("codigo_barra_sale","Codigo de Barra:") !!}
 					{!! Form::hidden("producto_id_sale" , null , ['class' => 'form-control' , 'disabled']) !!}
 					{!! Form::hidden("subtotal_sale" , null , ['class' => 'form-control' , 'disabled']) !!}
