@@ -14,9 +14,10 @@
     <br>
         <!--	Primera linea de Vehiculos -->
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-3 {{$errors->has('placa')? 'has-error' : ''}}">
                 {!! Form::label("placa","No Placa:") !!}
                 {!! Form::text( "placa" , null , ['class' => 'form-control' , 'placeholder' => 'No Placa' ]) !!}
+                {!!$errors->first('placa', '<label class="error">:message</label>')!!}
             </div>
             <div class="col-sm-3">
                 {!! Form::label("tipo_vehiculo_id","Tipo de Vehiculo:") !!}
@@ -97,9 +98,10 @@
         <br>
         <!--	Tercera linea de Vehiculos -->
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-3 {{$errors->has('vin')? 'has-error' : ''}}">
                 {!! Form::label("vin","VIN:") !!}
                 {!! Form::text( "vin" , null , ['class' => 'form-control' , 'placeholder' => 'VIN' ]) !!}
+                {!!$errors->first('vin', '<label class="error">:message</label>')!!}
             </div>
             <div class="col-sm-3">
                 {!! Form::label("direccion_id","Tipo de Direccion:") !!}

@@ -46,6 +46,36 @@ $.validator.addMethod("placa", function(value, element){
 	}
 }, "Verfique, placa incorrecta o incompleta");
 
+$.validator.addMethod("placaUnica", function(value, element) {
+	var valid = false;
+	$.ajax({
+		type: "GET",
+		async: false,
+		url: "/placa-disponible",
+		data: "placa=" + value,
+		dataType: "json",
+		success: function(msg) {
+			valid = !msg;
+		}
+	});
+	return valid;
+}, "La placa ya está asignada a otro vehiculo registrado en el sistema");
+
+$.validator.addMethod("vinUnico", function(value, element) {
+	var valid = false;
+	$.ajax({
+		type: "GET",
+		async: false,
+		url: "/vin-disponible",
+		data: "vin=" + value,
+		dataType: "json",
+		success: function(msg) {
+			valid = !msg;
+		}
+	});
+	return valid;
+}, "El VIN ya está asignado a otro vehiculo registrado en el sistema");
+
 
 var validator = $("#VehiculoForm").validate({
 	ignore: [],
@@ -53,7 +83,8 @@ var validator = $("#VehiculoForm").validate({
 	rules: {
 		placa: {
 			required : true,
-			placa: true
+			placa: true,
+			placaUnica: true
 		},
 		aceite_caja: {
 			required : true
@@ -89,7 +120,8 @@ var validator = $("#VehiculoForm").validate({
 			required : true
 		},
 		vin:{
-			required:true
+			required:true,
+			vinUnico: true
 		},
 		direccion_id:{
 			required:true
