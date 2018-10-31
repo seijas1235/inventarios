@@ -359,6 +359,8 @@ Route::group(['middleware' => ['web']], function ()
         Route::get( '/conversiones_productos/getJson' , 'ConversionesProductoController@getJson' );
         Route::get( '/conversiones_productos/new' , 'ConversionesProductoController@create' );
 		Route::post( '/conversiones_productos/save/' , 'ConversionesProductoController@save');
+		Route::get('/conversiones_productos/show/{conversion_producto}' , 'ConversionesProductoController@show');
+		Route::get( '/conversiones_productos/{conversion_producto}/getJson' , 'ConversionesProductoController@getJsonDetalle');
 		
 		Route::patch( '/conversiones_productos/{conversion_producto}/update' , 'ConversionesProductoController@update' );
 		Route::get('/conversiones_productos/edit/{conversion_producto}', 'ConversionesProductoController@edit');
