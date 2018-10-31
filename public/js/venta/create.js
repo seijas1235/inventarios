@@ -55,8 +55,8 @@ $("input[name='codigo_barra']").focusout(function() {
             }
             else {
                 $("input[name='descripcion'] ").val(result[0].nombre);
-                $("input[name='precio_venta'] ").val(result[0].precio_venta);
-                $("input[name='precio_compra'] ").val(result[0].precio_compra);
+                $("input[name='precio_venta'] ").val((result[0].precio_venta).toFixed(2));
+                $("input[name='precio_compra'] ").val((result[0].precio_compra).toFixed(2));
                 $("input[name='existencias'] ").val(result[0].existencias);
                 $("input[name='cantidad'] ").val(1);
                 $("input[name='producto_id'] ").val(result[0].prod_id);
@@ -70,7 +70,7 @@ $("input[name='codigo_barra']").focusout(function() {
 $("input[name='efectivo']").focusout(function() {
     var total = $("input[name='total'] ").val();
     var efectivo = $("input[name='efectivo']").val();
-    var cambio = efectivo - total;
+    var cambio = (efectivo - total).toFixed(2); 
     $("input[name='cambio'] ").val("Q."+ cambio);
 });
 
@@ -78,7 +78,7 @@ $("input[name='cantidad']").focusout(function() {
     var cantidad = $("input[name='cantidad'] ").val();
     var precio_venta = $("input[name='precio_venta'] ").val();
 
-    var subtotal = cantidad * precio_venta;
+    var subtotal = (cantidad * precio_venta).toFixed(2);
     if (cantidad != 0 ) {
         $("input[name='subtotal'] ").val(subtotal);
     }
@@ -124,7 +124,7 @@ $('body').on('click', '#addDetalle', function(e)
             var detalle = new Object();
             var cantidad = $("input[name='cantidad'] ").val();
             var precio_venta = $("input[name='precio_venta'] ").val();
-            var subtotal = cantidad * precio_venta;
+            var subtotal = (cantidad * precio_venta).toFixed(2);
             $("input[name='subtotal'] ").val(subtotal);
             detalle.cantidad = $("input[name='cantidad'] ").val();
             detalle.precio_venta = $("input[name='precio_venta'] ").val();
@@ -138,12 +138,12 @@ $('body').on('click', '#addDetalle', function(e)
             if (total2 != "") {
                 var total2 =parseFloat(total2);
                 var subtotal = parseFloat(subtotal);
-                var total = total2 + subtotal;
+                var total = (total2 + subtotal).toFixed(2);
                 var total3 = $("input[name='total'] ").val(total);
             }
             else {
                 var subtotal = parseFloat(subtotal);
-                var total3 = $("input[name='total'] ").val(subtotal);
+                var total3 = $("input[name='total'] ").val(subtotal.toFixed(2));
             }
 
             dbs.detalles.push(detalle);
@@ -155,7 +155,7 @@ $('body').on('click', '#addDetalle', function(e)
             $("input[name='cantidad'] ").val(1);
             var cantidad = $("input[name='cantidad'] ").val();
             var precio_venta = $("input[name='precio_venta'] ").val();
-            var subtotal = cantidad * precio_venta;
+            var subtotal = (cantidad * precio_venta).toFixed(2);
             $("input[name='subtotal'] ").val(subtotal);
             var venta_maestro = $("input[name='venta_maestro'] ").val();
             if($("input[name='venta_maestro']").val() != "") {       
@@ -278,12 +278,12 @@ $('body').on('click', '#addManoObra', function(e)
         if (total2 != "") {
             var total2 =parseFloat(total2);
             var subtotal = parseFloat(subtotal);
-            var total = total2 + subtotal;
+            var total = (total2 + subtotal).toFixed(2);
             var total3 = $("input[name='total'] ").val(total);
         }
         else {
             var subtotal = parseFloat(subtotal);
-            var total3 = $("input[name='total'] ").val(subtotal);
+            var total3 = $("input[name='total'] ").val(subtotal.toFixed(2));
         }
 
         dbs.detalles.push(detalle);
@@ -359,7 +359,7 @@ $('body').on('click', '#addDetalleServicio', function(e)
         var precio_venta =$("input[name='precio'] ").val(); ;
         var precio_compra = 0;
         var id =  $("#servicio_id").val();
-        var subtotal = cantidad * precio_venta; 
+        var subtotal = (cantidad * precio_venta).toFixed(2); 
         $("input[name='subtotal_s'] ").val(subtotal);
         detalle.cantidad = $("input[name='cantidad_s'] ").val();
         detalle.precio_venta = $("input[name='precio'] ").val();;
@@ -371,12 +371,12 @@ $('body').on('click', '#addDetalleServicio', function(e)
         if (total2 != "") {
             var total2 =parseFloat(total2);
             var subtotal = parseFloat(subtotal);
-            var total = total2 + subtotal;
+            var total = (total2 + subtotal).toFixed(2);
             var total3 = $("input[name='total'] ").val(total);
         }
         else {
             var subtotal = parseFloat(subtotal);
-            var total3 = $("input[name='total'] ").val(subtotal);
+            var total3 = $("input[name='total'] ").val(subtotal.toFixed(2));
         }
 
         dbs.detalles.push(detalle);
@@ -389,7 +389,7 @@ $('body').on('click', '#addDetalleServicio', function(e)
         $("input[name='cantidad_s'] ").val([""]);
         var cantidad = $("input[name='cantidad_s'] ").val();
         var precio_compra = 0;
-        var subtotal = cantidad * precio_venta;
+        var subtotal = (cantidad * precio_venta).toFixed(2);
         var venta_maestro = $("input[name='venta_maestro'] ").val();
         if($("input[name='venta_maestro']").val() != "") {       
             $.ajax({
