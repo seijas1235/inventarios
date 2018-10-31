@@ -109,7 +109,7 @@ class CuentasPorPagarController extends Controller
                 'saldo' => $data["total"]
             );
             
-            $cuentaporpagar = new CuentaPorPagar();
+            $cuentaporpagar = new CuentaPorPagar;
             $cuentaporpagar->total = $data["total"];
             $cuentaporpagar->proveedor_id = $data["proveedor_id"];
             $cuentaporpagar->save();
