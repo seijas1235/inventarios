@@ -68,7 +68,10 @@ class SalidaProductoController extends Controller
 			DB::beginTransaction();
 
 			$statsArray = $request->all();
+			
+
 			foreach($statsArray as $stat) {
+
 
 			$salida_producto = new SalidaProducto();
 
@@ -180,6 +183,21 @@ class SalidaProductoController extends Controller
 		else {
 			$response["password_delete"] = "La contraseña no coincide";
 			return Response::json( $response  , 422 );
+		}
+	}
+
+	public function getExistencia()
+	{
+		$dato = Input::get("cantidad_salida");
+		$query = CajaChica::where("saldo", '<', $dato)->get();
+		$contador = count($query);
+		if ($contador == 0)
+		{
+			return 'false';
+		}
+		else
+		{
+			return 'true';
 		}
 	}
 

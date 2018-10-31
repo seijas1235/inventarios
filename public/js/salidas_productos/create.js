@@ -47,7 +47,7 @@ $("input[name='codigo_barra']").focusout(function() {
         });
     });
 
-$("input[name='cantidad_salida']").focusout(function() {
+/*$("input[name='cantidad_salida']").focusout(function() {
     var cantidad_salida = $("input[name='cantidad_salida'] ").val();
     var precio_compra = $("input[name='precio_compra'] ").val();
 
@@ -58,7 +58,26 @@ $("input[name='cantidad_salida']").focusout(function() {
     else 
         $("input[name='subtotal'] ").val("0");
     return false;
-})
+})*/
+
+$("input[name='cantidad_salida']").focusout(function() {
+    var codigo = $("input[name='codigo_barra'] ").val();
+    var cantidad_salida = $("input[name='cantidad_salida'] ").val();
+    var url = "/productos/get/?data=" + codigo;    
+        $.getJSON( url , function ( result ) {
+
+            if(result[0].existencias < cantidad_salida ){
+                $("input[name='cantidad_salida'] ").after("<label class='error'>No hay existencia suficiente</label>");
+                $('#addDetalle').attr("disabled", true);
+            }
+
+            else{
+                $('#addDetalle').attr("disabled", false);
+                $(".error").remove();
+            }
+
+        });
+    });
 
 
 $('body').on('click', '#addDetalle', function(e) {
@@ -69,6 +88,7 @@ $('body').on('click', '#addDetalle', function(e) {
     var id = $("input[name='producto_id'] ").val(); 
     var subtotal = cantidad_salida * precio_compra;
     var tipo_salida_id = $('#tipo_salida_id').val();
+    
 
     if (cantidad_salida != "" && tipo_salida_id != "" && precio_compra != "" && id != "")
     {
