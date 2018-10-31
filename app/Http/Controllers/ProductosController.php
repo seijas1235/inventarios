@@ -214,11 +214,12 @@ class ProductosController extends Controller
 		}
 		else {
 			$query = "Select MP.id as producto_id, if(MP.fecha_ingreso is null,0,MP.fecha_ingreso) as fecha, PR.id as prod_id,
-			PR.nombre, if(MP.existencias is null,0,MP.existencias) as existencias, 
+			PR.nombre, if(MP.existencias is null,0,MP.existencias) as existencias, UM.descripcion as medida, UM.cantidad,
 			if(MP.precio_compra is null,0,MP.precio_compra) as precio_compra, PR.codigo_barra,
 				if(MP.precio_venta is null,0,MP.precio_venta) as precio_venta
 					from productos PR
 				left join movimientos_productos MP on PR.id=MP.producto_id and (MP.existencias>0)
+				Inner join unidades_de_medida UM on UM.id = PR.medida_id
 				having PR.codigo_barra = '".$producto."'
 				order by MP.fecha_ingreso DESC limit 1";
 				$result = DB::select($query);

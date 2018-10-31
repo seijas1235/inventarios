@@ -355,6 +355,15 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch( '/salidas_productos/{salida_producto}/update' , 'SalidaProductoController@update' );
 		Route::get('/salidas_productos/edit/{salida_producto}', 'SalidaProductoController@edit');
 		Route::delete('/salidas_productos/destroy/{salida_producto}' , 'SalidaProductoController@destroy' );
+
+		Route::get( '/conversiones_productos' , 'ConversionesProductoController@index' );
+        Route::get( '/conversiones_productos/getJson' , 'ConversionesProductoController@getJson' );
+        Route::get( '/conversiones_productos/new' , 'ConversionesProductoController@create' );
+		Route::post( '/conversiones_productos/save/' , 'ConversionesProductoController@save');
+		
+		Route::patch( '/conversiones_productos/{conversion_producto}/update' , 'ConversionesProductoController@update' );
+		Route::get('/conversiones_productos/edit/{conversion_producto}', 'ConversionesProductoController@edit');
+		Route::delete('/conversiones_productos/destroy/{conversion_producto}' , 'ConversionesProductoController@destroy' );
 		
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
 
