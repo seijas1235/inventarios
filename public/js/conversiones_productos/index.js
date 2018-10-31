@@ -1,5 +1,5 @@
-var ingresos_productos_table = $('#ingresos_productos-table').DataTable({
-    "ajax": "/ingresos_productos/getJson",
+var conversiones_productos_table = $('#conversiones_productos-table').DataTable({
+    "ajax": "/conversiones_productos/getJson",
     "responsive": true,
     "processing": true,
     "serverSide": true,
@@ -39,16 +39,8 @@ var ingresos_productos_table = $('#ingresos_productos-table').DataTable({
             return CustomDatatableRenders.fitTextHTML(data);
         },
     }, {
-        "title": "Fecha Ingreso",
-        "data": "fecha_ingreso",
-        "width" : "20%",
-        "responsivePriority": 3,
-        "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data);
-        },
-    },{
-        "title": "Producto",
-        "data": "nombre",
+        "title": "Fecha",
+        "data": "fecha",
         "width" : "20%",
         "responsivePriority": 3,
         "render": function( data, type, full, meta ) {
@@ -56,33 +48,13 @@ var ingresos_productos_table = $('#ingresos_productos-table').DataTable({
         },
     },
     {
-        "title": "Cantidad",
-        "data": "cantidad",
+        "title": "Usuario",
+        "data": "name",
         "orderable": false,
         "width" : "20%",
         "responsivePriority": 1,
         "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(parseFloat(Math.round(data * 100) / 100).toFixed(2));
-        },
-    }, 
-    {
-        "title": "Precio de Compra",
-        "data": "precio_compra",
-        "orderable": false,
-        "width" : "20%",
-        "responsivePriority": 1,
-        "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML("Q. " + parseFloat(Math.round(data * 100) / 100).toFixed(2));
-        },
-    },
-    {
-        "title": "Predio de Venta",
-        "data": "precio_venta",
-        "orderable": false,
-        "width" : "20%",
-        "responsivePriority": 1,
-        "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML("Q. " + parseFloat(Math.round(data * 100) / 100).toFixed(2));
+            return CustomDatatableRenders.fitTextHTML(data);
         },
     },{
         "title": "Acciones",
@@ -90,13 +62,17 @@ var ingresos_productos_table = $('#ingresos_productos-table').DataTable({
         "width" : "20%",
         "render": function(data, type, full, meta) {
             return "<div id='" + full.id + "' class='text-center'>" + 
-            "<div class='float-left col-lg-6'>" + 
-            "<a href='/ingresos_productos/edit/"+full.id+"'class='edit-ingreso'>" + 
-            "<i class='fa fa-btn fa-edit' title='Editar ingreso'></i>" + 
+            "<div class='float-left col-lg-4'>" + 
+            "<a href='/conversiones_productos/edit/"+full.id+"'class='edit-conversion'>" + 
+            "<i class='fa fa-btn fa-edit' title='Editar conversion'></i>" + 
             "</a>" + "</div>" + 
-            "<div class='float-right col-lg-6'>" + 
-            "<a href='#' class='remove-ingreso'>" + 
-            "<i class='fa fa-btn fa-trash' title='Eliminar ingreso'></i>" + 
+            "<div class='float-right col-lg-4'>" + 
+            "<a href='#' class='remove-conversion'>" + 
+            "<i class='fa fa-btn fa-trash' title='Eliminar conversion'></i>" + 
+            "</a>" + "</div>"+
+            "<div class='float-right col-lg-4'>" + 
+            "<a href='/conversiones_productos/show/"+ full.id +"' class='detalle-conversion'>" + 
+            "<i class='fa fa-btn fa-desktop' title='Detalle conversion'></i>" + 
             "</a>" + "</div>";
         },
         "responsivePriority": 2
@@ -112,7 +88,7 @@ var ingresos_productos_table = $('#ingresos_productos-table').DataTable({
 
 
 //Borrar 
-$('body').on('click', 'a.remove-ingreso', function(e) {
+$('body').on('click', 'a.remove-conversion', function(e) {
     $( ".confirm-delete" , "#userDeleteModal").removeAttr("field");
     var id = $(this).parent().parent().attr("id");
     $("input[name='password_delete']").val("");
@@ -121,11 +97,11 @@ $('body').on('click', 'a.remove-ingreso', function(e) {
     $("#userDeleteModal").hide().show();
     $("#userDeleteModal").modal();
     if (user.length = 1) {
-        $("#message").text("este tipo de ingreso?");
+        $("#message").text("este tipo de conversion?");
         $(".variable").text("");
         $(".entity").text("");
     } else {
-        $("#message").text("este tipo de ingreso");
+        $("#message").text("este tipo de conversion");
         $(".variable").text("");
         $(".entity").text("");
     }
@@ -153,7 +129,7 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
 
     var td  = $("#"+id);
 
-    var url = "/ingresos_productos/destroy/"+id;
+    var url = "/conversiones_productos/destroy/"+id;
     var password_delete = $("input[name='password_delete']").val().trim();
     data = {
         password_delete : password_delete
@@ -171,7 +147,7 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
         $(".user-created-message").addClass("alert-danger");
         $(".user-created-message").fadeIn();
         $(".user-created-message > p").text("Ingreso eliminado exitosamente!");
-        ingresos_productos_table.ajax.reload();
+        conversiones_productos_table.ajax.reload();
         $("#userDeleteModal").modal("hide");
     }).fail(function(errors) {
         var errors = JSON.parse(errors.responseText);
