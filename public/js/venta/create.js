@@ -525,7 +525,27 @@ $('body').on('click', '#addDetalleServicio', function(e)
         var venta_maestro = $("input[name='venta_maestro'] ").val();
         var cliente_id = $("#cliente_id").val();
         var formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id, cliente_id : cliente_id} 
+        var factura=$("#factura").val();
         
+        if (factura==1){
+            var fecha= $("input[name='fecha_venta'] ").val();
+            formData = {total: total_venta, tipo_pago_id : tipo_pago_id, cliente_id : cliente_id,venta_id: venta_maestro,fecha: fecha}
+            $.ajax({
+                type: "GET",
+                url: "/facturas/savec/",
+                data: formData,
+                async:false,
+                dataType: 'json',
+                success: function(data) {
+                    var detalle = data;
+                    $("input[name='venta_maestro'] ").val(data.id);
+                },
+                error: function() {
+                    alert("fallo factura");
+                }
+            });
+        }
+
         if(tipo_pago_id==3){
             var fecha_venta= $("input[name='fecha_venta'] ").val();
             formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id, cliente_id : cliente_id,venta_maestro_id: venta_maestro,fecha_venta: fecha_venta}

@@ -21,10 +21,12 @@ class CreateTableFacturas extends Migration
             $table->unsignedInteger('tipo_pago_id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('serie_id');
+            $table->unsignedInteger('venta_id')->nullable();
 
             $table->foreign('tipo_pago_id')->references('id')->on('tipos_pago')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('serie_id')->references('id')->on('series')->onDelete('cascade');
+            $table->foreign('venta_id')->references('id')->on('ventas_maestro')->onDelete('cascade');
             $table->timestamps();
         });
     }

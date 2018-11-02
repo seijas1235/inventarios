@@ -17,6 +17,7 @@ class Factura extends Model
         'tipo_pago_id',
         'user_id',
         'serie_id',
+        'venta_id',
 
 
         ];
