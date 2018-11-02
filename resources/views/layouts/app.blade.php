@@ -275,7 +275,7 @@
 				@endif
 				<ul>
 					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
-					<li><a href="/corte_caja">Registrar Corte Diario</a></li>
+					<li><a href="/cortes_caja">Registrar Corte Diario</a></li>
 					@endif
 					
 				</ul>

@@ -364,9 +364,25 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/conversiones_productos/show/{conversion_producto}' , 'ConversionesProductoController@show');
 		Route::get( '/conversiones_productos/{conversion_producto}/getJson' , 'ConversionesProductoController@getJsonDetalle');
 		
-		Route::patch( '/conversiones_productos/{conversion_producto}/update' , 'ConversionesProductoController@update' );
-		Route::get('/conversiones_productos/edit/{conversion_producto}', 'ConversionesProductoController@edit');
-		Route::delete('/conversiones_productos/destroy/{conversion_producto}' , 'ConversionesProductoController@destroy' );
+		//Route::patch( '/conversiones_productos/{conversion_producto}/update' , 'ConversionesProductoController@update' );
+		//Route::get('/conversiones_productos/edit/{conversion_producto}', 'ConversionesProductoController@edit');
+		//Route::delete('/conversiones_productos/destroy/{conversion_producto}' , 'ConversionesProductoController@destroy' );
+
+
+		//rutas Cortes de caja
+		Route::get( '/cortes_caja' , 'CortesCajaController@index');
+		Route::get( '/cortes_caja/getJson/' , 'CortesCajaController@getJson');
+		Route::get( '/cortes_caja/new' , 'CortesCajaController@create');
+		Route::get( '/cortes_caja/edit/{corte_caja}' , 'CortesCajaController@edit');
+		Route::patch( '/cortes_caja/{corte_caja}/update' , 'CortesCajaController@update');
+		Route::post( '/cortes_caja/save/' , 'CortesCajaController@store');
+		Route::delete( '/cortes_caja/remove/{corte_caja}' , 'CortesCajaController@destroy');
+		Route::get('/cortes_caja/nitDisponible/', 'CortesCajaController@nitDisponible');
+		Route::get('/cortes_caja/getEfectivo/', 'CortesCajaController@getEfectivo');
+		Route::get('/cortes_caja/getCredito/', 'CortesCajaController@getCredito');
+		Route::get('/cortes_caja/getTarjeta/', 'CortesCajaController@getTarjeta');
+		Route::get('/cortes_caja/getTotal/', 'CortesCajaController@getTotal');
+		Route::get( '/cortes_caja/corteUnico/', 'CortesCajaController@corteUnico');
 		
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
 
