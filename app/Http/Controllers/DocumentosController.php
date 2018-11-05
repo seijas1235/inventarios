@@ -136,14 +136,14 @@ class DocumentosController extends Controller
     {
         $api_Result = array();
         // Create a mapping of our query fields in the order that will be shown in datatable.
-        $columnsMapping = array("id", "descripcion");
+        $columnsMapping = array('id', 'descripcion');
 
         // Initialize query (get all)
 
         $api_logsQueriable = DB::table('documentos');
         $api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-        $query = "SELECT * FROM documentos";
+        $query = "SELECT documentos.id, documentos.descripcion FROM documentos ";
 
         $where = "";
 
@@ -151,7 +151,7 @@ class DocumentosController extends Controller
 
             foreach ($columnsMapping as $column) {
                 if (strlen($where) == 0) {
-                    $where .=" and (".$column." like  '%".$params->search['value']."%' ";
+                    $where .=" where (".$column." like  '%".$params->search['value']."%' ";
                 } else {
                     $where .=" or ".$column." like  '%".$params->search['value']."%' ";
                 }

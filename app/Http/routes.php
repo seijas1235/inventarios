@@ -220,6 +220,8 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch('/productos/{producto}/update' , 'ProductosController@update');
 		Route::delete('/productos/remove/{producto}' , 'ProductosController@destroy');
 		Route::get( '/producto/precio/{producto}' , 'ProductosController@getPrecio');
+		Route::get('/existencias', 'ProductosController@existenciasIndex');
+		Route::get('/existencias/getJson/', 'ProductosController@existencias');
 
 		Route::get('/precios_producto', 'PreciosProductoController@index');
 		Route::get('/precios_producto/getJson/' , 'PreciosProductoController@getJson');
@@ -384,14 +386,6 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/cortes_caja/getTotal/', 'CortesCajaController@getTotal');
 		Route::get( '/cortes_caja/corteUnico/', 'CortesCajaController@corteUnico');
 
-
-		Route::get('/existencias', 'ExistenciasController@index');
-		//Route::get('/existencias/getJson/' , 'ExistenciasController@getJson');
-		//Route::get('/existencias/new' , 'ExistenciasController@create');
-		//Route::post('/existencias/save/' , 'ExistenciasController@store');
-		//Route::get('/existencias/edit/{existencia}' , 'ExistenciasController@edit');
-		//Route::patch('/existencias/{existencia}/update' , 'ExistenciasController@update');
-		//Route::delete('/existencias/remove/{existencia}' , 'ExistenciasController@destroy');
 		
 		Route::get( '/vales2/get/' , 'ValesController@getJson');
 
