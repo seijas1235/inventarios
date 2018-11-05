@@ -18,6 +18,8 @@
 					<option value="{{$cliente->id}}"><p id="cliente">{{$cliente->nombres}}  {{$cliente->apellidos}} </p> </option>
 					@endforeach
 				</select>
+				<button class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal" id="modalCliente" type="button">
+					<i class="fa fa-plus"></i>Nuevo Cliente</button>
 			</div>
 			<div class="col-sm-3">
 				{!! Form::label("nit_c","NIT:") !!}
@@ -38,13 +40,7 @@
 					<strong></strong>
 				</span>
 			</div>
-			<div class="col-sm-1">
-				{!! Form::label("factura","Facturar: ") !!}
-				<select name="factura" id="factura" class="selectpicker">
-					<option value="0">No</option>
-					<option value="1">Si</option>
-				</select>
-			</div>
+			
 		</div>
 		<div class="row">
 			<div class="col-sm-4">
@@ -86,14 +82,16 @@
 				{!! Form::hidden("existencias" , null , ['class' => 'form-control' , 'disabled']) !!}
 				{!! Form::hidden("venta_maestro" , null , ['class' => 'form-control' , 'disabled']) !!}
 			</div>
+			<br>
+			<div class="col-sm-3">
+				{!! Form::submit('Agregar Nuevo Producto' , ['class' => 'btn btn-success' ,
+				'id' => 'addDetalle', 'data-loading-text' => 'Processing...' ]) !!}
+			</div>
 			
 		</div>
 		<div id='total_existencia' style="font-size:16px; font-weight:bold; color:green"> </div>
 		<br>
-		<div class="text-right m-t-15">
-			{!! Form::submit('Agregar Nuevo Producto' , ['class' => 'btn btn-success' ,
-			'id' => 'addDetalle', 'data-loading-text' => 'Processing...' ]) !!}
-		</div>
+		
 		<hr>
 		<h3> Agregar Servicio</h3>
 		<br>
@@ -118,20 +116,21 @@
 					{!! Form::number( "precio" , null , ['class' => 'form-control', 'placeholder' => '0.00' ]) !!}
 				</div>
 			</div>
-			<div class="col-sm-3">
+			<div class="col-sm-2">
 				{!! Form::label("subtotal_s","Sub-Total:") !!}
 				{!! Form::text( "subtotal_s" , null , ['class' => 'form-control' , 'disabled', 'placeholder' => 'Sub-Total' ]) !!}
 			</div>
-			
+			<br>
+			<div class="col-sm-3">
+				{!! Form::submit('Agregar servicio', ['class' => 'btn btn-danger', 'id'=>'addDetalleServicio']) !!}	
+			</div>
 		</div>
-		<div class="text-right m-t-15">
-			{!! Form::submit('Agregar servicio', ['class' => 'btn btn-danger', 'id'=>'addDetalleServicio']) !!}	
-		</div>
+		
 		<hr>
 		<h3> Agregar Mano de Obra</h3>
 		<br>
 		<div class="row">
-			<div class="col-sm-8">
+			<div class="col-sm-6">
 				{!! Form::label("descripcion_m","Descripcion :") !!}
 				{!! Form::text( "descripcion_m" , null , ['class' => 'form-control' , 'placeholder' => 'Descripcion' ]) !!}
 			</div>
@@ -140,46 +139,55 @@
 				<div class="input-group">
 					<span class="input-group-addon">Q</span>
 					{!! Form::number( "precio_m" , null , ['class' => 'form-control', 'placeholder' => '0.00' ]) !!}
-		
 				</div>
 			</div>
-			</div>
 			<br>
-		<div class="text-right m-t-15">
-			{!! Form::submit('Agregar Mano de Obra' , ['class' => 'btn btn-danger' ,
-			'id' => 'addManoObra', 'data-loading-text' => 'Processing...' ]) !!}
+			<div class="col-sm-3">
+				{!! Form::submit('Agregar Mano de Obra' , ['class' => 'btn btn-danger' ,
+				'id' => 'addManoObra', 'data-loading-text' => 'Processing...' ]) !!}
+			</div>	
 		</div>
+		
 		<hr>
 
 		<br>
 		<div id="detalle-grid"></div>
 		<div class="row" >
 			<br>
-			<div class="col-sm-4" id="total">
+			<div class="col-sm-3" id="total">
 				{!! Form::label("Total","Total:") !!}
 				{!! Form::text( "total" , null, ['class' => 'form-control', 'id' => 'total', 'disabled']) !!}
 			</div>
-			<div class="col-sm-4" id="total">
+			<div class="col-sm-3" id="total">
 				{!! Form::label("Efectivo","Efectivo:") !!}
 				{!! Form::text( "efectivo" , null, ['class' => 'form-control', 'id' => 'efectivo']) !!}
 			</div>
-			<div class="col-sm-4" id="total">
+			<div class="col-sm-3" id="total">
 				{!! Form::label("Cambio","Cambio:") !!}
 				{!! Form::text( "cambio", null, ['class' => 'form-control', 'id' => 'cambio', 'disabled']) !!}
+			</div>
+			<br>
+			<div class="col-sm-3">
+					
+				{!! Form::submit('Guardar Venta' , ['class' => 'btn btn-success' ,
+				'id' => 'ButtonDetalle', 'data-loading-text' => 'Processing...' ]) !!}
+			
 			</div>
 		</div>
 		<br>
 		
-			<div class="text-right m-t-15">
-					
-			{!! Form::submit('Guardar Venta' , ['class' => 'btn btn-success' ,
-			'id' => 'ButtonDetalle', 'data-loading-text' => 'Processing...' ]) !!}
-		
-	</div>
+			
 	</div>
 </div>
 @endsection
+
+	@include('venta.createModal')
+
+
+@stack('scripts')
+
 @section('scripts')
 {!! HTML::script('/js/venta/create.js') !!}
 {!! HTML::script('/js/venta/edit.js') !!}
+{!! HTML::script('/js/clientes/create.js') !!}
 @endsection

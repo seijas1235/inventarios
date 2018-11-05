@@ -12,6 +12,8 @@ use App\Venta;
 use App\VentaDetalle;
 use App\Servicio;
 use App\Cliente;
+Use App\TipoCliente;
+use App\ClasificacionCliente;
 use App\CuentasPorCobrar;
 use App\CuentaPorCobrarDetalle;
 use App\MovimientoProducto;
@@ -50,7 +52,9 @@ class VentasController extends Controller
 		$tipo_pagos = TipoPago::all();
 		$servicios = Servicio::all();
 		$clientes=Cliente::all();
-		return view("venta.create" , compact( "back", "tipo_pagos", "today",'servicios','clientes'));
+		$tipos_clientes = TipoCliente::all();
+       	$clasificaciones = ClasificacionCliente::all();
+		return view("venta.create" , compact( "back", "tipo_pagos", "today",'servicios','clientes','tipos_clientes', 'clasificaciones'));
 	}
 	
 
