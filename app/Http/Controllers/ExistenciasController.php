@@ -6,17 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-use DB;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
-use Carbon\Carbon;
-Use App\User;
-Use App\Empleado;
-Use App\Puesto;
-
-class EmpleadosController extends Controller
+class ExistenciasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -32,7 +22,9 @@ class EmpleadosController extends Controller
 
     public function index()
     {
-        return view ("empleados.index");
+
+        return view ("marcas.index");
+
     }
 
     /**
@@ -42,9 +34,8 @@ class EmpleadosController extends Controller
      */
     public function create()
     {
-       $user = Auth::user()->id;
-       $puestos = Puesto::all();
-       return view("empleados.create" , compact( "user", "puestos"));
+        $tipos_marcas= TipoMarca::all();
+        return view("marcas.create", compact('tipos_marcas'));
     }
 
     /**
@@ -55,12 +46,10 @@ class EmpleadosController extends Controller
      */
     public function store(Request $request)
     {       
-
         $data = $request->all();
-        $data["user_id"] = Auth::user()->id;
-        $empleado = empleado::create($data);
+        $marca = Marca::create($data);
 
-        return Response::json($empleado);
+        return Response::json($marca);
     }
 
     /**
@@ -73,34 +62,6 @@ class EmpleadosController extends Controller
     {
         //
     }
-    public function nitDisponible()
-	{
-		$dato = Input::get("nit");
-		$query = Empleado::where("nit",$dato)->get();
-		$contador = count($query);
-		if ($contador == 0)
-		{
-			return 'false';
-		}
-		else
-		{
-			return 'true';
-		}
-	}
-    public function dpiDisponible()
-	{
-		$dato = Input::get("emp_cui");
-		$query = Empleado::where("emp_cui",$dato)->get();
-		$contador = count($query);
-		if ($contador == 0)
-		{
-			return 'false';
-		}
-		else
-		{
-			return 'true';
-		}
-	}
 
     /**
      * Show the form for editing the specified resource.
@@ -108,13 +69,14 @@ class EmpleadosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Empleado $empleado)
+    public function edit(Marca $marca)
     {
-        $query = "SELECT * FROM empleados WHERE id=".$empleado->id."";
+        $query = "SELECT * FROM marcas WHERE id=".$marca->id."";
         $fieldsArray = DB::select($query);
 
-        $puestos = Puesto::all();
-        return view('empleados.edit', compact('empleado', 'fieldsArray', 'puestos'));
+        $tipos_marcas = TipoMarca::all();
+
+        return view('marcas.edit', compact('marca', 'fieldsArray', 'tipos_marcas'));
     }
 
     /**
@@ -124,30 +86,20 @@ class EmpleadosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Empleado $empleado, Request $request)
+    public function update(Marca $marca, Request $request)
     {
-        $this->validate($request,['nit' => 'required|unique:empleados,nit,'.$empleado->id
-        ]);
-        $this->validate($request,['emp_cui' => 'required|unique:empleados,emp_cui,'.$empleado->id
-        ]);
-        Response::json( $this->updateEmpleado($empleado , $request->all()));
-        return redirect('/empleados');
+        Response::json( $this->updateMarca($marca , $request->all()));
+        return redirect('/marcas');
     }
 
-    public function updateEmpleado(Empleado $empleado, array $data )
+    public function updateMarca(Marca $marca, array $data )
     {
-        $id= $empleado->id;
-        $empleado->nombre = $data["nombre"];
-        $empleado->nit = $data["nit"];
-        $empleado->emp_cui = $data["emp_cui"];
-        $empleado->telefono = $data["telefono"];
-        $empleado->direccion = $data["direccion"];
-        $empleado->puesto_id = $data["puesto_id"];
-        $empleado->fecha_inicio = $data["fecha_inicio"];
-		$empleado->fecha_nacimiento = $data["fecha_nacimiento"];
-        $empleado->save();
+        $id= $marca->id;
+        $marca->nombre = $data["nombre"];
+        $marca->tipo_marca_id = $data['tipo_marca_id'];
+        $marca->save();
 
-        return $empleado;
+        return $marca;
     }
 
     /**
@@ -156,7 +108,7 @@ class EmpleadosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Empleado $empleado, Request $request)
+    public function destroy(Marca $marca, Request $request)
     {
         $user1= Auth::user()->password;
 
@@ -167,10 +119,10 @@ class EmpleadosController extends Controller
         }
         else if( password_verify( $request["password_delete"] , $user1))
         {
-            $id= $empleado->id;
-            $empleado->delete();
+            $id= $marca->id;
+            $marca->delete();
             
-            $response["response"] = "el Empleado ha sido eliminado";
+            $response["response"] = "La marca ha sido eliminado";
             return Response::json( $response );
         }
         else {
@@ -179,27 +131,7 @@ class EmpleadosController extends Controller
         }    
     }
 
-    public function getInfo(Request $request)
-	{
-		$empleado = $request["data"];
 
-		if ($empleado == "")
-		{
-			$result = "";
-			return Response::json( $result);
-		}
-		else {
-			$query = "SELECT e.nombre, e.apellido, p.sueldo 
-
-            FROM empleados e
-            
-            INNER JOIN puestos p on p.id = e.puesto_id WHERE e.id ='".$empleado."'";
-				$result = DB::select($query);
-				return Response::json( $result);
-			}
-
-    }
-    
     public function getJson(Request $params)
     {
         $api_Result = array();
@@ -208,10 +140,10 @@ class EmpleadosController extends Controller
 
         // Initialize query (get all)
 
-        $api_logsQueriable = DB::table('empleados');
+        $api_logsQueriable = DB::table('marcas');
         $api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-        $query = "SELECT * FROM empleados";
+        $query = "SELECT * FROM marcas";
 
         $where = "";
 

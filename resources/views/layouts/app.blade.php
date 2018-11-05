@@ -264,7 +264,7 @@
 				@endif
 				<ul>
 					@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
-					<li><a href="/rpt_estado_cuenta_cliente">Estado de Cuenta de Clientes</a></li> 
+					<li><a href="/existencias">Existencias Productos</a></li> 
 					@endif
 					
 				</ul>

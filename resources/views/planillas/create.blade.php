@@ -20,8 +20,13 @@
 			<hr>
 			<div class="row">
 				<div class="col-sm-3">
-					{!! Form::label("Codigo","Codigo de empleado:") !!}
-					{!! Form::text( "empleado_id" , null , ['class' => 'form-control' , 'placeholder' => 'Codigo Empleado' ]) !!}
+					<label for="empleado_id">Empleados</label>
+					<select class="selectpicker" id='empleado_id' name="empleado_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+						<option value="0" selected="selected">Seleccione</option>
+						@foreach ($empleados as $empleado)
+						<option value="{{$empleado->id}}"><p id="empleado">{{$empleado->nombre}}</p> </option>
+						@endforeach
+					</select>
 					{!! Form::hidden("subtotal" , null , ['class' => 'form-control' , 'disabled']) !!}
 				</div>
 
