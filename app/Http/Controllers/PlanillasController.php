@@ -211,7 +211,7 @@ class PlanillasController extends Controller
 	{
 		$api_Result = array();
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("id, fecha");
+		$columnsMapping = array("planillas.id", "planillas.fecha", "planillas.total");
 
 		// Initialize query (get all)
 
@@ -266,7 +266,7 @@ class PlanillasController extends Controller
 	{
 		$api_Result = array();
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("dp.id, e.nombre");
+		$columnsMapping = array("dp.id","dp.planilla_id", "dp.empleado_id", "e.nombre", "e.apellido", "p.sueldo", "dp.horas_extra", "dp.bono_incentivo", "dp.igss", "dp.isr", "e.id");
 
 		// Initialize query (get all)
 

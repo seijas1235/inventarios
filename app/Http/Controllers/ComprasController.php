@@ -404,14 +404,15 @@ class ComprasController extends Controller
 	{
 		$api_Result = array();
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("serie_factura", "num_factura","fecha_factura", "nombre_comercial","total_factura");
+		$columnsMapping = array("compras.id","compras.serie_factura", "compras.num_factura", "fecha_factura","proveedores.nombre", "compras.total_factura");
 
 		// Initialize query (get all)
 
 		$api_logsQueriable = DB::table("compras");
 		$api_Result["recordsTotal"] = $api_logsQueriable->count();
 
-		$query = 'SELECT compras.id, compras.serie_factura, compras.num_factura, DATE_FORMAT(compras.fecha_factura, "%d-%m-%Y") as fecha_factura, proveedores.nombre, TRUNCATE(compras.total_factura,2) as total FROM compras INNER JOIN proveedores ON proveedores.id=compras.proveedor_id ';
+		$query = 'SELECT compras.id, compras.serie_factura, compras.num_factura, DATE_FORMAT(compras.fecha_factura, "%d-%m-%Y") as fecha_factura, proveedores.nombre, TRUNCATE(compras.total_factura,2) as total 
+		FROM compras INNER JOIN proveedores ON proveedores.id=compras.proveedor_id ';
 
 		$where = "";
 
@@ -457,7 +458,7 @@ class ComprasController extends Controller
 	{
 		$api_Result = array();
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("dc.compra_id", "p.codigo_barra", "p.nombre", "dc.existencias", "dc.precio_compra", "dc.precio_venta");
+		$columnsMapping = array("dc.id","dc.compra_id", "p.codigo_barra", "p.nombre", "dc.existencias", "dc.precio_compra", "dc.precio_venta");
 
 		// Initialize query (get all)
 

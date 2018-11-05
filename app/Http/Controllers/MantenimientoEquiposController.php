@@ -151,7 +151,7 @@ class MantenimientoEquiposController extends Controller
     {
         $api_Result = array();
         // Create a mapping of our query fields in the order that will be shown in datatable.
-        $columnsMapping = array("id");
+        $columnsMapping = array("P.nombre", "m.id", "m.descripcion","fecha_servicio", "m.fecha_proximo_servicio", "c.nombre_maquina", "m.labadas_servicio", "m.labadas_proximo_servicio");
         
         
         // Initialize query (get all)

@@ -74,7 +74,7 @@ $('body').on('click', '#addDetalle', function(e) {
     var detalle = new Object();
     var sueldo = $("input[name='sueldo'] ").val();
     var horas_extra = $("input[name='horas_extra'] ").val();
-    var id = $("input[name='empleado_id'] ").val();
+    var id = $("#empleado_id").val();
     var igss = $("input[name='igss'] ").val();
     var bono_incentivo = 250;
     var monto_hora_extra = horas_extra * ((sueldo/30)/8*1.5); 
@@ -89,7 +89,7 @@ $('body').on('click', '#addDetalle', function(e) {
         detalle.monto_hora_extra = $("input[name='monto_hora_extra'] ").val();
         detalle.bono_incentivo = 250;
         detalle.subtotal_planilla = $("input[name='subtotal'] ").val();
-        detalle.empleado_id  = $("input[name='empleado_id'] ").val();
+        detalle.empleado_id  = $("#empleado_id").val();
         detalle.nombre = $("input[name='nombre'] ").val();
         detalle.apellido = $("input[name='apellido'] ").val();
         var total2 = $("input[name='total'] ").val();

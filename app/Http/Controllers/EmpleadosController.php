@@ -204,7 +204,7 @@ class EmpleadosController extends Controller
     {
         $api_Result = array();
         // Create a mapping of our query fields in the order that will be shown in datatable.
-        $columnsMapping = array("id", "nombre");
+        $columnsMapping = array("id", "nombre","apellido", "emp_cui", "direccion", "telefono");
 
         // Initialize query (get all)
 
@@ -219,7 +219,7 @@ class EmpleadosController extends Controller
 
             foreach ($columnsMapping as $column) {
                 if (strlen($where) == 0) {
-                    $where .=" and (".$column." like  '%".$params->search['value']."%' ";
+                    $where .=" where (".$column." like  '%".$params->search['value']."%' ";
                 } else {
                     $where .=" or ".$column." like  '%".$params->search['value']."%' ";
                 }
