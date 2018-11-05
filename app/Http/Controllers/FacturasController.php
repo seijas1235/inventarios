@@ -65,6 +65,23 @@ class FacturasController extends Controller
 
         return Response::json($factura);
     }
+    public function savec(Request $request)
+    {       
+        $query='SELECT F.numero as numero from facturas F order by F.id DESC limit 1';
+        $fieldsArray = DB::select($query);
+      
+        $numero=$fieldsArray[0]->numero;
+        
+        $data = $request->all();
+        $data["user_id"] = Auth::user()->id;
+        $data["numero"] = $numero+1;        
+        $factura = Factura::create($data);
+
+        return Response::json($factura);
+    }
+
+
+
 
     /**
      * Display the specified resource.

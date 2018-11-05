@@ -27,7 +27,7 @@
 				{!! Form::label("direccion","Direccion:") !!}
 				{!! Form::text( "direccion" , null , ['class' => 'form-control', 'placeholder' => 'direccion' ]) !!}
 			</div>
-			<div class="col-sm-3">
+			<div class="col-sm-2">
 				{!! Form::label("tipo_pago","Tipo Pago:") !!}
 				<select class="form-control" id='tipo_pago_id' name="tipo_pago_id" value="{{ old('role')}}">
 					@foreach ($tipo_pagos as $tipo_pago)
@@ -37,6 +37,13 @@
 				<span id="api-type-error" class="help-block hidden">
 					<strong></strong>
 				</span>
+			</div>
+			<div class="col-sm-1">
+				{!! Form::label("factura","Facturar: ") !!}
+				<select name="factura" id="factura" class="selectpicker">
+					<option value="0">No</option>
+					<option value="1">Si</option>
+				</select>
 			</div>
 		</div>
 		<div class="row">
@@ -162,12 +169,13 @@
 			</div>
 		</div>
 		<br>
-		<div class="text-right m-t-15">
+		
+			<div class="text-right m-t-15">
 					
 			{!! Form::submit('Guardar Venta' , ['class' => 'btn btn-success' ,
 			'id' => 'ButtonDetalle', 'data-loading-text' => 'Processing...' ]) !!}
-		</div>
 		
+	</div>
 	</div>
 </div>
 @endsection
