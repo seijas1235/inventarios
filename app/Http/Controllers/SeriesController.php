@@ -158,7 +158,7 @@ class SeriesController extends Controller
     {
         $api_Result = array();
         // Create a mapping of our query fields in the order that will be shown in datatable.
-        $columnsMapping = array("id", "serie");
+        $columnsMapping = array("S.id", "S.serie", "S.resolucion", "S.fecha_resolucion", "S.fecha_vencimiento", "S.inicio", "S.fin", "E.estado", "D.descripcion");
 
         // Initialize query (get all)
 

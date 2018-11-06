@@ -23,8 +23,33 @@ $(document).on("keypress", '#ButtonDetalle', function (e) {
     }
 });
 
+function changeService() {
+    var empleado_id = $("#empleado_id").val();
+    var url = "/empleados/get/?data=" + empleado_id ;
+    if (empleado_id != "") {
+        $.getJSON( url , function ( result ) {
+            $("input[name='nombre'] ").val(result[0].nombre);
+            $("input[name='apellido'] ").val(result[0].apellido);
+            $("input[name='sueldo'] ").val(result[0].sueldo);
+            var igss = $("input[name='sueldo'] ").val() *4.83/100;
+            $("input[name='igss'] ").val(igss);	
+        });
+    }
 
-$("input[name='empleado_id']").focusout(function() {
+    else{
+            $("input[name='nombre'] ").val("");
+            $("input[name='apellido'] ").val("");
+            $("input[name='sueldo'] ").val("");
+            $("input[name='igss'] ").val("");
+    }
+}
+
+$("#empleado_id").change(function () {
+    changeService();
+});
+
+
+/*$("input[name='empleado_id']").focusout(function() {
     var codigo = $("input[name='empleado_id'] ").val();
     var url = "/empleados/get/?data=" + codigo;    
         $.getJSON( url , function ( result ) {
@@ -42,14 +67,14 @@ $("input[name='empleado_id']").focusout(function() {
                 $("input[name='igss'] ").val(igss);
             }
         });
-    });
+    }); */
 
 $('body').on('click', '#addDetalle', function(e) {
 
     var detalle = new Object();
     var sueldo = $("input[name='sueldo'] ").val();
     var horas_extra = $("input[name='horas_extra'] ").val();
-    var id = $("input[name='empleado_id'] ").val();
+    var id = $("#empleado_id").val();
     var igss = $("input[name='igss'] ").val();
     var bono_incentivo = 250;
     var monto_hora_extra = horas_extra * ((sueldo/30)/8*1.5); 
@@ -64,7 +89,7 @@ $('body').on('click', '#addDetalle', function(e) {
         detalle.monto_hora_extra = $("input[name='monto_hora_extra'] ").val();
         detalle.bono_incentivo = 250;
         detalle.subtotal_planilla = $("input[name='subtotal'] ").val();
-        detalle.empleado_id  = $("input[name='empleado_id'] ").val();
+        detalle.empleado_id  = $("#empleado_id").val();
         detalle.nombre = $("input[name='nombre'] ").val();
         detalle.apellido = $("input[name='apellido'] ").val();
         var total2 = $("input[name='total'] ").val();
@@ -80,7 +105,8 @@ $('body').on('click', '#addDetalle', function(e) {
         }
 
         db.links.push(detalle);
-        $("input[name='empleado_id'] ").val("");
+        $('#empleado_id').val('');
+        $('#empleado_id').change();
         $("input[name='nombre'] ").val("");
         $("input[name='horas_extra'] ").val("");
         $("input[name='apellido'] ").val("");
@@ -196,11 +222,11 @@ $('body').on('click', '#addDetalle', function(e) {
                 { title: "Nombre", name: "nombre", type: "text"},
                 { title: "Apellido", name: "apellido", type: "text"},
                 { title: "Codigo", name: "empleado_id", type: "text", visible:false},
-                { title: "Bono", name: "bono_incentivo", type: "text"},
+                { title: "Bono", name: "bono_incentivo", type: "number"},
                 { title: "Sueldo", name: "sueldo", type: "number"},
-                { title: "Horas Extra", name: "monto_hora_extra", type: "text"},
-                { title: "IGSS", name: "igss", type: "text"},
-                { title: "Subtotal", name: "subtotal_planilla", type: "text"},
+                { title: "Horas Extra", name: "monto_hora_extra", type: "number"},
+                { title: "IGSS", name: "igss", type: "number"},
+                { title: "Subtotal", name: "subtotal_planilla", type: "number"},
                 { type: "control" }
                 ],
                 onItemInserting: function (args) {

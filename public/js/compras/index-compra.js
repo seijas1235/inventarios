@@ -202,6 +202,7 @@ var compra_detalle = $('#detallecompra-table').DataTable({
     }, {
         "title": "Precio de Compra",
         "data": "precio_compra",
+        "orderable": false,
         "width" : "15%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
@@ -210,6 +211,7 @@ var compra_detalle = $('#detallecompra-table').DataTable({
     }, {
         "title": "Precio de Venta",
         "data": "precio_venta",
+        "orderable": false,
         "width" : "15%",
         "responsivePriority": 5,
         "render": function( data, type, full, meta ) {

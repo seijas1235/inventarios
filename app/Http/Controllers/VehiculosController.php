@@ -256,7 +256,7 @@ class VehiculosController extends Controller
     {
         $api_Result = array();
         // Create a mapping of our query fields in the order that will be shown in datatable.
-        $columnsMapping = array("id", "placa");
+        $columnsMapping = array("V.id", "V.placa", "V.aceite_caja", "V.aceite_motor", "V.fecha_ultimo_servicio", "V.kilometraje", "TV.nombre");
 
         // Initialize query (get all)
 

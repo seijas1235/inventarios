@@ -152,7 +152,7 @@ class TiposServicioController extends Controller
 
             foreach ($columnsMapping as $column) {
                 if (strlen($where) == 0) {
-                    $where .=" and (".$column." like  '%".$params->search['value']."%' ";
+                    $where .=" where (".$column." like  '%".$params->search['value']."%' ";
                 } else {
                     $where .=" or ".$column." like  '%".$params->search['value']."%' ";
                 }

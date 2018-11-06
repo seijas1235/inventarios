@@ -164,7 +164,7 @@ class MaquinariasEquipoController extends Controller
     {
         $api_Result = array();
         // Create a mapping of our query fields in the order that will be shown in datatable.
-        $columnsMapping = array("id");
+        $columnsMapping = array("M.id", "M.nombre_maquina", "M.codigo_maquina", "M.labadas_limite", "M.fecha_adquisicion", "MA.nombre");
 
         // Initialize query (get all)
 

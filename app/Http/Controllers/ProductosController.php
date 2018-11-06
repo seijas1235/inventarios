@@ -15,6 +15,7 @@ use App\Producto;
 use App\User;
 use App\UnidadDeMedida;
 use App\Marca;
+//use Yajra\Datatables\Datatables;
 
 class ProductosController extends Controller
 {
@@ -32,6 +33,68 @@ class ProductosController extends Controller
 	public function index()
 	{
 		return view("productos.index");
+	}
+
+	public function existenciasIndex()
+	{
+		return view('productos.existencias');
+	}
+
+
+
+	public function existencias(Request $params)
+	{
+		$api_Result = array();
+		// Create a mapping of our query fields in the order that will be shown in datatable.
+		$columnsMapping = array("p.id", "p.nombre", 'mp.existencias', 'p.minimo', 'mp.fecha_ingreso');
+
+		// Initialize query (get all)
+
+		$api_logsQueriable = DB::table('productos');
+		$api_Result['recordsTotal'] = $api_logsQueriable->count();
+
+		$query = "SELECT p.id, p.nombre, IF(SUM(mp.existencias) IS NULL,0,SUM(mp.existencias)) AS existencias,
+		p.minimo, IF(MAX(mp.fecha_ingreso) IS NULL,0,MAX(mp.fecha_ingreso)) as ultimo_ingreso FROM productos p
+		LEFT JOIN movimientos_productos mp on p.id = mp.producto_id GROUP BY p.nombre, p.id ";
+        
+		$where = "";
+
+		if (isset($params->search['value']) && !empty($params->search['value'])){
+
+			foreach ($columnsMapping as $column) {
+				if (strlen($where) == 0) {
+					$where .=" and (".$column." like  '%".$params->search['value']."%' ";
+				} else {
+					$where .=" or ".$column." like  '%".$params->search['value']."%' ";
+				}
+
+			}
+			$where .= ') ';
+		}
+		$condition = " ";
+		$query = $query . $condition . $where;
+
+		// Sorting
+		$sort = "";
+		foreach ($params->order as $order) {
+			if (strlen($sort) == 0) {
+				$sort .= 'order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
+			} else {
+				$sort .= ', '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
+			}
+		}
+
+		$result = DB::select($query);
+		$api_Result['recordsFiltered'] = count($result);
+
+		$filter = " limit ".$params->length." offset ".$params->start."";
+
+		$query .= $sort . $filter;
+
+		$result = DB::select($query);
+		$api_Result['data'] = $result;
+
+		return Response::json( $api_Result );
 	}
 
 	/**
@@ -151,7 +214,7 @@ class ProductosController extends Controller
 	{
 		$api_Result = array();
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("id", "codigo_barra");
+		$columnsMapping = array("P.codigo_barra", 'P.nombre', 'MR.nombre','U.descripcion', 'P.minimo');
 
 		// Initialize query (get all)
 

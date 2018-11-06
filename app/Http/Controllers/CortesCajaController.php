@@ -12,13 +12,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
 Use App\User;
-Use App\MantenimientoEquipo;
-Use App\MaquinariaEquipo;
-use App\Proveedor;
+Use App\CorteCaja;
 
-class MantenimientoEquiposController extends Controller
+
+class CortesCajaController extends Controller
 {
-  /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -32,7 +31,7 @@ class MantenimientoEquiposController extends Controller
 
     public function index()
     {
-        return view ("manttoequipo.index");
+        return view ("cortes_caja.index");
     }
 
     /**
@@ -42,9 +41,8 @@ class MantenimientoEquiposController extends Controller
      */
     public function create()
     {
-        $proveedores =Proveedor::all();
-        $maquinarias = MaquinariaEquipo::all();
-        return view("manttoequipo.create" , compact("maquinarias" , "proveedores"));
+       $user = Auth::user()->id;
+       return view("cortes_caja.create" , compact( "user" ));
     }
 
     /**
@@ -57,9 +55,9 @@ class MantenimientoEquiposController extends Controller
     {       
 
         $data = $request->all();
-        $manttoequipo = MantenimientoEquipo::create($data);
+        $corte_caja = CorteCaja::create($data);
 
-        return Response::json($manttoequipo);
+        return Response::json($corte_caja);
     }
 
     /**
@@ -79,14 +77,12 @@ class MantenimientoEquiposController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(MantenimientoEquipo $manttoequipo)
+    public function edit(CorteCaja $corte_caja)
     {
-        $query = "SELECT * FROM mantto_equipo WHERE id=".$manttoequipo->id."";
+        $query = "SELECT * FROM cortes_caja WHERE id=".$corte_caja->id."";
         $fieldsArray = DB::select($query);
 
-        $proveedores =Proveedor::all();
-        $maquinarias = MaquinariaEquipo::all();
-        return view('manttoequipo.edit', compact('manttoequipo', 'fieldsArray', 'maquinarias','proveedores'));
+        return view('cortes_caja.edit', compact('corte_caja', 'fieldsArray'));
     }
 
     /**
@@ -96,26 +92,24 @@ class MantenimientoEquiposController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(MantenimientoEquipo $manttoequipo, Request $request)
+    public function update(CorteCaja $corte_caja, Request $request)
     {
-        Response::json( $this->updateManttoEquipo($manttoequipo , $request->all()));
-        return redirect('/mantto_equipo');
+        $this->validate($request,['nit' => 'required|unique:cortes_caja,nit,'.$corte_caja->id
+        ]);
+        Response::json( $this->updateCorteCaja($corte_caja , $request->all()));
+        return redirect('/cortes_caja');
     }
 
-    public function updateManttoEquipo(MantenimientoEquipo $manttoequipo, array $data )
+    public function updateCorteCaja(CorteCaja $corte_caja, array $data )
     {
-        $id= $manttoequipo->id;
-        $manttoequipo->descripcion = $data["descripcion"];
-        $manttoequipo->fecha_proximo_servicio = $data["fecha_proximo_servicio"];
-        $manttoequipo->fecha_servicio = $data["fecha_servicio"];
-        $manttoequipo->labadas_servicio = $data["labadas_servicio"];
-        $manttoequipo->labadas_proximo_servicio = $data["labadas_proximo_servicio"];
-        $manttoequipo->maquinaria_id = $data["maquinaria_id"];
-        $manttoequipo->proveedor_id = $data["proveedor_id"];
-                
-        $manttoequipo->save();
+        $id= $corte_caja->id;
+        $corte_caja->nit = $data["nit"];
+        $corte_caja->nombre = $data["nombre"];
+        $corte_caja->telefonos = $data["telefonos"];
+        $corte_caja->direccion = $data["direccion"];
+        $corte_caja->save();
 
-        return $manttoequipo;
+        return $corte_caja;
     }
 
     /**
@@ -124,7 +118,7 @@ class MantenimientoEquiposController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MantenimientoEquipo $manttoequipo, Request $request)
+    public function destroy(CorteCaja $corte_caja, Request $request)
     {
         $user1= Auth::user()->password;
 
@@ -135,10 +129,10 @@ class MantenimientoEquiposController extends Controller
         }
         else if( password_verify( $request["password_delete"] , $user1))
         {
-            $id= $manttoequipo->id;
-            $manttoequipo->delete();
+            $id= $corte_caja->id;
+            $corte_caja->delete();
             
-            $response["response"] = "El registro del mantenimiento se ha eliminado correctamente";
+            $response["response"] = "El tipo corte_caja ha sido eliminado";
             return Response::json( $response );
         }
         else {
@@ -147,24 +141,106 @@ class MantenimientoEquiposController extends Controller
         }    
     }
 
+    public function getEfectivo(Request $request)
+	{
+		$fecha = $request["data"];
+
+		if ($fecha == "")
+		{
+			$result = "";
+			return Response::json( $result);
+		}
+		else {
+			$query = "SELECT sum(v.total_venta) as efectivo FROM ventas_maestro v where v.created_at BETWEEN '".$fecha."' AND '".$fecha." 23:59:59'
+            AND v.tipo_pago_id = 1 limit 1";
+				$result = DB::select($query);
+				return Response::json( $result);
+            }
+            
+    }
+    
+    public function getTarjeta(Request $request)
+	{
+		$fecha = $request["data"];
+
+		if ($fecha == "")
+		{
+			$result = "";
+			return Response::json( $result);
+		}
+		else {
+			$query = "SELECT sum(v.total_venta) as tarjeta FROM ventas_maestro v where v.created_at BETWEEN '".$fecha."' AND '".$fecha." 23:59:59'
+            AND v.tipo_pago_id = 2 limit 1";
+				$result = DB::select($query);
+				return Response::json( $result);
+            }
+            
+    }
+    
+    public function getCredito(Request $request)
+	{
+		$fecha = $request["data"];
+
+		if ($fecha == "")
+		{
+			$result = "";
+			return Response::json( $result);
+		}
+		else {
+			$query = "SELECT sum(v.total_venta) as credito FROM ventas_maestro v where v.created_at BETWEEN '".$fecha."' AND '".$fecha." 23:59:59'
+            AND v.tipo_pago_id = 3 limit 1";
+				$result = DB::select($query);
+				return Response::json( $result);
+            }
+            
+    }
+    
+    public function getTotal(Request $request)
+	{
+		$fecha = $request["data"];
+
+		if ($fecha == "")
+		{
+			$result = "";
+			return Response::json( $result);
+		}
+		else {
+			$query = "SELECT sum(v.total_venta) as total FROM ventas_maestro v where v.created_at BETWEEN '".$fecha."' AND '".$fecha." 23:59:59' limit 1";
+				$result = DB::select($query);
+				return Response::json( $result);
+            }
+            
+    }
+    
+    public function corteUnico()
+	{
+		$dato = Input::get("fecha");
+		$query = CorteCaja::where("fecha", $dato)->get();
+		$contador = count($query);
+		if ($contador == 0)
+		{
+			return 'false';
+		}
+		else
+		{
+			return 'true';
+		}
+	}
+
+
     public function getJson(Request $params)
     {
         $api_Result = array();
         // Create a mapping of our query fields in the order that will be shown in datatable.
-        $columnsMapping = array("P.nombre", "m.id", "m.descripcion","fecha_servicio", "m.fecha_proximo_servicio", "c.nombre_maquina", "m.labadas_servicio", "m.labadas_proximo_servicio");
-        
-        
+        $columnsMapping = array("id");
+
         // Initialize query (get all)
 
-        $api_logsQueriable = DB::table('mantto_equipo');
+        $api_logsQueriable = DB::table('cortes_caja');
         $api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-        $query = "SELECT P.nombre as prov, m.id, m.descripcion, m.fecha_proximo_servicio, c.nombre_maquina  as nombre, m.labadas_servicio, m.fecha_servicio, m.labadas_proximo_servicio 
-        FROM mantto_equipo m 
-        INNER JOIN maquinarias_y_equipos C ON m.maquinaria_id=C.id 
-        INNER JOIN proveedores P on m.proveedor_id = P.id";
-        
-        
+        $query = "SELECT * FROM cortes_caja";
+
         $where = "";
 
         if (isset($params->search['value']) && !empty($params->search['value'])){

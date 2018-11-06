@@ -173,7 +173,7 @@ class FacturasController extends Controller
     {
         $api_Result = array();
         // Create a mapping of our query fields in the order that will be shown in datatable.
-        $columnsMapping = array("id", "numero");
+        $columnsMapping = array("F.voucher", "F.id", "F.numero", "F.fecha", "F.total", "S.serie", "TP.tipo_pago");
 
         // Initialize query (get all)
 
