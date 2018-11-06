@@ -1,42 +1,12 @@
-$(document).on("keypress", 'form', function (e) {
-    var code = e.keyCode || e.which;
-    if (code == 13) {
-        e.preventDefault();
-        return false;
-    }
-});
+$(document).ready(function() {
 
-$(document).on("keypress", '#addDetalle', function (e) {
-    var code = e.keyCode || e.which;
-    if (code == 13) {
-        e.preventDefault();
-        return false;
-    }
-});
-
-$(document).on("keypress", '#addDetalleServicio', function (e) {
-	var code = e.keyCode || e.which;
-	if (code == 13) {
-		e.preventDefault();
-		return false;
-	}
-});
-
-$(document).on("keypress", '#addManoObra', function (e) {
-	var code = e.keyCode || e.which;
-	if (code == 13) {
-		e.preventDefault();
-		return false;
-	}
-});
-
-
-$(document).on("keypress", '#ButtonDetalle', function (e) {
-    var code = e.keyCode || e.which;
-    if (code == 13) {
-        e.preventDefault();
-        return false;
-    }
+	$(document).on("keypress", 'form', function (e) {
+		var code = e.keyCode || e.which;
+		if (code == 13) {
+			e.preventDefault();
+			return false;
+		}
+	});
 });
 
 
@@ -95,7 +65,7 @@ $('body').on('click', '#addDetalle', function(e)
     if($("input[name='venta_maestro']").val() == "") 
     {
         var total_venta = $("input[name='total'] ").val();
-        var tipo_pago_id = $("#tipo_pago_id").val();
+        var tipo_pago_id = $("#tipo_pago").val();
         var cliente_id = $("#cliente_id").val();
         var formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id,cliente_id : cliente_id}  
         $.ajax({
@@ -206,6 +176,9 @@ $("#cliente_id").change(function () {
     changeCliente();
 });
 
+$("#tipo_pago").change(function () {
+    $("#tipo_pago_id").val($("#tipo_pago").val())
+});
 
 // agregar servicio a modificar
 function changeService() {
@@ -219,13 +192,14 @@ function changeService() {
         });
     }
 }
-    
+ 
 $("input[name='cantidad_s").change(function () {
 
     var cantidad = $("input[name='cantidad_s").val();
     var precio = $("input[name='precio").val();
     $("input[name='subtotal_s']").val(precio * cantidad);
 });
+
 $("#servicio_id").change(function () {
     changeService();
 });
@@ -240,7 +214,7 @@ $('body').on('click', '#addManoObra', function(e)
     if($("input[name='venta_maestro']").val() == "") 
     {
         var total_venta = $("input[name='total'] ").val();
-        var tipo_pago_id = $("#tipo_pago_id").val();
+        var tipo_pago_id = $("#tipo_pago").val();
         var cliente_id = $("#cliente_id").val();
         var formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id,cliente_id : cliente_id} 
        
@@ -331,7 +305,7 @@ $('body').on('click', '#addDetalleServicio', function(e)
     if($("input[name='venta_maestro']").val() == "") 
     {
         var total_venta = $("input[name='total'] ").val();
-        var tipo_pago_id = $("#tipo_pago_id").val();
+        var tipo_pago_id = $("#tipo_pago").val();
         var cliente_id = $("#cliente_id").val();
         var formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id,cliente_id : cliente_id} 
        
@@ -521,30 +495,11 @@ $('body').on('click', '#addDetalleServicio', function(e)
 
     function saveDetalle(button) {
         var total_venta = $("input[name='total'] ").val();
-        var tipo_pago_id = $("#tipo_pago_id").val();      
+        var tipo_pago_id = $("#tipo_pago").val();      
         var venta_maestro = $("input[name='venta_maestro'] ").val();
         var cliente_id = $("#cliente_id").val();
         var formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id, cliente_id : cliente_id} 
         var factura=$("#factura").val();
-        
-        if (factura==1){
-            var fecha= $("input[name='fecha_venta'] ").val();
-            formData = {total: total_venta, tipo_pago_id : tipo_pago_id, cliente_id : cliente_id,venta_id: venta_maestro,fecha: fecha}
-            $.ajax({
-                type: "GET",
-                url: "/facturas/savec/",
-                data: formData,
-                async:false,
-                dataType: 'json',
-                success: function(data) {
-                    var detalle = data;
-                    $("input[name='venta_maestro'] ").val(data.id);
-                },
-                error: function() {
-                    alert("fallo factura");
-                }
-            });
-        }
 
         if(tipo_pago_id==3){
             var fecha_venta= $("input[name='fecha_venta'] ").val();
@@ -582,8 +537,30 @@ $('body').on('click', '#addDetalleServicio', function(e)
         });
     }
 
+    //popup confirmar factura
     $("#ButtonDetalle").click(function(event) {
-        saveDetalle();
+        bootbox.dialog({
+            message: "Generar Factura",
+            title: "¿Desea generar Factura?",
+            buttons: {
+              success: {
+                label: "SI",
+                className: "btn-success",
+                callback: function() {
+                    $("#venta_id").val($("input[name='venta_maestro'] ").val());
+                    $("#tipo_pago_id").val($("#tipo_pago").val())
+                    $('#facturaModal').modal('show');
+                }
+              },
+              danger: {
+                label: "NO",
+                className: "btn-success",
+                callback: function() {
+                    saveDetalle();
+                }
+              }
+            }
+          });
     });
 
 

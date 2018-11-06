@@ -12,9 +12,12 @@ use App\Venta;
 use App\VentaDetalle;
 use App\Servicio;
 use App\Cliente;
+Use App\TipoCliente;
+use App\ClasificacionCliente;
 use App\CuentasPorCobrar;
 use App\CuentaPorCobrarDetalle;
 use App\MovimientoProducto;
+Use App\Serie;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
@@ -50,7 +53,11 @@ class VentasController extends Controller
 		$tipo_pagos = TipoPago::all();
 		$servicios = Servicio::all();
 		$clientes=Cliente::all();
-		return view("venta.create" , compact( "back", "tipo_pagos", "today",'servicios','clientes'));
+		$tipos_clientes = TipoCliente::all();
+		$clasificaciones = ClasificacionCliente::all();
+		$series = Serie::all();
+		
+		return view("venta.create" , compact( "back", "tipo_pagos",'series',"today",'servicios','clientes','tipos_clientes', 'clasificaciones'));
 	}
 	
 

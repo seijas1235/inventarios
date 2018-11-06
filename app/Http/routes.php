@@ -647,7 +647,6 @@ Route::group(array('middleware' => 'acl' , 'is' => 'superadmin|administrator|fin
 	Route::get('/factura/getJson/' , 'FacturasController@getJson');
 	Route::get('/factura/new' , 'FacturasController@create');
 	Route::post('/factura/save/' , 'FacturasController@store');
-	Route::get('/facturas/savec/' , 'FacturasController@savec');
 	Route::get('/factura/edit/{factura}' , 'FacturasController@edit');
 	Route::patch('/factura/{factura}/update' , 'FacturasController@update');
 	Route::delete('/factura/remove/{factura}' , 'FacturasController@destroy');
