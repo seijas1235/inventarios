@@ -18,8 +18,10 @@
 					<option value="{{$cliente->id}}"><p id="cliente">{{$cliente->nombres}}  {{$cliente->apellidos}} </p> </option>
 					@endforeach
 				</select>
+				
+				<br>
 				<button class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal" id="modalCliente" type="button">
-					<i class="fa fa-plus"></i>Nuevo Cliente</button>
+				<i class="fa fa-plus"></i>Nuevo Cliente</button>
 			</div>
 			<div class="col-sm-3">
 				{!! Form::label("nit_c","NIT:") !!}
@@ -31,7 +33,10 @@
 			</div>
 			<div class="col-sm-2">
 				{!! Form::label("tipo_pago","Tipo Pago:") !!}
-				<select class="form-control" id='tipo_pago_id' name="tipo_pago_id" value="{{ old('role')}}">
+				
+				<input type="number" class="hide" id="tipo_pago_id" name="tipo_pago_id" value="1" >
+	
+				<select class="form-control" id='tipo_pago' name="tipo_pago" value="{{ old('role')}}">
 					@foreach ($tipo_pagos as $tipo_pago)
 					<option value="{{$tipo_pago->id}}">{{ $tipo_pago->tipo_pago}}</option>;
 					@endforeach
@@ -44,7 +49,7 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-4">
-				{!! Form::hidden( "fecha_venta" , $today, ['class' => 'form-control', 'disabled', 'placeholder' => 'Precio de Compra' ]) !!}
+				{!! Form::hidden( "fecha_venta" , $today, ['class' => 'form-control', 'disabled']) !!}
 			</div>
 			
 		</div>
@@ -151,8 +156,10 @@
 		<hr>
 
 		<br>
+
 		<div id="detalle-grid"></div>
-		<div class="row" >
+
+		<div class="row">
 			<br>
 			<div class="col-sm-3" id="total">
 				{!! Form::label("Total","Total:") !!}
@@ -182,12 +189,12 @@
 @endsection
 
 	@include('venta.createModal')
-
-
-@stack('scripts')
+	@include('venta.facturaModal')
 
 @section('scripts')
+{!! HTML::script('/js/facturas/create.js') !!}
+{!! HTML::script('/js/clientes/create.js') !!}
 {!! HTML::script('/js/venta/create.js') !!}
 {!! HTML::script('/js/venta/edit.js') !!}
-{!! HTML::script('/js/clientes/create.js') !!}
+
 @endsection

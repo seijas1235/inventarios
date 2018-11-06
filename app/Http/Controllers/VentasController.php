@@ -17,6 +17,7 @@ use App\ClasificacionCliente;
 use App\CuentasPorCobrar;
 use App\CuentaPorCobrarDetalle;
 use App\MovimientoProducto;
+Use App\Serie;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
@@ -53,8 +54,10 @@ class VentasController extends Controller
 		$servicios = Servicio::all();
 		$clientes=Cliente::all();
 		$tipos_clientes = TipoCliente::all();
-       	$clasificaciones = ClasificacionCliente::all();
-		return view("venta.create" , compact( "back", "tipo_pagos", "today",'servicios','clientes','tipos_clientes', 'clasificaciones'));
+		$clasificaciones = ClasificacionCliente::all();
+		$series = Serie::all();
+		
+		return view("venta.create" , compact( "back", "tipo_pagos",'series',"today",'servicios','clientes','tipos_clientes', 'clasificaciones'));
 	}
 	
 
