@@ -203,7 +203,7 @@ class ConversionesProductoController extends Controller
 	{
 		$api_Result = array();
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("c.id");
+		$columnsMapping = array("c.id", "c.fecha", "u.name");
 
 		// Initialize query (get all)
 
@@ -258,7 +258,7 @@ class ConversionesProductoController extends Controller
 	{
 		$api_Result = array();
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("dc.id");
+		$columnsMapping = array("dc.id", "p1.nombre", "p2.nombre");
 
 		// Initialize query (get all)
 

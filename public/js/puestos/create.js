@@ -57,7 +57,7 @@ function saveContact(button) {
 		data: formData,
 		dataType: "json",
 		success: function(data) {
-			window.location = "/puestos" 
+			window.location = "/puestos"
 		},
 		always: function() {
 			l.stop();

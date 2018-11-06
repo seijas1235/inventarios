@@ -168,3 +168,4 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
     });
     return false;
 });
+
