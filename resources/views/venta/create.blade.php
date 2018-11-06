@@ -18,9 +18,9 @@
 					<option value="{{$cliente->id}}"><p id="cliente">{{$cliente->nombres}}  {{$cliente->apellidos}} </p> </option>
 					@endforeach
 				</select>
-				
 				<br>
-				<button class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal" id="modalCliente" type="button">
+				<br>
+				<button class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="modalCliente" type="button">
 				<i class="fa fa-plus"></i>Nuevo Cliente</button>
 			</div>
 			<div class="col-sm-3">
@@ -192,7 +192,6 @@
 	@include('venta.facturaModal')
 
 @section('scripts')
-{!! HTML::script('/js/facturas/create.js') !!}
 {!! HTML::script('/js/clientes/create.js') !!}
 {!! HTML::script('/js/venta/create.js') !!}
 {!! HTML::script('/js/venta/edit.js') !!}

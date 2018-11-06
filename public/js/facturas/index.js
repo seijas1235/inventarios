@@ -77,17 +77,7 @@ var factura_table = $('#facturas-table').DataTable({
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data); },
     },
-    
-    {
-        "title": "Voucher",
-        "data": "voucher",
-        "width" : "20%",
-        "responsivePriority": 3,
-        "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data); },
-    }, 
-
-    
+       
      {
         "title": "Acciones",
         "orderable": false,

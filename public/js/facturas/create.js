@@ -63,14 +63,14 @@ db.detalle = [];
 
 $("#ButtonFactura").click(function(event) {
 	if ($('#FacturaForm').valid()) {
-		saveContact();
+		saveFactura();
 	} else {
 		validator.focusInvalid();
 	}
 });
 
 
-function saveContact(button) {
+function saveFactura(button) {
 	$("#ButtonFactura").attr('disabled', 'disabled');
 	var l = Ladda.create(document.querySelector("#ButtonFactura"));
 	l.start();
