@@ -41,7 +41,7 @@ var existencias_table = $('#existencias-table').DataTable({
             "sSortDescending": ": Activar para ordenar la columna de manera descendente"
         },
     },
-    "order": [0, 'asc'],
+    //"order": [0, 'asc'],
     "columns": [ 
     {
         "title": "ID",

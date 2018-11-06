@@ -206,7 +206,7 @@ class SalidaProductoController extends Controller
 	{
 		$api_Result = array();
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("s.id");
+		$columnsMapping = array("s.id", "s.fecha_salida", "s.cantidad_salida", "p.nombre", "ts.tipo_salida");
 
 		// Initialize query (get all)
 

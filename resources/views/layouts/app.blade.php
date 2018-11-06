@@ -184,37 +184,37 @@
 			@endif
 			
 			@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
-			<li class="submenu"> <a href="#"><i class="fa fa-cogs"></i> <span>Procesos</span> <span class="label label-important"></span></a>
+			<li class="submenu {{request()->is('factura*', 'series*', 'compras*', 'planillas*', 'ventas*', 'cuentas_por_pagar*', 'cuentas_por_cobrar*', 'ordenes_de_trabajo*', 'cajas_chicas*')? 'active': ''}}"> <a href="#"><i class="fa fa-cogs"></i> <span>Procesos</span> <span class="label label-important"></span></a>
 				@endif
 				<ul>
 					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
-					<li><a href="/factura"><i class="icon icon-th"></i> <span>Facturas</span></a></li>
-					<li><a href="/series"><i class="icon icon-th"></i> <span>Series</span></a></li>
-					<li><a href="/compras"><i class="icon icon-th"></i> <span>Compras</span></a></li>
-					<li><a href="/planillas"><i class="icon icon-th"></i> <span>Planillas</span></a></li>
-					<li><a href="/ventas"><i class="icon icon-th"></i> <span>Ventas</span></a></li>
-					<li><a href="/cuentas_por_pagar"><i class="icon icon-th"></i> <span>Cuentas Por pagar</span></a></li>
-					<li><a href="/cuentas_por_cobrar"><i class="icon icon-th"></i> <span>Cuentas Por Cobrar</span></a></li>
-					<li><a href="/ordenes_de_trabajo"><i class="icon icon-th"></i> <span>Orden de Trabajo</span></a></li>
-					<li><a href="/cajas_chicas"><i class="icon icon-th"></i> <span>Caja Chica</span></a></li>
+					<li class="{{request()->is('factura*')? 'active': ''}}"><a href="/factura"><i class="icon icon-th"></i> <span>Facturas</span></a></li>
+					<li class="{{request()->is('series*')? 'active': ''}}"><a href="/series"><i class="icon icon-th"></i> <span>Series</span></a></li>
+					<li class="{{request()->is('compras*')? 'active': ''}}"><a href="/compras"><i class="icon icon-th"></i> <span>Compras</span></a></li>
+					<li class="{{request()->is('planillas*')? 'active': ''}}"><a href="/planillas"><i class="icon icon-th"></i> <span>Planillas</span></a></li>
+					<li class="{{request()->is('ventas*')? 'active': ''}}"><a href="/ventas"><i class="icon icon-th"></i> <span>Ventas</span></a></li>
+					<li class="{{request()->is('cuentas_por_pagar*')? 'active': ''}}"><a href="/cuentas_por_pagar"><i class="icon icon-th"></i> <span>Cuentas Por pagar</span></a></li>
+					<li class="{{request()->is('cuentas_por_cobrar*')? 'active': ''}}"><a href="/cuentas_por_cobrar"><i class="icon icon-th"></i> <span>Cuentas Por Cobrar</span></a></li>
+					<li class="{{request()->is('ordenes_de_trabajo*')? 'active': ''}}"><a href="/ordenes_de_trabajo"><i class="icon icon-th"></i> <span>Orden de Trabajo</span></a></li>
+					<li class="{{request()->is('cajas_chicas*')? 'active': ''}}"><a href="/cajas_chicas"><i class="icon icon-th"></i> <span>Caja Chica</span></a></li>
 					@endif
 				</ul>
 			</li>
 
 			@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
-			<li class="submenu"> <a href="#"><i class="fa fa-cogs"></i> <span>Ajustes</span> <span class="label label-important"></span></a>
+			<li class="submenu {{request()->is('ingresos_productos*', 'salidas_productos*', 'conversiones_productos')? 'active': ''}}"> <a href="#"><i class="fa fa-cogs"></i> <span>Ajustes</span> <span class="label label-important"></span></a>
 				@endif
 				<ul>
 					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
-					<li><a href="/ingresos_productos"><i class="icon icon-th"></i> <span>Ingreso Producto</span></a></li>
-					<li><a href="/salidas_productos"><i class="icon icon-th"></i> <span>Salida Producto</span></a></li>
-					<li><a href="/conversiones_productos"><i class="icon icon-th"></i> <span>Conversiones Producto</span></a></li>
+					<li class="{{request()->is('ingresos_productos*')? 'active': ''}}"><a href="/ingresos_productos"><i class="icon icon-th"></i> <span>Ingreso Producto</span></a></li>
+					<li class="{{request()->is('salidas_productos*')? 'active': ''}}"><a href="/salidas_productos"><i class="icon icon-th"></i> <span>Salida Producto</span></a></li>
+					<li class="{{request()->is('conversiones_productos*')? 'active': ''}}"><a href="/conversiones_productos"><i class="icon icon-th"></i> <span>Conversiones Producto</span></a></li>
 					@endif
 				</ul>
 			</li>
 
 			@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
-			<li class="submenu {{request()->is('tipos_cliente*', 'clientes*','maquinarias_equipo*' ,'tipos_vehiculo*','marcas*','vehiculos*','puestos*', 'empleados*','proveedores*')? 'open active': ''}}">
+			<li class="submenu {{request()->is('tipos_cliente*', 'clientes*','maquinarias_equipo*' ,'tipos_vehiculo*','marcas*','vehiculos*','puestos*', 'empleados*','proveedores*')? 'active': ''}}">
 				<a href="#"><i class="icon icon-file"></i> <span>Catálogos Generales</span> <span class="label label-important"></span></a>
 				@endif
 				<ul>
@@ -251,10 +251,6 @@
 					<li class="{{request()->is('tipos_servicio*')? 'open active': ''}}"><a href="/tipos_servicio">Tipos de Servicio</a></li>
 
 					<li class="{{request()->is('servicios*')? 'open active': ''}}"><a href="/servicios">Servicios</a></li>
-
-					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
-					<li><a href="/bancos">Bancos</a></li>
-					@endif
 					
 				</ul>
 			</li>

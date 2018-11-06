@@ -160,7 +160,7 @@ class CuentasPorCobrarController extends Controller
     {
         $api_Result = array();
         // Create a mapping of our query fields in the order that will be shown in datatable.
-        $columnsMapping = array("cpc.id", "c.nombres");
+        $columnsMapping = array("cpc.id", "cpc.cliente_id","cpc.total", "c.nombres", "c.apellidos");
 
         // Initialize query (get all)
 
@@ -214,7 +214,7 @@ class CuentasPorCobrarController extends Controller
 	{
 		$api_Result = array();
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("dc.id","dc.venta_id", "dc.num_factura");
+		$columnsMapping = array("dc.id","dc.venta_id", "dc.num_factura", "dc.fecha", "dc.descripcion", "dc.cargos", "dc.abonos", "dc.saldo");
 
 		// Initialize query (get all)
 

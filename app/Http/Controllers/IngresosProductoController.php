@@ -181,7 +181,7 @@ class IngresosProductoController extends Controller
 	{
 		$api_Result = array();
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("i.id");
+		$columnsMapping = array("i.id", "i.fecha_ingreso", "i.precio_compra", "i.precio_venta", "i.cantidad", "p.nombre");
 
 		// Initialize query (get all)
 

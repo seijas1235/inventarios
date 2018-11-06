@@ -110,7 +110,7 @@ class CajasChicasController extends Controller
     {
         $api_Result = array();
         // Create a mapping of our query fields in the order that will be shown in datatable.
-        $columnsMapping = array("dc.id");
+        $columnsMapping = array("dc.id", "dc.documento", "dc.fecha", "dc.descripcion", "dc.gasto", "dc.ingreso", "dc.saldo");
         $id = 1;
 
         // Initialize query (get all)
