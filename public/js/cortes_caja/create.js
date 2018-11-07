@@ -7,7 +7,41 @@ $(document).ready(function() {
 			return false;
 		}
 	});
+
+
 });
+
+window.onload = function() {
+	formatoNumero();
+  }
+
+var formatNumber = {
+	separador: ',', // separador para los miles
+	sepDecimal: ".", // separador para los decimales
+	formatear:function (num){
+	num +='';
+	var splitStr = num.split('.');
+	var splitLeft = splitStr[0];
+	var splitRight = splitStr.length > 1 ? this.sepDecimal + splitStr[1] : '';
+	var regx = /(\d+)(\d{3})/;
+	while (regx.test(splitLeft)) {
+	splitLeft = splitLeft.replace(regx, '$1' + this.separador + '$2');
+	}
+	return this.simbol + splitLeft +splitRight;
+	},
+	new:function(num, simbol){
+	this.simbol = simbol ||'';
+	return this.formatear(num);
+	}
+   }
+   
+   function formatoNumero(){
+   var numbers = document.querySelectorAll('.number');
+   [].forEach.call(numbers, function (item) {
+	var valor = item.value;
+	item.value = formatNumber.new(valor);
+  });
+};
 
 
 $.validator.addMethod("corteUnico", function(value, element) {
@@ -57,7 +91,7 @@ $("#ButtonCorte").click(function(event) {
 });
 
 $("input[name='fecha']").change(function () {
-	$("#ButtonCorte").prop('disabled', false);
+	$("#ButtonCalcular").prop('disabled', false);
 });
 
 $("#ButtonCalcular").click(function(event) {
@@ -105,6 +139,80 @@ $("#ButtonCalcular").click(function(event) {
 			}
 		});
 
+	//Sin Factura
+	var url5 = "/cortes_caja/getEfectivoSF/?data=" + fecha;    
+		$.getJSON( url5 , function ( result ) {
+			if (result == 0 ) {
+				$("input[name='efectivoSF'] ").val("");
+			}
+			else {
+				var efectivo = $("input[name='efectivo'] ").val();
+				var efectivoV = result[0].efectivo;
+				var efectivoSF = parseFloat(efectivoV)- parseFloat(efectivo);  
+				$("input[name='efectivoSF'] ").val(efectivoSF);
+			}
+		});
+
+	var url6 = "/cortes_caja/getTarjetaSF/?data=" + fecha;
+		$.getJSON( url6 , function ( result ) {
+			if (result == 0 ) {
+				$("input[name='voucherSF'] ").val("");
+			}
+			else {
+				var tarjeta = $("input[name='voucher'] ").val();
+				var tarjetaV = result[0].tarjeta;
+				var tarjetaSF = parseFloat(tarjetaV)- parseFloat(tarjeta);  
+				$("input[name='voucherSF'] ").val(tarjetaSF);
+			}
+		});
+
+	var url7 = "/cortes_caja/getCreditoSF/?data=" + fecha;
+		$.getJSON( url7 , function ( result ) {
+			if (result == 0 ) {
+				$("input[name='creditoSF'] ").val("");
+			}
+			else {
+				var credito = $("input[name='credito'] ").val();
+				var creditoV = result[0].credito;
+				var creditoSF = parseFloat(creditoV)- parseFloat(credito);  
+				$("input[name='creditoSF'] ").val(creditoSF);
+			}
+		});
+
+	var url8 = "/cortes_caja/getTotalSF/?data=" + fecha;
+		$.getJSON( url8 , function ( result ) {
+			if (result == 0 ) {
+				$("input[name='totalSF'] ").val("");
+			}
+			else {
+				var total = $("input[name='total'] ").val();
+				var totalV = result[0].total;
+				var totalSF = parseFloat(totalV)- parseFloat(total);  
+				$("input[name='totalSF'] ").val(totalSF);
+			}
+		});
+
+	var url9 = "/cortes_caja/getTotalSF/?data=" + fecha;
+	$.getJSON( url8 , function ( result ) {
+		if (result == 0 ) {
+			$("input[name='total_venta'] ").val("");
+		}
+		else {
+			$("input[name='total_venta'] ").val(result[0].total);
+		}
+	});
+
+	var url9 = "/cortes_caja/getFacturas/?data=" + fecha;
+	$.getJSON( url9 , function ( result ) {
+		if (result == 0 ) {
+			$("input[name='factura_inicial'] ").val("");
+			$("input[name='factura_final'] ").val("");
+		}
+		else {
+			$("input[name='factura_inicial'] ").val(result[0].factura_inicial);
+			$("input[name='factura_final'] ").val(result[0].factura_final);
+		}
+	});
 		
 });
 
@@ -119,10 +227,16 @@ function saveContact(button) {
 	var credito = $("input[name='credito").val();
 	var voucher = $("input[name='voucher").val();
 	var total = $("input[name='total").val();
+	var efectivoSF = $("input[name='efectivoSF").val();
+	var creditoSF = $("input[name='creditoSF").val();
+	var voucherSF = $("input[name='voucherSF").val();
+	var totalSF = $("input[name='totalSF").val();
+	var total_venta = $("input[name='total_venta']").val();
 	var factura_inicial = $("input[name='factura_inicial").val();
 	var factura_final = $("input[name='factura_final").val();
 
-	var formData = {fecha:fecha, efectivo:efectivo, credito: credito, voucher:voucher, total:total, factura_final: factura_final, factura_inicial:factura_inicial} 
+	var formData = {fecha:fecha, efectivo:efectivo, credito: credito, voucher:voucher, total:total, factura_final: factura_final, factura_inicial:factura_inicial,
+		efectivoSF:efectivoSF, creditoSF: creditoSF, voucherSF:voucherSF, totalSF:totalSF, total_venta: total_venta} 
 
 	$.ajax({
 		type: "POST",
