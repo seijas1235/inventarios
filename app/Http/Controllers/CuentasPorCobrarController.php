@@ -15,6 +15,8 @@ Use App\CuentasPorCobrar;
 Use App\sDetalle;
 Use App\Venta;
 Use App\Cliente;
+use Barryvdh\DomPDF\Facade as PDF;
+use App\CuentaPorCobrarDetalle;
 
 class CuentasPorCobrarController extends Controller
 {
@@ -45,7 +47,7 @@ class CuentasPorCobrarController extends Controller
     {
         $clientes = DB::table('clientes')
         ->join('cuentas_por_cobrar', 'clientes.id', '=' ,'cuentas_por_cobrar.cliente_id')
-        ->select('clientes.id', 'clientes.nombres')
+        ->select('clientes.id', 'clientes.nombres', 'clientes.apellidos')
         ->get();
         
 		return view("cuentas_por_cobrar.ncredito" , compact('clientes'));
@@ -84,7 +86,7 @@ class CuentasPorCobrarController extends Controller
                 'saldo' => $cuentasporcobrar->total - $data["total"]
             );					
     
-            $cuenta2 = new sDetalle;
+            $cuenta2 = new CuentaPorCobrarDetalle;
             $cuenta2->create($detalle);
             $newtotal = $detalle['saldo'];
             $cuentasporcobrar->update(['total' => $newtotal]);
@@ -265,5 +267,33 @@ class CuentasPorCobrarController extends Controller
 		$api_Result['data'] = $result;
 
 		return Response::json( $api_Result );
-	}
+    }
+    
+    public function rpt_estado_cuenta_por_cobrar(Request $request)
+    {
+        $idCliente = $request['cliente_id'];
+        $fecha_inicial = $request['fecha_inicial'];
+        $fecha_final = $request['fecha_final'];
+
+        $query = "SELECT dc.id, if(dc.venta_id is null, 0,dc.venta_id)as venta_id, dc.num_factura, DATE_FORMAT(dc.fecha, '%d-%m-%Y') as fecha, dc.descripcion, dc.cargos, dc.abonos, dc.saldo
+		FROM cuentas_por_cobrar_detalle dc
+		INNER JOIN cuentas_por_cobrar cpc on cpc.id = dc.cuentas_por_cobrar_id
+		WHERE cpc.cliente_id = '".$idCliente."' AND dc.fecha BETWEEN '".$fecha_inicial."' AND '".$fecha_final." 23:59:59' ";
+        $detalles = DB::select($query);
+
+        $query2 = "SELECT c.nombres FROM clientes c WHERE c.id = '".$idCliente."' ";
+        $cliente = DB::select($query2);
+
+        $fecha_inicial = Carbon::parse($fecha_inicial)->format('d/m/Y');
+        $fecha_final = Carbon::parse($fecha_final)->format('d/m/Y');
+    
+        $pdf = PDF::loadView('pdf.rpt_estado_cuenta_por_pagar', compact('detalles', 'fecha_inicial', 'fecha_final', 'cliente'));
+        return $pdf->stream('Estado Cuenta por Cobrar.pdf');
+    }
+    
+    public function rpt_generar()
+    {
+        $clientes = Cliente::all();
+        return view("cuentas_por_cobrar.rptGenerar", compact('clientes'));
+    }
 }
