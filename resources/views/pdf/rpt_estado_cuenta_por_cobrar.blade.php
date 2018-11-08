@@ -29,7 +29,7 @@
 </head>
 <body>
 
-    <center><h3>Estado de cuenta de {{$proveedor[0]->nombre}}</h3></center>
+    <center><h3>Estado de cuenta de {{$cliente[0]->nombres}}</h3></center>
     <center><h4>Del {{$fecha_inicial}} al {{$fecha_final}}</h4></center>
 
     <table border="1" width="100%">
