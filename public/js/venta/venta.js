@@ -66,19 +66,22 @@ var venta_table = $('#venta-table').DataTable({
         "orderable": false,
         "render": function(data, type, full, meta) {
             return "<div id='" + full.id + "' class='text-center'>" + 
-            "<div class='float-left three-columns'>" + 
+            "<div class='float-left col-lg-3'>" + 
             "<a href='#' class='edit-venta'>" + 
             "<i class='fa fa-btn fa-edit' title='Edit'></i>" + 
-            "</div>" + "<div class='float-right three-columns'>" + 
+            "</div>" + 
+            "<div class='float-left col-lg-3'>" + 
             "<a href='#' class='remove-venta'>" + 
             "<i class='fa fa-btn fa-trash' title='Delete'></i>" + 
-            "</a>" + "</div>" + "<div class='float-left three-columns'>" + 
+            "</a>" + "</div>" + 
+            "<div class='float-right col-lg-3'>" + 
             "<a href='#' class='detalle-venta'>" + 
             "<i class='fa fa-btn fa-desktop' title='detalle'></i>" + 
-            "</div>" + "</div>"+ 
+            "</a>"+"</div>" + 
+            "<div class='float-left col-lg-3'>" + 
             "<a href='/rpt_factura/"+ full.id +"' class='pdf-factura'>" + 
             "<i class='fa fa-file-pdf-o' title='PDF'></i>" + 
-            "</a>" + "</div>" ;;
+            "</a>" + "</div>" ;
         },
         "responsivePriority": 2
     }],

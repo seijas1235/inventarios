@@ -1641,7 +1641,6 @@ WHERE month(fecha_corte) = ".$mes." AND year(fecha_corte) = ".$anio." ORDER BY f
     {
         $id = $venta->id;
 
-
         $query = "SELECT S.serie as serie ,  F.numero as numero
         from facturas F
         inner join series S on S.id = F.serie_id
