@@ -14,6 +14,7 @@ use Carbon\Carbon;
 Use App\DetalleCuentaPorPagar;
 Use App\CuentaPorPagar;
 Use App\Proveedor;
+use Barryvdh\DomPDF\Facade as PDF;
 class CuentasPorPagarController extends Controller
 {
 
@@ -238,5 +239,33 @@ class CuentasPorPagarController extends Controller
 		$api_Result['data'] = $result;
 
 		return Response::json( $api_Result );
-	}
+    }
+
+    public function rpt_estado_cuenta_por_pagar(Request $request)
+    {
+        $idProveedor = $request['proveedor_id'];
+        $fecha_inicial = $request['fecha_inicial'];
+        $fecha_final = $request['fecha_final'];
+
+        $query = "SELECT dc.id, if(dc.compra_id is null, 0,dc.compra_id)as compra_id, dc.num_factura, DATE_FORMAT(dc.fecha, '%d-%m-%Y') as fecha , dc.descripcion, dc.cargos, dc.abonos, dc.saldo
+		FROM detalles_cuentas_por_pagar dc
+		INNER JOIN cuentas_por_pagar cpp on cpp.id = dc.cuenta_por_pagar_id
+		WHERE cpp.proveedor_id = '".$idProveedor."' AND dc.fecha BETWEEN '".$fecha_inicial."' AND '".$fecha_final." 23:59:59' ";
+        $detalles = DB::select($query);
+
+        $query2 = "SELECT p.nombre FROM proveedores p WHERE p.id = '".$idProveedor."' ";
+        $proveedor = DB::select($query2);
+
+        $fecha_inicial = Carbon::parse($fecha_inicial)->format('d/m/Y');
+        $fecha_final = Carbon::parse($fecha_final)->format('d/m/Y');
+    
+        $pdf = PDF::loadView('pdf.rpt_estado_cuenta_por_pagar', compact('detalles', 'fecha_inicial', 'fecha_final', 'proveedor'));
+        return $pdf->stream('Estado Cuenta por Pagar.pdf');
+    }
+    
+    public function rpt_generar()
+    {
+        $proveedores = Proveedor::all();
+        return view("cuentas_por_pagar.rptGenerar", compact('proveedores'));
+    }
 }

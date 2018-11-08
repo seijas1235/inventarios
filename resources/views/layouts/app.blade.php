@@ -261,6 +261,7 @@
 				<ul>
 					@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
 					<li><a href="/existencias">Existencias Productos</a></li> 
+					<li><a href="/rpt_estado_cuenta_por_pagar/generar">Estado de Cuenta Proveedor</a></li> 
 					@endif
 					
 				</ul>

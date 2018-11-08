@@ -76,7 +76,7 @@
 			<div class="row">
 				<div class="col-sm-3">
 					<h3>{!! Form::label("total_venta","Total de Venta:") !!}</h3>
-					<h3>{!! Form::text( "total_venta" , null , ['class' => 'form-control number' , 'placeholder' => '0.00', 'disabled' => true ]) !!}</h3>			
+					<h3>{!! Form::text( "total_venta" , null , ['class' => 'form-control number' , 'placeholder' => '0.00', 'disabled' => true ]) !!}</h3>	
 				</div>
 			</div>
 			<br>
