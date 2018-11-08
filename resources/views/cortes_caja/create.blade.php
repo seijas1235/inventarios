@@ -11,6 +11,11 @@
 			</div>
 			<br>
 			<div class="row">
+				<div class="col-sm-12">
+					<h4 style="color:navy"> <b>Facturado</b> </h4>
+				</div>
+			</div>
+			<div class="row">
 				<div class="col-sm-4">
 					{!! Form::label("fecha","Fecha Corte:") !!}
 					{!! Form::date( "fecha" , null , ['class' => 'form-control' ]) !!}
@@ -43,11 +48,36 @@
 					{!! Form::number( "total" , null , ['class' => 'form-control' , 'placeholder' => '0.00', 'disabled' => true ]) !!}				
 				</div>
 			</div>
-			<br>
+			<hr>
 			<div class="row">
 			<div class="col-sm-12">
-					
+				<h4 style="color:navy"> <b>Sin Factura</b> </h4>					
 			</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3">
+					{!! Form::label("efectivoSF","Efectivo:") !!}
+					{!! Form::number( "efectivoSF" , null , ['class' => 'form-control' , 'placeholder' => '0.00', 'disabled' => true ]) !!}				
+				</div>
+				<div class="col-sm-3">
+					{!! Form::label("creditoSF","Credito:") !!}
+					{!! Form::number( "creditoSF" , null , ['class' => 'form-control' , 'placeholder' => '0.00', 'disabled' => true ]) !!}				
+				</div>
+				<div class="col-sm-3">
+					{!! Form::label("voucherSF","Tarjeta:") !!}
+					{!! Form::number( "voucherSF" , null , ['class' => 'form-control' , 'placeholder' => '0.00', 'disabled' => true ]) !!}				
+				</div>
+				<div class="col-sm-3">
+					{!! Form::label("totalSF","Total:") !!}
+					{!! Form::number( "totalSF" , null , ['class' => 'form-control' , 'placeholder' => '0.00', 'disabled' => true ]) !!}				
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-3">
+					<h3>{!! Form::label("total_venta","Total de Venta:") !!}</h3>
+					<h3>{!! Form::text( "total_venta" , null , ['class' => 'form-control number' , 'placeholder' => '0.00', 'disabled' => true ]) !!}</h3>	
+				</div>
 			</div>
 			<br>
 			<div class="text-right m-t-15">

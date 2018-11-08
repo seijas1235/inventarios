@@ -16,6 +16,12 @@ class CorteCaja extends Model
         'total',
         'efectivo',
         'credito',
-        'voucher'
+        'voucher',
+        'totalSF',
+        'efectivoSF',
+        'creditoSF',
+        'voucherSF',
+        'total_venta'
+
         ];
 }

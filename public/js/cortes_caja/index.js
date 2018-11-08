@@ -42,19 +42,12 @@ var cortes_caja_table = $('#cortes_caja-table').DataTable({
         },
     },
     "order": [0, 'asc'],
-    "columns": [ {
-        "title": "No.",
-        "data": "id",
-        "width" : "20%",
-        "responsivePriority": 1,
-        "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data); },
-    }, 
+    "columns": [ 
     {
         "title": "Fecha",
         "data": "fecha",
         "width" : "20%",
-        "responsivePriority": 2,
+        "responsivePriority": 1,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data); },
     },
@@ -90,7 +83,42 @@ var cortes_caja_table = $('#cortes_caja-table').DataTable({
         "title": "Total",
         "data": "total",
         "width" : "20%",
+        "responsivePriority": 2,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML("Q." + parseFloat(Math.round(data * 100) / 100).toFixed(2)); },
+    },
+    {
+        "title": "Efectivo S/F",
+        "data": "efectivoSF",
+        "width" : "20%",
         "responsivePriority": 3,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML("Q." + parseFloat(Math.round(data * 100) / 100).toFixed(2)); },
+    }, 
+
+    {
+        "title": "Credito S/F",
+        "data": "creditoSF",
+        "width" : "20%",
+        "responsivePriority": 3,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML("Q." + parseFloat(Math.round(data * 100) / 100).toFixed(2)); },
+    },
+
+    {
+        "title": "Tarjeta S/F",
+        "data": "voucherSF",
+        "width" : "20%",
+        "responsivePriority": 3,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML("Q." + parseFloat(Math.round(data * 100) / 100).toFixed(2)); },
+    },
+
+    {
+        "title": "Total S/F",
+        "data": "totalSF",
+        "width" : "20%",
+        "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML("Q." + parseFloat(Math.round(data * 100) / 100).toFixed(2)); },
     },

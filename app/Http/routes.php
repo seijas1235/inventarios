@@ -332,7 +332,9 @@ Route::group(['middleware' => ['web']], function ()
 
 		//Reporte Ordenes
 		Route::get( '/rpt_orden_trabajo/{orden_de_trabajo}' , 'PdfController@rpt_orden_trabajo');
-		Route::get( '/rpt_facturas/{venta}' , 'PdfController@rpt_factura');
+		
+		Route::get( '/rpt_estado_cuenta_por_pagar/generar' , 'CuentasPorPagarController@rpt_generar');	
+		Route::post( '/rpt_estado_cuenta_por_pagar/' , 'CuentasPorPagarController@rpt_estado_cuenta_por_pagar');
 		//Route::get('/ordenes_de_trabajo/pdf/{orden_de_trabajo}' , 'PdfController@getDataOrdenTrabajo');
 
 
@@ -380,12 +382,16 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch( '/cortes_caja/{corte_caja}/update' , 'CortesCajaController@update');
 		Route::post( '/cortes_caja/save/' , 'CortesCajaController@store');
 		Route::delete( '/cortes_caja/remove/{corte_caja}' , 'CortesCajaController@destroy');
-		Route::get('/cortes_caja/nitDisponible/', 'CortesCajaController@nitDisponible');
 		Route::get('/cortes_caja/getEfectivo/', 'CortesCajaController@getEfectivo');
 		Route::get('/cortes_caja/getCredito/', 'CortesCajaController@getCredito');
 		Route::get('/cortes_caja/getTarjeta/', 'CortesCajaController@getTarjeta');
 		Route::get('/cortes_caja/getTotal/', 'CortesCajaController@getTotal');
+		Route::get('/cortes_caja/getEfectivoSF/', 'CortesCajaController@getEfectivoSF');
+		Route::get('/cortes_caja/getCreditoSF/', 'CortesCajaController@getCreditoSF');
+		Route::get('/cortes_caja/getTarjetaSF/', 'CortesCajaController@getTarjetaSF');
+		Route::get('/cortes_caja/getTotalSF/', 'CortesCajaController@getTotalSF');
 		Route::get( '/cortes_caja/corteUnico/', 'CortesCajaController@corteUnico');
+		Route::get( '/cortes_caja/getFacturas/', 'CortesCajaController@getFacturas');
 
 		
 		Route::get( '/vales2/get/' , 'ValesController@getJson');

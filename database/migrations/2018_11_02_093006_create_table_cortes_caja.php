@@ -21,6 +21,11 @@ class CreateTableCortesCaja extends Migration
             $table->float('efectivo');
             $table->float('credito');
             $table->float('voucher');
+            $table->float('totalSF');
+            $table->float('efectivoSF');
+            $table->float('creditoSF');
+            $table->float('voucherSF');
+            $table->float('total_venta');
             $table->timestamps();
         });
     }
