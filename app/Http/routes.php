@@ -332,6 +332,7 @@ Route::group(['middleware' => ['web']], function ()
 
 		//Reporte Ordenes
 		Route::get( '/rpt_orden_trabajo/{orden_de_trabajo}' , 'PdfController@rpt_orden_trabajo');
+		Route::get( '/rpt_facturas/{venta}' , 'PdfController@rpt_factura');
 		//Route::get('/ordenes_de_trabajo/pdf/{orden_de_trabajo}' , 'PdfController@getDataOrdenTrabajo');
 
 
