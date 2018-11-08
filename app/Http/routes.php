@@ -333,7 +333,7 @@ Route::group(['middleware' => ['web']], function ()
 		//Reporte Ordenes
 		Route::get( '/rpt_orden_trabajo/{orden_de_trabajo}' , 'PdfController@rpt_orden_trabajo');
 		
-		Route::get( '/rpt_estado_cuenta_por_pagar/generar' , 'CuentasPorPagarController@rpt_generar');
+		Route::get( '/rpt_estado_cuenta_por_pagar/generar' , 'CuentasPorPagarController@rpt_generar');	
 		Route::post( '/rpt_estado_cuenta_por_pagar/' , 'CuentasPorPagarController@rpt_estado_cuenta_por_pagar');
 
 		Route::get( '/rpt_estado_cuenta_por_cobrar/generar' , 'CuentasPorCobrarController@rpt_generar');

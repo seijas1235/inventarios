@@ -75,7 +75,10 @@ var venta_table = $('#venta-table').DataTable({
             "</a>" + "</div>" + "<div class='float-left three-columns'>" + 
             "<a href='#' class='detalle-venta'>" + 
             "<i class='fa fa-btn fa-desktop' title='detalle'></i>" + 
-            "</div>" + "</div>";;
+            "</div>" + "</div>"+ 
+            "<a href='/rpt_factura/"+ full.id +"' class='pdf-factura'>" + 
+            "<i class='fa fa-file-pdf-o' title='PDF'></i>" + 
+            "</a>" + "</div>" ;;
         },
         "responsivePriority": 2
     }],

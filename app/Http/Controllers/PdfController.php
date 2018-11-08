@@ -28,6 +28,7 @@ use Barryvdh\DomPDF\Facade as PDF;
 use Maatwebsite\Excel\Facades\Excel;
 
 use App\OrdenDeTrabajo;
+use App\Venta;
 
 class PdfController extends Controller
 {
@@ -1625,6 +1626,47 @@ WHERE month(fecha_corte) = ".$mes." AND year(fecha_corte) = ".$anio." ORDER BY f
     
         $pdf = PDF::loadView('pdf.rpt_orden_trabajo', compact('data', 'detalles','componentes', 'golpes', 'rayones'));
         return $pdf->stream('Orden de Trabajo.pdf');
+
+        //return $pdf->download('listado.pdf');
+        //dd($componentes);
+        
+        /*$view =  \View::make('pdf.rpt_orden_trabajo')->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        return $pdf->stream('Orden de Trabajo.pdf');*/
+    }
+
+
+    public function rpt_factura(Venta $venta)
+    {
+        $id = $venta->id;
+
+
+        $query = "SELECT S.serie as serie ,  F.numero as numero
+        from facturas F
+        inner join series S on S.id = F.serie_id
+        where F.venta_id =".$id.'';
+        $facturas = DB::select($query);
+
+        $query2 = "SELECT vd.venta_id as No_Venta, vd.id, 	
+        IF(vd.producto_id>0,pr.nombre, if(vd.servicio_id>0,sr.nombre, vd.detalle_mano_obra)) as nombre, 
+        vd.cantidad as cantidad, vd.subtotal as subtotal
+        FROM ventas_detalle vd
+        LEFT JOIN productos pr ON vd.producto_id=pr.id
+        LEFT JOIN servicios sr ON vd.servicio_id=sr.id
+        where venta_id=".$id.'';
+        $detalle = DB::select($query2);
+
+        $query3 = "SELECT concat(C.nombres ,' ' ,C.apellidos) as nombres, C.nit, C.direccion 
+        FROM clientes C
+        inner join ventas_maestro V on V.cliente_id = C.id
+        where V.id=".$id.'';
+        $cliente = DB::select($query3);
+       
+
+    
+        $pdf = PDF::loadView('pdf.rpt_facturas', compact('facturas','detalle', 'cliente'));
+        return $pdf->stream('Factura.pdf');
 
         //return $pdf->download('listado.pdf');
         //dd($componentes);
