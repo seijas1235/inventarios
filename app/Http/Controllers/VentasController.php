@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Mail;
+use Barryvdh\DomPDF\Facade as PDF;
 class VentasController extends Controller
 {
  /**
@@ -558,4 +559,28 @@ class VentasController extends Controller
 
 		return Response::json( $api_Result );
 	}
+
+	public function rpt_ventas(Request $request)
+    {
+        $fecha_inicial = $request['fecha_inicial'];
+        $fecha_final = $request['fecha_final'];
+
+        $query = "SELECT v.id, DATE_FORMAT(v.created_at, '%d-%m-%Y') as fecha, s.serie, f.numero, v.total_venta
+		FROM ventas_maestro v
+		LEFT JOIN facturas f on f.venta_id = v.id
+		LEFT JOIN series s on s.id = f.serie_id
+		WHERE v.created_at BETWEEN '".$fecha_inicial."' AND '".$fecha_final." 23:59:59' order by fecha ";
+        $detalles = DB::select($query);
+
+        $fecha_inicial = Carbon::parse($fecha_inicial)->format('d/m/Y');
+        $fecha_final = Carbon::parse($fecha_final)->format('d/m/Y');
+    
+        $pdf = PDF::loadView('pdf.rpt_ventas', compact('detalles', 'fecha_inicial', 'fecha_final'));
+        return $pdf->stream('Reporte de ventas.pdf');
+    }
+    
+    public function rpt_generar()
+    {
+        return view("venta.rptGenerar");
+    }
 }
