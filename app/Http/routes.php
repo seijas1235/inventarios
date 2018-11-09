@@ -662,6 +662,7 @@ Route::group(array('middleware' => 'acl' , 'is' => 'superadmin|administrator|fin
 	Route::patch('/factura/{factura}/update' , 'FacturasController@update');
 	Route::delete('/factura/remove/{factura}' , 'FacturasController@destroy');
 	Route::get( '/serie/datos/{serie}' , 'SeriesController@getDatos');
+	Route::get( '/facturas/noDisponible/', 'FacturasController@noDisponible');
 
 	Route::get( '/bancos' , 'BancosController@index');
 	Route::get( '/bancos/getJson/' , 'BancosController@getJson');

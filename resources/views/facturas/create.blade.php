@@ -11,6 +11,7 @@
 				</div>
 			</div>
 			<br>
+		
 			<div class="row">
 				<div class="col-sm-4">
 					{!! Form::label("serie_id","Serie:") !!}
@@ -56,7 +57,7 @@
 				
 			</div>
 			<br>
-			
+			<input type="hidden" name="serie" id="serie">
 
 			</div>
 			</div>

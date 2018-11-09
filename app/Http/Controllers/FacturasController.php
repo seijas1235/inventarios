@@ -167,7 +167,24 @@ class FacturasController extends Controller
             return Response::json( $response  , 422 );
         }    
     }
-
+    
+    public function noDisponible()
+    {
+        $numero = Input::get("numero");
+        $serie = Input::get("serie");
+        dd($numero, $serie);
+        $query = Factura::where("serie_id",$serie)->get();
+        
+		$contador = count($query);
+		if ($contador == 0)
+		{
+			return 'false';
+		}
+		else
+		{
+			return 'true';
+		}
+	}
 
     public function getJson(Request $params)
     {
