@@ -46,14 +46,14 @@ class ProductosController extends Controller
 	{
 		$api_Result = array();
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("p.id", "p.nombre", "mp.existencias", "p.minimo", "mp.fecha_ingreso");
+		$columnsMapping = array("p.id", "p.nombre", "mp.existencias", "p.minimo", "mp.fecha_ingreso", 'p.codigo_barra');
 
 		// Initialize query (get all)
 
 		$api_logsQueriable = DB::table('productos');
 		$api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-		$query = "SELECT p.id, p.nombre, IF(SUM(mp.existencias) IS NULL,0,SUM(mp.existencias)) AS existencias,
+		$query = "SELECT p.id, p.nombre,p.codigo_barra, IF(SUM(mp.existencias) IS NULL,0,SUM(mp.existencias)) AS existencias,
 		p.minimo, IF(MAX(mp.fecha_ingreso) IS NULL,0,MAX(mp.fecha_ingreso)) as ultimo_ingreso FROM productos p
 		LEFT JOIN movimientos_productos mp on p.id = mp.producto_id GROUP BY p.nombre, p.id ";
         

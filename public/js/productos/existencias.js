@@ -50,7 +50,15 @@ var existencias_table = $('#existencias-table').DataTable({
         "responsivePriority": 3,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data); },
-    }, 
+    },
+    {
+        "title": "Codigo de Barra",
+        "data": "codigo_barra",
+        "width" : "20%",
+        "responsivePriority": 3,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML(data); },
+    },  
     {
         "title": "Nombre Producto",
         "data": "nombre",

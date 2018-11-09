@@ -338,6 +338,10 @@ Route::group(['middleware' => ['web']], function ()
 
 		Route::get( '/rpt_estado_cuenta_por_cobrar/generar' , 'CuentasPorCobrarController@rpt_generar');
 		Route::post( '/rpt_estado_cuenta_por_cobrar/' , 'CuentasPorCobrarController@rpt_estado_cuenta_por_cobrar');
+
+		Route::get( '/rpt_ventas/generar' , 'VentasController@rpt_generar');
+		Route::post( '/rpt_ventas/' , 'VentasController@rpt_ventas');
+
 		Route::get('/rpt_factura/{venta}' , 'PdfController@rpt_factura');
 
 

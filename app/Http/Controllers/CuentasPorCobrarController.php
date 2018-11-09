@@ -287,7 +287,7 @@ class CuentasPorCobrarController extends Controller
         $fecha_inicial = Carbon::parse($fecha_inicial)->format('d/m/Y');
         $fecha_final = Carbon::parse($fecha_final)->format('d/m/Y');
     
-        $pdf = PDF::loadView('pdf.rpt_estado_cuenta_por_pagar', compact('detalles', 'fecha_inicial', 'fecha_final', 'cliente'));
+        $pdf = PDF::loadView('pdf.rpt_estado_cuenta_por_cobrar', compact('detalles', 'fecha_inicial', 'fecha_final', 'cliente'));
         return $pdf->stream('Estado Cuenta por Cobrar.pdf');
     }
     

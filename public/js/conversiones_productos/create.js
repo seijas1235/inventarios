@@ -92,6 +92,26 @@ $("input[name='codigo_barra_sale']").focusout(function() {
         });
     });
 
+
+    $("input[name='cantidad_sale']").focusout(function() {
+        var codigo = $("input[name='codigo_barra_sale'] ").val();
+        var cantidad_sale = $("input[name='cantidad_sale'] ").val();
+        var url = "/productos/get/?data=" + codigo;    
+            $.getJSON( url , function ( result ) {
+    
+                if(result[0].existencias < cantidad_sale ){
+                    $("input[name='cantidad_sale'] ").after("<label class='error'>No hay existencia suficiente</label>");
+                    $('#addDetalle').attr("disabled", true);
+                }
+    
+                else{
+                    $('#addDetalle').attr("disabled", false);
+                    $(".error").remove();
+                }
+    
+            });
+        });
+
 /*$("input[name='cantidad']").focusout(function() {
     var cantidad = $("input[name='cantidad'] ").val();
     var precio_compra = $("input[name='precio_compra'] ").val();
