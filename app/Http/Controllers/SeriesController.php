@@ -153,7 +153,10 @@ class SeriesController extends Controller
         }    
     }
 
+    public function getDatos(Serie $serie) {
 
+		return Response::json($serie);
+	}
     public function getJson(Request $params)
     {
         $api_Result = array();

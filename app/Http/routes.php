@@ -645,14 +645,15 @@ Route::group(array('middleware' => 'acl' , 'is' => 'superadmin|administrator|fin
 
 
 
-
+	//Rutas para Series
 	Route::get( '/series' , 'SeriesController@index');
 	Route::get( '/series/getJson/' , 'SeriesController@getJson');
 	Route::get( '/series/new' , 'SeriesController@create');
 	Route::post( '/series/save/' , 'SeriesController@store');
 	Route::get( '/series/edit/{serie}' , 'SeriesController@edit');
 	Route::patch( '/series/{serie}/update' , 'SeriesController@update');
-
+	
+	//Rutas para Facturas
 	Route::get('/factura', 'FacturasController@index');
 	Route::get('/factura/getJson/' , 'FacturasController@getJson');
 	Route::get('/factura/new' , 'FacturasController@create');
@@ -660,6 +661,7 @@ Route::group(array('middleware' => 'acl' , 'is' => 'superadmin|administrator|fin
 	Route::get('/factura/edit/{factura}' , 'FacturasController@edit');
 	Route::patch('/factura/{factura}/update' , 'FacturasController@update');
 	Route::delete('/factura/remove/{factura}' , 'FacturasController@destroy');
+	Route::get( '/serie/datos/{serie}' , 'SeriesController@getDatos');
 
 	Route::get( '/bancos' , 'BancosController@index');
 	Route::get( '/bancos/getJson/' , 'BancosController@getJson');

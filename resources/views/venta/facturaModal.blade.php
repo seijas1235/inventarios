@@ -20,7 +20,7 @@
                 <input type="number" class="hide" id="venta_id" name="venta_id" value="" >
                 <select class="selectpicker" id='serie_id' name="serie_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
                   @foreach ($series as $serie)
-                    @if($serie->documento_id == 1)
+                    @if($serie->documento_id == 1 && $serie->estado_id == 2)
                       <option value="{{$serie->id}}">{{ $serie->serie}}</option>
                     @endif
                   @endforeach
@@ -28,30 +28,28 @@
               </div>
               <div class="col-sm-4 form-group ">
                 {!! Form::label("numero","Numero:") !!}
-                {!! Form::text( "numero" , null , ['class' => 'form-control' , 'placeholder' => 'Numero:' ]) !!}
+                {!! Form::text( "numero" , null , ['class' => 'form-control' , 'placeholder' => 'Numero:','id'=>'numero_f' ]) !!}
                 
               </div>		
-              <div class="col-sm-4">
-                {!! Form::label("tipo_pago_id","Tipo de Pago:") !!}
-                <select class="form-control" id='tipo_pago_id' name="tipo_pago_id" value="{{ old('role')}}">
-                    @foreach ($tipo_pagos as $tipo_pago)
-                    <option value="{{$tipo_pago->id}}">{{ $tipo_pago->tipo_pago}}</option>;
-                    @endforeach
-                  </select>
+              <div class="col-sm-4" >
+                {!! Form::hidden("tipo_pago_id","Tipo de Pago:") !!}
+                <input type="hidden" name="tipo_pago_id" id="tipo_pago_id">
               </div>
+              <div class="col-sm-4">
+                  {!! Form::label("total","Total:") !!}
+                  {!! Form::text( "total" , null , ['class' => 'form-control' , 'placeholder' => 'Total' ]) !!}
+                </div>
             </div>
             <br>
+            <div id='error_n' style="font-size:16px; font-weight:bold; color:green"> </div>
             <div class="row">
               <div class="col-sm-4">
-                {!! Form::label("fecha","Fecha:") !!}
-                {!! Form::date( "fecha", $today, ['class' => 'form-control' , 'placeholder' => 'Fecha' ]) !!}
+                {!! Form::hidden("fecha","Fecha:") !!}
+                {!! Form::hidden( "fecha", $today, ['class' => 'form-control' , 'placeholder' => 'Fecha' ]) !!}
               </div>
-              <div class="col-sm-4">
-                {!! Form::label("total","Total:") !!}
-                {!! Form::text( "total" , null , ['class' => 'form-control' , 'placeholder' => 'Total' ]) !!}
-              </div>
+              
               <div class="row">			
-                     
+                       
               
             </div>
             <br>
