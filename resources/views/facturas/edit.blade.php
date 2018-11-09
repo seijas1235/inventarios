@@ -19,7 +19,7 @@
 								@if ( $serie->id == $factura->serie_id)
 									<option value="{{$serie->id}}" selected>{{ $serie->serie}}</option>
 								@else
-								@if($serie->documento_id == 1)
+								@if($serie->documento_id == 1 && $serie->estado_id == 2)
 									<option value="{{$serie->id}}">{{ $serie->serie}}</option>@endif
 								@endif
 							@endforeach
@@ -28,8 +28,7 @@
 				
 				<div class="col-sm-4 form-group ">
 					{!! Form::label("numero","Numero:") !!}
-					{!! Form::text( "numero" , null , ['class' => 'form-control' , 'placeholder' => 'Numero:' ]) !!}
-					
+					{!! Form::text( "numero" , null , ['class' => 'form-control' , 'placeholder' => 'Numero:','id'=>'numero_f' ]) !!}	
 				</div>
 				<div class="col-sm-4">
 					{!! Form::label("tipo_pago_id","Tipo de Pago:") !!}
@@ -44,6 +43,7 @@
 					</select>
 				</div>
 		</div>
+		<div id='error_n' style="font-size:16px; font-weight:bold; color:green"> </div>
 			<br>
 			<div class="row">
 				<div class="col-sm-4">

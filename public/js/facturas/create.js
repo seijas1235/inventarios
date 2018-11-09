@@ -9,6 +9,27 @@ $(document).ready(function() {
 	});
 });
 
+function ComprobarDatos() {
+    var serie_id = $("#serie_id").val();
+	var inicio, fin
+	var numero=$("#numero_f").val();
+    var url = "/serie/datos/" + serie_id ;
+    if (serie_id != "") {
+        $.getJSON( url , function ( result ) {
+            inicio=result.inicio;
+			fin=result.fin;
+			if(numero<inicio || numero>fin){
+				$("#error_n").text('El Numero de Factura esta Fuera de Rango de la Serie Seleccionada.');
+			}
+			else{
+				$("#error_n").text('');
+			}
+        });
+    }
+}
+$("#numero_f").focusout(function () {
+    ComprobarDatos();
+});
 
 var validator = $("#FacturaForm").validate({
 	ignore: [],

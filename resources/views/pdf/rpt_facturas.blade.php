@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reporte Orden Trabajo</title>
+    <title>Car-Wash Ancara </title>
     <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -31,71 +31,76 @@
   <div class="row">
     <table style="width:100%" border="1">
         <tr>
-          <th><center><h4> Registro de calidad</h4></center></th> 
+          <th><center><h4> Car Wash Ankara</h4></center></th> 
         </tr>
-    
-        <tr>
-          <td><center><h5>Orden de Trabajo</h5> <p>
-          Recepcion de vehiculos/ mecánica automotriz </center>
+      </table>
+  
+    </div>
+<div class="row">
+  <div class="col-6">
+    <table style="width:100%" border="1">  
+    <tr>
+          <td>
+            Nombre: {{$cliente[0]->nombres  }}
+          </td>
+          <td>
+            Dirección: {{$cliente[0]->direccion }}
+          </td>
+          <td>
+            Nit: {{$cliente[0]->nit  }}
+          </td>
+          </tr>
+        </table>
+    </div>
+  <div class="col-6">
+    <table style="width:100%" border="1"> 
+    <tr>   
+          <td><h5>Factura</h5>
+            
           </td> 
+          <td>Serie: {{$facturas[0]->serie  }}</td>
+          <td>Número: {{$facturas[0]->numero  }}</td>
+            
         </tr>
       </table>
   </div>
-@foreach ($facturas as $item)
-    
 
+</div>
   <br>
-  <div class="row">
-    <div class="col-xs-6">
-      Num. de orden: <b>{{$item->serie}}</b>
-    </div>
-
-    <div class="col-xs-6">
-      Fecha y hora: {{$item->numero}}
-    </div>
-  </div>
-
-  <br>
-
-
-  @endforeach
-  @foreach ($detalle as $item)
-    
-
-  <br>
-  <div class="row">
-    <div class="col-xs-6">
-      Num. de orden: <b>{{$item->id}}</b>
-    </div>
-
-    <div class="col-xs-6">
-      Fecha y hora: {{$item->subtotal}}
-    </div>
-  </div>
-
-  <br>
-
-
-  @endforeach
- 
-  @foreach ($cliente as $item)
-    
-
-  <br>
-  <div class="row">
-    <div class="col-xs-6">
-      Num. de orden: <b>{{$item->nombres}}</b>
-    </div>
-
-    <div class="col-xs-6">
-      Fecha y hora: {{$item->direccion}}
-    </div>
-  </div>
-
-  <br>
-
-
-  @endforeach
+<div class="row">
+  <table style="width:100%" border="1">   
+    <tr>
+        <td>
+          cantidad
+        </td>
+        <td>
+          Descripcion
+        </td>
+        <td>
+          SubTotal
+        </td>
+    </tr>
+    @foreach ($detalle as $item)    
+    <tr>
+      <td>{{$item->cantidad  }} </td>
+      <td> {{$item->nombre  }} </td>
+      <td> {{$item->subtotal  }} </td>
+    </tr>
+    @endforeach
+  </table>
+</div>
+<div class="row">
+  <table style="width:40% " border="1" align="right" >
+<tr>
+  <td >
+    Total:
+  </td>
+  <td>
+      {{$facturas[0]->total  }}
+  </td>
+</tr>
+  </table>
+</div>
  
 
 
