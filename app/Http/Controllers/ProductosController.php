@@ -161,6 +161,9 @@ class ProductosController extends Controller
 	 */
 	public function update(Producto $producto, Request $request)
 	{
+		$this->validate($request,['codigo_barra' => 'required|unique:productos,codigo_barra,'.$producto->id
+		]);
+		
 		Response::json( $this->updateProducto($producto , $request->all()));
 		return redirect('/productos');
 	}
@@ -208,6 +211,21 @@ class ProductosController extends Controller
 			$response["password_delete"] = "La contraseña no coincide";
 			return Response::json( $response  , 422 );
 		}    
+	}
+
+	public function codigoDisponible()
+	{
+		$dato = Input::get("codigo_barra");
+		$query = Producto::where("codigo_barra",$dato)->get();
+		$contador = count($query);
+		if ($contador == 0)
+		{
+			return 'false';
+		}
+		else
+		{
+			return 'true';
+		}
 	}
 
 	public function getJson(Request $params)

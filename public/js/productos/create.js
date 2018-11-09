@@ -9,12 +9,29 @@ $(document).ready(function() {
 	});
 });
 
+$.validator.addMethod("codigoUnico", function(value, element) {
+	var valid = false;
+	$.ajax({
+		type: "GET",
+		async: false,
+		url: "/codigo-disponible",
+		data: "codigo_barra=" + value,
+		dataType: "json",
+		success: function(msg) {
+			valid = !msg;
+		}
+	});
+	return valid;
+}, "El codigo de barra ya está asignado a otro producto registrado en el sistema");
+
+
 var validator = $("#ProductoForm").validate({
 	ignore: [],
 	onkeyup:false,
 	rules: {
 		codigo_barra:{
 			required: true,
+			codigoUnico: true
 		},
 
 		nombre: {
