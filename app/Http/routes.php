@@ -259,6 +259,7 @@ Route::group(['middleware' => ['web']], function ()
 		Route::post( '/servicios-detalle/{servicio}' , 'ServiciosController@saveDetalle');
 		Route::get('/servicios/show/{servicio}' , 'ServiciosController@show');
 		Route::get( '/servicios/{servicio}/getJson' , 'ServiciosController@getJsonDetalle' );
+		Route::get( '/codigo-disponible-servicio/', 'ServiciosController@codigoDisponible');
 
 		Route::get( '/compras' , 'ComprasController@index' );
         Route::get( '/compras/getJson' , 'ComprasController@getJson' );

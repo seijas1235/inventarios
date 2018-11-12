@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use App\TipoServicio;
 use App\Producto;
 use App\UnidadDeMedida;
+use Illuminate\Support\Facades\Input;
 
 class ServiciosController extends Controller
 {
@@ -320,5 +321,38 @@ class ServiciosController extends Controller
 		$api_Result['data'] = $result;
 
 		return Response::json( $api_Result );
+    }
+    
+    /*public function codigoDisponible()
+	{
+		$dato = Input::get("codigo");
+		$query = Servicio::where("codigo",$dato)->get();
+		$contador = count($query);
+		if ($contador == 0)
+		{
+			return 'false';
+		}
+		else
+		{
+			return 'true';
+		}
+    }*/
+    
+    public function codigoDisponible(Request $request)
+	{
+		$servicio = $request["data"];
+
+		if ($servicio == "")
+		{
+			$result = "";
+			return Response::json( $result);
+		}
+		else {
+			$query = "Select * FROM servicios WHERE servicios.codigo  = '".$servicio."' ";
+				$result = DB::select($query);
+				return Response::json( $result);
+			}
+
 	}
+
 }
