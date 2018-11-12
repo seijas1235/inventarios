@@ -12,9 +12,10 @@
         </div>
         <br>
         <div class="row">
-			<div class="col-sm-4">
+			<div class="col-sm-4 {{$errors->has('codigo_barra')? 'has-error' : ''}} ">
 				{!! Form::label("codigo_barra","Codigo de barra:") !!}
-				{!! Form::text( "codigo_barra" , null , ['class' => 'form-control' , 'placeholder' => 'Codigo de barra']) !!}
+                {!! Form::text( "codigo_barra" , null , ['class' => 'form-control' , 'placeholder' => 'Codigo de barra']) !!}
+                {!!$errors->first('codigo_barra', '<label class="error">:message</label>')!!}
             </div>
 			<div class="col-sm-8">{!! Form::label("nombre","Nombre:") !!}
 				{!! Form::text( "nombre" , null , ['class' => 'form-control' , 'placeholder' => 'Nombre']) !!}
@@ -53,6 +54,7 @@
                 {!! Form::number( "minimo" , null , ['class' => 'form-control' , 'placeholder' => 'Stock minimo']) !!}
             </div>
         </div>
+        <br>
         <div class="row">
             <div class="col-sm-12">
                 {!! Form::label("descripcion","Descripcion:") !!}

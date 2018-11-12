@@ -222,6 +222,7 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get( '/producto/precio/{producto}' , 'ProductosController@getPrecio');
 		Route::get('/existencias', 'ProductosController@existenciasIndex');
 		Route::get('/existencias/getJson/', 'ProductosController@existencias');
+		Route::get( 'codigo-disponible/', 'ProductosController@codigoDisponible');
 
 		Route::get('/precios_producto', 'PreciosProductoController@index');
 		Route::get('/precios_producto/getJson/' , 'PreciosProductoController@getJson');
