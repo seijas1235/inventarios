@@ -10,12 +10,29 @@ $(document).ready(function() {
 });
 
 
+$.validator.addMethod("marcaUnica", function(value, element) {
+	var valid = false;
+	$.ajax({
+		type: "GET",
+		async: false,
+		url: "/marcas/marcaDisponible",
+		data: "nombre=" + value,
+		dataType: "json",
+		success: function(msg) {
+			valid = !msg;
+		}
+	});
+	return valid;
+}, "El nombre de esta marca ya está registrado en el sistema");
+
+
 var validator = $("#MarcaForm").validate({
 	ignore: [],
 	onkeyup:false,
 	rules: {
 		nombre: {
-			required : true
+			required : true,
+			marcaUnica: true
 		},
 		tipo_marca_id: {
 			required : true

@@ -9,13 +9,28 @@ $(document).ready(function() {
 	});
 });
 
+$.validator.addMethod("lineaUnica", function(value, element) {
+	var valid = false;
+	$.ajax({
+		type: "GET",
+		async: false,
+		url: "/lineas/lineaDisponible",
+		data: "linea=" + value,
+		dataType: "json",
+		success: function(msg) {
+			valid = !msg;
+		}
+	});
+	return valid;
+}, "El nombre de esta marca ya está registrado en el sistema");
 
 var validator = $("#LineaForm").validate({
 	ignore: [],
 	onkeyup:false,
 	rules: {
 		linea: {
-			required : true
+			required : true,
+			lineaUnica : true
 		},
 		marca_id: {
 			required : true

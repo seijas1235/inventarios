@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use App\Marca;
 use App\TipoMarca;
 Use App\User;
+use Illuminate\Support\Facades\Input;
 
 class MarcasController extends Controller
 {
@@ -138,7 +139,21 @@ class MarcasController extends Controller
             return Response::json( $response  , 422 );
         }    
     }
-
+    public function marcaDisponible()
+	{
+		$dato = Input::get("nombre");
+		$query = Marca::where("nombre",$dato)->get();
+		$contador = count($query);
+		if ($contador == 0)
+		{
+			return 'false';
+		}
+		else
+		{
+			return 'true';
+		}
+    }
+    
 
     public function getJson(Request $params)
     {

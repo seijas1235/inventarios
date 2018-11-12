@@ -12,7 +12,7 @@ use Carbon\Carbon;
 use App\Marca;
 use App\Linea;
 Use App\User;
-
+use Illuminate\Support\Facades\Input;
 
 class LineasController extends Controller
 {
@@ -153,6 +153,21 @@ class LineasController extends Controller
                 return Response::json( $result);
             }
     }
+    public function lineaDisponible()
+	{
+		$dato = Input::get("linea");
+		$query = Linea::where("linea",$dato)->get();
+		$contador = count($query);
+		if ($contador == 0)
+		{
+			return 'false';
+		}
+		else
+		{
+			return 'true';
+		}
+    }
+    
     public function getJson(Request $params)
     {
         $api_Result = array();
