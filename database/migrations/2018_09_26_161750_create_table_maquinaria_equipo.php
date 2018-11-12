@@ -18,7 +18,7 @@ class CreateTableMaquinariaEquipo extends Migration
             $table->string('codigo_maquina',20)->nullable();
 
             $table->unsignedInteger('marca');
-            $table->foreign('marca')->references('id')->on('tipos_marca')->onDelete('cascade');
+            $table->foreign('marca')->references('id')->on('marcas')->onDelete('cascade');
 
             $table->integer('labadas_limite');
             $table->date('fecha_adquisicion');
