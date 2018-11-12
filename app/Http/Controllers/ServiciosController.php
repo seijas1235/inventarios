@@ -322,22 +322,7 @@ class ServiciosController extends Controller
 
 		return Response::json( $api_Result );
     }
-    
-    /*public function codigoDisponible()
-	{
-		$dato = Input::get("codigo");
-		$query = Servicio::where("codigo",$dato)->get();
-		$contador = count($query);
-		if ($contador == 0)
-		{
-			return 'false';
-		}
-		else
-		{
-			return 'true';
-		}
-    }*/
-    
+        
     public function codigoDisponible(Request $request)
 	{
 		$servicio = $request["data"];

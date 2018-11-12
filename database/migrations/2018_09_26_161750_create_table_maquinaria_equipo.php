@@ -20,7 +20,7 @@ class CreateTableMaquinariaEquipo extends Migration
             $table->unsignedInteger('marca');
             $table->foreign('marca')->references('id')->on('marcas')->onDelete('cascade');
 
-            $table->integer('labadas_limite');
+            $table->integer('labadas_limite')->nullable();
             $table->date('fecha_adquisicion');
             $table->text('descripcion');
             $table->timestamps();
