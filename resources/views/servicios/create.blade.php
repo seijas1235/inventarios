@@ -59,7 +59,7 @@
 				</div>
 				<div class="col-sm-3">
 					<select class="selectpicker" id='unidad_de_medida_id' name="unidad_de_medida_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
-						<option value="" selected>Selecciona</option>
+						<option value="" selected>Unidad de medida</option>
 						@foreach ($unidades_de_medida as $unidad_de_medida)
 						<option value="{{$unidad_de_medida->id}}">{{$unidad_de_medida->descripcion}}</option>							
 						@endforeach
@@ -94,7 +94,7 @@
 				</div>
 				<div class="col-sm-3">
 					<select class="selectpicker" id='unidad_de_medida_id2' name="unidad_de_medida_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
-						<option value="" selected>Selecciona</option>
+						<option value="" selected>Unidad de medida</option>
 						@foreach ($unidades_de_medida as $unidad_de_medida)
 						<option value="{{$unidad_de_medida->id}}">{{$unidad_de_medida->descripcion}}</option>							
 						@endforeach

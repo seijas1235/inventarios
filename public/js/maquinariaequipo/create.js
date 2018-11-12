@@ -4,7 +4,20 @@
     showClose: true
 });*/
 
-
+$.validator.addMethod("codigoUnico", function(value, element) {
+	var valid = false;
+	$.ajax({
+		type: "GET",
+		async: false,
+		url: "/codigo-disponible-maquina",
+		data: "codigo_maquina=" + value,
+		dataType: "json",
+		success: function(msg) {
+			valid = !msg;
+		}
+	});
+	return valid;
+}, "El codigo ya está asignado a otra maquinaria registrada en el sistema");
 
 var validator = $("#MaquinariaEquipoForm").validate({
 	ignore: [],
@@ -14,20 +27,23 @@ var validator = $("#MaquinariaEquipoForm").validate({
 			required : true
 		},
 		codigo_maquina:{
-			required : true
+			required : true,
+			codigoUnico: true
 		},
 		marca: {
 			required : true
 		},
 		descripcion:{
 			required : true
-		},
-		
+		}
 
 	},
 	messages: {
 		nombre_maquina: {
 			required: "Por favor, ingrese el nombre del Equipo"
+		},
+		marca: {
+			required: "Por favor, Seleccione La marca del Equipo"
 		},
 		descripcion :{
 			required :"Por favor ingrese la Descripcion del equipo"

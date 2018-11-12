@@ -134,6 +134,7 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch('/maquinarias_equipo/{maquinariaequipo}/update' , 'MaquinariasEquipoController@update');
 		Route::delete('/maquinarias_equipo/remove/{maquinariaequipo}' , 'MaquinariasEquipoController@destroy');
 		Route::get('/maquinarias_equipo/get/', 'MaquinariasEquipoController@getInfo');
+		Route::get( 'codigo-disponible-maquina/', 'MaquinariasEquipoController@codigoDisponible');
 		
 		//rutas mantenimienotos de maquinarias y equipos
 		Route::get('/mantto_equipo', 'MantenimientoEquiposController@index');
@@ -262,6 +263,7 @@ Route::group(['middleware' => ['web']], function ()
 		Route::post( '/servicios-detalle/{servicio}' , 'ServiciosController@saveDetalle');
 		Route::get('/servicios/show/{servicio}' , 'ServiciosController@show');
 		Route::get( '/servicios/{servicio}/getJson' , 'ServiciosController@getJsonDetalle' );
+		Route::get( '/codigo-disponible-servicio/', 'ServiciosController@codigoDisponible');
 
 		Route::get( '/compras' , 'ComprasController@index' );
         Route::get( '/compras/getJson' , 'ComprasController@getJson' );

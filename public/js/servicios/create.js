@@ -20,6 +20,24 @@ $(document).on("keypress", 'form', function (e) {
 $("#producto_id").change(function () {
     changeProducto();
 });*/
+
+$("input[name='codigo']").focusout(function() {
+    var codigo = $("input[name='codigo'] ").val();
+    var url = "/codigo-disponible-servicio/?data=" + codigo;
+
+        $.getJSON( url , function ( result ) {
+            if(result == 0 ){
+                $('#ButtonServicio').attr("disabled", false);
+                $(".error").remove();
+            }
+
+            else{
+                $("input[name='codigo'] ").after("<label class='error'>El codigo ya se encuentra registrado en el sistema</label>");
+                $('#ButtonServicio').attr("disabled", true);                
+            }
+
+        });
+    });
 	
 function changeUnidad() {
     var unidad_de_medida_id = $("#unidad_de_medida_id").val();

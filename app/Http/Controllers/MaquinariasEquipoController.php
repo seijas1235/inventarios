@@ -157,8 +157,22 @@ class MaquinariasEquipoController extends Controller
 				return Response::json( $result);
 			}
 
+    }
+    
+    public function codigoDisponible()
+	{
+		$dato = Input::get("codigo_maquina");
+		$query = MaquinariaEquipo::where("codigo_maquina",$dato)->get();
+		$contador = count($query);
+		if ($contador == 0)
+		{
+			return 'false';
+		}
+		else
+		{
+			return 'true';
+		}
 	}
-
 
     public function getJson(Request $params)
     {

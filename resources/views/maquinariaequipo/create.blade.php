@@ -5,7 +5,7 @@
 		{!! Form::open( array( 'id' => 'MaquinariaEquipoForm') ) !!}
 		<div class="row">
 			<div class="col-sm-12">
-				<h3 class="tittle-custom"> Creación de MAquinarias/Equipo </h3>
+				<h3 class="tittle-custom"> Creación de Maquinaria y/o Equipo </h3>
 				<line>
 				</div>
 			</div>
@@ -13,7 +13,7 @@
 			<div class="row">
 				<div class="col-sm-4">
 						{!! Form::label("codigo_maquina","Codigo:") !!}
-						{!! Form::text( "codigo_maquina" , null , ['class' => 'form-control' , 'placeholder' => 'Nombre del equipo' ]) !!}
+						{!! Form::text( "codigo_maquina" , null , ['class' => 'form-control' , 'placeholder' => 'Codigo Maquinaria' ]) !!}
 					</div>
 				<div class="col-sm-4">
 					{!! Form::label("nombre_maquina","Nombre:") !!}
