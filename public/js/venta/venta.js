@@ -64,7 +64,10 @@ var venta_table = $('#venta-table').DataTable({
     },{
         "title": "Acciones",
         "orderable": false,
+        "data": "tipo_venta_id",
         "render": function(data, type, full, meta) {
+            console.log(data);
+            if(data == 1){
             return "<div id='" + full.id + "' class='text-center'>" + 
             "<div class='float-left col-lg-3'>" + 
             "<a href='#' class='edit-venta'>" + 
@@ -82,7 +85,26 @@ var venta_table = $('#venta-table').DataTable({
             "<a href='/rpt_factura/"+ full.id +"' class='pdf-factura'>" + 
             "<i class='fa fa-file-pdf-o' title='PDF'></i>" + 
             "</a>" + "</div>" ;
+        }
+        else{
+            return "<div id='" + full.id + "' class='text-center'>" + 
+            "<div class='float-left col-lg-3'>" + 
+            "<a href='#' class='edit-venta'>" + 
+            "<i class='fa fa-btn fa-edit' title='Edit'></i>" + 
+            "</div>" + 
+            "<div class='float-left col-lg-3'>" + 
+            "<a href='#' class='remove-venta'>" + 
+            "<i class='fa fa-btn fa-trash' title='Delete'></i>" + 
+            "</a>" + "</div>" + 
+            "<div class='float-right col-lg-3'>" + 
+            "<a href='#' class='detalle-venta'>" + 
+            "<i class='fa fa-btn fa-desktop' title='detalle'></i>" + 
+            "</a>"+"</div>" + 
+            "<div class='float-left col-lg-3'>" + "</div>" ;
+        }
         },
+
+
         "responsivePriority": 2
     }],
     "createdRow": function(row, data, rowIndex) {
