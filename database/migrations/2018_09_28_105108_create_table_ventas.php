@@ -15,7 +15,7 @@ class CreateTableVentas extends Migration
         Schema::create('ventas_maestro', function($table)
         {
             $table->increments('id');
-            $table->bool('tipo_venta_id');
+            $table->boolean('tipo_venta_id');
             
             $table->integer('tipo_pago_id')->unsigned()->nullable();
             $table->foreign('tipo_pago_id')->references('id')->on('tipos_pago')->onDelete('cascade');

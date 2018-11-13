@@ -9,105 +9,6 @@ $(document).ready(function() {
 	});
 });
 
-function ComprobarDatos() {
-    var serie_id = $("#serie_id").val();
-	var inicio, fin
-	var numero=$("#numero_f").val();
-    var url = "/serie/datos/" + serie_id ;
-    if (serie_id != "") {
-        $.getJSON( url , function ( result ) {
-            inicio=result.inicio;
-			fin=result.fin;
-			if(numero<inicio || numero>fin){
-				$("#error_n").text('El Numero de Factura esta Fuera de Rango de la Serie Seleccionada.');
-			}
-			else{
-				$("#error_n").text('');
-			}
-        });
-    }
-}
-$("#numero_f").focusout(function () {
-    ComprobarDatos();
-});
-
-
-// script para guardar facturas
-
-var validator = $("#FacturaForm").validate({
-	ignore: [],
-	onkeyup:false,
-	rules: {
-		serie_id: {
-			required : true
-		},
-
-		total: {
-			required : true
-		},
-		
-		numero:{
-			required: true
-		},
-		
-	
-
-	},
-	messages: {
-		
-		serie_id: {
-			required : "Debe Seleccionar La Serie"
-		},
-		total:{
-			required: "Debe Ingresar el total"
-		},
-		
-		numero:{
-			required: "Debe ingresar el numero de factura"
-		},
-		
-	
-
-	}
-});
-
-
-$("#ButtonFactura").click(function(event) {
-	if ($('#FacturaForm').valid()) {
-		saveFactura();
-	} else {
-		validator.focusInvalid();
-	}
-});
-
-
-function saveFactura(button) {
-	$("#ButtonFactura").attr('disabled', 'disabled');
-	var l = Ladda.create(document.querySelector("#ButtonFactura"));
-	l.start();
-	var formData = $("#FacturaForm").serialize();
-	$.ajax({
-		type: "POST",
-		headers: {'X-CSRF-TOKEN': $('#token').val()},
-		url: "/factura/save",
-		data: formData,
-		dataType: "json",
-		success: function(data) {
-            window.location = "/ventas"
-            
-		},
-		always: function() {
-			l.stop();
-		},
-		error: function() {
-			alert("Ha ocurrido un problema, contacte a su administrador!!");
-		}
-		
-	});
-}
-
-
-
 
 
 
@@ -642,6 +543,9 @@ $('body').on('click', '#addDetalleServicio', function(e)
         });
     }
 
+
+
+
     //popup confirmar factura
     $("#ButtonDetalle").click(function(event) {
         bootbox.dialog({
@@ -668,6 +572,102 @@ $('body').on('click', '#addDetalleServicio', function(e)
           });
     });
 
+function ComprobarDatos() {
+    var serie_id = $("#serie_id").val();
+	var inicio, fin
+	var numero=$("#numero_f").val();
+    var url = "/serie/datos/" + serie_id ;
+    if (serie_id != "") {
+        $.getJSON( url , function ( result ) {
+            inicio=result.inicio;
+			fin=result.fin;
+			if(numero<inicio || numero>fin){
+				$("#error_n").text('El Numero de Factura esta Fuera de Rango de la Serie Seleccionada.');
+			}
+			else{
+				$("#error_n").text('');
+			}
+        });
+    }
+}
+$("#numero_f").focusout(function () {
+    ComprobarDatos();
+});
+
+
+// script para guardar facturas
+
+var validator = $("#FacturaForm").validate({
+	ignore: [],
+	onkeyup:false,
+	rules: {
+		serie_id: {
+			required : true
+		},
+
+		total: {
+			required : true
+		},
+		
+		numero:{
+			required: true
+		},
+		
+	
+
+	},
+	messages: {
+		
+		serie_id: {
+			required : "Debe Seleccionar La Serie"
+		},
+		total:{
+			required: "Debe Ingresar el total"
+		},
+		
+		numero:{
+			required: "Debe ingresar el numero de factura"
+		},
+		
+	
+
+	}
+});
+
+
+$("#ButtonFactura").click(function(event) {
+	if ($('#FacturaForm').valid()) {
+		saveFactura();
+	} else {
+		validator.focusInvalid();
+	}
+});
+
+
+function saveFactura(button) {
+	$("#ButtonFactura").attr('disabled', 'disabled');
+	var l = Ladda.create(document.querySelector("#ButtonFactura"));
+	l.start();
+	var formData = $("#FacturaForm").serialize();
+	$.ajax({
+		type: "POST",
+		headers: {'X-CSRF-TOKEN': $('#token').val()},
+		url: "/factura/save",
+		data: formData,
+		dataType: "json",
+		success: function(data) {
+            saveDetalle();
+            
+		},
+		always: function() {
+			l.stop();
+		},
+		error: function() {
+			alert("Ha ocurrido un problema, contacte a su administrador!!");
+		}
+		
+	});
+}
 
 
     
