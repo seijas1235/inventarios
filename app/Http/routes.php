@@ -403,6 +403,7 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/cortes_caja/getCreditoSF/', 'CortesCajaController@getCreditoSF');
 		Route::get('/cortes_caja/getTarjetaSF/', 'CortesCajaController@getTarjetaSF');
 		Route::get('/cortes_caja/getTotalSF/', 'CortesCajaController@getTotalSF');
+		Route::get('/cortes_caja/getTotalVenta/', 'CortesCajaController@getTotalVenta');
 		Route::get( '/cortes_caja/corteUnico/', 'CortesCajaController@corteUnico');
 		Route::get( '/cortes_caja/getFacturas/', 'CortesCajaController@getFacturas');
 

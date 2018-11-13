@@ -232,6 +232,7 @@ class CortesCajaController extends Controller
 		else {
 			$query = "SELECT if(sum(v.total_venta) is null,0, sum(v.total_venta)) as efectivo FROM ventas_maestro v
             where v.created_at BETWEEN '".$fecha."' AND '".$fecha." 23:59:59'
+            AND v.tipo_venta_id = 0
             AND v.tipo_pago_id = 1 limit 1 ";
 				$result = DB::select($query);
 				return Response::json( $result);
@@ -251,6 +252,7 @@ class CortesCajaController extends Controller
 		else {
 			$query = "SELECT if(sum(v.total_venta) is null,0, sum(v.total_venta)) as tarjeta FROM ventas_maestro v 
             where v.created_at BETWEEN '".$fecha."' AND '".$fecha." 23:59:59'
+            AND v.tipo_venta_id = 0
             AND v.tipo_pago_id = 2 limit 1 ";
 				$result = DB::select($query);
 				return Response::json( $result);
@@ -270,6 +272,7 @@ class CortesCajaController extends Controller
 		else {
 			$query = "SELECT if(sum(v.total_venta) is null,0, sum(v.total_venta)) as credito FROM ventas_maestro v 
             where v.created_at BETWEEN '".$fecha."' AND '".$fecha." 23:59:59'
+            AND v.tipo_venta_id = 0
             AND v.tipo_pago_id = 3 limit 1";
 				$result = DB::select($query);
 				return Response::json( $result);
@@ -278,6 +281,25 @@ class CortesCajaController extends Controller
     }
     
     public function getTotalSF(Request $request)
+	{
+		$fecha = $request["data"];
+
+		if ($fecha == "")
+		{
+			$result = "";
+			return Response::json( $result);
+		}
+		else {
+			$query = "SELECT if(sum(v.total_venta) is null,0, sum(v.total_venta)) as total FROM ventas_maestro v 
+            where v.created_at BETWEEN '".$fecha."' AND '".$fecha." 23:59:59' 
+            AND v.tipo_venta_id = 0 limit 1";
+				$result = DB::select($query);
+				return Response::json( $result);
+            }
+            
+    }
+
+    public function getTotalVenta(Request $request)
 	{
 		$fecha = $request["data"];
 

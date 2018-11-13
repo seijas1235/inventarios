@@ -102,10 +102,10 @@ $("#ButtonCalcular").click(function(event) {
 	var url1 = "/cortes_caja/getEfectivo/?data=" + fecha;    
 		$.getJSON( url1 , function ( result ) {
 			if (result == 0 ) {
-				$("input[name='efectivo'] ").val(0).toFixed(2);
+				$("input[name='efectivo'] ").val(parseFloat(0).toFixed(2));
 			}
 			else {
-				$("input[name='efectivo'] ").val(result[0].efectivo);
+				$("input[name='efectivo'] ").val(parseFloat(result[0].efectivo).toFixed(2));
 			}
 		});
 
@@ -115,7 +115,7 @@ $("#ButtonCalcular").click(function(event) {
 				$("input[name='voucher'] ").val(0).toFixed(2);
 			}
 			else {
-				$("input[name='voucher'] ").val(result[0].tarjeta);
+				$("input[name='voucher'] ").val(parseFloat(result[0].tarjeta).toFixed(2));
 			}
 		});
 
@@ -125,7 +125,7 @@ $("#ButtonCalcular").click(function(event) {
 				$("input[name='credito'] ").val(0).toFixed(2);
 			}
 			else {
-				$("input[name='credito'] ").val(result[0].credito);
+				$("input[name='credito'] ").val(parseFloat(result[0].credito).toFixed(2));
 			}
 		});
 
@@ -135,7 +135,7 @@ $("#ButtonCalcular").click(function(event) {
 				$("input[name='total'] ").val(0).toFixed(2);
 			}
 			else {
-				$("input[name='total'] ").val(result[0].total);
+				$("input[name='total'] ").val(parseFloat(result[0].total).toFixed(2));
 			}
 		});
 
@@ -146,10 +146,8 @@ $("#ButtonCalcular").click(function(event) {
 				$("input[name='efectivoSF'] ").val(0).toFixed(2);
 			}
 			else {
-				var efectivo = $("input[name='efectivo'] ").val();
-				var efectivoV = result[0].efectivo;
-				var efectivoSF = parseFloat(efectivoV)- parseFloat(efectivo);  
-				$("input[name='efectivoSF'] ").val(efectivoSF);
+				var efectivoSF = result[0].efectivo;
+				$("input[name='efectivoSF'] ").val(parseFloat(efectivoSF).toFixed(2));
 			}
 		});
 
@@ -159,10 +157,8 @@ $("#ButtonCalcular").click(function(event) {
 				$("input[name='voucherSF'] ").val(0).toFixed(2);
 			}
 			else {
-				var tarjeta = $("input[name='voucher'] ").val();
-				var tarjetaV = result[0].tarjeta;
-				var tarjetaSF = parseFloat(tarjetaV)- parseFloat(tarjeta);  
-				$("input[name='voucherSF'] ").val(tarjetaSF);
+				var tarjetaSF = result[0].tarjeta;
+				$("input[name='voucherSF'] ").val(parseFloat(tarjetaSF).toFixed(2));
 			}
 		});
 
@@ -172,10 +168,8 @@ $("#ButtonCalcular").click(function(event) {
 				$("input[name='creditoSF'] ").val(0).toFixed(2);
 			}
 			else {
-				var credito = $("input[name='credito'] ").val();
-				var creditoV = result[0].credito;
-				var creditoSF = parseFloat(creditoV)- parseFloat(credito);  
-				$("input[name='creditoSF'] ").val(creditoSF);
+				var creditoSF = result[0].credito;
+				$("input[name='creditoSF'] ").val(parseFloat(creditoSF).toFixed(2));
 			}
 		});
 
@@ -185,25 +179,24 @@ $("#ButtonCalcular").click(function(event) {
 				$("input[name='totalSF'] ").val(0).toFixed(2);
 			}
 			else {
-				var total = $("input[name='total'] ").val();
-				var totalV = result[0].total;
-				var totalSF = parseFloat(totalV)- parseFloat(total);  
-				$("input[name='totalSF'] ").val(totalSF);
+				var totalSF = parseFloat(result[0].total).toFixed(2);
+				$("input[name='totalSF'] ").val(parseFloat(totalSF).toFixed(2));
 			}
 		});
 
-	var url9 = "/cortes_caja/getTotalSF/?data=" + fecha;
-	$.getJSON( url8 , function ( result ) {
-		if (result == 0 ) {
-			$("input[name='total_venta'] ").val(0).toFixed(2);
-		}
-		else {
-			$("input[name='total_venta'] ").val(result[0].total);
-		}
-	});
+	var url9 = "/cortes_caja/getTotalVenta/?data=" + fecha;
 
-	var url9 = "/cortes_caja/getFacturas/?data=" + fecha;
-	$.getJSON( url9 , function ( result ) {
+		$.getJSON( url9 , function ( result ) {
+			if (result == 0 ) {
+				$("input[name='total_venta'] ").val(0).toFixed(2);
+			}
+			else {
+				$("input[name='total_venta'] ").val(parseFloat(result[0].total).toFixed(2));
+			}
+		});
+
+	var url10 = "/cortes_caja/getFacturas/?data=" + fecha;
+	$.getJSON( url10 , function ( result ) {
 		if (result == 0 ) {
 			$("input[name='factura_inicial'] ").val("");
 			$("input[name='factura_final'] ").val("");
