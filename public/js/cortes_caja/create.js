@@ -102,7 +102,7 @@ $("#ButtonCalcular").click(function(event) {
 	var url1 = "/cortes_caja/getEfectivo/?data=" + fecha;    
 		$.getJSON( url1 , function ( result ) {
 			if (result == 0 ) {
-				$("input[name='efectivo'] ").val("");
+				$("input[name='efectivo'] ").val(0).toFixed(2);
 			}
 			else {
 				$("input[name='efectivo'] ").val(result[0].efectivo);
@@ -112,7 +112,7 @@ $("#ButtonCalcular").click(function(event) {
 	var url2 = "/cortes_caja/getTarjeta/?data=" + fecha;
 		$.getJSON( url2 , function ( result ) {
 			if (result == 0 ) {
-				$("input[name='voucher'] ").val("");
+				$("input[name='voucher'] ").val(0).toFixed(2);
 			}
 			else {
 				$("input[name='voucher'] ").val(result[0].tarjeta);
@@ -122,7 +122,7 @@ $("#ButtonCalcular").click(function(event) {
 	var url3 = "/cortes_caja/getCredito/?data=" + fecha;
 		$.getJSON( url3 , function ( result ) {
 			if (result == 0 ) {
-				$("input[name='credito'] ").val("");
+				$("input[name='credito'] ").val(0).toFixed(2);
 			}
 			else {
 				$("input[name='credito'] ").val(result[0].credito);
@@ -132,7 +132,7 @@ $("#ButtonCalcular").click(function(event) {
 	var url4 = "/cortes_caja/getTotal/?data=" + fecha;
 		$.getJSON( url4 , function ( result ) {
 			if (result == 0 ) {
-				$("input[name='total'] ").val("");
+				$("input[name='total'] ").val(0).toFixed(2);
 			}
 			else {
 				$("input[name='total'] ").val(result[0].total);
@@ -143,7 +143,7 @@ $("#ButtonCalcular").click(function(event) {
 	var url5 = "/cortes_caja/getEfectivoSF/?data=" + fecha;    
 		$.getJSON( url5 , function ( result ) {
 			if (result == 0 ) {
-				$("input[name='efectivoSF'] ").val("");
+				$("input[name='efectivoSF'] ").val(0).toFixed(2);
 			}
 			else {
 				var efectivo = $("input[name='efectivo'] ").val();
@@ -156,7 +156,7 @@ $("#ButtonCalcular").click(function(event) {
 	var url6 = "/cortes_caja/getTarjetaSF/?data=" + fecha;
 		$.getJSON( url6 , function ( result ) {
 			if (result == 0 ) {
-				$("input[name='voucherSF'] ").val("");
+				$("input[name='voucherSF'] ").val(0).toFixed(2);
 			}
 			else {
 				var tarjeta = $("input[name='voucher'] ").val();
@@ -169,7 +169,7 @@ $("#ButtonCalcular").click(function(event) {
 	var url7 = "/cortes_caja/getCreditoSF/?data=" + fecha;
 		$.getJSON( url7 , function ( result ) {
 			if (result == 0 ) {
-				$("input[name='creditoSF'] ").val("");
+				$("input[name='creditoSF'] ").val(0).toFixed(2);
 			}
 			else {
 				var credito = $("input[name='credito'] ").val();
@@ -182,7 +182,7 @@ $("#ButtonCalcular").click(function(event) {
 	var url8 = "/cortes_caja/getTotalSF/?data=" + fecha;
 		$.getJSON( url8 , function ( result ) {
 			if (result == 0 ) {
-				$("input[name='totalSF'] ").val("");
+				$("input[name='totalSF'] ").val(0).toFixed(2);
 			}
 			else {
 				var total = $("input[name='total'] ").val();
@@ -195,7 +195,7 @@ $("#ButtonCalcular").click(function(event) {
 	var url9 = "/cortes_caja/getTotalSF/?data=" + fecha;
 	$.getJSON( url8 , function ( result ) {
 		if (result == 0 ) {
-			$("input[name='total_venta'] ").val("");
+			$("input[name='total_venta'] ").val(0).toFixed(2);
 		}
 		else {
 			$("input[name='total_venta'] ").val(result[0].total);

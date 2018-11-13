@@ -653,7 +653,7 @@ $('body').on('click', '#addDetalleServicio', function(e)
                 className: "btn-success",
                 callback: function() {
                     $("#venta_id").val($("input[name='venta_maestro'] ").val());
-                    $("#tipo_pago_id").val($("#tipo_pago").val())
+                    $("#tipo_pago_id").val($("#tipo_pago").val());
                     $('#facturaModal').modal('show');
                 }
               },

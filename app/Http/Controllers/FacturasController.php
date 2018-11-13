@@ -15,6 +15,7 @@ Use App\User;
 Use App\Serie;
 Use App\Factura;
 use App\TipoPago;
+use App\Venta;
 
 class FacturasController extends Controller
 {
@@ -60,6 +61,10 @@ class FacturasController extends Controller
 
         $data = $request->all();
         $data["user_id"] = Auth::user()->id;
+
+        $venta = Venta::where('id', $data['venta_id']);
+
+        $venta->update(['tipo_venta_id' => 1]);
                
         $factura = Factura::create($data);
 

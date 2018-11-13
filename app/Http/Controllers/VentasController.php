@@ -76,6 +76,7 @@ class VentasController extends Controller
 		}
 		$data["user_id"] = Auth::user()->id;
 		$data["edo_venta_id"] = 1;
+		$data["tipo_venta_id"] = 0;
 		$maestro = Venta::create($data);
 		
 		return $maestro;

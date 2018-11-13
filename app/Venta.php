@@ -14,7 +14,8 @@ class Venta extends Model
     'total_venta',
     'user_id',
     'edo_venta_id',
-    'cliente_id'
+    'cliente_id',
+    'tipo_venta_id'
     ];
 
     public function tipoventa(){
