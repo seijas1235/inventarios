@@ -37,7 +37,7 @@
               </div>
               <div class="col-sm-4">
                   {!! Form::label("total","Total:") !!}
-                  {!! Form::text( "total" , null , ['class' => 'form-control' , 'placeholder' => 'Total' ]) !!}
+                  {!! Form::text( "total" , null , ['class' => 'form-control' , 'placeholder' => 'Total', 'disabled' => true]) !!}
                 </div>
             </div>
             <br>
@@ -45,7 +45,7 @@
             <div class="row">
               <div class="col-sm-4">
                 {!! Form::hidden("fecha","Fecha:") !!}
-                {!! Form::hidden( "fecha", $today, ['class' => 'form-control' , 'placeholder' => 'Fecha' ]) !!}
+                {!! Form::hidden( "fecha", Carbon\Carbon::now(), ['class' => 'form-control' , 'placeholder' => 'Fecha', 'id'=>'fecha']) !!}
               </div>
               
               <div class="row">			

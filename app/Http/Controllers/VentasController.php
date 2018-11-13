@@ -448,7 +448,7 @@ class VentasController extends Controller
 		$api_Result = array();
 		$today = date("Y/m/d");
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("ventas_maestro.id", "ventas_maestro.subtotal_venta", "ventas_maestro.total_venta", "users.name", "estado_ventas.edo_venta", "tipo_pagos.tipo_pago");
+		$columnsMapping = array("ventas_maestro.id", "ventas_maestro.total_venta", "users.name", "estado_venta.edo_venta", "tipos_pago.tipo_pago");
 
 		// Initialize query (get all)
 
@@ -505,7 +505,7 @@ class VentasController extends Controller
 	{
 		$api_Result = array();
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("id", "nombre", "cantidad", "subtotal");
+		$columnsMapping = array("vd.venta_id", "vd.id", "pr.nombre","sr.nombre", "cantidad", "subtotal");
 
 		// Initialize query (get all)
 

@@ -433,9 +433,9 @@
         @foreach ($detalles as $detalle)
           <tr>
             <td colspan="2" align="center"> {{$detalle->nombre}} </td>
-            <td colspan="2" align="center"> Q. {{$detalle->precio}} </td>
-            <td colspan="2" align="center"> Q. {{$detalle->mano_obra}} </td>
-            <td colspan="2" align="center"> Q. {{$detalle->subtotal}} </td>
+            <td colspan="2" align="center"> Q. {{number_format($detalle->precio,2)}}</td>
+            <td colspan="2" align="center"> Q. {{number_format($detalle->mano_obra,2)}} </td>
+            <td colspan="2" align="center"> Q. {{number_format($detalle->subtotal,2)}} </td>
           </tr>
         @endforeach
 
@@ -443,7 +443,7 @@
         @foreach ($data as $item)
         <tr>
           <td colspan="6" align="left"><b>Total</b></td>
-          <td colspan="2" align="center"> <b>Q.{{$item->total}}</b> </td>
+          <td colspan="2" align="center"> <b>Q.{{number_format($item->total,2)}}</b> </td>
         </tr>
         @endforeach
 
