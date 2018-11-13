@@ -45,7 +45,6 @@ class CreateTableVentas extends Migration
      */
     public function down()
     {
-        $table->dropForeign('ventas_user_id_foreign');
         Schema::drop('ventas_maestro');
     }
 }
