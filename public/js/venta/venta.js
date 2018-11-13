@@ -66,7 +66,6 @@ var venta_table = $('#venta-table').DataTable({
         "orderable": false,
         "data": "tipo_venta_id",
         "render": function(data, type, full, meta) {
-            console.log(data);
             if(data == 1){
             return "<div id='" + full.id + "' class='text-center'>" + 
             "<div class='float-left col-lg-3'>" + 
@@ -82,7 +81,7 @@ var venta_table = $('#venta-table').DataTable({
             "<i class='fa fa-btn fa-desktop' title='detalle'></i>" + 
             "</a>"+"</div>" + 
             "<div class='float-left col-lg-3'>" + 
-            "<a href='/rpt_factura/"+ full.id +"' class='pdf-factura'>" + 
+            "<a  href='/rpt_factura/"+ full.id +" 'target='_blank' class='pdf-factura' >" + 
             "<i class='fa fa-file-pdf-o' title='PDF'></i>" + 
             "</a>" + "</div>" ;
         }
