@@ -176,11 +176,13 @@ class FacturasController extends Controller
     public function noDisponible()
     {
         $numero = Input::get("numero");
-        $serie = Input::get("serie");
-        dd($numero, $serie);
-        $query = Factura::where("serie_id",$serie)->get();
+        $serie = Input::get("serie_id");
+
+        $query = "select f.id FROM facturas f
+        INNER JOIN series s on s.id = f.serie_id WHERE s.id =" .$serie." and f.numero =" .$numero." " ;
+        $facturas = DB::select($query);
         
-		$contador = count($query);
+		$contador = count($facturas);
 		if ($contador == 0)
 		{
 			return 'false';
