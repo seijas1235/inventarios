@@ -103,6 +103,7 @@ var venta_table = $('#venta-table').DataTable({
             "<div class='float-left col-lg-3'>" + "</div>" ;
         }
         },
+        
 
 
         "responsivePriority": 2
