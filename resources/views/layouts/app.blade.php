@@ -114,7 +114,7 @@
 				</button>
 				<!-- Branding Image -->
 				<a class="navbar-brand" href="{{ url('/') }}">
-					SFI - La Nueva San José - Chiquimula
+					Car Zone - Chiquimula
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -144,7 +144,7 @@
 
 				<!-- Branding Image -->
 				<a class="navbar-brand" href="{{ url('/') }}">
-					SFI - La Nueva San José - Chiquimula
+					Car Zone - Chiquimula
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -164,7 +164,7 @@
 	</nav>
 
 	<div id="header">
-		<h1><a href="dashboard.html">SFI Admin</a></h1>
+		<h1><a href="dashboard.html">Admin</a></h1>
 	</div>
 	<!--close-Header-part--> 
 
