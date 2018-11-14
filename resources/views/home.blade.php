@@ -23,12 +23,12 @@
 		<div class="quick-actions_homepage">
 			<ul class="quick-actions">
 				<li class="bg_lb"> <a href=/clientes> <i class="icon-user"></i> <span class="label label-important">
-				</span> Clientes Bloqueados</a> </li>
+				</span>Clientes Registrados</a> </li>
 				<li class="bg_lg"> <a href=/vales> <i class="icon-file"></i> <span class="label label-important">
-					 </span> Vales</a> </li>
-					<li class="bg_lo"> <a href=/recibo_caja> <i class="icon-money"></i>Recibo de Caja</a> </li>
-					<li class="bg_lg"> <a href=/factura> <i class="icon-calendar"></i> Facturas</a> </li>
-					<li class="bg_ly"> <a href=/factura_cambiaria> <i class="icon-inbox"></i><span class="label label-important"></span> Facturas Cambiarias </a> </li>
+					 </span>Servicios Realizados</a> </li>
+					<li class="bg_lo"> <a href=/recibo_caja> <i class="icon-money"></i>Ingresos del Día</a> </li>
+					<li class="bg_lg"> <a href=/factura> <i class="icon-calendar"></i> Facturación</a> </li>
+					<li class="bg_ly"> <a href=/factura_cambiaria> <i class="icon-inbox"></i><span class="label label-important"></span> Inventario </a> </li>
 				</ul>
 			</div>
 			<!--End-Action boxes-->    
@@ -37,7 +37,7 @@
 			<div class="row-fluid">
 				<div class="widget-box">
 					<div class="widget-title bg_lg"><span class="icon"><i class="icon-signal"></i></span>
-						<h5>Cuentas por cobrar por fecha y por mes</h5>
+						<h5>Ingresos del Mes</h5>
 						<h5>Mes Graficado:  </h5>
 					</div>
 					<div class="widget-content">
@@ -53,7 +53,7 @@
 			<div class="row-fluid">
 				<div class="widget-box">
 					<div class="widget-title bg_lg"><span class="icon"><i class="icon-signal"></i></span>
-						<h5>Recibos de Caja por fecha y por mes</h5>
+						<h5>Egresos del Mes</h5>
 						<h5>Mes Graficado: </h5>
 					</div>
 					<div class="widget-content">
@@ -326,85 +326,7 @@
 
 				<div class="row">
 
-					<div class="col-md-6 col-sm-12 col-xs-12">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								Ultimos Clientes Bloqueados
-							</div>
-							<div class="panel-body">
-								<div class="table-responsive">
-									<table class="table table-striped table-bordered table-hover">
-										<thead>
-											<tr>
-												<th>Codigo Cliente</th>
-												<th>NIT</th>
-												<th>Nombre Cliente</th> 
-												<th>Apellido Cliente</th> 
-											</tr>
-										</thead>
-										<tbody>
-											
-											<tr>
-												<td>
-													
-												</td>
-												<td>
-													
-												</td>
-												<td>
-													
-												</td>
-												<td>
-													
-												</td>
-											</tr>
-											
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-6 col-sm-12 col-xs-12">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								Ultimos Vales Registrados
-							</div>
-							<div class="panel-body">
-								<div class="table-responsive">
-									<table class="table table-striped table-bordered table-hover">
-										<thead>
-											<tr>
-												<th>No Vale</th>
-												<th>Piloto</th>
-												<th>Placa Vehículo</th> 
-												<th>Total Vale</th> 
-											</tr>
-										</thead>
-										<tbody>
-											
-											<tr>
-												<td>
-													
-												</td>
-												<td>
-													
-												</td>
-												<td>
-													
-												</td>
-												<td>
-													
-												</td>
-											</tr>
-											
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
+					
 
 				</div>
 
@@ -415,10 +337,7 @@
 				<div class="quick-actions_homepage">
 					<ul class="quick-actions">
 
-						<li class="bg_lg span3"> <a href="/vales"> <i class="icon-file"></i> <span class="label label-important">
-							 </span> Vales</a> </li>
-
-
+						
 						</ul>
 					</div>
 					@endif
