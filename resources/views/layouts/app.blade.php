@@ -188,14 +188,12 @@
 				@endif
 				<ul>
 					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
-					<li class="{{request()->is('factura*')? 'active': ''}}"><a href="/factura"><i class="icon icon-th"></i> <span>Facturas</span></a></li>
-					<li class="{{request()->is('series*')? 'active': ''}}"><a href="/series"><i class="icon icon-th"></i> <span>Series</span></a></li>
-					<li class="{{request()->is('compras*')? 'active': ''}}"><a href="/compras"><i class="icon icon-th"></i> <span>Compras</span></a></li>
-					<li class="{{request()->is('planillas*')? 'active': ''}}"><a href="/planillas"><i class="icon icon-th"></i> <span>Planillas</span></a></li>
-					<li class="{{request()->is('ventas*')? 'active': ''}}"><a href="/ventas"><i class="icon icon-th"></i> <span>Ventas</span></a></li>
-					<li class="{{request()->is('cuentas_por_pagar*')? 'active': ''}}"><a href="/cuentas_por_pagar"><i class="icon icon-th"></i> <span>Cuentas Por pagar</span></a></li>
-					<li class="{{request()->is('cuentas_por_cobrar*')? 'active': ''}}"><a href="/cuentas_por_cobrar"><i class="icon icon-th"></i> <span>Cuentas Por Cobrar</span></a></li>
 					<li class="{{request()->is('ordenes_de_trabajo*')? 'active': ''}}"><a href="/ordenes_de_trabajo"><i class="icon icon-th"></i> <span>Orden de Trabajo</span></a></li>
+					
+					<li class="{{request()->is('compras*')? 'active': ''}}"><a href="/compras"><i class="icon icon-th"></i> <span>Compras</span></a></li>
+					<!--<li class="{{request()->is('planillas*')? 'active': ''}}"><a href="/planillas"><i class="icon icon-th"></i> <span>Planillas</span></a></li>-->
+					<li class="{{request()->is('ventas*')? 'active': ''}}"><a href="/ventas"><i class="icon icon-th"></i> <span>Ventas</span></a></li>
+					
 					<li class="{{request()->is('cajas_chicas*')? 'active': ''}}"><a href="/cajas_chicas"><i class="icon icon-th"></i> <span>Caja Chica</span></a></li>
 					@endif
 				</ul>
@@ -206,7 +204,7 @@
 				@endif
 				<ul>
 					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
-					<li class="{{request()->is('ingresos_productos*')? 'active': ''}}"><a href="/ingresos_productos"><i class="icon icon-th"></i> <span>Ingreso Producto</span></a></li>
+					<!--<li class="{{request()->is('ingresos_productos*')? 'active': ''}}"><a href="/ingresos_productos"><i class="icon icon-th"></i> <span>Ingreso Producto</span></a></li>-->
 					<li class="{{request()->is('salidas_productos*')? 'active': ''}}"><a href="/salidas_productos"><i class="icon icon-th"></i> <span>Salida Producto</span></a></li>
 					<li class="{{request()->is('conversiones_productos*')? 'active': ''}}"><a href="/conversiones_productos"><i class="icon icon-th"></i> <span>Conversiones Producto</span></a></li>
 					@endif
@@ -221,10 +219,6 @@
 
 					<li class="{{request()->is('documentos*')? 'active': ''}}"><a href="/documentos">Documentos</a></li>
 
-					<li class="{{request()->is('tipos_cliente*')? 'active': ''}}"><a href="/tipos_cliente">Tipos de cliente</a></li>
-					
-					<li class="{{request()->is('clientes*')? 'active': ''}}"><a href="/clientes">Clientes</a></li>
-
 					<li class="{{request()->is('tipos_vehiculo*')? 'open active': ''}}"><a href="/tipos_vehiculo">Tipos de Vehiculo</a></li>
 
 					<li class="{{request()->is('marcas*')? 'open active': ''}}"><a href="/marcas">Marcas</a></li>
@@ -235,8 +229,6 @@
 					<li class="{{request()->is('puestos*')? 'open active': ''}}"><a href="/puestos">Puestos</a></li>
 					
 					<li class="{{request()->is('empleados*')? 'open active': ''}}"><a href="/empleados">Empleados</a></li>
-
-					<li class="{{request()->is('proveedores*')? 'open active': ''}}"><a href="/proveedores">Proveedores</a></li>
 
 					<li class="{{request()->is('unidades_de_medida*')? 'open active': ''}}"><a href="/unidades_de_medida">Unidades de medida</a></li>
 
@@ -265,7 +257,6 @@
 					<li><a href="/rpt_estado_cuenta_por_cobrar/generar">Estado de Cuenta Cliente</a></li>
 					<li><a href="/rpt_ventas/generar">Reporte de venta</a></li>  
 					@endif
-					
 				</ul>
 			</li>
 
@@ -277,6 +268,42 @@
 					<li><a href="/cortes_caja">Registrar Corte Diario</a></li>
 					@endif
 					
+				</ul>
+			</li>
+
+			@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
+			<li class="submenu {{request()->is('proveedores*', 'cuentas_por_pagar*')? 'active': ''}}"> <a href="#"><i class="fa fa-cogs"></i> <span>Cuentas por Pagar</span> <span class="label label-important"></span></a>
+				@endif
+				<ul>
+					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
+					<li class="{{request()->is('proveedores*')? 'open active': ''}}"><a href="/proveedores">Proveedores</a></li>
+					<li class="{{request()->is('cuentas_por_pagar*')? 'active': ''}}"><a href="/cuentas_por_pagar"><i class="icon icon-th"></i> <span>Cuentas Por pagar</span></a></li>
+					@endif
+				</ul>
+			</li>
+
+			@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
+			<li class="submenu {{request()->is('tipos_cliente*', 'cliente*', 'cuentas_por_cobrar')? 'active': ''}}"> <a href="#"><i class="fa fa-cogs"></i> <span>Cuentas por Cobrar</span> <span class="label label-important"></span></a>
+				@endif
+				<ul>
+					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
+					<li class="{{request()->is('tipos_cliente*')? 'active': ''}}"><a href="/tipos_cliente">Tipos de cliente</a></li>
+					
+					<li class="{{request()->is('clientes*')? 'active': ''}}"><a href="/clientes">Clientes</a></li>
+					<li class="{{request()->is('cuentas_por_cobrar*')? 'active': ''}}"><a href="/cuentas_por_cobrar"><i class="icon icon-th"></i> <span>Cuentas Por Cobrar</span></a></li>
+					@endif
+				</ul>
+			</li>
+
+
+			@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
+			<li class="submenu {{request()->is('series*', 'factura*')? 'active': ''}}"> <a href="#"><i class="fa fa-cogs"></i> <span>Contabilidad</span> <span class="label label-important"></span></a>
+				@endif
+				<ul>
+					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
+					<li class="{{request()->is('series*')? 'active': ''}}"><a href="/series"><i class="icon icon-th"></i> <span>Series</span></a></li>
+					<li class="{{request()->is('factura*')? 'active': ''}}"><a href="/factura"><i class="icon icon-th"></i> <span>Facturas</span></a></li>
+					@endif
 				</ul>
 			</li>
 
