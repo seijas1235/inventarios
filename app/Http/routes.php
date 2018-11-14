@@ -135,6 +135,8 @@ Route::group(['middleware' => ['web']], function ()
 		Route::delete('/maquinarias_equipo/remove/{maquinariaequipo}' , 'MaquinariasEquipoController@destroy');
 		Route::get('/maquinarias_equipo/get/', 'MaquinariasEquipoController@getInfo');
 		Route::get( 'codigo-disponible-maquina/', 'MaquinariasEquipoController@codigoDisponible');
+		Route::get('/existencias/maquinaria', 'MaquinariasEquipoController@existenciasIndex');
+		Route::get('/existencias/maquinaria/getJson/', 'MaquinariasEquipoController@existencias');
 		
 		//rutas mantenimienotos de maquinarias y equipos
 		Route::get('/mantto_equipo', 'MantenimientoEquiposController@index');

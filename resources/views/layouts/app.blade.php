@@ -252,7 +252,8 @@
 				@endif
 				<ul>
 					@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
-					<li><a href="/existencias">Existencias Productos</a></li> 
+					<li><a href="/existencias">Existencias Productos</a></li>
+					<li><a href="/existencias/maquinaria">Existencias Maquinaria y/o equipo</a></li> 
 					<li><a href="/rpt_estado_cuenta_por_pagar/generar">Estado de Cuenta Proveedor</a></li> 
 					<li><a href="/rpt_estado_cuenta_por_cobrar/generar">Estado de Cuenta Cliente</a></li>
 					<li><a href="/rpt_ventas/generar">Reporte de venta</a></li>  
