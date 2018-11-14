@@ -32,21 +32,23 @@
 <body>
     <!--Home page style-->
     <header id="home" class="home home-main-content">
-        
+        <br>
+        <br>
+        <br>
         <div class="container">
             <div class="row">
                 <div class="home-wrapper">
                     <div class="col-sm-6 col-xs-12">
                         <div class="home-content">
-                            <h1>Sistema <strong>Financiero</strong> Integral</h1>
                             <br>
-                            <h3>Estación de Servicio, La Nueva San José, Chiquimula, Chiquimula</h3>
+                            <br>
+                            <h1><strong text_align="center">Sistema de Administración de Car Wash</strong></h1>
                         </div>
                     </div>
                     
                     <div class="col-sm-6 col-xs-12">
                         <div class="home-photo">
-                            <img src="/images/new.png" alt="Women" />
+                            <img src="/images/car_zone.jpg" alt="carwash" />
                         </div>
                     </div>
                     
@@ -72,15 +74,12 @@
                 <div class="wrapper">
                     <div class="col-sm-6 col-sm-offset-3 col-xs-12">
                         <div class="footer-item text-center">
-                            <div class="logo">
-                                <img src="/images/logo.png" alt="Logo" height="150px" />
-                            </div>
-                            
-                            <div class="social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                            </div>
-                            
+
+
+                            <br>
+                            <br>
+                            <br>
+                            <br>
                             <div class="copyright">
                                 <p> VR Informática y Sistemas 2017-2018. All rights reserved.</p>
                             </div>

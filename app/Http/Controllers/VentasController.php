@@ -293,14 +293,15 @@ class VentasController extends Controller
 		}
 		else if( password_verify( $request["password_delete"] , $user1))
 		{
-			$producto = MovimientoProducto::where('id', $venta_detalle->movimiento_producto_id)
-			->get()->first();
-			$existencias = $producto->existencias;
-			$cantidad = $venta_detalle->cantidad;
-			$newExistencias = $existencias + $cantidad;
-			$updateExistencia = MovimientoProducto::where('id', $venta_detalle->movimiento_producto_id)
-			->update(['existencias' => $newExistencias]);
-
+			if($venta_detalle->movimiento_producto_id>0){
+				$producto = MovimientoProducto::where('id', $venta_detalle->movimiento_producto_id)
+				->get()->first();
+				$existencias = $producto->existencias;
+				$cantidad = $venta_detalle->cantidad;
+				$newExistencias = $existencias + $cantidad;
+				$updateExistencia = MovimientoProducto::where('id', $venta_detalle->movimiento_producto_id)
+				->update(['existencias' => $newExistencias]);
+			}
 			$ventamaestro = Venta::where('id', $venta_detalle->venta_id)
 			->get()->first();
 			$total = $ventamaestro->total_venta;

@@ -67,12 +67,7 @@ var venta_table = $('#venta-table').DataTable({
         "data": "tipo_venta_id",
         "render": function(data, type, full, meta) {
             if(data == 1){
-            return "<div id='" + full.id + "' class='text-center'>" + 
-            "<div class='float-left col-lg-3'>" + 
-            "<a href='#' class='edit-venta'>" + 
-            "<i class='fa fa-btn fa-edit' title='Edit'></i>" + 
-            "</div>" + 
-            "<div class='float-left col-lg-3'>" + 
+            return "<div class='float-left col-lg-3'>" + 
             "<a href='#' class='remove-venta'>" + 
             "<i class='fa fa-btn fa-trash' title='Delete'></i>" + 
             "</a>" + "</div>" + 
@@ -86,12 +81,7 @@ var venta_table = $('#venta-table').DataTable({
             "</a>" + "</div>" ;
         }
         else{
-            return "<div id='" + full.id + "' class='text-center'>" + 
-            "<div class='float-left col-lg-3'>" + 
-            "<a href='#' class='edit-venta'>" + 
-            "<i class='fa fa-btn fa-edit' title='Edit'></i>" + 
-            "</div>" + 
-            "<div class='float-left col-lg-3'>" + 
+            return "<div class='float-left col-lg-3'>" + 
             "<a href='#' class='remove-venta'>" + 
             "<i class='fa fa-btn fa-trash' title='Delete'></i>" + 
             "</a>" + "</div>" + 
