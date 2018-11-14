@@ -21,7 +21,7 @@
                 {!! Form::text( "num_factura" , null , ['class' => 'form-control' , 'placeholder' => 'numero factura' ]) !!}
             </div>
             <div class="col-sm-3">
-                {!! Form::label("proveedor_id","Tipo de Cliente:") !!}
+                {!! Form::label("proveedor_id","Proveedor:") !!}
                 <select class="selectpicker" id='proveedor_id' name="proveedor_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
                     @foreach ($proveedores as $proveedor)
                     @if ( $proveedor->id == $compra->proveedor_id)
