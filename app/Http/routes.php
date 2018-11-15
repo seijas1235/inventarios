@@ -135,6 +135,8 @@ Route::group(['middleware' => ['web']], function ()
 		Route::delete('/maquinarias_equipo/remove/{maquinariaequipo}' , 'MaquinariasEquipoController@destroy');
 		Route::get('/maquinarias_equipo/get/', 'MaquinariasEquipoController@getInfo');
 		Route::get( 'codigo-disponible-maquina/', 'MaquinariasEquipoController@codigoDisponible');
+		Route::get('/existencias/maquinaria', 'MaquinariasEquipoController@existenciasIndex');
+		Route::get('/existencias/maquinaria/getJson/', 'MaquinariasEquipoController@existencias');
 		
 		//rutas mantenimienotos de maquinarias y equipos
 		Route::get('/mantto_equipo', 'MantenimientoEquiposController@index');
@@ -224,7 +226,7 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch('/productos/{producto}/update' , 'ProductosController@update');
 		Route::delete('/productos/remove/{producto}' , 'ProductosController@destroy');
 		Route::get( '/producto/precio/{producto}' , 'ProductosController@getPrecio');
-		Route::get('/existencias', 'ProductosController@existenciasIndex');
+		Route::get('/existencias/producto', 'ProductosController@existenciasIndex');
 		Route::get('/existencias/getJson/', 'ProductosController@existencias');
 		Route::get( 'codigo-disponible/', 'ProductosController@codigoDisponible');
 

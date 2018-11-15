@@ -272,12 +272,13 @@ function saveContact(button) {
 	var formData = $("#ClienteForm").serialize();
 	$.ajax({
 		type: "POST",
-		headers: {'X-CSRF-TOKEN': $('#token').val()},
+		headers: {'X-CSRF-TOKEN': $('#tokenCliente').val()},
 		url: "/clientes/save",
 		data: formData,
 		dataType: "json",
 		success: function(data) {
 			window.location = "/clientes" 
+			
 		},
 		always: function() {
 			l.stop();

@@ -228,6 +228,68 @@ class MaquinariasEquipoController extends Controller
 
         return Response::json( $api_Result );
     }
+
+    public function existenciasIndex()
+	{
+		return view('maquinariaequipo.existencias');
+	}
+
+
+
+	public function existencias(Request $params)
+	{
+		$api_Result = array();
+		// Create a mapping of our query fields in the order that will be shown in datatable.
+		$columnsMapping = array("m.id", "m.nombre_maquina", "mp.existencias", "mp.fecha_ingreso", 'm.codigo_maquina');
+
+		// Initialize query (get all)
+
+		$api_logsQueriable = DB::table('maquinarias_y_equipos');
+		$api_Result['recordsTotal'] = $api_logsQueriable->count();
+
+		$query = "SELECT m.id, m.nombre_maquina, m.codigo_maquina, IF(SUM(mp.existencias) IS NULL,0,SUM(mp.existencias)) AS existencias,
+		IF(MAX(mp.fecha_ingreso) IS NULL,0,MAX(mp.fecha_ingreso)) as ultimo_ingreso FROM maquinarias_y_equipos m
+		LEFT JOIN movimientos_productos mp on m.id = mp.maquinaria_equipo_id GROUP BY m.nombre_maquina, m.id ";
+        
+		$where = "";
+
+		if (isset($params->search['value']) && !empty($params->search['value'])){
+
+			foreach ($columnsMapping as $column) {
+				if (strlen($where) == 0) {
+					$where .=" and (".$column." like  '%".$params->search['value']."%' ";
+				} else {
+					$where .=" or ".$column." like  '%".$params->search['value']."%' ";
+				}
+
+			}
+			$where .= ') ';
+		}
+		$condition = " ";
+		$query = $query . $condition . $where;
+
+		// Sorting
+		$sort = "";
+		foreach ($params->order as $order) {
+			if (strlen($sort) == 0) {
+				$sort .= 'order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
+			} else {
+				$sort .= ', '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
+			}
+		}
+
+		$result = DB::select($query);
+		$api_Result['recordsFiltered'] = count($result);
+
+		$filter = " limit ".$params->length." offset ".$params->start."";
+
+		$query .= $sort . $filter;
+
+		$result = DB::select($query);
+		$api_Result['data'] = $result;
+
+		return Response::json( $api_Result );
+	}
 }
 
 
