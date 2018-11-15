@@ -22,6 +22,7 @@ class VentaDetalle extends Model
     
     ];
 
+
     public function venta(){
     	return $this->belongsTo('App\Venta', "venta_id", "id");
     }

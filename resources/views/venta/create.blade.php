@@ -71,6 +71,7 @@
 			</div>
 		</div>
 		<div class="row">
+		
 			<div class="col-sm-6">
 				{!! Form::label("Descripción","Descripción:") !!}
 				{!! Form::text( "descripcion" , null , ['class' => 'form-control' , 'disabled',  'placeholder' => 'Descripción del Producto' ]) !!}
@@ -78,6 +79,7 @@
 					<strong></strong>
 				</span>
 			</div>
+			
 			<div class="col-sm-3">
 				{!! Form::label("venta","Precio de Venta:") !!}
 				{!! Form::text( "precio_venta" , null , ['class' => 'form-control' , 'disabled', 'placeholder' => 'Precio de Venta' ]) !!}

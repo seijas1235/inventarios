@@ -83,7 +83,8 @@ var ordenes_table = $('#ordenes-table').DataTable({
         "responsivePriority": 3,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML("Q." + parseFloat(Math.round(data * 100) / 100).toFixed(2)); },
-    },     
+    }, 
+        
     {
         "title": "Acciones",
         "orderable": false,

@@ -2,7 +2,6 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     {!! Form::open( array( 'id' => 'ClienteForm', 'route' => 'clientes.store2') ) !!}
             {{csrf_field()}}
-    
       <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -72,8 +71,6 @@
                     <br>
                     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                   <br>
-                  
-    
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

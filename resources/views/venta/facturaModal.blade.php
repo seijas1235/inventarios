@@ -47,14 +47,9 @@
                 {!! Form::hidden("fecha","Fecha:") !!}
                 {!! Form::hidden( "fecha", Carbon\Carbon::now(), ['class' => 'form-control' , 'placeholder' => 'Fecha', 'id'=>'fecha']) !!}
               </div>
-              
-              <div class="row">			
-                       
-              
+              <div class="row">			              
             </div>
             <br>
-            
-      
             </div>
             </div>
             <br>
@@ -64,7 +59,6 @@
             </div>
             <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
           <br> 
-
         </div>
       </div>
     </div>
