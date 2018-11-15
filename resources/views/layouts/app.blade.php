@@ -184,7 +184,7 @@
 			@endif
 			
 			@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
-			<li class="submenu {{request()->is('factura*', 'series*', 'compras*', 'planillas*', 'ventas*', 'cuentas_por_pagar*', 'cuentas_por_cobrar*', 'ordenes_de_trabajo*', 'cajas_chicas*')? 'active': ''}}"> <a href="#"><i class="fa fa-cogs"></i> <span>Procesos</span> <span class="label label-important"></span></a>
+			<li class="submenu {{request()->is('compras*', 'planillas*', 'venta*', 'ordenes_de_trabajo*', 'cajas_chicas*')? 'active': ''}}"> <a href="#"><i class="fa fa-cogs"></i> <span>Procesos</span> <span class="label label-important"></span></a>
 				@endif
 				<ul>
 					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
@@ -192,7 +192,7 @@
 					
 					<li class="{{request()->is('compras*')? 'active': ''}}"><a href="/compras"><i class="icon icon-th"></i> <span>Compras</span></a></li>
 					<!--<li class="{{request()->is('planillas*')? 'active': ''}}"><a href="/planillas"><i class="icon icon-th"></i> <span>Planillas</span></a></li>-->
-					<li class="{{request()->is('ventas*')? 'active': ''}}"><a href="/ventas"><i class="icon icon-th"></i> <span>Ventas</span></a></li>
+					<li class="{{request()->is('venta*')? 'active': ''}}"><a href="/ventas"><i class="icon icon-th"></i> <span>Ventas</span></a></li>
 					
 					<li class="{{request()->is('cajas_chicas*')? 'active': ''}}"><a href="/cajas_chicas"><i class="icon icon-th"></i> <span>Caja Chica</span></a></li>
 					@endif
@@ -204,7 +204,7 @@
 				@endif
 				<ul>
 					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
-					<!--<li class="{{request()->is('ingresos_productos*')? 'active': ''}}"><a href="/ingresos_productos"><i class="icon icon-th"></i> <span>Ingreso Producto</span></a></li>-->
+					<li class="{{request()->is('ingresos_productos*')? 'active': ''}}"><a href="/ingresos_productos"><i class="icon icon-th"></i> <span>Ingreso Producto</span></a></li>
 					<li class="{{request()->is('salidas_productos*')? 'active': ''}}"><a href="/salidas_productos"><i class="icon icon-th"></i> <span>Salida Producto</span></a></li>
 					<li class="{{request()->is('conversiones_productos*')? 'active': ''}}"><a href="/conversiones_productos"><i class="icon icon-th"></i> <span>Conversiones Producto</span></a></li>
 					@endif
@@ -212,61 +212,61 @@
 			</li>
 
 			@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
-			<li class="submenu {{request()->is('tipos_cliente*', 'clientes*','maquinarias_equipo*' ,'tipos_vehiculo*','marcas*','vehiculos*','puestos*', 'empleados*','proveedores*')? 'active': ''}}">
+			<li class="submenu {{request()->is('servicios','tipos_servicio*','mantto_equipo*','productos*','unidades_de_medida*','lineas*','documentos*','maquinarias_equipo*' ,'tipos_vehiculo*','marcas*','vehiculos*','puestos*', 'empleados*')? 'active': ''}}">
 				<a href="#"><i class="icon icon-file"></i> <span>Catálogos Generales</span> <span class="label label-important"></span></a>
 				@endif
 				<ul>
 
 					<li class="{{request()->is('documentos*')? 'active': ''}}"><a href="/documentos">Documentos</a></li>
 
-					<li class="{{request()->is('tipos_vehiculo*')? 'open active': ''}}"><a href="/tipos_vehiculo">Tipos de Vehiculo</a></li>
+					<li class="{{request()->is('tipos_vehiculo*')? 'active': ''}}"><a href="/tipos_vehiculo">Tipos de Vehiculo</a></li>
 
-					<li class="{{request()->is('marcas*')? 'open active': ''}}"><a href="/marcas">Marcas</a></li>
+					<li class="{{request()->is('marcas*')? 'active': ''}}"><a href="/marcas">Marcas</a></li>
 					
-					<li class="{{request()->is('lineas*')? 'open active': ''}}"><a href="/lineas">Lineas</a></li>
-					<li class="{{request()->is('vehiculos*')? 'open active': ''}}"><a href="/vehiculos">Vehiculos</a></li>
+					<li class="{{request()->is('lineas*')? 'active': ''}}"><a href="/lineas">Lineas</a></li>
+					<li class="{{request()->is('vehiculos*')? 'active': ''}}"><a href="/vehiculos">Vehiculos</a></li>
 					
-					<li class="{{request()->is('puestos*')? 'open active': ''}}"><a href="/puestos">Puestos</a></li>
+					<li class="{{request()->is('puestos*')? 'active': ''}}"><a href="/puestos">Puestos</a></li>
 					
-					<li class="{{request()->is('empleados*')? 'open active': ''}}"><a href="/empleados">Empleados</a></li>
+					<li class="{{request()->is('empleados*')? 'active': ''}}"><a href="/empleados">Empleados</a></li>
 
-					<li class="{{request()->is('unidades_de_medida*')? 'open active': ''}}"><a href="/unidades_de_medida">Unidades de medida</a></li>
+					<li class="{{request()->is('unidades_de_medida*')? 'active': ''}}"><a href="/unidades_de_medida">Unidades de medida</a></li>
 
-					<li class="{{request()->is('productos*')? 'open active': ''}}"><a href="/productos">Productos</a></li>
+					<li class="{{request()->is('productos*')? 'active': ''}}"><a href="/productos">Productos</a></li>
 
-					<li class="{{request()->is('precios_producto*')? 'open active': ''}}"><a href="/precios_producto">Precios de Producto</a></li>
+					{{--<li class="{{request()->is('precios_producto*')? 'active': ''}}"><a href="/precios_producto">Precios de Producto</a></li>--}}
 
-					<li class="{{request()->is('maquinarias_equipo*')? 'open active': ''}}"><a href="/maquinarias_equipo">Maquinarias y equipos</a></li>
+					<li class="{{request()->is('maquinarias_equipo*')? 'active': ''}}"><a href="/maquinarias_equipo">Maquinarias y equipos</a></li>
 
-					<li class="{{request()->is('mantto_equipo*')? 'open active': ''}}"><a href="/mantto_equipo">Mantenimientos</a></li>
+					<li class="{{request()->is('mantto_equipo*')? 'active': ''}}"><a href="/mantto_equipo">Mantenimientos</a></li>
 
-					<li class="{{request()->is('tipos_servicio*')? 'open active': ''}}"><a href="/tipos_servicio">Tipos de Servicio</a></li>
+					<li class="{{request()->is('tipos_servicio*')? 'active': ''}}"><a href="/tipos_servicio">Tipos de Servicio</a></li>
 
-					<li class="{{request()->is('servicios*')? 'open active': ''}}"><a href="/servicios">Servicios</a></li>
+					<li class="{{request()->is('servicios*')? 'active': ''}}"><a href="/servicios">Servicios</a></li>
 					
 				</ul>
 			</li>
 
 			@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
-			<li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Reportes Generales</span> <span class="label label-important"></span></a>
+			<li class="submenu {{request()->is('existencias/producto*', 'existencias/maquinaria*', 'rpt_estado_cuenta_por_pagar/generar*', 'rpt_estado_cuenta_por_cobrar/generar*', 'rpt_ventas/generar')? 'active': ''}}"> <a href="#"><i class="icon icon-th-list"></i> <span>Reportes Generales</span> <span class="label label-important"></span></a>
 				@endif
 				<ul>
 					@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
-					<li><a href="/existencias">Existencias Productos</a></li>
-					<li><a href="/existencias/maquinaria">Existencias Maquinaria y/o equipo</a></li> 
-					<li><a href="/rpt_estado_cuenta_por_pagar/generar">Estado de Cuenta Proveedor</a></li> 
-					<li><a href="/rpt_estado_cuenta_por_cobrar/generar">Estado de Cuenta Cliente</a></li>
-					<li><a href="/rpt_ventas/generar">Reporte de venta</a></li>  
+					<li class="{{request()->is('existencias/producto*')? 'active': ''}}"><a href="/existencias/producto">Existencias Productos</a></li>
+					<li class="{{request()->is('existencias/maquinaria*')? 'active': ''}}"><a href="/existencias/maquinaria">Existencias Maquinaria y/o equipo</a></li> 
+					<li class="{{request()->is('rpt_estado_cuenta_por_pagar/generar*')? 'active': ''}}"><a href="/rpt_estado_cuenta_por_pagar/generar">Estado de Cuenta Proveedor</a></li> 
+					<li class="{{request()->is('rpt_estado_cuenta_por_cobrar/generar*')? 'active': ''}}"><a href="/rpt_estado_cuenta_por_cobrar/generar">Estado de Cuenta Cliente</a></li>
+					<li class="{{request()->is('rpt_ventas/generar*')? 'active': ''}}"><a href="/rpt_ventas/generar">Reporte de venta</a></li>  
 					@endif
 				</ul>
 			</li>
 
 			@if ( Auth::user()->is("superadmin|administrator|finanzas") )
-			<li class="submenu"> <a href="#"><i class="icon icon-file"></i> <span>Corte de Caja</span> <span class="label label-important"></span></a>
+			<li class="submenu {{request()->is('cortes_caja*')? 'active': ''}}"> <a href="#"><i class="icon icon-file"></i> <span>Corte de Caja</span> <span class="label label-important"></span></a>
 				@endif
 				<ul>
 					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
-					<li><a href="/cortes_caja">Registrar Corte Diario</a></li>
+					<li class="{{request()->is('cortes_caja*')? 'active': ''}}"><a href="/cortes_caja">Registrar Corte Diario</a></li>
 					@endif
 					
 				</ul>
@@ -310,11 +310,11 @@
 
 
 			@if ( Auth::user()->is("superadmin|administrator|finanzas|operador|consulta_central") )
-			<li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Administración</span> <span class="label label-important"></span></a>
+			<li class="submenu {{request()->is('user*')? 'active': ''}}"> <a href="#"><i class="icon icon-th-list"></i> <span>Administración</span> <span class="label label-important"></span></a>
 				@endif
 				<ul>
 					@if ( Auth::user()->is("superadmin|administrator") )
-					<li><a href="{{ url('/user') }}">Gestión de Usuarios</a></li>
+					<li class="{{request()->is('user*')? 'active': ''}}"><a href="{{ url('/user') }}">Gestión de Usuarios</a></li>
 					@endif
 					@if ( Auth::user()->is("superadmin|administrator|finanzas|operador|consulta_central") )
 					<li><a class="edit-my-user" href="#"><i class="fa fa-key"></i> Cambiar Contraseña</a></li>
