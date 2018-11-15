@@ -40,7 +40,7 @@
 @include("users.edit-modal", ['roles' => $rolesArrays])
 @endsection
 @section('scripts')
-{!! HTML::script('/sfi/js/users/user.js') !!}
-{!! HTML::script('/sfi/js/users/user-actions.js') !!}
+{!! HTML::script('/js/users/user.js') !!}
+{!! HTML::script('/js/users/user-actions.js') !!}
 
 @endsection

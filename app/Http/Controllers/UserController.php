@@ -237,6 +237,7 @@ class UserController extends Controller
     {
         $user = FunctionController::getUser($this->createUser( $request )->id);
 
+        //return redirect('/user');
         return Response::json( $user );
 
     }
