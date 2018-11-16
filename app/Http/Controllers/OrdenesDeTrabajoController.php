@@ -139,10 +139,10 @@ class OrdenesDeTrabajoController extends Controller
     public function edit2(OrdenDetrabajo $orden)
     {
         $query = "SELECT * FROM componentes_accesorios WHERE id=".$orden->id."";
-        $fieldsArray = DB::select($query);
+        $componentes = DB::select($query);
 
 
-        return view('ordenes_de_trabajo.editcreate2', compact('orden', 'fieldsArray' ));
+        return view('ordenes_de_trabajo.editcreate2', compact('orden', 'componentes' ));
     }
 
     //edit pagina 3
