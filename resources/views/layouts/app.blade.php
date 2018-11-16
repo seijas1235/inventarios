@@ -253,7 +253,8 @@
 				<ul>
 					@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
 					<li class="{{request()->is('existencias/producto*')? 'active': ''}}"><a href="/existencias/producto">Existencias Productos</a></li>
-					<li class="{{request()->is('existencias/maquinaria*')? 'active': ''}}"><a href="/existencias/maquinaria">Existencias Maquinaria y/o equipo</a></li> 
+					<li class="{{request()->is('existencias/maquinaria*')? 'active': ''}}"><a href="/existencias/maquinaria">Existencias Maquinaria y/o equipo</a></li>
+					<li class="{{request()->is('kardex/producto*')? 'active': ''}}"><a href="/kardex/producto">Kardex de Producto</a></li> 
 					<li class="{{request()->is('rpt_estado_cuenta_por_pagar/generar*')? 'active': ''}}"><a href="/rpt_estado_cuenta_por_pagar/generar">Estado de Cuenta Proveedor</a></li> 
 					<li class="{{request()->is('rpt_estado_cuenta_por_cobrar/generar*')? 'active': ''}}"><a href="/rpt_estado_cuenta_por_cobrar/generar">Estado de Cuenta Cliente</a></li>
 					<li class="{{request()->is('rpt_ventas/generar*')? 'active': ''}}"><a href="/rpt_ventas/generar">Reporte de venta</a></li>  

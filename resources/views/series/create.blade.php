@@ -50,11 +50,11 @@
 						
 				<div class="col-sm-4">
 					{!! Form::label("inicio","Numero Inicio:") !!}
-					{!! Form::number( "inicio" , null , ['class' => 'form-control' , 'placeholder' => 'Numero Inicio' ]) !!}
+					{!! Form::number( "inicio" , null , ['class' => 'form-control' , 'placeholder' => 'Numero Inicio', 'id' => 'inicio', 'disabled' => true ]) !!}
 				</div>
 				<div class="col-sm-4">
 					{!! Form::label("fin","Numero Fin:") !!}
-					{!! Form::number( "fin" , null , ['class' => 'form-control' , 'placeholder' => 'Numero Fin' ]) !!}
+					{!! Form::number( "fin" , null , ['class' => 'form-control' , 'placeholder' => 'Numero Fin', 'disabled' => true ]) !!}
 				</div>
 			</div>
 			<br>

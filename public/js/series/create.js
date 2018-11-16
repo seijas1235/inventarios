@@ -9,6 +9,67 @@ $(document).ready(function() {
 	});
 });
 
+function ComprobarDatos() {
+    var serie = $("input[name='serie'] ").val();
+	var inicio = $("input[name='inicio'] ").val();
+	var fin = $("input[name='fin']").val();
+
+    $.ajax({
+        type: "GET",
+        async: false,
+        url: "/series/rangoDisponible",
+        data: {"serie" : serie, "inicio" : inicio, "fin" : fin}, 
+        dataType: "json",
+        success: function(result) {
+            if (result == true){
+                $("input[name='inicio'] ").after("<label class='error'>El rango ingresado es menor al de la ultima resolucion</label>");
+				$('#ButtonSerie').attr("disabled", true);
+            }
+            else{
+                $('#ButtonSerie').attr("disabled", false);
+                $(".error").remove();
+            }
+        }
+    });
+}
+
+$("#inicio").focusout(function () {
+    ComprobarDatos();
+});
+
+$("input[name='serie'] ").focusout(function () {
+	$("#inicio").attr("disabled", false);
+});
+
+$("input[name='inicio'] ").focusout(function () {
+	if ($('.error').text() == "")
+	{
+		$("input[name='fin']").attr("disabled", false);
+	}
+
+	else
+	{
+		$("input[name='fin']").attr("disabled", true);
+	}
+	
+});
+
+$.validator.addMethod("finMayor", function(value, element) {
+	var valid = false;
+	var inicio = $("input[name='inicio'] ").val();
+
+	if (value > inicio )
+	{
+		valid = true;
+		return valid;
+	}
+
+	else{
+		return valid;
+	}
+	
+}, "El numero ingresado debe ser mayor al de inicio");
+
 var validator = $("#SerieForm").validate({
 	ignore: [],
 	onkeyup:false,
@@ -28,7 +89,8 @@ var validator = $("#SerieForm").validate({
 			required: true
 		},
 		fin:{
-			required : true
+			required : true,
+			finMayor : true
 		},
 		fecha_resolucion:{
 			required: true

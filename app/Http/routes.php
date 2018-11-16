@@ -228,6 +228,8 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get( '/producto/precio/{producto}' , 'ProductosController@getPrecio');
 		Route::get('/existencias/producto', 'ProductosController@existenciasIndex');
 		Route::get('/existencias/getJson/', 'ProductosController@existencias');
+		Route::get('/kardex/producto', 'ProductosController@kardexIndex');
+		Route::get('/kardex/getJson/', 'ProductosController@kardex');
 		Route::get( 'codigo-disponible/', 'ProductosController@codigoDisponible');
 
 		Route::get('/precios_producto', 'PreciosProductoController@index');
@@ -670,6 +672,8 @@ Route::group(array('middleware' => 'acl' , 'is' => 'superadmin|administrator|fin
 	Route::post( '/series/save/' , 'SeriesController@store');
 	Route::get( '/series/edit/{serie}' , 'SeriesController@edit');
 	Route::patch( '/series/{serie}/update' , 'SeriesController@update');
+	Route::get( '/series/rangoDisponible/', 'SeriesController@rangoDisponible');
+	Route::get( '/series/rangoDisponible-edit/', 'SeriesController@rangoDisponible_edit');
 	
 	//Rutas para Facturas
 	Route::get('/factura', 'FacturasController@index');
