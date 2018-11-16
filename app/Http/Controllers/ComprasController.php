@@ -312,26 +312,35 @@ class ComprasController extends Controller
 				->update(['existencias' => $newExistencias]);
 			}
 
-			$cuentaporpagar = CuentaPorPagar::where('proveedor_id', $compra->proveedor_id)->first();
+			if($compra->tipo_pago_id == 3 )
+			{
+				$cuentaporpagar = CuentaPorPagar::where('proveedor_id', $compra->proveedor_id)->first();
 
-			$total = $cuentaporpagar->total;
-			$NuevoTotal = $total - $compra->total_factura;
+				$total = $cuentaporpagar->total;
+				$NuevoTotal = $total - $compra->total_factura;
 
-			$detallecuenta = array(
-				'num_factura' => $compra->num_factura,
-				'fecha' => carbon::now(),
-				'descripcion' => 'Se elimino compra',
-				'cargos' => 0,	
-				'abonos' => $compra->total_factura,
-				'saldo' => $NuevoTotal
-			);
+				$detallecuenta = array(
+					'num_factura' => $compra->num_factura,
+					'fecha' => carbon::now(),
+					'descripcion' => 'Se elimino compra',
+					'cargos' => 0,	
+					'abonos' => $compra->total_factura,
+					'saldo' => $NuevoTotal
+				);
+				
+				$cuentaporpagar->detalles_cuentas_por_pagar()->create($detallecuenta);
+
+
+				$cuentaporpagar->update(['total' => $NuevoTotal]);
+				$compra->delete();
+
+			}
+			else
+			{
+				$compra->delete();
+			}			
+
 			
-			$cuentaporpagar->detalles_cuentas_por_pagar()->create($detallecuenta);
-
-
-			$cuentaporpagar->update(['total' => $NuevoTotal]);
-
-			$compra->delete();
 			$response["response"] = "El registro ha sido borrado";
 			return Response::json( $response );
 		}
@@ -369,27 +378,37 @@ class ComprasController extends Controller
 			->update(['total_factura' => $newTotal]);
 
 			//Actualiza cuenta por pagar
-			$cuentaporpagar = CuentaPorPagar::where('proveedor_id', $ingresomaestro->proveedor_id)->first();
 
-			$totalactual = $cuentaporpagar->total;
-			$NuevoTotal = $totalactual - $totalresta;
+			if($ingresomaestro->tipo_pago_id == 3)
+			{
+				$cuentaporpagar = CuentaPorPagar::where('proveedor_id', $ingresomaestro->proveedor_id)->first();
 
-			$detallecuenta = array(
-				'num_factura' => $ingresomaestro->num_factura,
-				'fecha' => carbon::now(),
-				'descripcion' => 'Se elimino detalle de compra',
-				'cargos' => 0,	
-				'abonos' => $totalresta,
-				'saldo' => $NuevoTotal
-			);
+				$totalactual = $cuentaporpagar->total;
+
+				$NuevoTotal = $totalactual - $totalresta;
+
+				$detallecuenta = array(
+					'num_factura' => $ingresomaestro->num_factura,
+					'fecha' => carbon::now(),
+					'descripcion' => 'Se elimino detalle de compra',
+					'cargos' => 0,	
+					'abonos' => $totalresta,
+					'saldo' => $NuevoTotal
+				);
+				
+				$cuentaporpagar->detalles_cuentas_por_pagar()->create($detallecuenta);
+
+
+				$cuentaporpagar->update(['total' => $NuevoTotal]);
+				$detallecompra->delete();
+
+			}
+
+			else
+			{
+				$detallecompra->delete();
+			}
 			
-			$cuentaporpagar->detalles_cuentas_por_pagar()->create($detallecuenta);
-
-
-			$cuentaporpagar->update(['total' => $NuevoTotal]);
-
-
-			$detallecompra->delete();
 			$response["response"] = "El registro ha sido borrado";
 			return Response::json( $response );
 		}

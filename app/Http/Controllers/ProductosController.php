@@ -97,6 +97,66 @@ class ProductosController extends Controller
 		return Response::json( $api_Result );
 	}
 
+	public function kardexIndex()
+	{
+		return view('productos.kardex');
+	}
+
+	public function kardex(Request $params)
+	{
+		$api_Result = array();
+		// Create a mapping of our query fields in the order that will be shown in datatable.
+		$columnsMapping = array("k.id","k.fecha", "p.codigo_barra", "p.nombre", "k.ingreso", "k.salida", "k.existencia_anterior", "k.saldo");
+
+		// Initialize query (get all)
+
+		$api_logsQueriable = DB::table('productos');
+		$api_Result['recordsTotal'] = $api_logsQueriable->count();
+
+		$query = "select k.id, k.fecha, p.codigo_barra, p.nombre, k.ingreso, k.salida, k.existencia_anterior, k.saldo from kardex k
+		INNER JOIN productos p on p.id = k.producto_id ";
+        
+		$where = "";
+
+		if (isset($params->search['value']) && !empty($params->search['value'])){
+
+			foreach ($columnsMapping as $column) {
+				if (strlen($where) == 0) {
+					$where .=" and (".$column." like  '%".$params->search['value']."%' ";
+				} else {
+					$where .=" or ".$column." like  '%".$params->search['value']."%' ";
+				}
+
+			}
+			$where .= ') ';
+		}
+		$condition = " ";
+		$query = $query . $condition . $where;
+
+		// Sorting
+		$sort = "";
+		foreach ($params->order as $order) {
+			if (strlen($sort) == 0) {
+				$sort .= 'order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
+			} else {
+				$sort .= ', '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
+			}
+		}
+
+		$result = DB::select($query);
+		$api_Result['recordsFiltered'] = count($result);
+
+		$filter = " limit ".$params->length." offset ".$params->start."";
+
+		$query .= $sort . $filter;
+
+		$result = DB::select($query);
+		$api_Result['data'] = $result;
+
+		return Response::json( $api_Result );
+	}
+
+	
 	/**
 	 * Show the form for creating a new resource.
 	 *
