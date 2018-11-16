@@ -130,7 +130,7 @@ var series_table = $('#series-table').DataTable({
 
 
 
-$('body').on('click', 'a.remove-Serie', function(e) {
+$('body').on('click', 'a.remove-serie', function(e) {
     $( ".confirm-delete" , "#userDeleteModal").removeAttr("field");
     var id = $(this).parent().parent().attr("id");
     $("input[name='password_delete']").val("");

@@ -672,6 +672,7 @@ Route::group(array('middleware' => 'acl' , 'is' => 'superadmin|administrator|fin
 	Route::post( '/series/save/' , 'SeriesController@store');
 	Route::get( '/series/edit/{serie}' , 'SeriesController@edit');
 	Route::patch( '/series/{serie}/update' , 'SeriesController@update');
+	Route::delete( '/series/remove/{serie}' , 'SeriesController@destroy');
 	Route::get( '/series/rangoDisponible/', 'SeriesController@rangoDisponible');
 	Route::get( '/series/rangoDisponible-edit/', 'SeriesController@rangoDisponible_edit');
 	
