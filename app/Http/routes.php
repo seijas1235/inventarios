@@ -333,7 +333,12 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/ordenes_de_trabajo/createServicios/{orden_de_trabajo}' , 'OrdenesDeTrabajoController@createServicios')->name('ordenes_de_trabajo.create3');
 		Route::post('/ordenes_de_trabajo/saveServicios/{orden_de_trabajo}' , 'OrdenesDeTrabajoController@saveServicios')->name('ordenes_de_trabajo.save3');
 		Route::patch('/ordenes_de_trabajo/total/{orden_de_trabajo}/' , 'OrdenesDeTrabajoController@updateTotal');
-		
+		Route::get('/ordenes_de_trabajo/edit/{orden}' , 'OrdenesDeTrabajoController@edit');
+		Route::patch('/ordenes_de_trabajo/{orden}/update' , 'OrdenesDeTrabajoController@update');
+		Route::get('/ordenes_de_trabajo/editcreate2/{orden}' , 'OrdenesDeTrabajoController@edit2');
+		Route::get('/ordenes_de_trabajo/editcreate3/{orden}' , 'OrdenesDeTrabajoController@edit3');
+		Route::get('/ordenes_de_trabajo/editcreate4/{orden}' , 'OrdenesDeTrabajoController@edit4');
+
 		Route::get('/ordenes_de_trabajo/create3/{orden_de_trabajo}' , 'OrdenesDeTrabajoController@create3')->name('ordenes_de_trabajo.create3');
 		Route::post('/ordenes_de_trabajo/save2' , 'OrdenesDeTrabajoController@save2');
 		Route::post('/ordenes_de_trabajo/{orden}/golpes/' , 'OrdenesDeTrabajoController@golpes')->name('ordenes_de_trabajo.golpe');
