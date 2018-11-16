@@ -212,4 +212,45 @@ class SeriesController extends Controller
 
         return Response::json( $api_Result );
     }
+
+    public function rangoDisponible()
+    {
+        $inicio = Input::get("inicio");
+        $fin = Input::get('fin');
+        $serie = Input::get("serie");
+
+        $query = 'select s.serie, s.inicio, s.fin FROM series s  WHERE s.serie = "'.$serie.'" and s.fin >= "'.$inicio.'" ';
+        $series = DB::select($query);
+        
+		$contador = count($series);
+		if ($contador == 0)
+		{
+			return 'false';
+		}
+		else
+		{
+			return 'true';
+		}
+    }
+    
+    public function rangoDisponible_edit()
+    {
+        $inicio = Input::get("inicio");
+        $fin = Input::get('fin');
+        $serie = Input::get("serie");
+        $serie_id = Input::get("serie_id");
+
+        $query = 'select s.serie, s.inicio, s.fin FROM series s  WHERE s.serie = "'.$serie.'" and s.fin >= "'.$inicio.'" AND s.id != "'.$serie_id.'" AND s.id <= "'.$serie_id.'" ';
+        $series = DB::select($query);
+        
+		$contador = count($series);
+		if ($contador == 0)
+		{
+			return 'false';
+		}
+		else
+		{
+			return 'true';
+		}
+	}
 }

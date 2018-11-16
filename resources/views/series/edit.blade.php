@@ -21,6 +21,8 @@
             <div class="col-sm-4">
                 {!! Form::label("serie","Serie:") !!}
                 {!! Form::text( "serie" , null , ['class' => 'form-control' , 'placeholder' => 'Serie:' ]) !!}
+                {!! Form::hidden( "serie_id" , $serie->id , ['class' => 'form-control' ]) !!}
+
             </div>
            
             </div>
@@ -65,7 +67,7 @@
                     
             <div class="col-sm-4">
                 {!! Form::label("inicio","Numero Inicio:") !!}
-                {!! Form::number( "inicio" , null , ['class' => 'form-control' , 'placeholder' => 'Numero Inicio' ]) !!}
+                {!! Form::number( "inicio" , null , ['class' => 'form-control' , 'placeholder' => 'Numero Inicio', 'id' => 'inicio' ]) !!}
             </div>
             <div class="col-sm-4">
                 {!! Form::label("fin","Numero Fin:") !!}
