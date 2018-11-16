@@ -2,7 +2,7 @@
 @section('content')
 <div id="content">
 	<div class="container-custom">
-		{!! Form::open( array( 'id' => 'OrdenDeTrabajoForm', 'route' => 'ordenes_de_trabajo.save') ) !!}
+		{!! Form::model($orden, ['method' => 'PATCH', 'action' => ['OrdenesDeTrabajoController@update', $orden->id], 'id' => 'CreateUpdateForm']) !!}
 		<div class="row">
 			<div class="col-sm-12">
 				<h3 class="tittle-custom"> Orden de Trabajo </h3>
@@ -16,7 +16,7 @@
 				</div>
 				<div class="col-sm-6">
 					{!! Form::label("resp_recepcion","Responsable de la recepcion:") !!}
-					{!! Form::text( "resp_recepcion" , Auth::user()->name , ['class' => 'form-control' , 'placeholder' => 'Responsable de la recepcion' ]) !!}
+					{!! Form::text( "resp_recepcion" , Auth::user()->name , ['class' => 'form-control','disabled' , 'placeholder' => 'Responsable de la recepcion' ]) !!}
 				</div>
 				<div class="col-sm-6">
 					{!! Form::label("fecha_prometida","Fecha de entrega prometida:") !!}
@@ -29,7 +29,11 @@
 					{!! Form::label("cliente_id","Cliente:") !!}
 					<select class="selectpicker" id='cliente_id' name="cliente_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
 						@foreach ($clientes as $cliente)
+						@if ( $cliente->id == $orden->cliente_id)
+						<option value="{{$cliente->id}}" selected>{{$cliente->nombres.' '.$cliente->apellidos}}</option>
+						@else
 						<option value="{{$cliente->id}}">{{$cliente->nombres.' '.$cliente->apellidos}}</option>
+						@endif
 						@endforeach
 					</select>
 					<button class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal" id="modalCliente" type="button">
@@ -40,7 +44,11 @@
 					{!! Form::label("vehiculo_id","Vehiculo:") !!}
 					<select class="selectpicker" id='vehiculo_id' name="vehiculo_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
 						@foreach ($vehiculos as $vehiculo)
+						@if ( $vehiculo->id == $orden->vehiculo_id)
+						<option value="{{$vehiculo->id}}" selected>{{$vehiculo->placa}}</option>
+						@else
 						<option value="{{$vehiculo->id}}">{{$vehiculo->placa}}</option>
+						@endif
 						@endforeach
 					</select>
 					<button class="btn btn-primary pull-right" data-toggle="modal" data-target="#ModalVehiculo" id="modalvehiculo" type="button">

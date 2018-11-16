@@ -95,6 +95,77 @@ class OrdenesDeTrabajoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // edit pagina 1
+    public function edit(OrdenDetrabajo $orden)
+    {
+        $query = "SELECT * FROM ordenes_de_trabajo WHERE id=".$orden->id."";
+        $fieldsArray = DB::select($query);
+        $clientes = Cliente::all();
+        $vehiculos = Vehiculo::all();
+        $tipos_clientes = TipoCliente::all();
+        $tipos_vehiculos = TipoVehiculo::all();
+        $clasificaciones = ClasificacionCliente::all();
+        $query2 = "SELECT * FROM marcas WHERE tipo_marca_id=".'1'." OR tipo_marca_id='2'";
+        $marcas = DB::select($query2);
+
+        $tipos_transmision = Transmision::all();
+        $lineas= Linea::all();
+        $colores= Color::all();
+        $direcciones= Direccion::all();
+        $tipos_caja= Tipo_caja::all();
+        $combustibles= Combustible::all();
+        $tracciones= Traccion::all();
+
+        return view('ordenes_de_trabajo.editcreate', compact('orden','clientes' ,'vehiculos','tipos_clientes', 'tipos_vehiculos', 'marcas', 'clasificaciones', 'tipos_transmision', 'lineas', 'colores', 'direcciones', 'tipos_caja', 'combustibles', 'tracciones','fieldsArray'));
+    }
+    public function update(OrdenDetrabajo $orden, Request $request)
+    {
+        Response::json( $this->updateorden($orden , $request->all()));
+        return redirect('/ordenes_de_trabajo/editcreate2/'.$orden->id);
+    }
+    public function updateorden(OrdenDetrabajo $orden, array $data )
+    {
+        $id= $orden->id;
+        $orden->cliente_id = $data["cliente_id"];
+        $orden->vehiculo_id = $data['vehiculo_id'];
+        $orden->fecha_prometida = $data['fecha_prometida'];
+        $orden->save();
+
+        return $orden;
+    }
+
+
+    // edit pagina 2
+    public function edit2(OrdenDetrabajo $orden)
+    {
+        $query = "SELECT * FROM componentes_accesorios WHERE id=".$orden->id."";
+        $fieldsArray = DB::select($query);
+
+
+        return view('ordenes_de_trabajo.editcreate2', compact('orden', 'fieldsArray' ));
+    }
+
+    //edit pagina 3
+    public function edit3(OrdenDetrabajo $orden)
+    {
+        $query = "SELECT * FROM ordenes_de_trabajo WHERE id=".$orden->id."";
+        $fieldsArray = DB::select($query);
+
+        $tipos_marcas = TipoMarca::all();
+
+        return view('marcas.edit', compact('marca', 'fieldsArray', 'tipos_marcas'));
+    }
+
+    //edit pagina 4
+    public function edit4(OrdenDetrabajo $orden)
+    {
+        $query = "SELECT * FROM ordenes_de_trabajo WHERE id=".$orden->id."";
+        $fieldsArray = DB::select($query);
+
+        $tipos_marcas = TipoMarca::all();
+
+        return view('marcas.edit', compact('marca', 'fieldsArray', 'tipos_marcas'));
+    }
 
      public function save2(Request $request)
 	{
