@@ -341,6 +341,10 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch('/ordenes_de_trabajo/{orden}/update2' , 'OrdenesDeTrabajoController@update2');
 		// edicion pagina 3
 		Route::get('/ordenes_de_trabajo/editcreate3/{orden}' , 'OrdenesDeTrabajoController@edit3');
+		Route::patch('/ordenes_de_trabajo/{orden}/update3' , 'OrdenesDeTrabajoController@update3');
+		Route::patch('/ordenes_de_trabajo/{orden}/update4' , 'OrdenesDeTrabajoController@update4');
+		
+		
 		Route::get('/ordenes_de_trabajo/editcreate4/{orden}' , 'OrdenesDeTrabajoController@edit4');
 		// edicion pagina 4
 		Route::get('/ordenes_de_trabajo/create3/{orden_de_trabajo}' , 'OrdenesDeTrabajoController@create3')->name('ordenes_de_trabajo.create3');

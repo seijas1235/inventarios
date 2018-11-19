@@ -107,10 +107,11 @@
                 </div>
                 
             </div>
-			<br>
+            <br>
+            
 			<div class="col-sm-12">
-                {!! Form::label("descripcion","Observaciones:") !!}<br>
-                {!! Form::textarea( "descripcion" , null , ['class' => 'form-control' , 'placeholder' => 'Observaciones', 'rows'=> '5' ]) !!}
+                {!! Form::label("descripcion","Observaciones:") !!}
+                {!! Form::textarea("descripcion" ,$componente->descripcion  , ['class' => 'form-control' , 'placeholder' => 'Observaciones', 'rows'=> '5' ]) !!}
                   
             </div>
             @endforeach

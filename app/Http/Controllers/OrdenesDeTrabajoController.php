@@ -95,6 +95,8 @@ class OrdenesDeTrabajoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+
     // edit pagina 1
     public function edit(OrdenDetrabajo $orden)
     {
@@ -163,19 +165,38 @@ class OrdenesDeTrabajoController extends Controller
 
         return view('ordenes_de_trabajo.editcreate3', compact('orden', 'rayones','golpes' ));
     }
+    public function update3(OrdenDetrabajo $orden, Request $request)
+    {
+        
+        Golpe::find($orden->id)->update($request->all());
+
+    
+    }
+    public function update4(OrdenDetrabajo $orden, Request $request)
+    {
+        
+        Rayon::find($orden->id)->update($request->all());
+        return redirect('/ordenes_de_trabajo/editcreate4/'.$orden->id);
+    
+    }
+
+
+
 
     //edit pagina 4
     public function edit4(OrdenDetrabajo $orden)
     {
-        $query = "SELECT * FROM ordenes_de_trabajo WHERE id=".$orden->id."";
+        $query = "SELECT * FROM orden_trabajo_servicio WHERE id=".$orden->id."";
+        $servicios = Servicio::all();
         $fieldsArray = DB::select($query);
 
-        $tipos_marcas = TipoMarca::all();
-
-        return view('marcas.edit', compact('marca', 'fieldsArray', 'tipos_marcas'));
+        return view('ordenes_de_trabajo.editcreateServicios', compact('orden', 'fieldsArray','servicios'));
     }
 
-     public function save2(Request $request)
+
+
+    // crear pagina 2
+    public function save2(Request $request)
 	{
         $data = $request->all();
         $componentes=ComponentesAccesorios::create($data);
