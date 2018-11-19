@@ -193,9 +193,18 @@ class OrdenesDeTrabajoController extends Controller
 
         return view('ordenes_de_trabajo.editcreateServicios', compact('orden', 'services','servicios','ordenes'));
     }
+    public function getDatos($orden)
+    {
+        $query="SELECT O.mano_obra, S.codigo, S.nombre, S.precio 
+        from orden_trabajo_servicio O
+        inner join servicios S on S.id = O.servicio_id
+        where O.orden_de_trabajo_id =".$orden."";
+        
+        $service= DB::select($query);
 
+        return Response::json($service);
 
-
+    }
     // crear pagina 2
     public function save2(Request $request)
 	{

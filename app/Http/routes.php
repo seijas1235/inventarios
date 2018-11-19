@@ -348,7 +348,9 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/ordenes_de_trabajo/editcreate4/{orden}' , 'OrdenesDeTrabajoController@edit4');
 		// edicion pagina 4
 		Route::get('/ordenes_de_trabajo/create3/{orden_de_trabajo}' , 'OrdenesDeTrabajoController@create3')->name('ordenes_de_trabajo.create3');
+		Route::get('/ordenes_de_trabajo/getDatos/{orden}' , 'OrdenesDeTrabajoController@getDatos');
 		Route::post('/ordenes_de_trabajo/save2' , 'OrdenesDeTrabajoController@save2');
+
 		
 		Route::post('/ordenes_de_trabajo/{orden}/golpes/' , 'OrdenesDeTrabajoController@golpes')->name('ordenes_de_trabajo.golpe');
 		Route::post('/ordenes_de_trabajo/{orden}/rayones/' , 'OrdenesDeTrabajoController@rayones')->name('ordenes_de_trabajo.rayon');

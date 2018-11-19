@@ -18,7 +18,7 @@
 							@endforeach
 						</select>
 						<input type="number" name="subtotal" class="form-control hidden">
-						<input type="text" name="orden_de_trabajo" class="form-control hidden" value="{{$orden->id}}">
+						<input type="text" name="orden_de_trabajo" id="orden_id" class="form-control hidden" value="{{$orden->id}}">
 					</div>
 
 	
