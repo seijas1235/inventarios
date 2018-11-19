@@ -42,13 +42,13 @@
 					<hr>
 
 				<div id="serviciodetalle-grid">
-					
+
 				</div>
 
 				<br>
 				<div class="col-sm-4">
 					<h3><label for="total">Total:</label></h3>
-					<input type="text" name="total" class="form-control" id="total" readonly>
+				<input type="text" name="total" class="form-control" value="{{$ordenes[0]->total}}" id="total" readonly>
 				</div>
 
 				

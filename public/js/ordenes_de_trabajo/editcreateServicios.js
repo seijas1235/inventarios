@@ -1,5 +1,3 @@
-
-    
 $(document).on("keypress", 'form', function (e) {
     var code = e.keyCode || e.which;
     if (code == 13) {
@@ -40,6 +38,7 @@ $(document).on("keypress", '#ButtonOrdenDeTrabajo', function (e) {
         return false;
     }
 });
+
 
 $('body').on('click', '#addDetalle', function(e) {
 

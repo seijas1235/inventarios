@@ -181,16 +181,17 @@ class OrdenesDeTrabajoController extends Controller
     }
 
 
-
-
     //edit pagina 4
     public function edit4(OrdenDetrabajo $orden)
     {
         $query = "SELECT * FROM orden_trabajo_servicio WHERE id=".$orden->id."";
+        $query2 = "SELECT * FROM ordenes_de_trabajo WHERE id=".$orden->id."";
         $servicios = Servicio::all();
-        $fieldsArray = DB::select($query);
+        
+        $ordenes = DB::select($query2);
+        $services = DB::select($query);
 
-        return view('ordenes_de_trabajo.editcreateServicios', compact('orden', 'fieldsArray','servicios'));
+        return view('ordenes_de_trabajo.editcreateServicios', compact('orden', 'services','servicios','ordenes'));
     }
 
 
