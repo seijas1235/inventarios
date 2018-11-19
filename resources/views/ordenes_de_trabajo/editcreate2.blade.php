@@ -2,15 +2,15 @@
 @section('content')
 <div id="content">
 	<div class="container-custom">
-		{!! Form::open( array( 'id' => 'OrdenDeTrabajoForm2') ) !!}
-		<div class="row">
+        
+        {!! Form::model($orden, ['method' => 'PATCH', 'action' => ['OrdenesDeTrabajoController@update2', $orden->id], 'id' => 'CreateUpdateForm2']) !!}
+        <div class="row">
 			<div class="col-sm-12">
 				<h3 class="tittle-custom"> Accesorios y Componetes </h3>
 				<line>
 				</div>
 			</div>
             <br>
-            
 			<div class="row">
             @foreach ($componentes as $componente)
                 <div class="col-sm-4">
@@ -105,16 +105,16 @@
                     <input type="checkbox" value="1" name="tricket" {{$componente->tricket == 1 ? 'checked': ''}} id="tricket">
                     {!! Form::label("tricket","Tricket") !!}
                 </div>
-                @endforeach
+                
             </div>
 			<br>
 			<div class="col-sm-12">
                 {!! Form::label("descripcion","Observaciones:") !!}<br>
                 {!! Form::textarea( "descripcion" , null , ['class' => 'form-control' , 'placeholder' => 'Observaciones', 'rows'=> '5' ]) !!}
-                
-                
+                  
             </div>
-			
+            @endforeach
+            
 			<br>
 			<div class="row">
 			<input name="orden_id" id="orden_id" class="hide" type="text" value="{{$orden->id}}">
@@ -139,16 +139,11 @@
             </div>
             </div>
 			<div class="text-right m-t-15">
-				<a class='btn btn-primary form-gradient-color form-button' href="{{ url('/ordenes_de_trabajo') }}">Regresar</a>
-				{!! Form::input('submit', 'submit', 'Siguiente', ['class' => 'btn btn-primary form-gradient-color form-button', 'id'=>'ButtonOrdenDeTrabajo2']) !!}
+				<a class='btn btn-primary form-gradient-color form-button' href="{{ url('/ordenes_de_trabajo/edit/'.$orden->id.'') }}">Regresar</a>
+				{!! Form::input('submit', 'submit', 'Siguiente', ['class' => 'btn btn-primary form-gradient-color form-button', 'id'=>'ButtonOrdenDeTrabajoupdate2']) !!}
 			</div>
-			<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-		<br>
+        <br>
+        <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
 		{!! Form::close() !!}
 </div>
-@endsection
-
-@section('scripts')
-
-{!! HTML::script('/js/ordenes_de_trabajo/editcreate2.js') !!}
 @endsection

@@ -144,16 +144,24 @@ class OrdenesDeTrabajoController extends Controller
 
         return view('ordenes_de_trabajo.editcreate2', compact('orden', 'componentes' ));
     }
+    public function update2(OrdenDetrabajo $orden, Request $request)
+    {
+        
+        ComponentesAccesorios::find($orden->id)->update($request->all());
+
+        return redirect('/ordenes_de_trabajo/editcreate3/'.$orden->id);
+    
+    }
 
     //edit pagina 3
     public function edit3(OrdenDetrabajo $orden)
     {
-        $query = "SELECT * FROM ordenes_de_trabajo WHERE id=".$orden->id."";
-        $fieldsArray = DB::select($query);
+        $query = "SELECT * FROM rayones WHERE id=".$orden->id."";
+        $rayones = DB::select($query);
+        $query2 = "SELECT * FROM golpes WHERE id=".$orden->id."";
+        $golpes = DB::select($query2);
 
-        $tipos_marcas = TipoMarca::all();
-
-        return view('marcas.edit', compact('marca', 'fieldsArray', 'tipos_marcas'));
+        return view('ordenes_de_trabajo.editcreate3', compact('orden', 'rayones','golpes' ));
     }
 
     //edit pagina 4

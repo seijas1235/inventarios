@@ -332,15 +332,20 @@ Route::group(['middleware' => ['web']], function ()
 		Route::post('/ordenes_de_trabajo/save' , 'OrdenesDeTrabajoController@save')->name('ordenes_de_trabajo.save');
 		Route::get('/ordenes_de_trabajo/createServicios/{orden_de_trabajo}' , 'OrdenesDeTrabajoController@createServicios')->name('ordenes_de_trabajo.create3');
 		Route::post('/ordenes_de_trabajo/saveServicios/{orden_de_trabajo}' , 'OrdenesDeTrabajoController@saveServicios')->name('ordenes_de_trabajo.save3');
+		//edicion pagina 1
 		Route::patch('/ordenes_de_trabajo/total/{orden_de_trabajo}/' , 'OrdenesDeTrabajoController@updateTotal');
 		Route::get('/ordenes_de_trabajo/edit/{orden}' , 'OrdenesDeTrabajoController@edit');
 		Route::patch('/ordenes_de_trabajo/{orden}/update' , 'OrdenesDeTrabajoController@update');
+		// edicion pagina 2
 		Route::get('/ordenes_de_trabajo/editcreate2/{orden}' , 'OrdenesDeTrabajoController@edit2');
+		Route::patch('/ordenes_de_trabajo/{orden}/update2' , 'OrdenesDeTrabajoController@update2');
+		// edicion pagina 3
 		Route::get('/ordenes_de_trabajo/editcreate3/{orden}' , 'OrdenesDeTrabajoController@edit3');
 		Route::get('/ordenes_de_trabajo/editcreate4/{orden}' , 'OrdenesDeTrabajoController@edit4');
-
+		// edicion pagina 4
 		Route::get('/ordenes_de_trabajo/create3/{orden_de_trabajo}' , 'OrdenesDeTrabajoController@create3')->name('ordenes_de_trabajo.create3');
 		Route::post('/ordenes_de_trabajo/save2' , 'OrdenesDeTrabajoController@save2');
+		
 		Route::post('/ordenes_de_trabajo/{orden}/golpes/' , 'OrdenesDeTrabajoController@golpes')->name('ordenes_de_trabajo.golpe');
 		Route::post('/ordenes_de_trabajo/{orden}/rayones/' , 'OrdenesDeTrabajoController@rayones')->name('ordenes_de_trabajo.rayon');
 

@@ -11,7 +11,7 @@
 			</div>
 			<br>
 			<div class="row">
-			<input name="orden_id" id="orden_id" class="hide" type="text" value="{{$orden_de_trabajo->id}}">
+			<input name="orden_id" id="orden_id" class="hide" type="text" value="{{$orden->id}}">
             </div>
             <hr>
                 <div class="row">
@@ -82,7 +82,7 @@
 			</div>
 			<br>
 			<div class="row">
-			<input name="orden_id" id="orden_id" class="hide" type="text" value="{{$orden_de_trabajo->id}}">
+			<input name="orden_id" id="orden_id" class="hide" type="text" value="{{$orden->id}}">
             </div>
             <hr>
                 <div class="row">
