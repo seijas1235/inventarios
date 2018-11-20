@@ -66,6 +66,7 @@ Route::group(['middleware' => ['web']], function ()
 		Route::delete('/ventadetalle/destroy/{venta_detalle}', 'VentasController@destroyDetalle');
 		Route::delete('/ventadetalle2/destroy/{venta_detalle}/{movimiento_producto}', 'VentasController@destroyDetalle2');
 		Route::delete('/ventadetalle3/destroy/{venta_detalle}', 'VentasController@destroyDetalle3');
+		Route::get('/ventas/edit/{venta}', 'VentasController@edit');
 
 
 		/*Route::get( '/salidaproducto' , 'SalidaProductoController@index' );

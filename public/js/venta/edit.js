@@ -1,3 +1,35 @@
+$(document).ready(function() {
+
+	$(document).on("keypress", 'form', function (e) {
+		var code = e.keyCode || e.which;
+		if (code == 13) {
+			e.preventDefault();
+			return false;
+		}
+	});
+});
+
+var validator = $("#VentaUpdateForm").validate({
+	ignore: [],
+	onkeyup:false,
+	rules: {
+		tipo_pago_id: {
+			required : true
+		},
+		cliente_id: {
+			required : true
+		}
+	},
+	messages: {
+		tipo_pago_id: {
+			required: "Por favor, seleccione tipo pago"
+		},
+		cliente_id: {
+			required : "Por favor, seleccione cliente"
+		}
+	}
+});
+
 $('#password-changed').on('close.bs.alert', function ( e ) {
 	e.preventDefault();
 	$(this).fadeOut();
@@ -24,13 +56,12 @@ $("#closePassword2").click( function(e){
 	$("input[name='old-verify']").val("");
 });
 
-$('body').on('click', 'a.edit-venta', function(e) {
+/*$('body').on('click', 'a.edit-venta', function(e) {
 	e.preventDefault();
 	$("#ventaUpdateModal").modal();
 	$("#ventaUpdateModal").hide().show();
 	$("#password-changed").addClass("hidden");
 	var id = $(this).parent().parent().attr("id");
-	/*var url= "/pos_v2/tipoventa/"+id;*/
 	var url= "tipoventa/"+id;
 	$.getJSON( url , function ( data ) {
 		$('#edit-venta-form').data("id", id);
@@ -42,7 +73,7 @@ $('body').on('click', 'a.edit-venta', function(e) {
 			}
 		});
 	});
-});
+});*/
 
 
 $('body').on('click', 'a.detalle-venta', function(e) {
