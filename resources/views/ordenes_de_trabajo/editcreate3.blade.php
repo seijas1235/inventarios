@@ -146,15 +146,14 @@
 
                     
                 </div>
-            
-                <div class="col-sm-12">
-                        {!! Form::label("descripcion","Observaciones:") !!}<br>
-                         {!! Form::textarea( "descripcion", $rayon->descripcion , ['class' => 'form-control' , 'placeholder' => 'Observaciones', 'rows'=> '5' ]) !!}
                 
-                    </div>
-                    @endforeach
+                <div class="col-sm-12">
+                    {!! Form::label("descripcion","Observaciones:") !!}<br>
+                    {!! Form::textarea( "descripcion", $rayon->descripcion , ['class' => 'form-control' , 'placeholder' => 'Observaciones', 'rows'=> '5' ]) !!}
+                </div>
+                @endforeach   
 			<div class="text-right m-t-15">
-				<a class='btn btn-primary form-gradient-color form-button' href="{{ url('/ordenes_de_trabajo') }}">Regresar</a>
+				<a class='btn btn-primary form-gradient-color form-button' href="{{ url('/ordenes_de_trabajo/editcreate2/'.$orden->id.'') }}">Regresar</a>
 				{!! Form::input('submit', 'submit', 'Siguiente', ['class' => 'btn btn-primary form-gradient-color form-button', 'id'=>'ButtonOrdenDeTrabajo3']) !!}
 			</div>
 			<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">

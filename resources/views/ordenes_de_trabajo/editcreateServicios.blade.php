@@ -54,6 +54,7 @@
 				
 			<br>
 			<div class="text-right m-t-15">
+					<a class='btn btn-primary form-gradient-color form-button' href="{{ url('/ordenes_de_trabajo/editcreate3/'.$orden->id.'') }}">Regresar</a>
 				<button type="submit" id="ButtonOrdenDeTrabajo" class="btn btn-primary form-gradient-color form-button">Guardar</button>
 			</div>
 			<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">

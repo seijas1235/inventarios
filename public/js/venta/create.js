@@ -438,6 +438,7 @@ $('body').on('click', '#addDetalleServicio', function(e)
                     }
                 }); 
             }else{
+                console.log(deletingLink);
                 $.ajax({
                     type: "DELETE",
                     /*url: "/pos_v2/ventadetalle2/destroy/"+ deletingLink.venta_detalle+ "/" + deletingLink.movimiento_id,*/

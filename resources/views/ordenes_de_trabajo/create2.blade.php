@@ -134,7 +134,7 @@
             </div>
             </div>
 			<div class="text-right m-t-15">
-				{{--<a class='btn btn-primary form-gradient-color form-button' href="{{ url('/ordenes_de_trabajo') }}">Regresar</a> --}}
+                    <a class='btn btn-primary form-gradient-color form-button' href="{{ url('/ordenes_de_trabajo/edit/'.$orden_de_trabajo->id.'') }}">Regresar</a>
 				{!! Form::input('submit', 'submit', 'Siguiente', ['class' => 'btn btn-primary form-gradient-color form-button', 'id'=>'ButtonOrdenDeTrabajo2']) !!}
 			</div>
 			<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">

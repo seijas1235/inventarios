@@ -22,28 +22,29 @@ $("#servicio_id").change(function () {
 });
     
 $(document).ready(function () {
-    
+    agregar_detalle();
+});
+
+
+function agregar_detalle(){
     var orden = $("#orden_id").val();
     var url = "/ordenes_de_trabajo/getDatos/" + orden ;
-    if (orden != "") {
-        $.getJSON( url , function ( result ) {
-            console.log(result);
-            result.forEach(element => {
-                detalle.precio = element.precio,
-                detalle.subtotal_venta = element.subtotal_venta,
-                detalle.mano_obra = element.mano_obra,
-                detalle.servicio_id = element.servicio_id;
-                detalle.nombre = element.nombre;
-                
-                
-           }, 
-           db.links.push(detalle) )
-           ;
+    $.getJSON( url , function ( result ) {  
+        result.forEach(element => {
+        var detalle = new Object();
+            detalle.orden_detalle=element.detalle_id,
+            detalle.precio = element.precio,
+            detalle.subtotal_venta = (element.mano_obra+element.precio),
+            detalle.mano_obra = element.mano_obra,
+            detalle.servicio_id = element.servicio_id,
+            detalle.nombre = element.nombre,
             
-        });
-    }
-
-});
+            db.links.push(detalle);
+            $("#serviciodetalle-grid .jsgrid-search-button").trigger("click"); 
+         
+        });        
+    });
+}
 
 $(document).on("keypress", '#addDetalle', function (e) {
     var code = e.keyCode || e.which;
@@ -90,8 +91,30 @@ $('body').on('click', '#addDetalle', function(e) {
             var subtotal = parseFloat(subtotal);
             var total3 = $("input[name='total'] ").val(subtotal);
         }
+        
+        dbs.detalles.push(detalle);
+        var id=$('#orden_id').val();
+        if(id!=""){
+        $.ajax({
+            url: "/ordenes_de_trabajo/saveServicios/" + id,
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(dbs.detalles),
+            success: function(addressResponse) {
+                detalle.orden_de_trabajo_id=id;
+                detalle.orden_detalle=addressResponse.id;
+                db.links.push(detalle);
+                $("#serviciodetalle-grid .jsgrid-search-button").trigger("click");
+                dbs.detalles = "";
+                window.dbs = dbs;
+                dbs.detalles = [];
+            },
+            always: function() {
+                l.stop();
+            },
+        });
+    }$("#serviciodetalle-grid .jsgrid-search-button").trigger("click");
 
-        db.links.push(detalle);
         //$("input[name='servicio_id'] ").val("");
         $("input[name='nombre'] ").val("");
         $("input[name='precio'] ").val("");
@@ -130,8 +153,24 @@ $('body').on('click', '#addDetalle', function(e) {
         updateItem: function(updatingLink) {
             console.log(updatingLink);
         },
-
+    
         deleteItem: function(deletingLink) {
+            var id=$('#orden_id').val();
+            deletingLink.orden_de_trabajo_id=id;
+            console.log(deletingLink);
+                $.ajax({
+                    type: "DELETE",
+                    url: "/ordendetalle3/destroy/"+ deletingLink.orden_detalle,
+                    data: deletingLink,
+                    dataType: "json",
+                    success: function(data) {
+                        var detalle = data;
+                    },
+                    error: function() {
+                        alert("Something went wrong, please try again!");
+                    }
+                }); 
+
             var linkIndex = $.inArray(deletingLink, this.links);
             var total2 = $("input[name='total'] ").val();
             var total2 =parseFloat(total2);
@@ -142,39 +181,46 @@ $('body').on('click', '#addDetalle', function(e) {
         }
 
     };
+
+    var dbs = {
+
+        loadData: function(filter) {
+            return $.grep(this.links, function(link) {
+                return (!filter.name || link.name.indexOf(filter.name) > -1)
+                && (!filter.url || link.url.indexOf(filter.url) > -1);
+            });
+        },
+
+        insertItem: function(insertingLink) {
+            this.detalles.push(insertingLink);
+            console.log(insertingLink);
+        },
+
+        updateItem: function(updatingLink) {
+            console.log(updatingLink);
+        },
+
+        deleteItem: function(deletingLink) {
+            var linkIndex = $.inArray(deletingLink, this.links);
+            var total2 = $("input[name='total'] ").val();
+            var total2 =parseFloat(total2);
+            var subtotal = parseFloat(deletingLink.subtotal_venta);
+            var total = total2 - subtotal;
+            var total3 = $("input[name='total'] ").val(total);
+            this.detalles.splice(linkIndex, 1);
+        }
+
+    };
+    
     window.db = db;
+    window.dbs = dbs;
     db.links = [];
+    dbs.detalles = [];
 
     function saveDetalle(button) {
-        var total = $("input[name='total'] ").val();
-        var orden_de_trabajo =  $("input[name='orden_de_trabajo'] ").val();
-        var formData = {total: total} 
-            $.ajax({
-                type: "PATCH",
-                url: "/ordenes_de_trabajo/total/" + orden_de_trabajo + "/",
-                data: formData,
-                dataType: "json",
-                success: function(data) {
-                    var detalle = data;
-                    $.ajax({
-                        url: "/ordenes_de_trabajo/saveServicios/" + detalle.id,
-                        type: "POST",
-                        contentType: "application/json",
-                        data: JSON.stringify(db.links),
-                        success: function(addressResponse) {
-                            if (addressResponse.result == "ok") {
-                        /*window.location = "/pos_v2/compras"*/
-                        window.location = "/ordenes_de_trabajo"
-                            }
-                        },
-                        always: function() {
-                        }
-                    });
-                },
-                error: function() {
-                    alert("Something went wrong, please try again!");
-                }
-            });
+        if(confirm('Desea Guardar la Venta')){
+            window.location = "/ordenes_de_trabajo"
+        };
         
         }
 
@@ -201,6 +247,7 @@ $('body').on('click', '#addDetalle', function(e) {
             controller: db,
             fields: [
             // { title: "Id", name: "id", type:"number", index:"id", filtering:false, editing:false, inserting:false},
+            { title: "orden_detalle", name: "orden_detalle", type: "text", visible:false},
             { title: "Cod. Servicio", name: "servicio_id", type: "text"},
             { title: "Nombre Servicio", name: "nombre", type: "text"},
             { title: "Precio", name: "precio", type: "text"},

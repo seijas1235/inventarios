@@ -14,6 +14,7 @@ use Carbon\Carbon;
 Use App\Vehiculo;
 Use App\Cliente;
 Use App\OrdenDeTrabajo;
+Use App\OrdenTrabajoServicio;
 Use App\TipoCliente;
 Use App\TipoVehiculo;
 Use App\Marca;
@@ -140,11 +141,14 @@ class OrdenesDeTrabajoController extends Controller
     // edit pagina 2
     public function edit2(OrdenDetrabajo $orden)
     {
-        $query = "SELECT * FROM componentes_accesorios WHERE id=".$orden->id."";
+        $query = "SELECT * FROM componentes_accesorios WHERE orden_id=".$orden->id."";
         $componentes = DB::select($query);
-
-
+        if(empty($componentes)){
+            return redirect('/ordenes_de_trabajo/create2/'.$orden->id);
+        }
+        else{
         return view('ordenes_de_trabajo.editcreate2', compact('orden', 'componentes' ));
+        }
     }
     public function update2(OrdenDetrabajo $orden, Request $request)
     {
@@ -158,12 +162,13 @@ class OrdenesDeTrabajoController extends Controller
     //edit pagina 3
     public function edit3(OrdenDetrabajo $orden)
     {
-        $query = "SELECT * FROM rayones WHERE id=".$orden->id."";
+        $query = "SELECT * FROM rayones WHERE orden_id=".$orden->id."";
         $rayones = DB::select($query);
-        $query2 = "SELECT * FROM golpes WHERE id=".$orden->id."";
+        $query2 = "SELECT * FROM golpes WHERE orden_id=".$orden->id."";
         $golpes = DB::select($query2);
-
+        
         return view('ordenes_de_trabajo.editcreate3', compact('orden', 'rayones','golpes' ));
+        
     }
     public function update3(OrdenDetrabajo $orden, Request $request)
     {
@@ -190,12 +195,16 @@ class OrdenesDeTrabajoController extends Controller
         
         $ordenes = DB::select($query2);
         $services = DB::select($query);
-
+        if(empty($services)){
+            return redirect('/ordenes_de_trabajo/createcreateServicios/'.$orden->id);
+        }
+        else{
         return view('ordenes_de_trabajo.editcreateServicios', compact('orden', 'services','servicios','ordenes'));
+        }
     }
     public function getDatos($orden)
     {
-        $query="SELECT O.mano_obra, S.codigo, S.nombre, S.precio 
+        $query="SELECT O.id as detalle_id,O.mano_obra, S.id as servicio_id, S.nombre, S.precio,O.orden_de_trabajo_id
         from orden_trabajo_servicio O
         inner join servicios S on S.id = O.servicio_id
         where O.orden_de_trabajo_id =".$orden."";
@@ -241,7 +250,10 @@ class OrdenesDeTrabajoController extends Controller
 	{
         $statsArray = $request->all();
 		foreach($statsArray as $stat) {
-
+            $ordentrabajo = OrdenDeTrabajo::where('id', $orden_de_trabajo->id)->get()->first();
+		    $total = $ordentrabajo->total;
+            $newtotal=$total+$stat['subtotal_venta'];
+            $updateTotal = OrdenDeTrabajo::where('id', $orden_de_trabajo->id)->update(['total' => $newtotal]);
             $stat['servicio_id'] = $stat['servicio_id'];
             $stat['mano_obra'] = $stat['mano_obra'];
             //$stat["subtotal"] = $stat["subtotal_venta"];
@@ -262,6 +274,19 @@ class OrdenesDeTrabajoController extends Controller
         //return Response::json($orden_de_trabajo);
         return redirect()->route('ordenes_de_trabajo.create2', $orden_de_trabajo);
     }
+
+    public function destroyDetalle3(OrdenTrabajoServicio $orden_trabajo_servicio, Request $request)
+	{
+		$ordentrabajo = OrdenDeTrabajo::where('id', $orden_trabajo_servicio->orden_de_trabajo_id)->get()->first();
+		$total = $ordentrabajo->total;
+		$totalresta = $orden_trabajo_servicio->subtotal;
+		$newTotal = $total - $totalresta;
+		$updateTotal = OrdenDeTrabajo::where('id', $orden_trabajo_servicio->orden_de_trabajo_id)->update(['total' => $newTotal]);
+		$orden_trabajo_servicio->delete();
+		$response["response"] = "El registro ha sido borrado";
+		return Response::json($response);
+	}
+
 
     
     public function getJson(Request $params)

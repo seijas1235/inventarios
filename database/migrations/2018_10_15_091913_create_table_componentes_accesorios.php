@@ -14,6 +14,7 @@ class CreateTableComponentesAccesorios extends Migration
     {
         Schema::create('componentes_accesorios', function (Blueprint $table) {
             $table->increments('id');
+            $table->boolean('estado')->nullable()->default('1');
             $table->boolean('emblemas')->nullable()->default('0');
             $table->boolean('encendedor')->nullable()->default('0');
             $table->boolean('espejos')->nullable()->default('0');

@@ -350,6 +350,7 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/ordenes_de_trabajo/create3/{orden_de_trabajo}' , 'OrdenesDeTrabajoController@create3')->name('ordenes_de_trabajo.create3');
 		Route::get('/ordenes_de_trabajo/getDatos/{orden}' , 'OrdenesDeTrabajoController@getDatos');
 		Route::post('/ordenes_de_trabajo/save2' , 'OrdenesDeTrabajoController@save2');
+		Route::delete('/ordendetalle3/destroy/{orden_trabajo_servicio}', 'OrdenesDeTrabajoController@destroyDetalle3');
 
 		
 		Route::post('/ordenes_de_trabajo/{orden}/golpes/' , 'OrdenesDeTrabajoController@golpes')->name('ordenes_de_trabajo.golpe');
