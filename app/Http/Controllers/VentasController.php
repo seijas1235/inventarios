@@ -224,6 +224,61 @@ class VentasController extends Controller
 	 */
 	public function update(Venta $venta_maestro, Request $request)
 	{
+		function cargarSaldo(CuentasPorCobrar $cuentaporcobrar, Venta $venta_maestro){
+			$detalle = array(
+				'compra_id' => $venta_maestro->id,
+				'num_factura' => $venta_maestro->id,
+				'fecha' => $venta_maestro->created_at,
+				'descripcion' => 'Venta modificada',
+				'cargos' => $venta_maestro->total_venta,	
+				'abonos' => 0,
+				'saldo' => $cuentaporcobrar->total + $venta_maestro->total_venta
+			);					
+
+			$cuentaporcobrar->cuentas_por_cobrar_detalle()->create($detalle);
+
+			$newtotal = $detalle['saldo'];
+			$cuentaporcobrar->update(['total' => $newtotal]);
+		};
+
+		function nuevaCuenta(venta $venta_maestro, Request $data){
+			$cuenta = new CuentasPorCobrar;
+			$cuenta->total = $venta_maestro->total_venta;
+			$cuenta->cliente_id = $data["cliente_id"];
+			$cuenta->save();
+
+			$detalle = array(
+				'compra_id' => $venta_maestro->id,
+				'num_factura' => $venta_maestro->id,
+				'fecha' => $venta_maestro->created_at,
+				'descripcion' => 'Venta modificada',
+				'cargos' => $venta_maestro->total_venta,	
+				'abonos' => 0,
+				'saldo' => $venta_maestro->total_venta
+			);							
+
+			$cuenta->cuentas_por_cobrar_detalle()->create($detalle);
+
+		};
+
+		function abonarSaldo(CuentasPorCobrar $cuentaporcobrar, Venta $venta_maestro){
+			$total = $cuentaporcobrar->total;
+			$NuevoTotal = $total - $venta_maestro->total_venta;
+
+			$detalle = array(
+				'compra_id' => $venta_maestro->id,
+				'num_factura' => $venta_maestro->id,
+				'fecha' => carbon::now(),
+				'descripcion' => 'Venta modifico cliente anterior',
+				'cargos' => 0,	
+				'abonos' => $venta_maestro->total_venta,
+				'saldo' => $NuevoTotal
+			);					
+
+			$cuentaporcobrar->cuentas_por_cobrar_detalle()->create($detalle);
+			$cuentaporcobrar->update(['total' => $NuevoTotal]);
+		};
+
 		$data = $request->all();
 		$tipo_pago_anterior = $venta_maestro->tipo_pago_id;
 		$cliente_anterior = $venta_maestro->cliente_id;
@@ -237,263 +292,57 @@ class VentasController extends Controller
 				$cuentaporcobrar = CuentasPorCobrar::where('cliente_id', $data["cliente_id"])->first();
 
 				if($cuentaporcobrar){
-
-					$detalle = array(
-						'compra_id' => $venta_maestro->id,
-						'num_factura' => $venta_maestro->id,
-						'fecha' => $venta_maestro->created_at,
-						'descripcion' => 'Venta modificada',
-						'cargos' => $venta_maestro->total_venta,	
-						'abonos' => 0,
-						'saldo' => $cuentaporcobrar->total + $venta_maestro->total_venta
-					);					
-	
-					$cuentaporcobrar->cuentas_por_cobrar_detalle()->create($detalle);
-
-					$newtotal = $detalle['saldo'];
-					$cuentaporcobrar->update(['total' => $newtotal]);
+					cargarSaldo($cuentaporcobrar, $venta_maestro);					
 				}
 
 				else 
 				{
-					$cuenta = new CuentasPorCobrar;
-					$cuenta->total = $venta_maestro->total_venta;
-					$cuenta->cliente_id = $data["cliente_id"];
-					$cuenta->save();
-
-					$detalle = array(
-						'compra_id' => $venta_maestro->id,
-						'num_factura' => $venta_maestro->id,
-						'fecha' => $venta_maestro->created_at,
-						'descripcion' => 'Venta modificada',
-						'cargos' => $venta_maestro->total_venta,	
-						'abonos' => 0,
-						'saldo' => $venta_maestro->total_venta
-					);							
-
-					$cuenta->cuentas_por_cobrar_detalle()->create($detalle);					
+					nuevaCuenta($venta_maestro, $data);				
 				}	
 
 			}
 
 
-
 		elseif( $tipo_pago_anterior == 1 && $data["tipo_pago_id"] == 3 && $cliente_anterior != $data['cliente_id'] || 
 				$tipo_pago_anterior == 2 && $data["tipo_pago_id"] == 3 && $cliente_anterior != $data['cliente_id'] )
 		{
-			$cuentaporcobrar = CuentasPorCobrar::where('cliente_id', $cliente_anterior)->first();
 
-				if($cuentaporcobrar)
-				{
-					//Se elimina deuda cliente anterior
-					$total = $cuentaporcobrar->total;
-					$NuevoTotal = $total - $venta_maestro->total_venta;
+			$cuentaNueva = CuentasPorCobrar::where('cliente_id', $data['cliente_id'])->first();
 
-					$detalle = array(
-						'compra_id' => $venta_maestro->id,
-						'num_factura' => $venta_maestro->id,
-						'fecha' => carbon::now(),
-						'descripcion' => 'Venta modifico cliente anterior',
-						'cargos' => 0,	
-						'abonos' => $venta_maestro->total_venta,
-						'saldo' => $NuevoTotal
-					);					
-	
-					$cuentaporcobrar->cuentas_por_cobrar_detalle()->create($detalle);
-					$cuentaporcobrar->update(['total' => $NuevoTotal]);
+			if($cuentaNueva)
+			{
+				//Se carga deuda a cliente nuevo
+				cargarSaldo($cuentaNueva, $venta_maestro);
+			}
 
-					$cuentaNueva = CuentasPorCobrar::where('cliente_id', $data['cliente_id'])->first();
+			else
+			{
+				//Se Crea deuda a nuevo cliente
+				nuevaCuenta($venta_maestro, $data);
+			}
 
-					if($cuentaNueva)
-					{
-						//Se actualiza deuda a cliente
-						$total = $cuentaNueva->total;
-						$NuevoTotal = $total + $venta_maestro->total_venta;
-
-						$detalle = array(
-							'compra_id' => $venta_maestro->id,
-							'num_factura' => $venta_maestro->id,
-							'fecha' => carbon::now(),
-							'descripcion' => 'Venta modifico cliente anterior',
-							'cargos' => $venta_maestro->total_venta,	
-							'abonos' => 0,
-							'saldo' => $NuevoTotal
-						);					
-		
-						$cuentaNueva->cuentas_por_cobrar_detalle()->create($detalle);
-
-						$cuentaNueva->update(['total' => $NuevoTotal]);
-
-					}
-
-					else
-					{
-						//Se agrega deuda a nuevo cliente
-						$cuentaNueva = new CuentasPorCobrar;
-						$cuentaNueva->total = $venta_maestro->total_venta;
-						$cuentaNueva->cliente_id = $data["cliente_id"];
-						$cuentaNueva->save();
-
-						$detalleNuevo = array(
-							'compra_id' => $venta_maestro->id,
-							'num_factura' => $venta_maestro->id,
-							'fecha' => $venta_maestro->created_at,
-							'descripcion' => 'Venta modifico cliente',
-							'cargos' => $venta_maestro->total_venta,	
-							'abonos' => 0,
-							'saldo' => $venta_maestro->total_venta
-						);							
-
-						$cuentaNueva->cuentas_por_cobrar_detalle()->create($detalleNuevo);
-
-					}
-
-				}
-
-				else{
-					//Se agrega deuda a nuevo cliente
-					$cuentaNueva = new CuentasPorCobrar;
-					$cuentaNueva->total = $venta_maestro->total_venta;
-					$cuentaNueva->cliente_id = $data["cliente_id"];
-					$cuentaNueva->save();
-
-					$detalleNuevo = array(
-						'compra_id' => $venta_maestro->id,
-						'num_factura' => $venta_maestro->id,
-						'fecha' => $venta_maestro->created_at,
-						'descripcion' => 'Venta modifico cliente',
-						'cargos' => $venta_maestro->total_venta,	
-						'abonos' => 0,
-						'saldo' => $venta_maestro->total_venta
-					);							
-
-					$cuentaNueva->cuentas_por_cobrar_detalle()->create($detalleNuevo);
-				}
 		}
 
 		elseif($tipo_pago_anterior == 3 && $tipo_pago_anterior == $data["tipo_pago_id"] && $cliente_anterior != $data['cliente_id'] )
 		{
 			$cuentaporcobrar = CuentasPorCobrar::where('cliente_id', $cliente_anterior)->first();
 
-				if($cuentaporcobrar)
+				//Se abona deuda cliente anterior
+				abonarSaldo($cuentaporcobrar, $venta_maestro);
+
+				$cuentaNueva = CuentasPorCobrar::where('cliente_id', $data['cliente_id'])->first();
+
+				if($cuentaNueva)
 				{
-					//Se elimina deuda cliente anterior
-					$total = $cuentaporcobrar->total;
-					$NuevoTotal = $total - $venta_maestro->total_venta;
-
-					$detalle = array(
-						'compra_id' => $venta_maestro->id,
-						'num_factura' => $venta_maestro->id,
-						'fecha' => carbon::now(),
-						'descripcion' => 'Venta modifico solo cliente',
-						'cargos' => 0,	
-						'abonos' => $venta_maestro->total_venta,
-						'saldo' => $NuevoTotal
-					);					
-	
-					$cuentaporcobrar->cuentas_por_cobrar_detalle()->create($detalle);
-
-					$cuentaporcobrar->update(['total' => $NuevoTotal]);
-
-
-					$cuentaNueva = CuentasPorCobrar::where('cliente_id', $data['cliente_id'])->first();
-
-					if($cuentaNueva)
-					{
-						//Se actualiza deuda a cliente
-						$total = $cuentaNueva->total;
-						$NuevoTotal = $total + $venta_maestro->total_venta;
-
-						$detalle = array(
-							'compra_id' => $venta_maestro->id,
-							'num_factura' => $venta_maestro->id,
-							'fecha' => carbon::now(),
-							'descripcion' => 'Venta modifico cliente',
-							'cargos' => $venta_maestro->total_venta,	
-							'abonos' => 0,
-							'saldo' => $NuevoTotal
-						);					
-		
-						$cuentaNueva->cuentas_por_cobrar_detalle()->create($detalle);
-
-						$cuentaNueva->update(['total' => $NuevoTotal]);
-
-					}
-
-					else
-					{
-						//Se agrega deuda a nuevo cliente
-						$cuentaNueva = new CuentasPorCobrar;
-						$cuentaNueva->total = $venta_maestro->total_venta;
-						$cuentaNueva->cliente_id = $data["cliente_id"];
-						$cuentaNueva->save();
-
-						$detalleNuevo = array(
-							'compra_id' => $venta_maestro->id,
-							'num_factura' => $venta_maestro->id,
-							'fecha' => $venta_maestro->created_at,
-							'descripcion' => 'Venta modifico cliente',
-							'cargos' => $venta_maestro->total_venta,	
-							'abonos' => 0,
-							'saldo' => $venta_maestro->total_venta
-						);							
-
-						$cuentaNueva->cuentas_por_cobrar_detalle()->create($detalleNuevo);
-
-					}
-
+					//Se carga deuda a cliente nuevo
+					cargarSaldo($cuentaNueva, $venta_maestro);
 				}
 
-				else{
-
-					$cuentaNueva = CuentasPorCobrar::where('cliente_id', $data['cliente_id'])->first();
-
-					if($cuentaNueva)
-					{
-						//Se actualiza deuda a cliente
-						$total = $cuentaNueva->total;
-						$NuevoTotal = $total + $venta_maestro->total_venta;
-
-						$detalle = array(
-							'compra_id' => $venta_maestro->id,
-							'num_factura' => $venta_maestro->id,
-							'fecha' => carbon::now(),
-							'descripcion' => 'Venta modifico cliente',
-							'cargos' => $venta_maestro->total_venta,	
-							'abonos' => 0,
-							'saldo' => $NuevoTotal
-						);					
-		
-						$cuentaNueva->cuentas_por_cobrar_detalle()->create($detalle);
-
-						$cuentaNueva->update(['total' => $NuevoTotal]);
-
-					}
-
-					else
-					{
-						//Se agrega deuda a nuevo cliente
-						$cuentaNueva = new CuentasPorCobrar;
-						$cuentaNueva->total = $venta_maestro->total_venta;
-						$cuentaNueva->cliente_id = $data["cliente_id"];
-						$cuentaNueva->save();
-
-						$detalleNuevo = array(
-							'compra_id' => $venta_maestro->id,
-							'num_factura' => $venta_maestro->id,
-							'fecha' => $venta_maestro->created_at,
-							'descripcion' => 'Venta modifico cliente',
-							'cargos' => $venta_maestro->total_venta,	
-							'abonos' => 0,
-							'saldo' => $venta_maestro->total_venta
-						);							
-
-						$cuentaNueva->cuentas_por_cobrar_detalle()->create($detalleNuevo);
-
-					}
-					
-				}
-			
+				else
+				{
+					//Se crea deuda a nuevo cliente
+					nuevaCuenta($venta_maestro, $data);
+				}		
 		}
 
 		elseif($tipo_pago_anterior == 3 && $tipo_pago_anterior == $data["tipo_pago_id"] && $cliente_anterior == $data['cliente_id'])
@@ -502,65 +351,23 @@ class VentasController extends Controller
 		}
 
 		//Cambio de credito a efectivo o tarjeta
-		
 		elseif($tipo_pago_anterior == 3 && $data["tipo_pago_id"] == 1 && $cliente_anterior == $data['cliente_id']||
 				$tipo_pago_anterior == 3 && $data["tipo_pago_id"] == 2 && $cliente_anterior == $data['cliente_id'])
 		{
 			$cuentaporcobrar = CuentasPorCobrar::where('cliente_id', $cliente_anterior)->first();
-
-			if($cuentaporcobrar)
-			{
-				//Se elimina deuda cliente anterior
-				$total = $cuentaporcobrar->total;
-				$NuevoTotal = $total - $venta_maestro->total_venta;
-
-				$detalle = array(
-					'compra_id' => $venta_maestro->id,
-					'num_factura' => $venta_maestro->id,
-					'fecha' => carbon::now(),
-					'descripcion' => 'Venta modifico tipo de pago y el mismo cliente',
-					'cargos' => 0,	
-					'abonos' => $venta_maestro->total_venta,
-					'saldo' => $NuevoTotal
-				);					
-
-				$cuentaporcobrar->cuentas_por_cobrar_detalle()->create($detalle);
-
-				$cuentaporcobrar->update(['total' => $NuevoTotal]);
-
-			}	
-				
+			//Se abona deuda cliente anterior
+			abonarSaldo($cuentaporcobrar, $venta_maestro);
+			
 		}
 
 		elseif($tipo_pago_anterior == 3 && $data["tipo_pago_id"] == 1 && $cliente_anterior != $data['cliente_id']||
 				$tipo_pago_anterior == 3 && $data["tipo_pago_id"] == 2 && $cliente_anterior != $data['cliente_id'])
 		{
 			$cuentaporcobrar = CuentasPorCobrar::where('cliente_id', $cliente_anterior)->first();
-			if($cuentaporcobrar)
-			{
-				//Se elimina deuda cliente anterior
-				$total = $cuentaporcobrar->total;
-				$NuevoTotal = $total - $venta_maestro->total_venta;
-
-				$detalle = array(
-					'compra_id' => $venta_maestro->id,
-					'num_factura' => $venta_maestro->id,
-					'fecha' => carbon::now(),
-					'descripcion' => 'Venta modifico tipo de pago y cliente',
-					'cargos' => 0,	
-					'abonos' => $venta_maestro->total_venta,
-					'saldo' => $NuevoTotal
-				);					
-
-				$cuentaporcobrar->cuentas_por_cobrar_detalle()->create($detalle);
-
-				$cuentaporcobrar->update(['total' => $NuevoTotal]);
-
-			}
+			//Se abona deuda cliente anterior
+			abonarSaldo($cuentaporcobrar, $venta_maestro);
 
 		}
-
-
 		$venta_maestro->save();
 		return redirect('/ventas');	
 }
