@@ -33,8 +33,8 @@
         </div>
     </div>
 @endsection
-@include("venta.edit", ['tipo_pagos' => $tipo_pagos])
-@endsection
+
+
 @section('scripts')
 {!! HTML::script('/js/venta/venta.js') !!}
 {!! HTML::script('/js/venta/edit.js') !!}

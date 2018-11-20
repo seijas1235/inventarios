@@ -1,41 +1,55 @@
 @extends('layouts.app')
 @section('content')
-<div class="modal fade" id="ventaUpdateModal" tabindex="-1" role="dialog" aria-labelledby="userEditModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" id="closeEditVenta" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="userEditModalLabel">Editar Venta</h4>
-            </div>
-            <form id="edit-venta-form" class="form-horizontal" role="form" method="POST" action="{{ url('') }}">
-                <input type="hidden" name="_token" value="{{{ csrf_token() }}}"/>
-                <div class="modal-body">
-                    {!! csrf_field() !!}
-                    <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                        <label class="col-md-4 control-label">Tipo de Venta</label>
-                        <div class="col-md-6">
-                            <select class="form-control" id='tipo_pago_id' name="tipo_pago_id" value="{{ old('role')}}">
-                                @foreach ($tipo_pagos as $tipo_pago)
-                                <option value="{{$tipo_pago->id}}">{{ $tipo_pago->tipo_pago}}</option>;
-                                @endforeach
-                            </select>
-                            <span id="tipo_pago_id-error" class="help-block hidden">
-                                <strong></strong>
-                            </span>
-                            @if ($errors->has('name'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('name') }}</strong>
-                            </span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="closeEditUser2" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                        <button class="btn btn-success" id="editClassButton">
-                            <i  class="fa fa-btn fa-user"></i>Editar Venta
-                        </button>
-                    </div>
-                </form>
+<div id="content">
+    <div class="container-custom">
+
+        {!! Form::model($venta, ['method' => 'PATCH', 'action' => ['VentasController@update', $venta->id], 'id' => 'VentaUpdateForm']) !!}
+
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="tittle-custom"> Edición de Venta </h3>
             </div>
         </div>
-    </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-3">
+                {!! Form::label("cliente_id","Cliente:") !!}
+                <select class="selectpicker" id='cliente_id' name="cliente_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+                    @foreach ($clientes as $cliente)
+                    @if ( $cliente->id == $venta->cliente_id)
+                    <option value="{{$cliente->id}}" selected>{{ $cliente->nombres}}</option>
+                    @else
+                    <option value="{{$cliente->id}}">{{ $cliente->nombres}}</option>
+                    @endif
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-sm-3">
+                {!! Form::label("tipo_pago_id","Cliente:") !!}
+                <select class="selectpicker" id='tipo_pago_id' name="tipo_pago_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+                    @foreach ($tipo_pagos as $tipo_pago)
+                    @if ( $tipo_pago->id == $venta->tipo_pago_id)
+                    <option value="{{$tipo_pago->id}}" selected>{{ $tipo_pago->tipo_pago}}</option>
+                    @else
+                    <option value="{{$tipo_pago->id}}">{{ $tipo_pago->tipo_pago}}</option>
+                    @endif
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="text-right m-t-15">
+            <a class='btn btn-primary form-gradient-color form-button' href="{{ url('/ventas') }}">Regresar</a>
+            {!! Form::input('submit', 'submit', 'Editar', ['class' => 'btn btn-primary form-gradient-color form-button', 'id'=>'ButtonUpdateVenta']) !!}
+        </div>
+        <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+    </br>
+    {!! Form::close() !!}
+</div>
+</div>
+@endsection
+
+@section('scripts')
+{!! HTML::script('/js/venta/edit.js') !!}
+@endsection
