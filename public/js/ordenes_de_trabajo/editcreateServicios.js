@@ -1,5 +1,3 @@
-
-    
 $(document).on("keypress", 'form', function (e) {
     var code = e.keyCode || e.which;
     if (code == 13) {
@@ -23,6 +21,29 @@ $("#servicio_id").change(function () {
     changeService();
 });
     
+$(document).ready(function () {
+    
+    var orden = $("#orden_id").val();
+    var url = "/ordenes_de_trabajo/getDatos/" + orden ;
+    if (orden != "") {
+        $.getJSON( url , function ( result ) {
+            console.log(result);
+            result.forEach(element => {
+                detalle.precio = element.precio,
+                detalle.subtotal_venta = element.subtotal_venta,
+                detalle.mano_obra = element.mano_obra,
+                detalle.servicio_id = element.servicio_id;
+                detalle.nombre = element.nombre;
+                
+                
+           }, 
+           db.links.push(detalle) )
+           ;
+            
+        });
+    }
+
+});
 
 $(document).on("keypress", '#addDetalle', function (e) {
     var code = e.keyCode || e.which;
@@ -40,6 +61,7 @@ $(document).on("keypress", '#ButtonOrdenDeTrabajo', function (e) {
         return false;
     }
 });
+
 
 $('body').on('click', '#addDetalle', function(e) {
 

@@ -9,7 +9,7 @@ $(document).ready(function() {
 	});
 });
 
-var validator = $("#OrdenDeTrabajoForm").validate({
+var validator = $("#CreateUpdateForm").validate({
 	ignore: [],
 	onkeyup:false,
 	rules: {

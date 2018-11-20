@@ -18,7 +18,7 @@
 							@endforeach
 						</select>
 						<input type="number" name="subtotal" class="form-control hidden">
-						<input type="text" name="orden_de_trabajo" class="form-control hidden" value="{{$orden_de_trabajo->id}}">
+						<input type="text" name="orden_de_trabajo" id="orden_id" class="form-control hidden" value="{{$orden->id}}">
 					</div>
 
 	
@@ -41,12 +41,14 @@
 
 					<hr>
 
-				<div id="serviciodetalle-grid"></div>
+				<div id="serviciodetalle-grid">
+
+				</div>
 
 				<br>
 				<div class="col-sm-4">
 					<h3><label for="total">Total:</label></h3>
-					<input type="text" name="total" class="form-control" id="total" readonly>
+				<input type="text" name="total" class="form-control" value="{{$ordenes[0]->total}}" id="total" readonly>
 				</div>
 
 				

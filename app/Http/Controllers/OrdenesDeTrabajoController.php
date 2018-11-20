@@ -95,6 +95,8 @@ class OrdenesDeTrabajoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+
     // edit pagina 1
     public function edit(OrdenDetrabajo $orden)
     {
@@ -144,30 +146,67 @@ class OrdenesDeTrabajoController extends Controller
 
         return view('ordenes_de_trabajo.editcreate2', compact('orden', 'componentes' ));
     }
+    public function update2(OrdenDetrabajo $orden, Request $request)
+    {
+        
+        ComponentesAccesorios::find($orden->id)->update($request->all());
+
+        return redirect('/ordenes_de_trabajo/editcreate3/'.$orden->id);
+    
+    }
 
     //edit pagina 3
     public function edit3(OrdenDetrabajo $orden)
     {
-        $query = "SELECT * FROM ordenes_de_trabajo WHERE id=".$orden->id."";
-        $fieldsArray = DB::select($query);
+        $query = "SELECT * FROM rayones WHERE id=".$orden->id."";
+        $rayones = DB::select($query);
+        $query2 = "SELECT * FROM golpes WHERE id=".$orden->id."";
+        $golpes = DB::select($query2);
 
-        $tipos_marcas = TipoMarca::all();
-
-        return view('marcas.edit', compact('marca', 'fieldsArray', 'tipos_marcas'));
+        return view('ordenes_de_trabajo.editcreate3', compact('orden', 'rayones','golpes' ));
     }
+    public function update3(OrdenDetrabajo $orden, Request $request)
+    {
+        
+        Golpe::find($orden->id)->update($request->all());
+
+    
+    }
+    public function update4(OrdenDetrabajo $orden, Request $request)
+    {
+        
+        Rayon::find($orden->id)->update($request->all());
+        return redirect('/ordenes_de_trabajo/editcreate4/'.$orden->id);
+    
+    }
+
 
     //edit pagina 4
     public function edit4(OrdenDetrabajo $orden)
     {
-        $query = "SELECT * FROM ordenes_de_trabajo WHERE id=".$orden->id."";
-        $fieldsArray = DB::select($query);
+        $query = "SELECT * FROM orden_trabajo_servicio WHERE id=".$orden->id."";
+        $query2 = "SELECT * FROM ordenes_de_trabajo WHERE id=".$orden->id."";
+        $servicios = Servicio::all();
+        
+        $ordenes = DB::select($query2);
+        $services = DB::select($query);
 
-        $tipos_marcas = TipoMarca::all();
-
-        return view('marcas.edit', compact('marca', 'fieldsArray', 'tipos_marcas'));
+        return view('ordenes_de_trabajo.editcreateServicios', compact('orden', 'services','servicios','ordenes'));
     }
+    public function getDatos($orden)
+    {
+        $query="SELECT O.mano_obra, S.codigo, S.nombre, S.precio 
+        from orden_trabajo_servicio O
+        inner join servicios S on S.id = O.servicio_id
+        where O.orden_de_trabajo_id =".$orden."";
+        
+        $service= DB::select($query);
 
-     public function save2(Request $request)
+        return Response::json($service);
+
+    }
+    // crear pagina 2
+    public function save2(Request $request)
 	{
         $data = $request->all();
         $componentes=ComponentesAccesorios::create($data);
