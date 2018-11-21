@@ -91,20 +91,16 @@ var ordenes_table = $('#ordenes-table').DataTable({
         "width" : "20%",
         "render": function(data, type, full, meta) {
             return "<div id='" + full.id + "' class='text-center'>" + 
-            /*"<div class='float-left col-lg-4'>" + 
-            "<a href='/empleados/edit/"+ full.id +"' class='edit-puesto'>" + 
-            "<i class='fa fa-btn fa-edit' title='Editar Puesto'></i>" + 
-            "</a>" + "</div>" + 
-            "<div class='float-right col-lg-4'>" + 
-            "<a href='#' class='remove-Puesto'>" + 
-            "<i class='fa fa-btn fa-trash' title='Eliminar Puesto'></i>" + 
-            "</a>" + "</div>" +*/
             "<div class='float-right col-lg-4'>" + 
             "<a href='/rpt_orden_trabajo/"+ full.id +"' target='_blank' class='pdf-orden'>" + 
             "<i class='fa fa-file-pdf-o' title='PDF'></i>" + 
             "</a>" + "</div>"+"<div class='float-right col-lg-4'>" + 
             "<a href='/ordenes_de_trabajo/edit/"+ full.id +" class='edit-orden'>" + 
             "<i class='fa fa-btn fa-edit' title='Editar Orden'></i>" + 
+            "</a>" + "</div>"+ 
+            "<div class='float-right col-lg-4'>" + 
+            "<a href='#' class='remove-orden'>" + 
+            "<i class='fa fa-btn fa-trash' title='Eliminar Orden'></i>" + 
             "</a>" + "</div>"
             ;
             
@@ -122,7 +118,7 @@ var ordenes_table = $('#ordenes-table').DataTable({
 
 
 
-$('body').on('click', 'a.remove-Puesto', function(e) {
+$('body').on('click', 'a.remove-orden', function(e) {
     $( ".confirm-delete" , "#userDeleteModal").removeAttr("field");
     var id = $(this).parent().parent().attr("id");
     $("input[name='password_delete']").val("");
@@ -131,11 +127,11 @@ $('body').on('click', 'a.remove-Puesto', function(e) {
     $("#userDeleteModal").hide().show();
     $("#userDeleteModal").modal();
     if (user.length = 1) {
-        $("#message").text("este Empleado?");
+        $("#message").text("esta Orden de trabajo?");
         $(".variable").text("");
         $(".entity").text("");
     } else {
-        $("#message").text("este Empleado");
+        $("#message").text("esta Orden de trabajo");
         $(".variable").text("");
         $(".entity").text("");
     }
@@ -163,7 +159,7 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
 
     var td  = $("#"+id);
 
-    var url = "/empleados/remove/"+id;
+    var url = "/ordenes_de_trabajo/remove/"+id;
     var password_delete = $("input[name='password_delete']").val().trim();
     data = {
         password_delete : password_delete
@@ -180,7 +176,7 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
         $(".user-created-message").removeClass("hidden");
         $(".user-created-message").addClass("alert-danger");
         $(".user-created-message").fadeIn();
-        $(".user-created-message > p").text("empleado eliminado exitosamente!");
+        $(".user-created-message > p").text("Orden de trabajo eliminada exitosamente!");
         ordenes_table.ajax.reload();
         $("#userDeleteModal").modal("hide");
     }).fail(function(errors) {

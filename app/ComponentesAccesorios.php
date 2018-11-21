@@ -10,7 +10,6 @@ class ComponentesAccesorios extends Model
 
     protected $fillable=[
         'id',
-        'estado',
         'emblemas',
         'encendedor',
         'espejos',

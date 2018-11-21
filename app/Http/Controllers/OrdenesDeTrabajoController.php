@@ -137,7 +137,6 @@ class OrdenesDeTrabajoController extends Controller
         return $orden;
     }
 
-
     // edit pagina 2
     public function edit2(OrdenDetrabajo $orden)
     {
@@ -150,12 +149,14 @@ class OrdenesDeTrabajoController extends Controller
         return view('ordenes_de_trabajo.editcreate2', compact('orden', 'componentes' ));
         }
     }
+
     public function update2(OrdenDetrabajo $orden, Request $request)
     {
-        
-        ComponentesAccesorios::find($orden->id)->update($request->all());
-
-        return redirect('/ordenes_de_trabajo/editcreate3/'.$orden->id);
+        $query = "SELECT id FROM componentes_accesorios WHERE orden_id=".$orden->id."";
+        $id = DB::select($query);
+        $idd=$id[0]->id;        
+        ComponentesAccesorios::find($idd)->update($request->all());
+        return Response::json($id);
     
     }
 
@@ -166,22 +167,30 @@ class OrdenesDeTrabajoController extends Controller
         $rayones = DB::select($query);
         $query2 = "SELECT * FROM golpes WHERE orden_id=".$orden->id."";
         $golpes = DB::select($query2);
-        
-        return view('ordenes_de_trabajo.editcreate3', compact('orden', 'rayones','golpes' ));
-        
+        if(empty($rayones) && empty($golpes) ){
+            return redirect('/ordenes_de_trabajo/create3/'.$orden->id);
+        }
+        else{
+            return view('ordenes_de_trabajo.editcreate3', compact('orden', 'rayones','golpes' ));
+        }
     }
     public function update3(OrdenDetrabajo $orden, Request $request)
     {
+        $query2 = "SELECT id FROM golpes WHERE orden_id=".$orden->id."";
+        $golpes = DB::select($query2);
+        $id=$golpes[0]->id;
         
-        Golpe::find($orden->id)->update($request->all());
-
-    
+        Golpe::find($id)->update($request->all());
     }
+
     public function update4(OrdenDetrabajo $orden, Request $request)
     {
+        $query2 = "SELECT id FROM rayones WHERE orden_id=".$orden->id."";
+        $golpes = DB::select($query2);
+        $id=$golpes[0]->id;
+        Rayon::find($id)->update($request->all());
+        return Response::json($golpes);
         
-        Rayon::find($orden->id)->update($request->all());
-        return redirect('/ordenes_de_trabajo/editcreate4/'.$orden->id);
     
     }
 
@@ -196,7 +205,7 @@ class OrdenesDeTrabajoController extends Controller
         $ordenes = DB::select($query2);
         $services = DB::select($query);
         if(empty($services)){
-            return redirect('/ordenes_de_trabajo/createcreateServicios/'.$orden->id);
+            return redirect('/ordenes_de_trabajo/createServicios/'.$orden->id);
         }
         else{
         return view('ordenes_de_trabajo.editcreateServicios', compact('orden', 'services','servicios','ordenes'));
@@ -273,6 +282,28 @@ class OrdenesDeTrabajoController extends Controller
 
         //return Response::json($orden_de_trabajo);
         return redirect()->route('ordenes_de_trabajo.create2', $orden_de_trabajo);
+    }
+    public function destroy(OrdenDeTrabajo $orden_de_trabajo, Request $request)
+    {
+        $user1= Auth::user()->password;
+
+        if ($request["password_delete"] == "")
+        {
+            $response["password_delete"]  = "La contraseña es requerida";
+            return Response::json( $response  , 422 );
+        }
+        else if( password_verify( $request["password_delete"] , $user1))
+        {
+            $id= $orden_de_trabajo->id;
+            $orden_de_trabajo->delete();
+            
+            $response["response"] = "La orden de trabajo ha sido eliminada";
+            return Response::json( $response );
+        }
+        else {
+            $response["password_delete"] = "La contraseña no coincide";
+            return Response::json( $response  , 422 );
+        }    
     }
 
     public function destroyDetalle3(OrdenTrabajoServicio $orden_trabajo_servicio, Request $request)
