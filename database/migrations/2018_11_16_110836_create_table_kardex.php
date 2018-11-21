@@ -15,6 +15,7 @@ class CreateTableKardex extends Migration
         Schema::create('kardex', function (Blueprint $table) {
             $table->increments('id');
             $table->date('fecha');
+            $table->string('transaccion')->nullable;
             $table->unsignedInteger('producto_id');
             $table->float('ingreso');
             $table->float('salida');

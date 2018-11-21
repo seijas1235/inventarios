@@ -17,10 +17,11 @@ class CreateKardexTrigger extends Migration
         
         CREATE DEFINER=`root`@`localhost` TRIGGER `kardex` BEFORE INSERT ON `movimientos_productos` FOR EACH ROW BEGIN
         DECLARE existencia float;
-
         set existencia = (SELECT IF(SUM(mp.existencias) IS NULL,0,SUM(mp.existencias)) AS existencias FROM movimientos_productos mp where mp.producto_id = new.producto_id);
-        insert into kardex (fecha, producto_id, ingreso, salida, existencia_anterior, saldo ) 
-        values(new.fecha_ingreso, new.producto_id, new.existencias, 0,existencia, existencia + new.existencias);
+               
+        insert into kardex (fecha, producto_id, ingreso, salida, existencia_anterior, saldo, transaccion ) 
+        values(new.fecha_ingreso, new.producto_id, new.existencias, 0,existencia, existencia + new.existencias, new.id);
+        
         END
 
         ');

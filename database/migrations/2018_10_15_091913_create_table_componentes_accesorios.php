@@ -37,7 +37,7 @@ class CreateTableComponentesAccesorios extends Migration
             $table->boolean('llanta_repuesto')->nullable()->default('0');
             $table->boolean('llave_ruedas')->nullable()->default('0');
             $table->boolean('tricket')->nullable()->default('0');
-            $table->text('descripcion')->nullable()->default('0');
+            $table->text('descripcion')->nullable();
             $table->integer('combustible')->nullable()->default('0');
             
             $table->unsignedInteger('orden_id')->nullable();
