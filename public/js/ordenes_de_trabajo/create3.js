@@ -44,7 +44,7 @@ function saveRayones(button) {
 		data: formData,
         dataType: "json",
         success: function(data) {
-			window.location = "/ordenes_de_trabajo/createServicios/" +id 
+			window.location = "/ordenes_de_trabajo/create4/" +id 
 		},
 		always: function() {
 			l.stop();

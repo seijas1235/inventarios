@@ -18,7 +18,7 @@
 							@endforeach
 						</select>
 						<input type="number" name="subtotal" class="form-control hidden">
-						<input type="text" name="orden_de_trabajo" class="form-control hidden" value="{{$orden_de_trabajo->id}}">
+						<input type="text" name="orden_de_trabajo" class="form-control hidden" id="orden_id" value="{{$orden_de_trabajo->id}}">
 					</div>
 
 	
@@ -52,6 +52,7 @@
 				
 			<br>
 			<div class="text-right m-t-15">
+					<a class='btn btn-primary form-gradient-color form-button' href="{{ url('/ordenes_de_trabajo/editcreate3/'.$orden_de_trabajo->id.'') }}">Regresar</a>
 				<button type="submit" id="ButtonOrdenDeTrabajo" class="btn btn-primary form-gradient-color form-button">Guardar</button>
 			</div>
 			<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">

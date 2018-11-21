@@ -14,7 +14,6 @@ class CreateTableComponentesAccesorios extends Migration
     {
         Schema::create('componentes_accesorios', function (Blueprint $table) {
             $table->increments('id');
-            $table->boolean('estado')->nullable()->default('1');
             $table->boolean('emblemas')->nullable()->default('0');
             $table->boolean('encendedor')->nullable()->default('0');
             $table->boolean('espejos')->nullable()->default('0');
@@ -37,7 +36,7 @@ class CreateTableComponentesAccesorios extends Migration
             $table->boolean('llanta_repuesto')->nullable()->default('0');
             $table->boolean('llave_ruedas')->nullable()->default('0');
             $table->boolean('tricket')->nullable()->default('0');
-            $table->text('descripcion')->nullable()->default('0');
+            $table->text('descripcion')->nullable();
             $table->integer('combustible')->nullable()->default('0');
             
             $table->unsignedInteger('orden_id')->nullable();

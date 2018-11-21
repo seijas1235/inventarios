@@ -333,6 +333,8 @@ Route::group(['middleware' => ['web']], function ()
 		Route::post('/ordenes_de_trabajo/save' , 'OrdenesDeTrabajoController@save')->name('ordenes_de_trabajo.save');
 		Route::get('/ordenes_de_trabajo/createServicios/{orden_de_trabajo}' , 'OrdenesDeTrabajoController@createServicios')->name('ordenes_de_trabajo.create3');
 		Route::post('/ordenes_de_trabajo/saveServicios/{orden_de_trabajo}' , 'OrdenesDeTrabajoController@saveServicios')->name('ordenes_de_trabajo.save3');
+		Route::delete( '/ordenes_de_trabajo/remove/{orden_de_trabajo}' , 'OrdenesDeTrabajoController@destroy');
+		
 		//edicion pagina 1
 		Route::patch('/ordenes_de_trabajo/total/{orden_de_trabajo}/' , 'OrdenesDeTrabajoController@updateTotal');
 		Route::get('/ordenes_de_trabajo/edit/{orden}' , 'OrdenesDeTrabajoController@edit');
