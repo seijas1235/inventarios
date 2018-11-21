@@ -26,6 +26,8 @@ use Kodeine\Acl\Models\Eloquent\Permission;
 use Carbon\Carbon;
 use App\CuentaPorPagar;
 use App\DetalleCuentaPorPagar; 
+use App\Kardex;
+use App\Events\ActualizacionProducto;
 
 class ComprasController extends Controller
 {
@@ -196,10 +198,19 @@ class ComprasController extends Controller
 				$stat['existencias'] = $stat["cantidad"];
 				$stat["precio_compra"] = $stat["precio_compra"];
 				$stat['fecha_ingreso'] = Carbon::now();
+
+				$existencia_anterior = MovimientoProducto::where( "producto_id" , "=" , $stat["producto_id"] )
+				->sum( "existencias");
+
+				if($existencia_anterior == null){
+					$existencia_anterior = 0;
+				};
 			
 				$detalle = MovimientoProducto::create($stat);
 				$stat["movimiento_producto_id"] = $detalle->id;
 				$compra->detalles_compras()->create($stat);
+
+				event(new ActualizacionProducto($stat['producto_id'], 'Compra', $stat['cantidad'],0, $existencia_anterior, $existencia_anterior + $stat['cantidad']));
 			}		
 			
 		}
@@ -307,9 +318,24 @@ class ComprasController extends Controller
 			{
 				$producto = MovimientoProducto::where('id', $detalle["movimiento_producto_id"])
 				->get()->first();
+
+				//kardex
+				$existencia_anterior = MovimientoProducto::where( "producto_id" , "=" , $producto->producto_id )->sum( "existencias");
+
+				if($existencia_anterior == null){
+					$existencia_anterior = 0;
+				};
+
+				$salida = $detalle->existencias;
+
+				event(new ActualizacionProducto($producto->producto_id, 'Compra Borrada', 0,$salida, $existencia_anterior, $existencia_anterior - $salida));
+			
+				//Movimiento de Producto
 				$newExistencias = 0;
 				$updateExistencia = MovimientoProducto::where('id', $detalle["movimiento_producto_id"])
 				->update(['existencias' => $newExistencias]);
+
+				
 			}
 
 			if($compra->tipo_pago_id == 3 )
@@ -332,12 +358,13 @@ class ComprasController extends Controller
 
 
 				$cuentaporpagar->update(['total' => $NuevoTotal]);
-				$compra->delete();
+
+				$compra->update(['edo_ingreso_id' => 3]);
 
 			}
 			else
 			{
-				$compra->delete();
+				$compra->update(['edo_ingreso_id' => 3]);
 			}			
 
 			
@@ -361,16 +388,27 @@ class ComprasController extends Controller
 		}
 		else if( password_verify( $request["password_delete"] , $user1))
 		{
-			$producto = MovimientoProducto::where('id', $detallecompra->movimiento_producto_id)
-			->get()->first();
+			$producto = MovimientoProducto::where('id', $detallecompra->movimiento_producto_id)->get()->first();
 			$existencias = $producto->existencias;
 			$cantidad = $detallecompra->existencias;
 			$newExistencias = $existencias - $cantidad;
+
+			//kardex
+			$existencia_anterior = MovimientoProducto::where( "producto_id" , "=" , $producto->producto_id )->sum("existencias");
+
+			if($existencia_anterior == null){
+				$existencia_anterior = 0;
+			};
+
+			$salida = $detallecompra->existencias;
+
+			event(new ActualizacionProducto($producto->producto_id, 'Compra Borrada', 0,$salida, $existencia_anterior, $existencia_anterior - $salida));
+
+			//Movimiento de Producto
 			$updateExistencia = MovimientoProducto::where('id', $detallecompra->movimiento_producto_id)
 			->update(['existencias' => $newExistencias]);
 
-			$ingresomaestro = Compra::where('id', $detallecompra->compra_id)
-			->get()->first();
+			$ingresomaestro = Compra::where('id', $detallecompra->compra_id)->get()->first();
 			$total = $ingresomaestro->total_factura;
 			$totalresta = ($detallecompra->precio_compra * $detallecompra->existencias);
 			$newTotal = $total - $totalresta;
@@ -431,7 +469,7 @@ class ComprasController extends Controller
 		$api_Result["recordsTotal"] = $api_logsQueriable->count();
 
 		$query = 'SELECT compras.id, compras.serie_factura, compras.num_factura, DATE_FORMAT(compras.fecha_factura, "%d-%m-%Y") as fecha_factura, proveedores.nombre, TRUNCATE(compras.total_factura,2) as total 
-		FROM compras INNER JOIN proveedores ON proveedores.id=compras.proveedor_id ';
+		FROM compras INNER JOIN proveedores ON proveedores.id=compras.proveedor_id WhERE compras.edo_ingreso_id !=3 ';
 
 		$where = "";
 

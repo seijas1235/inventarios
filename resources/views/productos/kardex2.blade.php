@@ -33,6 +33,35 @@
                 
 				<div class="panel panel-body">
 					<table id="kardex-table" class="table table-striped table-bordered no-margin-bottom dt-responsive nowrap" ellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Fecha</th>
+                                <th>Nombre producto</th>
+                                <th>Transaccion</th>
+                                <th>Cantidad Entrada</th>
+                                <th>Cantidad Salida</th>
+                                <th>Existencia Anterior</th>
+                                <th>Saldo</th>
+                            </tr>
+                        </thead>
+                        
+
+                        @foreach ($kardex as $item)
+                            <tr>
+                                <td>{{$item->id}}</td>
+                                <td>{{$item->fecha}}</td>
+                                <td>{{$item->nombre}}</td>
+                                <td>{{$item->transaccion}}</td>
+                                <td>{{$item->cantidad_ingreso}}</td>
+                                <td>{{$item->cantidad_salida}}</td>
+                                <td>{{$item->existencia_anterior}}</td>
+                                <td>{{$item->saldo}}</td>
+                            </tr>
+                            
+
+                        @endforeach
+                        
 					</table>
                 </div>
                 
@@ -44,5 +73,5 @@
 
 @endsection
 @section('scripts')
-{!! HTML::script('/js/productos/kardex.js') !!}
+{!! HTML::script('/js/productos/kardex2.js') !!}
 @endsection
