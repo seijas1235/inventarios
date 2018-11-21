@@ -27,6 +27,7 @@ use Carbon\Carbon;
 use App\CuentaPorPagar;
 use App\DetalleCuentaPorPagar; 
 use App\Kardex;
+use App\Events\ActualizacionProducto;
 
 class ComprasController extends Controller
 {
@@ -197,10 +198,19 @@ class ComprasController extends Controller
 				$stat['existencias'] = $stat["cantidad"];
 				$stat["precio_compra"] = $stat["precio_compra"];
 				$stat['fecha_ingreso'] = Carbon::now();
+
+				$existencia_anterior = MovimientoProducto::where( "producto_id" , "=" , $stat["producto_id"] )
+				->sum( "existencias");
+
+				if($existencia_anterior == null){
+					$existencia_anterior = 0;
+				};
 			
 				$detalle = MovimientoProducto::create($stat);
 				$stat["movimiento_producto_id"] = $detalle->id;
 				$compra->detalles_compras()->create($stat);
+
+				event(new ActualizacionProducto($stat['producto_id'], 'Compra', $stat['cantidad'],0, $existencia_anterior, $existencia_anterior + $stat['cantidad']));
 			}		
 			
 		}
@@ -310,20 +320,15 @@ class ComprasController extends Controller
 				->get()->first();
 
 				//kardex
-				$query = "SELECT IF(SUM(mp.existencias) IS NULL,0,SUM(mp.existencias)) AS existencias FROM movimientos_productos mp where mp.producto_id =".$producto->producto_id." ";
-				$existencia_anterior = DB::select($query);
+				$existencia_anterior = MovimientoProducto::where( "producto_id" , "=" , $producto->producto_id )->sum( "existencias");
+
+				if($existencia_anterior == null){
+					$existencia_anterior = 0;
+				};
 
 				$salida = $detalle->existencias;
 
-				$kardex = new Kardex;
-				$kardex->fecha = carbon::now();
-				$kardex->transaccion = "Compra Borrada";
-				$kardex->producto_id = $producto->producto_id;
-				$kardex->ingreso = 0;
-				$kardex->salida = $salida;
-				$kardex->existencia_anterior =  $existencia_anterior[0]->existencias;
-				$kardex->saldo = $existencia_anterior[0]->existencias - $salida;
-				$kardex->save();
+				event(new ActualizacionProducto($producto->producto_id, 'Compra Borrada', 0,$salida, $existencia_anterior, $existencia_anterior - $salida));
 			
 				//Movimiento de Producto
 				$newExistencias = 0;
@@ -383,16 +388,27 @@ class ComprasController extends Controller
 		}
 		else if( password_verify( $request["password_delete"] , $user1))
 		{
-			$producto = MovimientoProducto::where('id', $detallecompra->movimiento_producto_id)
-			->get()->first();
+			$producto = MovimientoProducto::where('id', $detallecompra->movimiento_producto_id)->get()->first();
 			$existencias = $producto->existencias;
 			$cantidad = $detallecompra->existencias;
 			$newExistencias = $existencias - $cantidad;
+
+			//kardex
+			$existencia_anterior = MovimientoProducto::where( "producto_id" , "=" , $producto->producto_id )->sum("existencias");
+
+			if($existencia_anterior == null){
+				$existencia_anterior = 0;
+			};
+
+			$salida = $detallecompra->existencias;
+
+			event(new ActualizacionProducto($producto->producto_id, 'Compra Borrada', 0,$salida, $existencia_anterior, $existencia_anterior - $salida));
+
+			//Movimiento de Producto
 			$updateExistencia = MovimientoProducto::where('id', $detallecompra->movimiento_producto_id)
 			->update(['existencias' => $newExistencias]);
 
-			$ingresomaestro = Compra::where('id', $detallecompra->compra_id)
-			->get()->first();
+			$ingresomaestro = Compra::where('id', $detallecompra->compra_id)->get()->first();
 			$total = $ingresomaestro->total_factura;
 			$totalresta = ($detallecompra->precio_compra * $detallecompra->existencias);
 			$newTotal = $total - $totalresta;
