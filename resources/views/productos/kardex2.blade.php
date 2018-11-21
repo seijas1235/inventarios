@@ -52,28 +52,7 @@
                                 <td>{{$item->id}}</td>
                                 <td>{{$item->fecha}}</td>
                                 <td>{{$item->nombre}}</td>
-                                <td>
-                                    @if($item->compra == 0 && $item->venta == 0 && $item->ingreso == 'Ingreso' && $item->salida == 0)
-                                    Ingreso Ajuste 
-
-                                    @elseif($item->compra == 'Compra' && $item->venta == 0 && $item->ingreso == 0 && $item->salida == 0)
-                                    Compra
-
-                                    @elseif($item->compra == 0 && $item->venta == 'Venta' && $item->ingreso == 0 && $item->salida == 'Salida')
-                                    Salida Ajuste
-
-                                    @elseif($item->compra == 0 && $item->venta == 'Venta' && $item->ingreso == 0 && $item->salida == 0)
-                                    Venta
-
-                                    @elseif($item->compra == 0 && $item->venta == 0 && $item->ingreso == 0 && $item->salida == 0 && $item->Venta_borrada == 'Venta Borrada')
-                                    Venta Borrada
-                                    
-                                    @elseif($item->compra == 0 && $item->venta == 0 && $item->ingreso == 0 && $item->salida == 0 && $item->Venta_borrada == 0)
-                                    Ajuste
-
-                                    @endif
-                                
-                                </td>
+                                <td>{{$item->transaccion}}</td>
                                 <td>{{$item->cantidad_ingreso}}</td>
                                 <td>{{$item->cantidad_salida}}</td>
                                 <td>{{$item->existencia_anterior}}</td>

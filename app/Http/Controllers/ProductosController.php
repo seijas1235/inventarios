@@ -99,18 +99,7 @@ class ProductosController extends Controller
 
 	public function kardexIndex()
 	{
-		$query = "select DISTINCT k.id, k.fecha, p.nombre, 
-		IF(dc.id > 0 AND k.ingreso > 0, 'Compra', 0) as compra, 
-		IF(vd.id > 0 AND k.salida > 0, 'Venta', 0) as venta, 
-		IF(i.id > 0 AND k.ingreso >0, 'Ingreso', 0) as ingreso,
-		IF(s.id > 0 AND k.salida > 0, 'Salida', 0) as salida,
-		IF(k.transaccion = 'Venta Borrada', 'Venta Borrada', 0) as Venta_borrada,
-		k.ingreso as cantidad_ingreso, k.salida as cantidad_salida, k.existencia_anterior, k.saldo from kardex k 
-		LEFT JOIN movimientos_productos mp on mp.id = k.transaccion
-		LEFT JOIN detalles_compras dc on dc.movimiento_producto_id = mp.id
-		LEFT JOIN ventas_detalle vd on vd.movimiento_producto_id = mp.id
-		LEFT JOIN ingresos_productos i on i.movimiento_producto_id = mp.id
-		LEFT JOIN salidas_productos s on s.movimiento_producto_id = mp.id
+		$query = "select DISTINCT k.id, k.fecha, p.nombre, k.transaccion, k.ingreso as cantidad_ingreso, k.salida as cantidad_salida, k.existencia_anterior, k.saldo from kardex k 
 		LEFT JOIN productos p on p.id = k.producto_id
 		order by k.id ";
 		$kardex = DB::select($query);
