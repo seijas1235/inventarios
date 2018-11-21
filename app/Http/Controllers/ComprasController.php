@@ -26,6 +26,7 @@ use Kodeine\Acl\Models\Eloquent\Permission;
 use Carbon\Carbon;
 use App\CuentaPorPagar;
 use App\DetalleCuentaPorPagar; 
+use App\Kardex;
 
 class ComprasController extends Controller
 {
@@ -307,9 +308,29 @@ class ComprasController extends Controller
 			{
 				$producto = MovimientoProducto::where('id', $detalle["movimiento_producto_id"])
 				->get()->first();
+
+				//kardex
+				$query = "SELECT IF(SUM(mp.existencias) IS NULL,0,SUM(mp.existencias)) AS existencias FROM movimientos_productos mp where mp.producto_id =".$producto->producto_id." ";
+				$existencia_anterior = DB::select($query);
+
+				$salida = $detalle->existencias;
+
+				$kardex = new Kardex;
+				$kardex->fecha = carbon::now();
+				$kardex->transaccion = "Compra Borrada";
+				$kardex->producto_id = $producto->producto_id;
+				$kardex->ingreso = 0;
+				$kardex->salida = $salida;
+				$kardex->existencia_anterior =  $existencia_anterior[0]->existencias;
+				$kardex->saldo = $existencia_anterior[0]->existencias - $salida;
+				$kardex->save();
+			
+				//Movimiento de Producto
 				$newExistencias = 0;
 				$updateExistencia = MovimientoProducto::where('id', $detalle["movimiento_producto_id"])
 				->update(['existencias' => $newExistencias]);
+
+				
 			}
 
 			if($compra->tipo_pago_id == 3 )
@@ -332,12 +353,13 @@ class ComprasController extends Controller
 
 
 				$cuentaporpagar->update(['total' => $NuevoTotal]);
-				$compra->delete();
+
+				$compra->update(['edo_ingreso_id' => 3]);
 
 			}
 			else
 			{
-				$compra->delete();
+				$compra->update(['edo_ingreso_id' => 3]);
 			}			
 
 			
@@ -431,7 +453,7 @@ class ComprasController extends Controller
 		$api_Result["recordsTotal"] = $api_logsQueriable->count();
 
 		$query = 'SELECT compras.id, compras.serie_factura, compras.num_factura, DATE_FORMAT(compras.fecha_factura, "%d-%m-%Y") as fecha_factura, proveedores.nombre, TRUNCATE(compras.total_factura,2) as total 
-		FROM compras INNER JOIN proveedores ON proveedores.id=compras.proveedor_id ';
+		FROM compras INNER JOIN proveedores ON proveedores.id=compras.proveedor_id WhERE compras.edo_ingreso_id !=3 ';
 
 		$where = "";
 
