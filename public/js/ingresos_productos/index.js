@@ -87,8 +87,10 @@ var ingresos_productos_table = $('#ingresos_productos-table').DataTable({
     },{
         "title": "Acciones",
         "orderable": false,
+        "data": "vendido",
         "width" : "20%",
         "render": function(data, type, full, meta) {
+            if(data==0){
             return "<div id='" + full.id + "' class='text-center'>" + 
             "<div class='float-left col-lg-6'>" + 
             "<a href='/ingresos_productos/edit/"+full.id+"'class='edit-ingreso'>" + 
@@ -98,6 +100,11 @@ var ingresos_productos_table = $('#ingresos_productos-table').DataTable({
             "<a href='#' class='remove-ingreso'>" + 
             "<i class='fa fa-btn fa-trash' title='Eliminar ingreso'></i>" + 
             "</a>" + "</div>";
+            }
+            else
+            {
+            return "<div id='" + full.id + "' class='text-center'>";
+            }
         },
         "responsivePriority": 2
     }],

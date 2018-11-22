@@ -99,7 +99,7 @@ class ProductosController extends Controller
 
 	public function kardexIndex()
 	{
-		$query = "select DISTINCT k.id, k.fecha, p.nombre, k.transaccion, k.ingreso as cantidad_ingreso, k.salida as cantidad_salida, k.existencia_anterior, k.saldo from kardex k 
+		$query = "select DISTINCT k.id, k.fecha, p.codigo_barra, p.nombre, k.transaccion, k.ingreso as cantidad_ingreso, k.salida as cantidad_salida, k.existencia_anterior, k.saldo from kardex k 
 		LEFT JOIN productos p on p.id = k.producto_id
 		order by k.id ";
 		$kardex = DB::select($query);

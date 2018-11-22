@@ -1,5 +1,16 @@
 
 $('#kardex-table').DataTable({
+    "dom": 'Bfrtip',
+    "buttons": [
+    {
+        extend: 'pdfHtml5',
+        exportOptions: {
+            columns: [ 1, 2, 3, 4, 5, 6, 7, 8]
+        }
+    },
+    'excelHtml5',
+    'csvHtml5'
+    ],
     "language": {
         "sProcessing":     "Procesando...",
         "sLengthMenu":     "Mostrar _MENU_ registros",

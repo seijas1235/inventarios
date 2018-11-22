@@ -199,6 +199,8 @@ class ComprasController extends Controller
 				$stat["precio_compra"] = $stat["precio_compra"];
 				$stat['fecha_ingreso'] = Carbon::now();
 
+				//kardex
+
 				$existencia_anterior = MovimientoProducto::where( "producto_id" , "=" , $stat["producto_id"] )
 				->sum( "existencias");
 
@@ -461,15 +463,19 @@ class ComprasController extends Controller
 	{
 		$api_Result = array();
 		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("compras.id","compras.serie_factura", "compras.num_factura", "fecha_factura","proveedores.nombre", "compras.total_factura");
+		$columnsMapping = array("c.id","c.serie_factura", "c.num_factura", "fecha_factura","proveedores.nombre", "c.total_factura");
 
 		// Initialize query (get all)
 
 		$api_logsQueriable = DB::table("compras");
 		$api_Result["recordsTotal"] = $api_logsQueriable->count();
 
-		$query = 'SELECT compras.id, compras.serie_factura, compras.num_factura, DATE_FORMAT(compras.fecha_factura, "%d-%m-%Y") as fecha_factura, proveedores.nombre, TRUNCATE(compras.total_factura,2) as total 
-		FROM compras INNER JOIN proveedores ON proveedores.id=compras.proveedor_id WhERE compras.edo_ingreso_id !=3 ';
+		$query = 'SELECT  c.id, c.serie_factura, c.num_factura, DATE_FORMAT(c.fecha_factura, "%d-%m-%Y") as fecha_factura, proveedores.nombre, TRUNCATE(c.total_factura,2) as total,
+		IF((SELECT sum(mp.vendido) FROM compras
+				INNER JOIN detalles_compras dc on compras.id = dc.compra_id 
+				INNER JOIN movimientos_productos mp on mp.id = dc.movimiento_producto_id WhERE compras.id = c.id) > 0, 1, 0) as vendido
+				FROM compras c
+				INNER JOIN proveedores ON proveedores.id=c.proveedor_id WhERE c.edo_ingreso_id !=3 ';
 
 		$where = "";
 
@@ -523,11 +529,11 @@ class ComprasController extends Controller
 		$api_logsQueriable = DB::table('detalles_compras');
 		$api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-		//$query = 'SELECT detalles_compras.id, detalles_compras.compra_id, productos.codigo_barra, productos.nombre, detalles_compras.existencias, detalles_compras.precio_compra, detalles_compras.precio_venta FROM detalles_compras INNER JOIN productos ON detalles_compras.producto_id=productos.id WHERE detalles_compras.compra_id ='.$detalle.' ';
-		$query = 'SELECT dc.id, dc.compra_id, p.codigo_barra, p.nombre, m.codigo_maquina, m.nombre_maquina, dc.existencias, dc.precio_compra, dc.precio_venta
+		$query = 'SELECT dc.id, dc.compra_id, p.codigo_barra, p.nombre, m.codigo_maquina, m.nombre_maquina, dc.existencias, dc.precio_compra, dc.precio_venta, mp.vendido
 		FROM detalles_compras dc
 		left join productos p on p.id = dc.producto_id
-		left join maquinarias_y_equipos m on m.id = dc.maquinaria_equipo_id where dc.compra_id ='.$detalle.'';
+		left join maquinarias_y_equipos m on m.id = dc.maquinaria_equipo_id
+		inner JOIN movimientos_productos mp on mp.id = dc.movimiento_producto_id where dc.compra_id ='.$detalle.'';
 
 		$where = "";
 

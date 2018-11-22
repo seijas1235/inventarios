@@ -37,6 +37,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Fecha</th>
+                                <th>Codigo de Barra</th>
                                 <th>Nombre producto</th>
                                 <th>Transaccion</th>
                                 <th>Cantidad Entrada</th>
@@ -51,6 +52,7 @@
                             <tr>
                                 <td>{{$item->id}}</td>
                                 <td>{{$item->fecha}}</td>
+                                <td>{{$item->codigo_barra}}</td>
                                 <td>{{$item->nombre}}</td>
                                 <td>{{$item->transaccion}}</td>
                                 <td>{{$item->cantidad_ingreso}}</td>

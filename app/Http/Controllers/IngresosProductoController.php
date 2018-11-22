@@ -140,8 +140,29 @@ class IngresosProductoController extends Controller
 		$ingreso_producto->precio_compra = $data["precio_compra"];
 		$ingreso_producto->precio_venta = $data["precio_venta"];
 		$ingreso_producto->cantidad = $data["cantidad"];
-		$ingreso_producto->save();
+		
 
+		//kardex
+		$existencia_anterior = MovimientoProducto::where( "producto_id" , "=" , $ingreso_producto->producto_id )->sum( "existencias");
+
+		if($existencia_anterior == null){
+			$existencia_anterior = 0;
+		};
+
+		$mIngreso = MovimientoProducto::where( "id" , "=" , $ingreso_producto->movimiento_producto_id)->first();
+		$ingreso_anterior = $mIngreso->existencias;
+
+		$diferencia = $ingreso_anterior - $data['cantidad'];
+
+		if ($diferencia > 0 ){
+			event(new ActualizacionProducto($ingreso_producto->producto_id, 'Ingreso Modificado -', 0,$diferencia, $existencia_anterior, $existencia_anterior - $diferencia));
+		}
+		else{
+			$diferencia = $diferencia * -1;
+			event(new ActualizacionProducto($ingreso_producto->producto_id, 'Ingreso Modificado +', $diferencia,0, $existencia_anterior, $existencia_anterior + $diferencia));
+		}
+
+		$ingreso_producto->save();
 			$updateExistencia = MovimientoProducto::where('id', $ingreso_producto->movimiento_producto_id)
 			->update(
 				['existencias' => $data["cantidad"],
@@ -210,8 +231,10 @@ class IngresosProductoController extends Controller
 		$api_logsQueriable = DB::table("ingresos_productos");
 		$api_Result["recordsTotal"] = $api_logsQueriable->count();
 
-		$query = 'SELECT i.id, DATE_FORMAT(i.fecha_ingreso, "%d-%m-%Y") as fecha_ingreso, i.precio_compra, i.precio_venta, i.cantidad, p.nombre FROM ingresos_productos i 
-		INNER JOIN productos p on p.id = i.producto_id ';
+		$query = 'SELECT i.id, DATE_FORMAT(i.fecha_ingreso, "%d-%m-%Y") as fecha_ingreso, i.precio_compra, i.precio_venta, i.cantidad, p.nombre, mp.vendido 
+		FROM ingresos_productos i 
+		INNER JOIN productos p on p.id = i.producto_id
+		INNER JOIN movimientos_productos mp on mp.id = i.movimiento_producto_id ';
 
 		$where = "";
 
