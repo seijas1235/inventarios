@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Mail;
 use Barryvdh\DomPDF\Facade as PDF;
+use App\Events\ActualizacionProducto;
 class VentasController extends Controller
 {
  /**
@@ -178,6 +179,18 @@ class VentasController extends Controller
 				$existencias = $producto->existencias;
 				$cantidad = $stat["cantidad"];
 				$newExistencias = $existencias - $cantidad;
+
+
+				//kardex
+				$existencia_anterior = MovimientoProducto::where( "producto_id" , "=" , $producto->producto_id )
+				->sum( "existencias");
+
+				if($existencia_anterior == null){
+					$existencia_anterior = 0;
+				};
+
+				event(new ActualizacionProducto($producto->producto_id, 'Venta', 0,$stat['cantidad'], $existencia_anterior, $existencia_anterior - $stat['cantidad']));
+
 				$updateExistencia = MovimientoProducto::where('id', $stat["movimiento_id"])
 				->update(['existencias' => $newExistencias]);
 			}
@@ -410,6 +423,18 @@ class VentasController extends Controller
 				->get()->first();
 				$existencias = $producto->existencias;
 				$cantidad = $detalle->cantidad;
+
+
+				//kardex
+				$existencia_anterior = MovimientoProducto::where( "producto_id" , "=" , $producto->producto_id )->sum( "existencias");
+
+				if($existencia_anterior == null){
+					$existencia_anterior = 0;
+				};
+
+				event(new ActualizacionProducto($producto->producto_id, 'Venta Borrada', $cantidad, 0, $existencia_anterior, $existencia_anterior + $cantidad));
+
+				//Movimiento Producto
 				$newExistencias = $existencias + $cantidad;
 				$updateExistencia = MovimientoProducto::where('id', $detalle["movimiento_producto_id"])
 				->update(['existencias' => $newExistencias]);
@@ -439,12 +464,12 @@ class VentasController extends Controller
 
 
 				$cuentaporcobrar->update(['total' => $NuevoTotal]);
-				$venta_maestro->delete();
+				$venta_maestro->update(['edo_venta_id' => 3]);
 
 			}
 			else
 			{
-				$venta_maestro->delete();
+				$venta_maestro->update(['edo_venta_id' => 3]);
 			}		
 
 
@@ -477,6 +502,16 @@ class VentasController extends Controller
 				$existencias = $producto->existencias;
 				$cantidad = $venta_detalle->cantidad;
 				$newExistencias = $existencias + $cantidad;
+
+				//kardex
+				$existencia_anterior = MovimientoProducto::where( "producto_id" , "=" , $producto->producto_id )->sum( "existencias");
+
+				if($existencia_anterior == null){
+					$existencia_anterior = 0;
+				};
+
+				event(new ActualizacionProducto($producto->producto_id, 'Venta Borrada', $cantidad, 0, $existencia_anterior, $existencia_anterior + $cantidad));
+
 				$updateExistencia = MovimientoProducto::where('id', $venta_detalle->movimiento_producto_id)
 				->update(['existencias' => $newExistencias]);
 			}
@@ -535,6 +570,17 @@ class VentasController extends Controller
 		$existencias = $movimiento_producto->existencias;
 		$cantidad = $venta_detalle->cantidad;
 		$newExistencias = $existencias + $cantidad;
+
+		//kardex
+		$existencia_anterior = MovimientoProducto::where( "producto_id" , "=" , $venta_detalle->producto_id )->sum( "existencias");
+
+		if($existencia_anterior == null){
+			$existencia_anterior = 0;
+		};
+
+		event(new ActualizacionProducto($venta_detalle->producto_id, 'Venta Borrada', $cantidad, 0, $existencia_anterior, $existencia_anterior + $cantidad));
+
+		//Movimiento Producto
 		$updateExistencia = MovimientoProducto::where('id', $movimiento_producto->id)
 		->update(['existencias' => $newExistencias]);
 
@@ -669,7 +715,7 @@ class VentasController extends Controller
 		$query = 'Select TRUNCATE(total_venta,4) as total_venta, ventas_maestro.id, ventas_maestro.tipo_venta_id as tipo_venta_id,
 		tipos_pago.tipo_pago, estado_venta.edo_venta as edo_venta, users.name as name from ventas_maestro inner join 
 		tipos_pago on ventas_maestro.tipo_pago_id=tipos_pago.id inner join users on users.id=ventas_maestro.user_id
-		inner join estado_venta on ventas_maestro.edo_venta_id=estado_venta.id ';
+		inner join estado_venta on ventas_maestro.edo_venta_id=estado_venta.id WHERE ventas_maestro.edo_venta_id != 3 ';
 
 		$where = "";
 
@@ -685,7 +731,7 @@ class VentasController extends Controller
 			}
 			$where .= ') ';
 		}
-		$condition = " where DATE(ventas_maestro.created_at)='".$today."' ";
+		$condition = "";
 		$query = $query . $where . $condition;
 
 		// Sorting

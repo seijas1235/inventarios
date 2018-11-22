@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Hash;
 use Kodeine\Acl\Models\Eloquent\Role;
 use Kodeine\Acl\Models\Eloquent\Permission;
 use Carbon\Carbon;
+use App\Events\ActualizacionProducto;
 
 class IngresosProductoController extends Controller
 {
@@ -76,6 +77,14 @@ class IngresosProductoController extends Controller
 
 			$stat["existencias"] = $ingreso_producto->cantidad;
 			$stat["fecha_ingreso"] = $ingreso_producto->fecha_ingreso;
+
+
+			//kardex
+			$existencia_anterior = MovimientoProducto::where( "producto_id" , "=" , $stat["producto_id"] )->sum( "existencias");
+			if($existencia_anterior == null){
+				$existencia_anterior = 0;
+			};
+			event(new ActualizacionProducto($stat["producto_id"], 'Ajuste Ingreso', $stat["cantidad"],0, $existencia_anterior, $existencia_anterior + $stat["cantidad"]));
 
 			$detalle = MovimientoProducto::create($stat);
 			$ingreso_producto->movimiento_producto_id = $detalle->id;
@@ -161,7 +170,20 @@ class IngresosProductoController extends Controller
 		else if( password_verify( $request["password_delete"] , $user1))
 		{
 
-			//$producto = MovimientoProducto::where('id', $ingreso_producto->movimiento_producto_id)->get()->first();
+			$producto = MovimientoProducto::where('id', $ingreso_producto->movimiento_producto_id)->get()->first();
+
+			//kardex
+			$existencia_anterior = MovimientoProducto::where( "producto_id" , "=" , $producto->producto_id )->sum( "existencias");
+
+			if($existencia_anterior == null){
+				$existencia_anterior = 0;
+			};
+
+			$salida = $ingreso_producto->cantidad;
+
+			event(new ActualizacionProducto($producto->producto_id, 'Ingreso Borrado', 0,$salida, $existencia_anterior, $existencia_anterior - $salida));
+
+			//Movimiento Producto
 			$newExistencias = 0;
 			$updateExistencia = MovimientoProducto::where('id', $ingreso_producto->movimiento_producto_id)
 			->update(['existencias' => $newExistencias]);

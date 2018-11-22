@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Hash;
 use Kodeine\Acl\Models\Eloquent\Role;
 use Kodeine\Acl\Models\Eloquent\Permission;
 use Carbon\Carbon;
+use App\Events\ActualizacionProducto;
 
 class SalidaProductoController extends Controller
 {
@@ -86,6 +87,13 @@ class SalidaProductoController extends Controller
 
 			$stat["existencias"] = $existenciaanterior - $salida_producto->cantidad_salida;
 			$stat["fecha_salida"] = $salida_producto->fecha_salida;
+
+			//kardex
+			$existencia_anterior = MovimientoProducto::where( "producto_id" , "=" , $stat["producto_id"] )->sum( "existencias");
+			if($existencia_anterior == null){
+				$existencia_anterior = 0;
+			};
+			event(new ActualizacionProducto($stat["producto_id"], 'Ajuste Salida', 0,$stat["cantidad_salida"], $existencia_anterior, $existencia_anterior - $stat["cantidad_salida"]));
 
 			$mp->update($stat);
 			$salida_producto->movimiento_producto_id = $mp->id;
@@ -173,6 +181,19 @@ class SalidaProductoController extends Controller
 		{
 
 			$mp = MovimientoProducto::where('id',$salida_producto->movimiento_producto_id)->first();
+
+			//kardex
+			$existencia_anterior = MovimientoProducto::where( "producto_id" , "=" , $mp->producto_id )->sum( "existencias");
+
+			if($existencia_anterior == null){
+				$existencia_anterior = 0;
+			};
+
+			$salida = $salida_producto->cantidad_salida;
+
+			event(new ActualizacionProducto($mp->producto_id, 'Salida Borrada', $salida, 0, $existencia_anterior, $existencia_anterior + $salida));
+
+			//Movimiento Producto
 			$newExistencias = $mp->existencias + $salida_producto->cantidad_salida;
 			$mp->update(['existencias' => $newExistencias]);
 
