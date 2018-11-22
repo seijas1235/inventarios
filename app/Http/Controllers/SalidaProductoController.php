@@ -87,6 +87,7 @@ class SalidaProductoController extends Controller
 
 			$stat["existencias"] = $existenciaanterior - $salida_producto->cantidad_salida;
 			$stat["fecha_salida"] = $salida_producto->fecha_salida;
+			$stat["vendido"] = 1;
 
 			//kardex
 			$existencia_anterior = MovimientoProducto::where( "producto_id" , "=" , $stat["producto_id"] )->sum( "existencias");

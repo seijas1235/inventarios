@@ -106,7 +106,7 @@ class ConversionesProductoController extends Controller
             $mps = MovimientoProducto::where('producto_id', $detalle->producto_id_sale)->first();
             $existenciaanterior = $mps->existencias;
             $detalleMps = array(
-                'existencias' => $existenciaanterior - $stat["cantidad_sale"],
+                'existencias' => $existenciaanterior - $stat["cantidad_sale"], 'vendido' => 1
 			);
 			
 			//kardex
