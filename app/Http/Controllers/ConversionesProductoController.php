@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Hash;
 use Kodeine\Acl\Models\Eloquent\Role;
 use Kodeine\Acl\Models\Eloquent\Permission;
 use Carbon\Carbon;
+use App\Events\ActualizacionProducto;
 
 class ConversionesProductoController extends Controller
 {
@@ -85,7 +86,17 @@ class ConversionesProductoController extends Controller
             $mp->producto_id = $stat["producto_id"];
             $mp->existencias = $stat["cantidad_ingreso"];
             $mp->precio_compra = $stat["precio_compra"];
-            $mp->precio_venta = $stat["precio_venta"];
+			$mp->precio_venta = $stat["precio_venta"];
+			
+			//kardex
+			$existencia_anterior = MovimientoProducto::where( "producto_id" , "=" , $stat["producto_id"] )->sum( "existencias");
+
+			if($existencia_anterior == null){
+				$existencia_anterior = 0;
+			};
+
+			event(new ActualizacionProducto($stat["producto_id"], 'Conversion Ingreso', $stat["cantidad_ingreso"],0, $existencia_anterior, $existencia_anterior + $stat["cantidad_ingreso"]));
+
             $mp->save();
 
             $detalle->movimiento_producto_id = $mp->id;
@@ -96,7 +107,17 @@ class ConversionesProductoController extends Controller
             $existenciaanterior = $mps->existencias;
             $detalleMps = array(
                 'existencias' => $existenciaanterior - $stat["cantidad_sale"],
-            );	
+			);
+			
+			//kardex
+			$existencia_anterior = MovimientoProducto::where( "producto_id" , "=" , $detalle->producto_id_sale )->sum("existencias");
+
+			if($existencia_anterior == null){
+				$existencia_anterior = 0;
+			};
+
+			event(new ActualizacionProducto($detalle->producto_id_sale, 'Conversion Salida', 0,$stat["cantidad_sale"], $existencia_anterior, $existencia_anterior - $stat["cantidad_sale"]));
+
             $mps->update($detalleMps);
             				
 		}
@@ -138,8 +159,8 @@ class ConversionesProductoController extends Controller
 
 	public function update(ConversionProducto $ingreso_producto, Request $request )
 	{
-		Response::json($this->updateConversionProducto($ingreso_producto , $request->all()));
-        return redirect('/conversiones_productos');
+		/*Response::json($this->updateConversionProducto($ingreso_producto , $request->all()));
+        return redirect('/conversiones_productos');*/
 	}
 
 	public function show(ConversionProducto $conversion_producto)
@@ -150,7 +171,7 @@ class ConversionesProductoController extends Controller
 	public function updateConversionProducto(ConversionProducto $ingreso_producto, array $data )
 	{
 
-		$ingreso_producto->precio_compra = $data["precio_compra"];
+		/*$ingreso_producto->precio_compra = $data["precio_compra"];
 		$ingreso_producto->precio_venta = $data["precio_venta"];
 		$ingreso_producto->cantidad = $data["cantidad"];
 		$ingreso_producto->save();
@@ -162,7 +183,7 @@ class ConversionesProductoController extends Controller
 				 'precio_venta' => $data["precio_venta"]
 				]);
 
-		return $ingreso_producto;
+		return $ingreso_producto;*/
 	}
 
 	/**

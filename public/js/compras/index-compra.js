@@ -87,8 +87,10 @@ var compras_table = $('#compras-table').DataTable({
     }, {
         "title": "Acciones",
         "orderable": false,
+        "data": "vendido",
         "width" : "20%",
         "render": function(data, type, full, meta) {
+            if(data ==0){
             return "<div id='" + full.id + "' class='text-center'>" + 
             "<div class='float-left col-lg-4'>" + 
             "<a href='/compras/edit/"+full.id+"'class='edit-compra'>" + 
@@ -101,7 +103,19 @@ var compras_table = $('#compras-table').DataTable({
             "<div class='float-right col-lg-4'>" + 
             "<a href='#' class='detalle-compra'>" + 
             "<i class='fa fa-btn fa-desktop' title='Detalles'></i>" + 
+            "</a>" + "</div>";}
+
+            else{
+                return "<div id='" + full.id + "' class='text-center'>" + 
+            "<div class='float-left col-lg-4'>" + 
+            "<a href='/compras/edit/"+full.id+"'class='edit-compra'>" + 
+            "<i class='fa fa-btn fa-edit' title='Editar compra'></i>" + 
+            "</a>" + "</div>" + 
+            "<div class='float-right col-lg-4'>" + 
+            "<a href='#' class='detalle-compra'>" + 
+            "<i class='fa fa-btn fa-desktop' title='Detalles'></i>" + 
             "</a>" + "</div>";
+            }
         },
         "responsivePriority": 2
     }],
@@ -223,12 +237,18 @@ var compra_detalle = $('#detallecompra-table').DataTable({
     "title": "Acciones",
     "width" : "10%",
     "orderable": false,
+    "data": "vendido",
     "render": function(data, type, full, meta) {
+        if(data ==0){
         return "<div id='" + full.id + "' class='text-center'>" + 
             "<div class='float-center three-columns'>" + 
             "<a href='#' class='remove-detallecompra'>" + 
             "<i class='fa fa-btn fa-trash' title='Delete'></i>" + 
-            "</a>" + "</div>" + "</div>";;
+            "</a>" + "</div>" + "</div>";
+        }
+        else{
+            return "<div id='" + full.id + "' class='text-center'>";
+        }
     },
     "responsivePriority": 2
 }],

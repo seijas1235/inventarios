@@ -166,8 +166,7 @@ class VentasController extends Controller
 				$cantidad = $stat["cantidad"];
 					
 			}else{
-				$producto = MovimientoProducto::where('id', $stat["movimiento_id"])
-				->get()->first();
+				$producto = MovimientoProducto::where('id', $stat["movimiento_id"])->get()->first();
 				$stat["precio_compra"] = $stat["precio_compra"];
 				$stat["precio_venta"] = $stat["precio_venta"];
 				$stat["subtotal"] = $stat["precio_venta"] * $stat["cantidad"];
@@ -192,7 +191,7 @@ class VentasController extends Controller
 				event(new ActualizacionProducto($producto->producto_id, 'Venta', 0,$stat['cantidad'], $existencia_anterior, $existencia_anterior - $stat['cantidad']));
 
 				$updateExistencia = MovimientoProducto::where('id', $stat["movimiento_id"])
-				->update(['existencias' => $newExistencias]);
+				->update(['existencias' => $newExistencias, 'vendido' => 1]);
 			}
 			
 		}
