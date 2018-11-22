@@ -206,7 +206,8 @@ class ClientesController extends Controller
         $api_logsQueriable = DB::table('clientes');
         $api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-        $query = "SELECT * FROM clientes";
+        $query = "SELECT C.nombres, C.apellidos, C.nit, C.direccion,C.telefonos, C.id 
+        from clientes C";
 
         $where = "";
 

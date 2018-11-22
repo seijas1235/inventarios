@@ -89,8 +89,17 @@ var clientes_table = $('#clientes-table').DataTable({
     {
         "title": "Acciones",
         "orderable": false,
+        "data" : "id",
         "width" : "20%",
         "render": function(data, type, full, meta) {
+            if(data==1){
+                return "<div id='" + full.id + "' class='text-center'>" + 
+                "<div class='float-left col-lg-6'>" + 
+                "<a href='/clientes/edit/"+ full.id +"' class='edit-cliente'>" + 
+                "<i class='fa fa-btn fa-edit' title='Editar Tipo Cliente'></i>" + 
+                "</a>" + "</div>" ;
+            }
+            else{
             return "<div id='" + full.id + "' class='text-center'>" + 
             "<div class='float-left col-lg-6'>" + 
             "<a href='/clientes/edit/"+ full.id +"' class='edit-cliente'>" + 
@@ -100,7 +109,7 @@ var clientes_table = $('#clientes-table').DataTable({
             "<a href='#' class='remove-cliente'>" + 
             "<i class='fa fa-btn fa-trash' title='Eliminar Tipo Cliente'></i>" + 
             "</a>" + "</div>";
-            
+        }
         },
         "responsivePriority": 2
     }],
