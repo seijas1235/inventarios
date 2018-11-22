@@ -9,14 +9,6 @@ $(document).ready(function() {
 	});
 });
 
-
-
-
-
-
-
-
-
 $("input[name='codigo_barra']").focusout(function() {
     var codigo = $("input[name='codigo_barra'] ").val();
     /*var url = "../pos_v2/venta/get/?data=" + codigo;*/
