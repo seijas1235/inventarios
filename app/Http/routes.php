@@ -230,7 +230,6 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/existencias/producto', 'ProductosController@existenciasIndex');
 		Route::get('/existencias/getJson/', 'ProductosController@existencias');
 		Route::get('/kardex/producto', 'ProductosController@kardexIndex');
-		Route::get('/kardex/getJson/', 'ProductosController@kardex');
 		Route::get( 'codigo-disponible/', 'ProductosController@codigoDisponible');
 
 		Route::get('/precios_producto', 'PreciosProductoController@index');
@@ -374,6 +373,14 @@ Route::group(['middleware' => ['web']], function ()
 		Route::post( '/rpt_ventas/' , 'VentasController@rpt_ventas');
 
 		Route::get('/rpt_factura/{venta}' , 'PdfController@rpt_factura');
+
+		//Reportes kardex
+
+		Route::get( '/rpt_kardex/generar' , 'ProductosController@rpt_generar_kardex');
+		Route::post( '/rpt_kardex/' , 'ProductosController@rpt_kardex');
+
+		Route::get( '/rpt_kardex/producto/generar' , 'ProductosController@rpt_generar_kardex_producto');
+		Route::post( '/rpt_kardex/producto' , 'ProductosController@rpt_kardex_producto');
 
 
 		Route::get('/cajas_chicas', 'CajasChicasController@index');

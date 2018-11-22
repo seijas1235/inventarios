@@ -248,13 +248,15 @@
 			</li>
 
 			@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
-			<li class="submenu {{request()->is('existencias/producto*', 'existencias/maquinaria*', 'rpt_estado_cuenta_por_pagar/generar*', 'rpt_estado_cuenta_por_cobrar/generar*', 'rpt_ventas/generar')? 'active': ''}}"> <a href="#"><i class="icon icon-th-list"></i> <span>Reportes Generales</span> <span class="label label-important"></span></a>
+			<li class="submenu {{request()->is('rpt_kardex/producto/generar','rpt_kardex/generar','existencias/producto*', 'existencias/maquinaria*', 'rpt_estado_cuenta_por_pagar/generar*', 'rpt_estado_cuenta_por_cobrar/generar*', 'rpt_ventas/generar')? 'active': ''}}"> <a href="#"><i class="icon icon-th-list"></i> <span>Reportes Generales</span> <span class="label label-important"></span></a>
 				@endif
 				<ul>
 					@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
 					<li class="{{request()->is('existencias/producto*')? 'active': ''}}"><a href="/existencias/producto">Existencias Productos</a></li>
 					<li class="{{request()->is('existencias/maquinaria*')? 'active': ''}}"><a href="/existencias/maquinaria">Existencias Maquinaria y/o equipo</a></li>
-					<li class="{{request()->is('kardex/producto*')? 'active': ''}}"><a href="/kardex/producto">Kardex de Producto</a></li> 
+					<li class="{{request()->is('kardex/producto*')? 'active': ''}}"><a href="/kardex/producto">Kardex de Producto</a></li>
+					<li class="{{request()->is('rpt_kardex/generar*')? 'active': ''}}"><a href="/rpt_kardex/generar">Kardex Total por Fecha</a></li>
+					<li class="{{request()->is('rpt_kardex/producto/generar*')? 'active': ''}}"><a href="/rpt_kardex/producto/generar">Kardex por Producto y Fecha</a></li>  
 					<li class="{{request()->is('rpt_estado_cuenta_por_pagar/generar*')? 'active': ''}}"><a href="/rpt_estado_cuenta_por_pagar/generar">Estado de Cuenta Proveedor</a></li> 
 					<li class="{{request()->is('rpt_estado_cuenta_por_cobrar/generar*')? 'active': ''}}"><a href="/rpt_estado_cuenta_por_cobrar/generar">Estado de Cuenta Cliente</a></li>
 					<li class="{{request()->is('rpt_ventas/generar*')? 'active': ''}}"><a href="/rpt_ventas/generar">Reporte de venta</a></li>  

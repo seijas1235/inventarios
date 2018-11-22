@@ -16,6 +16,7 @@ use App\User;
 use App\UnidadDeMedida;
 use App\Marca;
 //use Yajra\Datatables\Datatables;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class ProductosController extends Controller
 {
@@ -107,61 +108,57 @@ class ProductosController extends Controller
 		return view('productos.kardex2', compact('kardex'));
 	}
 
-	public function kardex(Request $params)
-	{
-		$api_Result = array();
-		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("k.id","k.fecha", "p.codigo_barra", "p.nombre", "k.ingreso", "k.salida", "k.existencia_anterior", "k.saldo");
+	public function rpt_kardex(Request $request)
+    {
+        $fecha_inicial = $request['fecha_inicial'];
+        $fecha_final = $request['fecha_final'];
 
-		// Initialize query (get all)
+        $query = "SELECT k.id, DATE_FORMAT(k.fecha, '%d-%m-%Y') as fecha , p.codigo_barra, p.nombre, k.transaccion, k.ingreso, k.salida, k.existencia_anterior, k.saldo
+		FROM kardex k
+		INNER JOIN productos p on p.id = k.producto_id
+		WHERE k.fecha BETWEEN '".$fecha_inicial."' AND '".$fecha_final." 23:59:59' ";
+        $detalles = DB::select($query);
 
-		$api_logsQueriable = DB::table('productos');
-		$api_Result['recordsTotal'] = $api_logsQueriable->count();
-
-		$query = "select k.id, k.fecha, p.codigo_barra, p.nombre, k.ingreso, k.salida, k.existencia_anterior, k.saldo from kardex k
-		INNER JOIN productos p on p.id = k.producto_id ";
-        
-		$where = "";
-
-		if (isset($params->search['value']) && !empty($params->search['value'])){
-
-			foreach ($columnsMapping as $column) {
-				if (strlen($where) == 0) {
-					$where .=" and (".$column." like  '%".$params->search['value']."%' ";
-				} else {
-					$where .=" or ".$column." like  '%".$params->search['value']."%' ";
-				}
-
-			}
-			$where .= ') ';
-		}
-		$condition = " ";
-		$query = $query . $condition . $where;
-
-		// Sorting
-		$sort = "";
-		foreach ($params->order as $order) {
-			if (strlen($sort) == 0) {
-				$sort .= 'order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-			} else {
-				$sort .= ', '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-			}
-		}
-
-		$result = DB::select($query);
-		$api_Result['recordsFiltered'] = count($result);
-
-		$filter = " limit ".$params->length." offset ".$params->start."";
-
-		$query .= $sort . $filter;
-
-		$result = DB::select($query);
-		$api_Result['data'] = $result;
-
-		return Response::json( $api_Result );
+        $fecha_inicial = Carbon::parse($fecha_inicial)->format('d/m/Y');
+        $fecha_final = Carbon::parse($fecha_final)->format('d/m/Y');
+    
+        $pdf = PDF::loadView('pdf.rpt_kardex_prod_total', compact('detalles', 'fecha_inicial', 'fecha_final'));
+        return $pdf->stream('Kardex de Producto.pdf');
+    }
+    
+    public function rpt_generar_kardex()
+    {
+        return view("productos.rptGenerarKardex");
 	}
-
 	
+	public function rpt_kardex_producto(Request $request)
+    {
+		$idProducto = $request['producto_id'];
+        $fecha_inicial = $request['fecha_inicial'];
+        $fecha_final = $request['fecha_final'];
+
+        $query = "SELECT k.id, DATE_FORMAT(k.fecha, '%d-%m-%Y') as fecha , p.codigo_barra, p.nombre, k.transaccion, k.ingreso, k.salida, k.existencia_anterior, k.saldo
+		FROM kardex k
+		INNER JOIN productos p on p.id = k.producto_id
+		WHERE p.id = '".$idProducto."' AND k.fecha BETWEEN '".$fecha_inicial."' AND '".$fecha_final." 23:59:59' ";
+		$detalles = DB::select($query);
+		
+		$query2 = "SELECT p.nombre FROM productos p WHERE p.id = '".$idProducto."' ";
+        $producto = DB::select($query2);
+
+        $fecha_inicial = Carbon::parse($fecha_inicial)->format('d/m/Y');
+        $fecha_final = Carbon::parse($fecha_final)->format('d/m/Y');
+    
+        $pdf = PDF::loadView('pdf.rpt_kardex_producto', compact('detalles', 'fecha_inicial', 'fecha_final', 'producto'));
+        return $pdf->stream('Kardex de Producto.pdf');
+    }
+    
+    public function rpt_generar_kardex_producto()
+    {
+		$productos = Producto::all();
+        return view("productos.rptGenerarKardexProducto", compact('productos'));
+    }
+
 	/**
 	 * Show the form for creating a new resource.
 	 *
