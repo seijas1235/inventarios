@@ -393,7 +393,7 @@
     <div class="circulo-3" style="top:166px; left:292px"></div>
 
     <div class="col-xs-2">Rayones =</div> 
-    <div class="col-xs-3">Golpes y abollenes =</div>
+    <div class="col-xs-3">Golpes y abollones =</div>
     <div class="col-xs-7"></div>
   </div>
 

@@ -15,6 +15,7 @@ class OrdenDeTrabajo extends Model
         'fecha_prometida',
         'cliente_id',
         'vehiculo_id',
+        'estado_id',
         'total'
         ];
 

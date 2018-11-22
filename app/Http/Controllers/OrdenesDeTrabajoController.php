@@ -193,6 +193,15 @@ class OrdenesDeTrabajoController extends Controller
         
     
     }
+    public function updateestado(OrdenDeTrabajo $orden, Request $request)
+    {
+        $id=$request->id;
+            
+        OrdenDeTrabajo::find($id)->update($request->all());
+        return Response::json($id);
+        
+    
+    }
 
 
     //edit pagina 4
@@ -331,7 +340,11 @@ class OrdenesDeTrabajoController extends Controller
         $api_logsQueriable = DB::table('ordenes_de_trabajo');
         $api_Result['recordsTotal'] = $api_logsQueriable->count();
 
-        $query = "SELECT * FROM ordenes_de_trabajo";
+        $query = "SELECT O.total, O.fecha_hora,O.id, concat(C.nombres,' ',C.apellidos) as cliente, V.placa, E.estado as estado,O.estado_id
+        FROM ordenes_de_trabajo O
+        inner join clientes C on C.id = O.cliente_id
+        inner join vehiculos V on V.id=O.vehiculo_id
+        inner join estados_serie E on E.id = O.estado_id";
 
         $where = "";
 

@@ -52,30 +52,29 @@ var ordenes_table = $('#ordenes-table').DataTable({
             return CustomDatatableRenders.fitTextHTML(data); },
     },
     {
-        "title": "Fecha y hora",
-        "data": "fecha_hora",
+        "title": "Cliente",
+        "data": "cliente",
         "width" : "20%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data); },
     },
     {
-        "title": "Responsable recepcion",
-        "data": "resp_recepcion",
+        "title": "Vehiculo",
+        "data": "placa",
         "width" : "20%",
-        "responsivePriority": 1,
+        "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data); },
     }, 
     {
-        "title": "Cliente",
-        "data": "cliente_id",
+        "title": "Fecha y hora",
+        "data": "fecha_hora",
         "width" : "20%",
-        "responsivePriority": 1,
+        "responsivePriority": 3,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data); },
-    }, 
-    
+    },
     {
         "title": "Total",
         "data": "total",
@@ -84,28 +83,55 @@ var ordenes_table = $('#ordenes-table').DataTable({
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML("Q." + parseFloat(Math.round(data * 100) / 100).toFixed(2)); },
     }, 
+    {
+        "title": "Estado",
+        "data": "estado",
+        "width" : "20%",
+        "responsivePriority": 3,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML(data); },
+    }, 
         
     {
         "title": "Acciones",
         "orderable": false,
         "width" : "20%",
+        "data": "estado_id",
         "render": function(data, type, full, meta) {
+            if(data==1){
             return "<div id='" + full.id + "' class='text-center'>" + 
-            "<div class='float-right col-lg-4'>" + 
+            "<div class='float-right col-lg-3'>" + 
             "<a href='/rpt_orden_trabajo/"+ full.id +"' target='_blank' class='pdf-orden'>" + 
             "<i class='fa fa-file-pdf-o' title='PDF'></i>" + 
-            "</a>" + "</div>"+"<div class='float-right col-lg-4'>" + 
+            "</a>" + "</div>"+
+            "<div class='float-right col-lg-3'>" + 
             "<a href='/ordenes_de_trabajo/edit/"+ full.id +" class='edit-orden'>" + 
             "<i class='fa fa-btn fa-edit' title='Editar Orden'></i>" + 
             "</a>" + "</div>"+ 
-            "<div class='float-right col-lg-4'>" + 
+            "<div class='float-right col-lg-3'>" + 
+            "<a href='#' class='remove-orden'>" + 
+            "<i class='fa fa-btn fa-trash' title='Eliminar Orden'></i>" + 
+            "</a>" + "</div>" +
+            "<div class='float-right col-lg-3'>" + 
+            "<a href='#' class='finish-orden'>" + 
+            "<i class='fa fa-flag-checkered' title='Finalizar Orden'></i>" + 
+            "</a>" + "</div>"
+            ;
+        }
+        else{
+            return "<div id='" + full.id + "' class='text-center'>" + 
+            "<div class='float-right col-lg-3'>" + 
+            "<a href='/rpt_orden_trabajo/"+ full.id +"' target='_blank' class='pdf-orden'>" + 
+            "<i class='fa fa-file-pdf-o' title='PDF'></i>" + 
+            "</a>" + "</div>"+ 
+            "<div class='float-right col-lg-3'>" + 
             "<a href='#' class='remove-orden'>" + 
             "<i class='fa fa-btn fa-trash' title='Eliminar Orden'></i>" + 
             "</a>" + "</div>"
-            ;
-            
+            ;  
+        }
         },
-        "responsivePriority": 2
+        "responsivePriority": 1
     }],
     "createdRow": function(row, data, rowIndex) {
         $.each($('td', row), function(colIndex) {
@@ -117,7 +143,7 @@ var ordenes_table = $('#ordenes-table').DataTable({
 });
 
 
-
+// funcion para eliminar el registro
 $('body').on('click', 'a.remove-orden', function(e) {
     $( ".confirm-delete" , "#userDeleteModal").removeAttr("field");
     var id = $(this).parent().parent().attr("id");
@@ -136,6 +162,51 @@ $('body').on('click', 'a.remove-orden', function(e) {
         $(".entity").text("");
     }
     $(".confirm-delete", "#userDeleteModal").attr("id", "delete-" + id);
+});
+
+//Funcion para Cambio de estado de orden
+$('body').on('click', 'a.finish-orden', function(e) {
+    var id = $(this).parent().parent().attr("id");
+    bootbox.dialog({
+        message: "Finalizar Orden de Trabajo",
+        title: "¿Desea Finalizar esta Orden de trabajo?",
+        buttons: {
+          success: {
+            label: "SI",
+            className: "btn-success",
+            callback: function() {
+                data = {
+                    estado_id : 3,
+                    id:id,
+                };
+                var url = "/ordenes_de_trabajo/estado/"+id;
+                $("#user-created-message").addClass("hidden");
+                $.ajax({
+                    method: "PATCH",
+                    url: url,
+                    data: JSON.stringify(data),
+                    headers: {'X-CSRF-TOKEN': $('#token').val()},
+                    contentType: "application/json",
+                }).done(function (data){
+                    $(".user-created-message").removeClass("hidden");
+                    $(".user-created-message").addClass("alert-danger");
+                    $(".user-created-message").fadeIn();
+                    $(".user-created-message > p").text("Orden de trabajo Finalizada exitosamente!");
+                    ordenes_table.ajax.reload();
+                }); 
+            
+            }
+            
+          },
+          danger: {
+            label: "NO",
+            className: "btn-success",
+            callback: function() {
+               
+            }
+          }
+        }
+      });
 });
 
 
