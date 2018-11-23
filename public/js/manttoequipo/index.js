@@ -60,7 +60,7 @@ var manttoequipo_table = $('#manttoequipo-table').DataTable({
             return CustomDatatableRenders.fitTextHTML(data); },
     },
     {
-        "title": "Labadas Realizadas",
+        "title": "Lavadas/horas Realizadas",
         "data": "labadas_servicio",
         "width" : "20%",
         "responsivePriority": 1,
@@ -68,7 +68,7 @@ var manttoequipo_table = $('#manttoequipo-table').DataTable({
             return CustomDatatableRenders.fitTextHTML(data); },
     }, 
     {
-        "title": "No. de labadas Proximo Servicio",
+        "title": "No. de lavadas/horas Proximo Servicio",
         "data": "labadas_proximo_servicio",
         "width" : "20%",
         "responsivePriority": 1,

@@ -39,12 +39,12 @@
 		
 				<div class="row">
 					<div class="col-sm-4">
-						{!! Form::label("labadas_servicio","Cantidad de labadas Realizadas:") !!}
-						{!! Form::number( "labadas_servicio" , null , ['class' => 'form-control' , 'placeholder' => 'Cantidad de Labadas Realizadas' ]) !!}
+						{!! Form::label("labadas_servicio","Cantidad de lavadas/horas Realizadas:") !!}
+						{!! Form::number( "labadas_servicio" , null , ['class' => 'form-control' , 'placeholder' => 'Cantidad de Lavadas/horas Realizadas' ]) !!}
 					</div>
 					<div class="col-sm-4 ">
-						{!! Form::label("labadas_proximo_servicio","Cantidad de labadas Para Proximo Servicio:") !!}
-						{!! Form::text( "labadas_proximo_servicio" , null , ['class' => 'form-control' , 'placeholder' => 'Cantidad de labadas Para Proximo Servicio' ]) !!}
+						{!! Form::label("labadas_proximo_servicio","Cantidad de lavadas/horas Para Proximo Servicio:") !!}
+						{!! Form::text( "labadas_proximo_servicio" , null , ['class' => 'form-control' , 'placeholder' => 'Cantidad de lavadas/horas Para Proximo Servicio' ]) !!}
 					</div>
 						 
 					<div class="col-sm-4">
@@ -57,7 +57,7 @@
 				<div class="row">
 					<div class="col-sm-12">
 						{!! Form::label("descripcion","Descripcion:") !!}
-						{!! Form::text( "descripcion" , null , ['class' => 'form-control' , 'placeholder' => 'Descripcion' ]) !!}
+						{!! Form::textarea( "descripcion" , null , ['class' => 'form-control' , 'placeholder' => 'Descripcion','rows'=>5 ]) !!}
 					</div>    
 				</div>  
 				<br>
