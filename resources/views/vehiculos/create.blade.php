@@ -19,8 +19,8 @@
 </div>
 @endsection
 
-@include('vehiculos.createlineaModal')
-@include('vehiculos.createmarcaModal')
+
+
 @stack('scripts')
 
 @section('scripts')
@@ -28,3 +28,5 @@
 {!! HTML::script('/js/marcas/create.js') !!}
 {!! HTML::script('/js/lineas/create.js') !!}
 @endsection
+
+@include('vehiculos.createmarcaModal')
