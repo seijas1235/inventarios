@@ -16,7 +16,6 @@
 				<select class="form-control" id='cliente_id' name="cliente_id" value="" data-live-search="true" title="Seleccione">
 				</select>
 				<br>
-				<br>
 				<button class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="modalCliente" type="button">
 				<i class="fa fa-plus"></i>Nuevo Cliente</button>
 			</div>

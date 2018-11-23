@@ -13,7 +13,7 @@ $(document).ready(function() {
 
 function cargarSelectCliente(){
     $('#cliente_id').empty();
-    
+    $("#cliente_id").append('<option value="" selected>Seleccione Cliente</option>');
     $.ajax({
         type: "GET",
         url: '/clientes/cargar', 
@@ -21,7 +21,7 @@ function cargarSelectCliente(){
         success: function(data){
           $.each(data,function(key, registro) {
             $("#cliente_id").append('<option value='+registro.id+'>'+registro.nombres+'</option>');
-            //alert(registro.nombres);
+
           });   
         },
         error: function(data) {
@@ -89,7 +89,6 @@ $('body').on('click', '#addDetalle', function(e)
         var formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id,cliente_id : cliente_id}  
         $.ajax({
             type: "GET",
-            /*url: "../pos_v2/venta/save/",*/
             url: "/venta/save/",
             data: formData,
             async:false,
@@ -187,6 +186,10 @@ function changeCliente() {
             $("input[name='nit_c'] ").val(result.nit);
             $("input[name='direccion']").val(result.direccion);			
         });
+    }
+    else{
+        $("input[name='nit_c'] ").val("");
+        $("input[name='direccion']").val("");		
     }
 }
     
@@ -311,7 +314,6 @@ $('body').on('click', '#addManoObra', function(e)
     }
     l.stop();
 });
-
 
 
 //funcion para agregar el detalle de servicios a base de datos
