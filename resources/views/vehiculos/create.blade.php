@@ -25,8 +25,8 @@
 
 @section('scripts')
 {!! HTML::script('/js/vehiculos/create.js') !!}
-{!! HTML::script('/js/marcas/create.js') !!}
-{!! HTML::script('/js/lineas/create.js') !!}
+{{--!! HTML::script('/js/marcas/create.js') !!}
+{!! HTML::script('/js/lineas/create.js') !!--}}
 @endsection
 
-@include('vehiculos.createmarcaModal')
+{{-- @include('vehiculos.createmarcaModal') --}}
