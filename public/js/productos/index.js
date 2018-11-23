@@ -1,16 +1,11 @@
 var productos_table = $('#productos-table').DataTable({
     "ajax": "/productos/getJson",
-    "responsive": true,
-    "processing": true,
-    "serverSide": true,
-    "info": true,
-    "showNEntries": true,
     "dom": 'Bfrtip',
     "buttons": [
     {
         extend: 'pdfHtml5',
         exportOptions: {
-            columns: [ 0, 1, 2, 3, 4, 5,6]
+            columns: [ 0, 1, 2, 3, 4, 5]
         }
     },
     'excelHtml5',
@@ -84,7 +79,6 @@ var productos_table = $('#productos-table').DataTable({
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data); },
     },
-    
        
     {
         "title": "Acciones",
@@ -104,13 +98,7 @@ var productos_table = $('#productos-table').DataTable({
         },
         "responsivePriority": 2
     }],
-    "createdRow": function(row, data, rowIndex) {
-        $.each($('td', row), function(colIndex) {
-            if (colIndex == 6) $(this).attr('id', data.id);
-        });
-    },
-    "fnPreDrawCallback": function( oSettings ) {
-    }
+
 });
 
 

@@ -42,9 +42,9 @@
                         <select class="selectpicker" id='medida_id' name="medida_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
                             @foreach ($medidas as $medida)
                             @if ( $medida->id == $producto->medida_id)
-                            <option value="{{$medida->id}}" selected>{{ $medida->nombre}}</option>
+                            <option value="{{$medida->id}}" selected>{{ $medida->descripcion}}</option>
                             @else
-                             <option value="{{$medida->id}}">{{$medida->nombre}}</option>                           
+                             <option value="{{$medida->id}}">{{$medida->descripcion}}</option>                           
                             @endif
                             @endforeach
                         </select>

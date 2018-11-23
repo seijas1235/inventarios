@@ -14,9 +14,6 @@ var validator = $("#ProductoUpdateForm").validate({
 		marca_id:{
 			required : true
 		},
-		descripcion:{
-			required : true
-		},
 		medida_id:{
 			required : true
 		}
@@ -33,9 +30,6 @@ var validator = $("#ProductoUpdateForm").validate({
 		},
 		marca_id:{
 			required : "debe seleccionar La Marca del Producto"
-		},
-		descripcion:{
-			required : " Por Favor, ingrese la descripcion del producto"
 		},
 		medida_id:{
 			required : "Debe seleccionar una Unidad de medida del Producto"
