@@ -26,8 +26,8 @@
                     <option value="{{$marca->id}}">{{$marca->nombre}}</option>							
                     @endforeach
                 </select>
-                <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#marcaModal" id="marcaModal" type="button">
-                    <i class="fa fa-plus"></i>Nueva Marca</button>
+                <!--button class="btn btn-primary pull-right" data-toggle="modal" data-target="#marcaModal" id="marcaModal" type="button">
+                    <i class="fa fa-plus"></i>Nueva Marca</button-->
             </div>
             <div class="col-sm-3" >
                 {!! Form::label("linea_id","Linea:") !!}
@@ -35,8 +35,8 @@
                 <select  class="form-control" id='linea_id' name="linea_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda">
 
                 </select>
-                <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#lineaModal" id="lineaModal" type="button">
-                <i class="fa fa-plus"></i>Nueva Linea</button>
+                <!--button class="btn btn-primary pull-right" data-toggle="modal" data-target="#lineaModal" id="lineaModal" type="button">
+                <i class="fa fa-plus"></i>Nueva Linea</button-->
 
             </div>
         </div>
