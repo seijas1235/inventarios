@@ -310,7 +310,6 @@ $("#ButtonClienteModal").click(function(event) {
 });
 
 function saveModal(button) {
-	//$("#ButtonClienteModal").attr('disabled', 'disabled');
 	var l = Ladda.create(document.querySelector("#ButtonClienteModal"));
 	l.start();
 	var formData = $("#ClienteForm").serialize();
@@ -321,11 +320,9 @@ function saveModal(button) {
 		data: formData,
 		dataType: "json",
 		success: function(data) {
-			//$('#cliente_id').ajax.reload();
 			cargarSelectCliente();
 			BorrarFormulario();
 			l.stop();
-			//$("#ButtonClienteModal").attr('disabled', false);
 			$('#myModal').modal("hide");
 			
 		},
