@@ -13,7 +13,7 @@
 		<div class="row">
 			<div class="col-sm-3">
 				{!! Form::label("cliente","Cliente:") !!}
-				<select class="form-control" id='cliente_id' name="cliente_id" value="" data-live-search="true" title="Seleccione">
+				<select id='cliente_id' name="cliente_id" value="" title="Seleccione">
 				</select>
 				<br>
 				<button class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="modalCliente" type="button">
