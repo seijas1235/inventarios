@@ -38,7 +38,7 @@
 			<div class="row">
 				<div class="col-sm-3">
 					{!! Form::label("proveedor_id","Proveedor:") !!}
-					<select class="form-control" id='proveedor_id' name="proveedor_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+					<select class="form-control" id='proveedor_id' name="proveedor_id" value="" data-live-search-placeholder="Búsqueda" title="Seleccione">
 					</select>
 					<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalProveedor" id="modalproveedor" type="button">
 						<i class="fa fa-plus"></i>Nuevo Proveedor</button>

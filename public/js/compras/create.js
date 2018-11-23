@@ -141,8 +141,10 @@ function cargarSelectProveedor(){
 		success: function(data){
 		  $.each(data,function(key, registro) {
 			$("#proveedor_id").append('<option value='+registro.id+'>'+registro.nombre+'</option>');
-
-		  });   
+		  });
+		  	$('#proveedor_id').addClass('selectpicker');
+            $('#proveedor_id').attr('data-live-search', 'true');
+            $('#proveedor_id').selectpicker('refresh');    
 		},
 		error: function(data) {
 		  alert('error');
