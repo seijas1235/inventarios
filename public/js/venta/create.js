@@ -21,8 +21,10 @@ function cargarSelectCliente(){
         success: function(data){
           $.each(data,function(key, registro) {
             $("#cliente_id").append('<option value='+registro.id+'>'+registro.nombres+'</option>');
-
-          });   
+          });
+            $('#cliente_id').addClass('selectpicker');
+            $('#cliente_id').attr('data-live-search', 'true');
+            $('#cliente_id').selectpicker('refresh');   
         },
         error: function(data) {
           alert('error');
