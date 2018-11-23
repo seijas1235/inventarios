@@ -7,7 +7,30 @@ $(document).ready(function() {
 			return false;
 		}
 	});
+
+	cargarSelectCliente();
 });
+
+function cargarSelectCliente(){
+    $('#cliente_id').empty();
+    $("#cliente_id").append('<option value="" selected>Seleccione Cliente</option>');
+    $.ajax({
+        type: "GET",
+        url: '/clientes/cargar', 
+        dataType: "json",
+        success: function(data){
+          $.each(data,function(key, registro) {
+            $("#cliente_id").append('<option value='+registro.id+'>'+registro.nombres+'</option>');
+          });
+            $('#cliente_id').addClass('selectpicker');
+            $('#cliente_id').attr('data-live-search', 'true');
+            $('#cliente_id').selectpicker('refresh');   
+        },
+        error: function(data) {
+          alert('error');
+        }
+      });
+}
 
 var validator = $("#OrdenDeTrabajoForm").validate({
 	ignore: [],

@@ -21,4 +21,3 @@
             </div>
             {!! Form::close() !!}
           </div>
-    

@@ -87,7 +87,7 @@
             </div>	
             <div class="col-sm-6">
                 {!! Form::label("cliente_id","Dueño:") !!}
-                <select class="selectpicker" id='cliente_id' name="cliente_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+                <select class="selectpicker" name="cliente_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
                     @foreach ($clientes as $cliente)
                     <option value="{{$cliente->id}}">{{$cliente->nombres.' '.$cliente->apellidos}}</option>							
                     @endforeach

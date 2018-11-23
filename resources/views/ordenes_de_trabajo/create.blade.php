@@ -27,10 +27,7 @@
 			<div class="row">
 				<div class="col-sm-6">
 					{!! Form::label("cliente_id","Cliente:") !!}
-					<select class="selectpicker" id='cliente_id' name="cliente_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
-						@foreach ($clientes as $cliente)
-						<option value="{{$cliente->id}}">{{$cliente->nombres.' '.$cliente->apellidos}}</option>
-						@endforeach
+					<select class="form-control" id='cliente_id' name="cliente_id" value="" data-live-search-placeholder="Búsqueda" title="Seleccione">
 					</select>
 					<button class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal" id="modalCliente" type="button">
 							<i class="fa fa-plus"></i>Nuevo Cliente</button>
