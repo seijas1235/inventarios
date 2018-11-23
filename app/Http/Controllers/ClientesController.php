@@ -47,6 +47,14 @@ class ClientesController extends Controller
        return view("clientes.create" , compact( "user", "tipos_clientes", 'clasificaciones'));
     }
 
+    public function cargarSelect()
+	{
+		$query = "SELECT * FROM clientes ";
+
+		$result = DB::select($query);
+		return Response::json( $result );		
+	}
+
     /**
      * Store a newly created resource in storage.
      *
@@ -69,8 +77,7 @@ class ClientesController extends Controller
         $data = $request->all();
         $data["user_id"] = Auth::user()->id;
         $cliente = cliente::create($data);
-
-        return back();
+        return Response::json($cliente);
     }
 
     /**

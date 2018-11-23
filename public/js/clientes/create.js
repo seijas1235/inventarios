@@ -265,6 +265,7 @@ $("#ButtonCliente").click(function(event) {
 	}
 });
 
+
 function saveContact(button) {
 	$("#ButtonCliente").attr('disabled', 'disabled');
 	var l = Ladda.create(document.querySelector("#ButtonCliente"));
@@ -282,6 +283,51 @@ function saveContact(button) {
 		},
 		always: function() {
 			l.stop();
+		},
+		error: function() {
+			alert("Ha ocurrido un problema, contacte a su administrador!!");
+		}
+		
+	});
+}
+
+function BorrarFormulario() {
+    $("#ClienteForm :input").each(function () {
+        $(this).val('');
+	});
+	$('#tipo_cliente_id').val('');
+	$('#clasificacion_cliente_id').val('');
+	$('#tipo_cliente_id').change();
+	$('#clasificacion_cliente_id').change();
+}
+
+$("#ButtonClienteModal").click(function(event) {
+	if ($('#ClienteForm').valid()) {
+		saveModal();
+	} else {
+		validator.focusInvalid();
+	}
+});
+
+function saveModal(button) {
+	//$("#ButtonClienteModal").attr('disabled', 'disabled');
+	var l = Ladda.create(document.querySelector("#ButtonClienteModal"));
+	l.start();
+	var formData = $("#ClienteForm").serialize();
+	$.ajax({
+		type: "POST",
+		headers: {'X-CSRF-TOKEN': $('#tokenCliente').val()},
+		url: "/clientes/save/modal",
+		data: formData,
+		dataType: "json",
+		success: function(data) {
+			//$('#cliente_id').ajax.reload();
+			cargarSelectCliente();
+			BorrarFormulario();
+			l.stop();
+			//$("#ButtonClienteModal").attr('disabled', false);
+			$('#myModal').modal("hide");
+			
 		},
 		error: function() {
 			alert("Ha ocurrido un problema, contacte a su administrador!!");

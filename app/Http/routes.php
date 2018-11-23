@@ -578,6 +578,7 @@ Route::group(['middleware' => ['web']], function ()
 			Route::delete( '/clientes/active/{cliente}' , 'ClientesController@active');
 			Route::delete( '/clientes/remove/{cliente}' , 'ClientesController@destroy');
 			Route::delete( '/clientes/bloquear/{cliente}' , 'ClientesController@bloquear');
+			Route::get( '/clientes/cargar' , 'ClientesController@cargarSelect');
 
 			Route::get( '/empleados' , 'EmpleadosController@index');
 			Route::get( '/empleado/getJson/' , 'EmpleadosController@getJson');

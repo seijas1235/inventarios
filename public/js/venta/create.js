@@ -6,8 +6,29 @@ $(document).ready(function() {
 			e.preventDefault();
 			return false;
 		}
-	});
+    });
+    cargarSelectCliente();
+
 });
+
+function cargarSelectCliente(){
+    $('#cliente_id').empty();
+    
+    $.ajax({
+        type: "GET",
+        url: '/clientes/cargar', 
+        dataType: "json",
+        success: function(data){
+          $.each(data,function(key, registro) {
+            $("#cliente_id").append('<option value='+registro.id+'>'+registro.nombres+'</option>');
+            //alert(registro.nombres);
+          });   
+        },
+        error: function(data) {
+          alert('error');
+        }
+      });
+}
 
 $("input[name='codigo_barra']").focusout(function() {
     var codigo = $("input[name='codigo_barra'] ").val();
