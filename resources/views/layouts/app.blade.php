@@ -238,7 +238,7 @@
 
 					<li class="{{request()->is('maquinarias_equipo*')? 'active': ''}}"><a href="/maquinarias_equipo">Maquinarias y equipos</a></li>
 
-					<li class="{{request()->is('mantto_equipo*')? 'active': ''}}"><a href="/mantto_equipo">Mantenimientos</a></li>
+					<li class="{{request()->is('mantto_equipo*')? 'active': ''}}"><a href="/mantto_equipo">Mantenimientos de equipos</a></li>
 
 					<li class="{{request()->is('tipos_servicio*')? 'active': ''}}"><a href="/tipos_servicio">Tipos de Servicio</a></li>
 
