@@ -33,6 +33,14 @@ class ProveedoresController extends Controller
         return view ("proveedores.index");
     }
 
+    public function cargarSelect()
+	{
+		$query = "SELECT * FROM proveedores ";
+
+		$result = DB::select($query);
+		return Response::json( $result );		
+	}
+
     /**
      * Show the form for creating a new resource.
      *

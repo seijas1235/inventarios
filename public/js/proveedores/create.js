@@ -166,3 +166,42 @@ function saveContact(button) {
 		
 	});
 }
+
+function BorrarFormulario() {
+    $("#ProveedorForm :input").each(function () {
+        $(this).val('');
+	});
+	$('#tipo_proveedor_id').val('');
+	$('#tipo_proveedor_id').change();
+};
+
+$("#ButtonProveedorModal").click(function(event) {
+	if ($('#ProveedorForm').valid()) {
+		saveModal();
+	} else {
+		validator.focusInvalid();
+	}
+});
+
+function saveModal(button) {
+	var l = Ladda.create(document.querySelector("#ButtonProveedorModal"));
+	l.start();
+	var formData = $("#ProveedorForm").serialize();
+	$.ajax({
+		type: "POST",
+		headers: {'X-CSRF-TOKEN': $('#tokenProveedor').val()},
+		url: "/proveedores/save",
+		data: formData,
+		dataType: "json",
+		success: function(data) {
+			cargarSelectProveedor();
+			BorrarFormulario();
+			l.stop();
+			$('#modalProveedor').modal("hide");
+		},
+		error: function() {
+			alert("Ha ocurrido un problema, contacte a su administrador!!");
+		}
+		
+	});
+}

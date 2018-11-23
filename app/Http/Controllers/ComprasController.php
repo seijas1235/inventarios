@@ -28,6 +28,7 @@ use App\CuentaPorPagar;
 use App\DetalleCuentaPorPagar; 
 use App\Kardex;
 use App\Events\ActualizacionProducto;
+use App\TipoProveedor;
 
 class ComprasController extends Controller
 {
@@ -60,8 +61,9 @@ class ComprasController extends Controller
 		$proveedores = Proveedor::all();
 		$productos = Producto::all();
 		$maquinarias = MaquinariaEquipo::all();
+		$tipos_proveedores = TipoProveedor::all();
 		$tipos_pago = TipoPago::all();
-		return view("compras.create" , compact("back","proveedores", "productos", "maquinarias","tipos_pago") );
+		return view("compras.create" , compact("back","proveedores", "productos", "maquinarias","tipos_pago", 'tipos_proveedores') );
     }
 
     /**

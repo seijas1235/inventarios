@@ -12,6 +12,7 @@ $(document).ready(function() {
 		showClose: true
 	});*/
 
+	cargarSelectProveedor();
 
 	$("#cantidad_ingreso").keypress(function(evt) {
 		var charCode = (evt.which) ? evt.which : event.keyCode
@@ -128,3 +129,23 @@ $(document).ready(function() {
 	});
 
 });
+
+
+function cargarSelectProveedor(){
+	$('#proveedor_id').empty();
+	$("#proveedor_id").append('<option value="" selected>Seleccione Proveedor</option>');
+	$.ajax({
+		type: "GET",
+		url: '/proveedores/cargar', 
+		dataType: "json",
+		success: function(data){
+		  $.each(data,function(key, registro) {
+			$("#proveedor_id").append('<option value='+registro.id+'>'+registro.nombre+'</option>');
+
+		  });   
+		},
+		error: function(data) {
+		  alert('error');
+		}
+	  });
+}

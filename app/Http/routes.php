@@ -168,6 +168,7 @@ Route::group(['middleware' => ['web']], function ()
 		Route::post( '/proveedores/save/' , 'ProveedoresController@store');
 		Route::delete( '/proveedores/remove/{proveedor}' , 'ProveedoresController@destroy');
 		Route::get('/proveedores/nitDisponible/', 'ProveedoresController@nitDisponible');
+		Route::get( '/proveedores/cargar' , 'ProveedoresController@cargarSelect');
 
 		Route::get('/vehiculos', 'VehiculosController@index');
 		Route::get('/vehiculos/getJson/' , 'VehiculosController@getJson');

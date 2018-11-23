@@ -38,11 +38,10 @@
 			<div class="row">
 				<div class="col-sm-3">
 					{!! Form::label("proveedor_id","Proveedor:") !!}
-					<select class="selectpicker" id='proveedor_id' name="proveedor_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
-						@foreach ($proveedores as $proveedor)
-						<option value="{{$proveedor->id}}">{{$proveedor->nombre}}</option>
-						@endforeach
+					<select class="form-control" id='proveedor_id' name="proveedor_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
 					</select>
+					<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalProveedor" id="modalproveedor" type="button">
+						<i class="fa fa-plus"></i>Nuevo Proveedor</button>
 				</div>
 
 				<div class="col-sm-3">
@@ -148,8 +147,10 @@
 
 @endsection
 
-@section('scripts')
+@include('compras.createModalProveedor')
 
+@section('scripts')
+{!! HTML::script('/js/proveedores/create.js') !!}
 {!! HTML::script('/js/compras/create.js') !!}
 {!! HTML::script('/js/compras/grid.js') !!}
 
