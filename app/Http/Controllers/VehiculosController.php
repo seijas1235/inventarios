@@ -23,6 +23,8 @@ use App\Combustible;
 use App\Direccion;
 use App\Linea;
 use App\Color;
+use App\TipoMarca;
+
 
 class VehiculosController extends Controller
 {
@@ -62,8 +64,9 @@ class VehiculosController extends Controller
         $tipos_caja= Tipo_caja::all();
         $combustibles= Combustible::all();
         $tracciones= Traccion::all();
+        $tipos_marcas=TipoMarca::all();
 
-        return view("vehiculos.create" , compact("colores","lineas","combustibles","tipos_caja","direcciones","tracciones","tipos_vehiculos", "marcas","tipos_transmision", "clientes"));
+        return view("vehiculos.create" , compact("tipos_marcas","colores","lineas","combustibles","tipos_caja","direcciones","tracciones","tipos_vehiculos", "marcas","tipos_transmision", "clientes"));
     }
 
     /**
