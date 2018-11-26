@@ -56,7 +56,6 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
 
 	var td  = $("#"+id);
 
-	/*var url = "/pos_v2/ventadetalle/destroy/"+id;*/
 	var url = "/ventadetalle/destroy/"+id;
 	var password_delete = $("input[name='password_delete']").val().trim();
 	data = {

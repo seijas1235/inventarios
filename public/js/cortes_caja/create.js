@@ -213,8 +213,7 @@ function saveContact(button) {
 	$("#ButtonCorte").attr('disabled', 'disabled');
 	var l = Ladda.create(document.querySelector("#ButtonCorte"));
 	l.start();
-	//var formData = $("#CorteCajaForm").serialize();
-
+	
 	var fecha = $("input[name='fecha").val();
 	var efectivo = $("input[name='efectivo").val();
 	var credito = $("input[name='credito").val();

@@ -89,7 +89,6 @@ var planillas_table = $('#planillas-table').DataTable({
 var detalle = $('#detalleplanilla').text();
 
 var planilla_detalle = $('#detalleplanilla-table').DataTable({
-    /*"ajax": "/pos_v2/detalleplanilla/"+ detalle +"/getJson",*/
     "ajax": "/detallesplanillas/"+ detalle +"/getJson",
     "responsive": true,
     "processing": true,

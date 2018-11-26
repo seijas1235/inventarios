@@ -389,7 +389,6 @@ $('body').on('click', '#addDetalleServicio', function(e)
         var venta_maestro = $("input[name='venta_maestro'] ").val();
         if($("input[name='venta_maestro']").val() != "") {       
             $.ajax({
-                /*url: "/pos_v2/venta-detalle/" + venta_maestro,*/
                 url: "/venta-detalle/" + venta_maestro,
                 type: "POST",
                 contentType: "application/json",
@@ -442,7 +441,6 @@ $('body').on('click', '#addDetalleServicio', function(e)
             if(deletingLink.movimiento_id>0){
                 $.ajax({
                     type: "DELETE",
-                    /*url: "/pos_v2/ventadetalle2/destroy/"+ deletingLink.venta_detalle+ "/" + deletingLink.movimiento_id,*/
                     url: "/ventadetalle2/destroy/"+ deletingLink.venta_detalle+ "/" + deletingLink.movimiento_id,
                     data: deletingLink,
                     dataType: "json",
@@ -457,7 +455,6 @@ $('body').on('click', '#addDetalleServicio', function(e)
                 console.log(deletingLink);
                 $.ajax({
                     type: "DELETE",
-                    /*url: "/pos_v2/ventadetalle2/destroy/"+ deletingLink.venta_detalle+ "/" + deletingLink.movimiento_id,*/
                     url: "/ventadetalle3/destroy/"+ deletingLink.venta_detalle,
                     data: deletingLink,
                     dataType: "json",
@@ -545,13 +542,11 @@ $('body').on('click', '#addDetalleServicio', function(e)
            
         $.ajax({
             type: "PATCH",
-            /*url: "../pos_v2/venta/update-total/"+ venta_maestro+ "/",*/
             url: "/venta/update-total/"+ venta_maestro+ "/",
             data: formData,
             dataType: "json",
             success: function(data) {
                 var detalle = data;
-                /*window.location = "/pos_v2/ventas"*/
                 window.location = "/ventas"
             },
             error: function() {
@@ -687,7 +682,7 @@ function saveFactura(button) {
 	$("#ButtonFactura").attr('disabled', 'disabled');
 	var l = Ladda.create(document.querySelector("#ButtonFactura"));
 	l.start();
-    //var formData = $("#FacturaForm").serialize();
+
 
     var serie_id = $('#serie_id').val();
     var tipo_pago_id = $('#tipo_pago_id').val();
@@ -736,7 +731,6 @@ function saveFactura(button) {
             deleteConfirm: "Esta seguro de borrar el producto",
             controller: db,
             fields: [
-                // { title: "Id", name: "id", type:"number", index:"id", filtering:false, editing:false, inserting:false},
                 { title: "Producto", name: "nombre", type: "text"},
                 { title: "Código", name: "producto_id", type: "text", visible:false},
                 { title: "Código2", name: "servicio_id", type: "text", visible:false},

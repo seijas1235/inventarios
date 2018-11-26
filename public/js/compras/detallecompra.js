@@ -41,7 +41,6 @@ $('body').on('click', 'a.edit-detallecompra', function(e) {
 	$("#detallecompraUpdateModal").hide().show();
 	$("#password-changed").addClass("hidden");
 	var id = $(this).parent().parent().attr("id");
-	/*var url= "/pos_v2/detallecompra/name/"+id;*/
 	var url= "/detallsecompras/name/"+id;
 	$.getJSON( url , function ( data ) {
 		$('#edit-ingresoproducto-form').data("id", id);
@@ -76,8 +75,6 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
 	var id  = $(this).attr("id").replace("delete-", "");
 
 	var td  = $("#"+id);
-
-	/*var url = "/pos_v2/detallecompra/destroy/"+id;*/
 	var url = "/detallescompras/destroy/"+id;
 	var password_delete = $("input[name='password_delete']").val().trim();
 	data = {

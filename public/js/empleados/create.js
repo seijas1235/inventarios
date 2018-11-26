@@ -210,21 +210,6 @@ $.validator.addMethod("ntel", function(value, element) {
 	}
 }, "Debe ingresar el número de teléfono con 8 dígitos, en formato ########");
 
-/*
-$('#fecha_inicio').datetimepicker({
-    format: 'YYYY-MM-DD',
-    showClear: true,
-    showClose: true
-});
-
-$('#fecha_nacimiento').datetimepicker({
-    format: 'YYYY-MM-DD',
-    showClear: true,
-    showClose: true
-});*/
-
-
-
 var validator = $("#EmpleadoForm").validate({
 	ignore: [],
 	onkeyup:false,

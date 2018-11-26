@@ -19,7 +19,7 @@ function cargarSelectCliente(){
         dataType: "json",
         success: function(data){
           $.each(data,function(key, registro) {
-            $("#cliente_id").append('<option value='+registro.id+'>'+registro.nombres+'</option>');
+            $("#cliente_id").append('<option value='+registro.id+'>'+registro.nombres+' '+registro.apellidos+'</option>');
           });
             $('#cliente_id').addClass('selectpicker');
             $('#cliente_id').attr('data-live-search', 'true');
@@ -93,41 +93,3 @@ var validator = $("#OrdenDeTrabajoForm").validate({
 		}
 	}
 });
-
-/*
-var db = {};
-
-window.db = db;
-db.detalle = [];
-
-$("#ButtonOrdenDeTrabajo").click(function(event) {
-	if ($('#OrdenDeTrabajoForm').valid()) {
-		saveContact();
-	} else {
-		validator.focusInvalid();
-	}
-});
-
-function saveContact(button) {
-	$("#ButtonOrdenDeTrabajo").attr('disabled', 'disabled');
-	var l = Ladda.create(document.querySelector("#ButtonOrdenDeTrabajo"));
-	l.start();
-	var formData = $("#OrdenDeTrabajoForm").serialize();
-	$.ajax({
-		type: "POST",
-		headers: {'X-CSRF-TOKEN': $('#token').val()},
-		url: "/ordenes_de_trabajo/save",
-		data: formData,
-		dataType: "json",
-		success: function(data) {
-			window.location = "/ordenes_de_trabajo/create2"
-		},
-		always: function() {
-			l.stop();
-		},
-		error: function() {
-			alert("Ha ocurrido un problema, contacte a su administrador!!");
-		}
-		
-	});
-}*/

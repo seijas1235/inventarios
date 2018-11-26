@@ -224,7 +224,6 @@ $('body').on('click', '#addDetalle', function(e) {
             deleteConfirm: "Esta seguro de borrar el producto",
             controller: db,
             fields: [
-            // { title: "Id", name: "id", type:"number", index:"id", filtering:false, editing:false, inserting:false},
             { title: "orden_detalle", name: "orden_detalle", type: "text", visible:false},
             { title: "Cod. Servicio", name: "servicio_id", type: "text"},
             { title: "Nombre Servicio", name: "nombre", type: "text"},

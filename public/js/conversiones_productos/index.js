@@ -62,14 +62,6 @@ var conversiones_productos_table = $('#conversiones_productos-table').DataTable(
         "width" : "20%",
         "render": function(data, type, full, meta) {
             return "<div id='" + full.id + "' class='text-center'>" + 
-            /*"<div class='float-left col-lg-4'>" + 
-            "<a href='/conversiones_productos/edit/"+full.id+"'class='edit-conversion'>" + 
-            "<i class='fa fa-btn fa-edit' title='Editar conversion'></i>" + 
-            "</a>" + "</div>" + 
-            "<div class='float-right col-lg-4'>" + 
-            "<a href='#' class='remove-conversion'>" + 
-            "<i class='fa fa-btn fa-trash' title='Eliminar conversion'></i>" + 
-            "</a>" + "</div>"+*/
             "<div class='float-right col-lg-12'>" + 
             "<a href='/conversiones_productos/show/"+ full.id +"' class='detalle-conversion'>" + 
             "<i class='fa fa-btn fa-desktop' title='Detalle conversion'></i>" + 

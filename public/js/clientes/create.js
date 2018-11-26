@@ -9,6 +9,7 @@ $(document).ready(function() {
 	});
 });
 
+//funcion para comprobar si el  CUI  es valido
 function cuiIsValid(cui) {
     var console = window.console;
     if (!cui) {
@@ -127,7 +128,7 @@ $.validator.addMethod("cuiUnico", function(value, element) {
 	return valid;
 }, "El DPI ya está asignado a otro cliente registrado en el sistema");
 
-
+// funcion para comprobar si el NIT es valido
 function ValidaNIT(txtN) {
 	txtN = txtN.toUpperCase();
 	var nit = txtN;

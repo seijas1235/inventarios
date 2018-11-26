@@ -129,10 +129,6 @@ var cortes_caja_table = $('#cortes_caja-table').DataTable({
         "width" : "20%",
         "render": function(data, type, full, meta) {
             return "<div id='" + full.id + "' class='text-center'>" + 
-            /*"<div class='float-left col-lg-6'>" + 
-            "<a href='/cortes_caja/edit/"+ full.id +"' class='edit-corte_caja'>" + 
-            "<i class='fa fa-btn fa-edit' title='Editar Tipo Corte de Caja'></i>" + 
-            "</a>" + "</div>" +*/ 
             "<div class='float-right col-lg-12'>" + 
             "<a href='#' class='remove-corte_caja'>" + 
             "<i class='fa fa-btn fa-trash' title='Eliminar Tipo Corte de Caja'></i>" + 
