@@ -50,11 +50,6 @@ var validator = $("#MarcaForm").validate({
 });
 
 
-var db = {};
-
-window.db = db;
-db.detalle = [];
-
 $("#ButtonMarca").click(function(event) {
 	if ($('#MarcaForm').valid()) {
 		saveContact();
@@ -79,6 +74,47 @@ function saveContact(button) {
 		},
 		always: function() {
 			l.stop();
+		},
+		error: function() {
+			alert("Ha ocurrido un problema, contacte a su administrador!!");
+		}
+		
+	});
+}
+
+function BorrarFormularioMarca() {
+    $("#MarcaForm :input").each(function () {
+        $(this).val('');
+	});
+	$('#tipo_marca_id').val('');
+	$('#tipo_marca_id').change();
+}
+
+$("#ButtonMarcaModal").click(function(event) {
+	if ($('#MarcaForm').valid()) {
+		saveModalMarca();
+	} else {
+		validator.focusInvalid();
+	}
+});
+
+function saveModalMarca(button) {
+	var l = Ladda.create(document.querySelector("#ButtonMarcaModal"));
+	l.start();
+	var formData = $("#MarcaForm").serialize();
+	$.ajax({
+		type: "POST",
+		headers: {'X-CSRF-TOKEN': $('#tokenMarca').val()},
+		url: "/marcas/save",
+		data: formData,
+		dataType: "json",
+		success: function(data) {
+			cargarSelectMarca();
+			cargarSelectLineaMarca();
+			BorrarFormularioMarca();
+			l.stop();
+			$('#marcaModal').modal("hide");
+			
 		},
 		error: function() {
 			alert("Ha ocurrido un problema, contacte a su administrador!!");

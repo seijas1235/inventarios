@@ -21,22 +21,18 @@
             </div>
             <div class="col-sm-3">
                 {!! Form::label("marca_id","Marca:") !!}
-                <select class="selectpicker" id='marca_id' name="marca_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
-                    @foreach ($marcas as $marca)
-                    <option value="{{$marca->id}}">{{$marca->nombre}}</option>							
-                    @endforeach
+                <select class="form-control" id='marca_id' name="marca_id" value="" data-live-search-placeholder="Búsqueda" title="Seleccione">
                 </select>
-                <!--button class="btn btn-primary pull-right" data-toggle="modal" data-target="#marcaModal" id="marcaModal" type="button">
+                <button class="btn btn-primary pull-right btn-sm" data-toggle="modal" data-target="#marcaModal" id="marcaModal" type="button">
                     <i class="fa fa-plus"></i>Nueva Marca</button-->
             </div>
             <div class="col-sm-3" >
                 {!! Form::label("linea_id","Linea:") !!}
                 <br>
-                <select  class="form-control" id='linea_id' name="linea_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda">
-
+                <select  class="form-control" id='linea_id' name="linea_id" value="" data-live-search-placeholder="Búsqueda">
                 </select>
-                <!--button class="btn btn-primary pull-right" data-toggle="modal" data-target="#lineaModal" id="lineaModal" type="button">
-                <i class="fa fa-plus"></i>Nueva Linea</button-->
+                <button class="btn btn-primary pull-right btn-sm" data-toggle="modal" data-target="#lineaModal" id="lineaModal" type="button">
+                <i class="fa fa-plus"></i>Nueva Linea</button>
 
             </div>
         </div>
@@ -225,4 +221,5 @@
                 {!! Form::textarea( "observaciones" , null , ['class' => 'form-control' , 'placeholder' => 'Observaciones de Generales', 'rows'=> '5' ]) !!}
             </div>
         </div>
+
         <br>

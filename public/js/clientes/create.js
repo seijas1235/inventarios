@@ -291,7 +291,7 @@ function saveContact(button) {
 	});
 }
 
-function BorrarFormulario() {
+function BorrarFormularioCliente() {
     $("#ClienteForm :input").each(function () {
         $(this).val('');
 	});
@@ -321,7 +321,7 @@ function saveModal(button) {
 		dataType: "json",
 		success: function(data) {
 			cargarSelectCliente();
-			BorrarFormulario();
+			BorrarFormularioCliente();
 			l.stop();
 			$('#myModal').modal("hide");
 			

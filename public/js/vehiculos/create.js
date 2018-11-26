@@ -7,7 +7,52 @@ $(document).ready(function() {
 			return false;
 		}
 	});
+
+	cargarSelectMarca();
+	//cargarSelectLinea();
 });
+
+function cargarSelectMarca(){
+    $('#marca_id').empty();
+    $("#marca_id").append('<option value="" selected>Seleccione Marca</option>');
+    $.ajax({
+        type: "GET",
+        url: '/marcas/cargar', 
+        dataType: "json",
+        success: function(data){
+          $.each(data,function(key, registro) {
+            $("#marca_id").append('<option value='+registro.id+'>'+registro.nombre+'</option>');
+          });
+            $('#marca_id').addClass('selectpicker');
+            $('#marca_id').attr('data-live-search', 'true');
+            $('#marca_id').selectpicker('refresh');   
+        },
+        error: function(data) {
+          alert('error');
+        }
+      });
+}
+
+function cargarSelectLinea(){
+    $('#linea_id').empty();
+    $("#linea_id").append('<option value="" selected>Seleccione Linea</option>');
+    $.ajax({
+        type: "GET",
+        url: '/lineas/cargar', 
+        dataType: "json",
+        success: function(data){
+          $.each(data,function(key, registro) {
+            $("#linea_id").append('<option value='+registro.id+'>'+registro.linea+'</option>');
+          });
+            $('#linea_id').addClass('selectpicker');
+            $('#linea_id').attr('data-live-search', 'true');
+            $('#linea_id').selectpicker('refresh');   
+        },
+        error: function(data) {
+          alert('error');
+        }
+      });
+}
 
 /*$('#fecha_ultimo_servicio').datetimepicker({
     format: 'YYYY-MM-DD',

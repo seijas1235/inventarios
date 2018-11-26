@@ -207,6 +207,7 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch('/marcas/{marca}/update' , 'MarcasController@update');
 		Route::delete('/marcas/remove/{marca}' , 'MarcasController@destroy');
 		Route::get( '/marcas/marcaDisponible/', 'MarcasController@marcaDisponible');
+		Route::get( '/marcas/cargar' , 'MarcasController@cargarSelect');
 
 
 		// Rutas de lineas
@@ -218,6 +219,8 @@ Route::group(['middleware' => ['web']], function ()
 		Route::patch('/lineas/{linea}/update' , 'LineasController@update');
 		Route::delete('/lineas/remove/{linea}' , 'LineasController@destroy');
 		Route::get( '/lineas/lineaDisponible/', 'LineasController@lineaDisponible');
+		Route::get( '/lineas/cargar' , 'LineasController@cargarSelect');
+		
 
 
 		Route::get('/productos', 'ProductosController@index');

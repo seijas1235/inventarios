@@ -7,6 +7,8 @@ $(document).ready(function() {
 			return false;
 		}
 	});
+
+	cargarSelectLineaMarca();
 });
 
 $.validator.addMethod("lineaUnica", function(value, element) {
@@ -68,7 +70,7 @@ function saveLinea(button) {
 	var formData = $("#LineaForm").serialize();
 	$.ajax({
 		type: "POST",
-		headers: {'X-CSRF-TOKEN': $('#token').val()},
+		headers: {'X-CSRF-TOKEN': $('#tokenLinea').val()},
 		url: "/lineas/save",
 		data: formData,
 		dataType: "json",
@@ -77,6 +79,67 @@ function saveLinea(button) {
 		},
 		always: function() {
 			l.stop();
+		},
+		error: function() {
+			alert("Ha ocurrido un problema, contacte a su administrador!!");
+		}
+		
+	});
+}
+
+function cargarSelectLineaMarca(){
+    $('#marca_id_linea').empty();
+    $("#marca_id_linea").append('<option value="" selected>Seleccione Marca</option>');
+    $.ajax({
+        type: "GET",
+        url: '/marcas/cargar', 
+        dataType: "json",
+        success: function(data){
+          $.each(data,function(key, registro) {
+            $("#marca_id_linea").append('<option value='+registro.id+'>'+registro.nombre+'</option>');
+          });
+            $('#marca_id_linea').addClass('selectpicker');
+            $('#marca_id_linea').attr('data-live-search', 'true');
+            $('#marca_id_linea').selectpicker('refresh');   
+        },
+        error: function(data) {
+          alert('error');
+        }
+      });
+}
+
+function BorrarFormularioLinea() {
+    $("#LineaForm :input").each(function () {
+        $(this).val('');
+	});
+	$('#marca_id_linea').val('');
+	$('#marca_id_linea').change();
+}
+
+$("#ButtonLineaModal").click(function(event) {
+	if ($('#LineaForm').valid()) {
+		saveModalLinea();
+	} else {
+		validator.focusInvalid();
+	}
+});
+
+function saveModalLinea(button) {
+	var l = Ladda.create(document.querySelector("#ButtonLineaModal"));
+	l.start();
+	var formData = $("#LineaForm").serialize();
+	$.ajax({
+		type: "POST",
+		headers: {'X-CSRF-TOKEN': $('#tokenLinea').val()},
+		url: "/lineas/save",
+		data: formData,
+		dataType: "json",
+		success: function(data) {
+			changeLinea();
+			BorrarFormularioLinea();
+			l.stop();
+			$('#lineaModal').modal("hide");
+			
 		},
 		error: function() {
 			alert("Ha ocurrido un problema, contacte a su administrador!!");

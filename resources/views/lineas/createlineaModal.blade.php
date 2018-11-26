@@ -1,8 +1,6 @@
 <!-- Modal -->
 <div class="modal fade" id="lineaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    {{--{!! Form::open( array( 'id' => 'ClienteForm' ,'method' => 'GET') ) !!} --}}
     {!! Form::open( array( 'id' => 'LineaForm') ) !!}
-        {{csrf_field()}}
     
       <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -14,12 +12,12 @@
               
               @include('lineas.formularioLinea')
 
-              <input type="hidden" name="_token" id="tokenLinea" value="{{ csrf_token() }}">
+              <input type="hidden" name="_tokenLinea" id="tokenLinea" value="{{ csrf_token() }}">
     
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-              <button class="btn btn-primary">Agregar</button>
+              <button type="submit" class="btn btn-primary" id="ButtonLineaModal">Agregar</button>
             </div>
           </div>
         </div>

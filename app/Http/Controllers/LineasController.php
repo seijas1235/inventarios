@@ -46,6 +46,14 @@ class LineasController extends Controller
         return view("lineas.create", compact('marcas'));
     }
 
+    public function cargarSelect()
+	{
+		$query = "SELECT * FROM linea ";
+
+		$result = DB::select($query);
+		return Response::json( $result );		
+	}
+
     /**
      * Store a newly created resource in storage.
      *

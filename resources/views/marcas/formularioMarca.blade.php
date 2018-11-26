@@ -3,7 +3,7 @@
         <h3 class="tittle-custom"> Creación de Marcas</h3>
         <line>
         </div>
-    </div>
+</div>
 <br>
 <div class="row">
     <div class="col-sm-4">

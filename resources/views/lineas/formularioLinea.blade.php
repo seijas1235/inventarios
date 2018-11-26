@@ -12,12 +12,7 @@
         </div>
         <div class="col-sm-4">
             {!! Form::label("marca_id","Marca:") !!}
-            <select class="selectpicker" id='marca_id' name="marca_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
-                @foreach ($marcas as $marca)
-                @if($marca->tipo_marca_id== 1 or $marca->tipo_marca_id== 2 )
-                <option value="{{$marca->id}}">{{$marca->nombre}}</option>
-                @endif
-                @endforeach
+            <select class="form-control"  name="marca_id" value="" id="marca_id_linea" data-live-search-placeholder="Búsqueda" title="Seleccione">
             </select>
         </div>
     </div>

@@ -47,6 +47,14 @@ class MarcasController extends Controller
         return view("marcas.create", compact('tipos_marcas'));
     }
 
+    public function cargarSelect()
+	{
+		$query = "SELECT * FROM marcas WHERE tipo_marca_id=".'1'." OR tipo_marca_id='2' ";
+
+		$result = DB::select($query);
+		return Response::json( $result );		
+	}
+
     /**
      * Store a newly created resource in storage.
      *
