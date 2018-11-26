@@ -12,10 +12,10 @@
 			<br>
 			<div class="row">
 				<div class="col-sm-4">
-					{!! Form::label("cliente_id","Proveedor:") !!}
+					{!! Form::label("cliente_id","Cliente:") !!}
 						<select class="selectpicker" id='cliente_id' name="cliente_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
 							@foreach ($clientes as $cliente)
-							<option value="{{$cliente->id}}">{{$cliente->nombres}}</option>
+							<option value="{{$cliente->id}}">{{$cliente->nombres}} {{$cliente->apellidos}}</option>
 							@endforeach
 						</select>
                 </div>

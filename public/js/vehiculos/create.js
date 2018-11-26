@@ -64,7 +64,7 @@ function cargarSelectClienteVehiculo(){
         dataType: "json",
         success: function(data){
           $.each(data,function(key, registro) {
-            $("#cliente_id_vehiculo").append('<option value='+registro.id+'>'+registro.nombres+'</option>');
+            $("#cliente_id_vehiculo").append('<option value='+registro.id+'>'+registro.nombres+' '+registro.apellidos+'</option>');
           });
             $('#cliente_id_vehiculo').addClass('selectpicker');
             $('#cliente_id_vehiculo').attr('data-live-search', 'true');
