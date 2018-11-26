@@ -9,6 +9,7 @@ $(document).ready(function() {
 	});
 
 	cargarSelectMarca();
+	cargarSelectClienteVehiculo();
 	//cargarSelectLinea();
 });
 
@@ -47,6 +48,27 @@ function cargarSelectLinea(){
             $('#linea_id').addClass('selectpicker');
             $('#linea_id').attr('data-live-search', 'true');
             $('#linea_id').selectpicker('refresh');   
+        },
+        error: function(data) {
+          alert('error');
+        }
+      });
+}
+
+function cargarSelectClienteVehiculo(){
+    $('#cliente_id_vehiculo').empty();
+    $("#cliente_id_vehiculo").append('<option value="" selected>Seleccione Cliente</option>');
+    $.ajax({
+        type: "GET",
+        url: '/clientes/cargar', 
+        dataType: "json",
+        success: function(data){
+          $.each(data,function(key, registro) {
+            $("#cliente_id_vehiculo").append('<option value='+registro.id+'>'+registro.nombres+'</option>');
+          });
+            $('#cliente_id_vehiculo').addClass('selectpicker');
+            $('#cliente_id_vehiculo').attr('data-live-search', 'true');
+            $('#cliente_id_vehiculo').selectpicker('refresh');   
         },
         error: function(data) {
           alert('error');
@@ -403,6 +425,70 @@ function saveVehiculo(button) {
 		},
 		always: function() {
 			l.stop();
+		},
+		error: function() {
+			alert("Ha ocurrido un problema, contacte a su administrador!!");
+		}
+		
+	});
+}
+
+function BorrarFormularioVehiculo() {
+    $("#VehiculoForm :input").each(function () {
+        $(this).val('');
+	});
+	$('#tipo_vehiculo_id').val('');
+	$('#tipo_vehiculo_id').change();
+	$('#marca_id').val('');
+	$('#marca_id').change();
+	$('#linea_id').val('');
+	$('#linea_id').change();
+	$('#color_id').val('');
+	$('#color_id').change();
+	$('#direccion_id').val('');
+	$('#direccion_id').change();
+	$('#cliente_id_vehiculo').val('');
+	$('#cliente_id_vehiculo').change();
+	$('#transmision_id').val('');
+	$('#transmision_id').change();
+	$('#traccion_id').val('');
+	$('#traccion_id').change();
+	$('#tipo_caja_id').val('');
+	$('#tipo_caja_id').change();
+	$('#anio').val('');
+	$('#anio').change();
+	$('#tipo_caja_id').val('');
+	$('#tipo_caja_id').change();
+	$('#combustible_id').val('');
+	$('#combustible_id').change();
+	$('#aceite_caja').val('');
+	$("input[name='diferenciales'] ").val("");
+}
+
+$("#ButtonVehiculoModal").click(function(event) {
+	if ($('#VehiculoForm').valid()) {
+		saveModalVehiculo();
+	} else {
+		validator.focusInvalid();
+	}
+});
+
+function saveModalVehiculo(button) {
+	var l = Ladda.create(document.querySelector("#ButtonVehiculoModal"));
+	l.start();
+	var formData = $("#VehiculoForm").serialize();
+	$.ajax({
+		type: "POST",
+		headers: {'X-CSRF-TOKEN': $('#tokenVehiculo').val()},
+		url: "/vehiculos/save",
+		data: formData,
+		dataType: "json",
+		success: function(data) {
+			cargarSelectVehiculo();
+			BorrarFormularioVehiculo();
+			l.stop();
+			$('#ModalVehiculo').modal("hide");
+			
 		},
 		error: function() {
 			alert("Ha ocurrido un problema, contacte a su administrador!!");

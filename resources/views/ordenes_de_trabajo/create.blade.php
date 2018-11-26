@@ -2,6 +2,8 @@
 @section('content')
 <div id="content">
 	<div class="container-custom">
+			@include('ordenes_de_trabajo.createModal')
+			@include('vehiculos.createModalVehiculo')
 		{!! Form::open( array( 'id' => 'OrdenDeTrabajoForm', 'route' => 'ordenes_de_trabajo.save') ) !!}
 		<div class="row">
 			<div class="col-sm-12">
@@ -59,11 +61,6 @@
 	</div>
 </div>
 @endsection
-
-	@include('ordenes_de_trabajo.createModal')
-
-
-	@include('ordenes_de_trabajo.createModalVehiculo')
 
 
 @stack('scripts')

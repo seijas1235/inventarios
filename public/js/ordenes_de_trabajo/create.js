@@ -9,6 +9,7 @@ $(document).ready(function() {
 	});
 
 	cargarSelectCliente();
+	//cargarSelectVehiculo();
 });
 
 function cargarSelectCliente(){
@@ -25,6 +26,27 @@ function cargarSelectCliente(){
             $('#cliente_id').addClass('selectpicker');
             $('#cliente_id').attr('data-live-search', 'true');
             $('#cliente_id').selectpicker('refresh');   
+        },
+        error: function(data) {
+          alert('error');
+        }
+      });
+}
+
+function cargarSelectVehiculo(){
+    $('#vehiculo_id').empty();
+    $("#vehiculo_id").append('<option value="" selected>Seleccione Vehiculo</option>');
+    $.ajax({
+        type: "GET",
+        url: '/vehiculos/cargar', 
+        dataType: "json",
+        success: function(data){
+          $.each(data,function(key, registro) {
+            $("#vehiculo_id").append('<option value='+registro.id+'>'+registro.placa+'</option>');
+          });
+            $('#vehiculo_id').addClass('selectpicker');
+            $('#vehiculo_id').attr('data-live-search', 'true');
+            $('#vehiculo_id').selectpicker('refresh');   
         },
         error: function(data) {
           alert('error');

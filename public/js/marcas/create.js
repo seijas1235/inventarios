@@ -110,7 +110,12 @@ function saveModalMarca(button) {
 		dataType: "json",
 		success: function(data) {
 			cargarSelectMarca();
-			cargarSelectLineaMarca();
+
+			if (window.location.pathname == '/vehiculos/new')
+			{
+				cargarSelectLineaMarca();
+			}
+			
 			BorrarFormularioMarca();
 			l.stop();
 			$('#marcaModal').modal("hide");

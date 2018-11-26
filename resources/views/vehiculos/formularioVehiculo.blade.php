@@ -23,16 +23,22 @@
                 {!! Form::label("marca_id","Marca:") !!}
                 <select class="form-control" id='marca_id' name="marca_id" value="" data-live-search-placeholder="Búsqueda" title="Seleccione">
                 </select>
+                @if(request()->is('vehiculos/new*'))
+                
                 <button class="btn btn-primary pull-right btn-sm" data-toggle="modal" data-target="#marcaModal" id="marcaModal" type="button">
-                    <i class="fa fa-plus"></i>Nueva Marca</button-->
+                    <i class="fa fa-plus"></i>Nueva Marca</button> 
+                
+                @endif
             </div>
             <div class="col-sm-3" >
                 {!! Form::label("linea_id","Linea:") !!}
                 <br>
                 <select  class="form-control" id='linea_id' name="linea_id" value="" data-live-search-placeholder="Búsqueda">
                 </select>
+                @if(request()->is('vehiculos/new*'))
                 <button class="btn btn-primary pull-right btn-sm" data-toggle="modal" data-target="#lineaModal" id="lineaModal" type="button">
                 <i class="fa fa-plus"></i>Nueva Linea</button>
+                @endif
 
             </div>
         </div>
@@ -83,10 +89,7 @@
             </div>	
             <div class="col-sm-6">
                 {!! Form::label("cliente_id","Dueño:") !!}
-                <select class="selectpicker" name="cliente_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
-                    @foreach ($clientes as $cliente)
-                    <option value="{{$cliente->id}}">{{$cliente->nombres.' '.$cliente->apellidos}}</option>							
-                    @endforeach
+                <select class="form-control" name="cliente_id" id="cliente_id_vehiculo" value="" data-live-search-placeholder="Búsqueda" title="Seleccione">
                 </select>
             </div>	
         </div>
@@ -135,7 +138,7 @@
             
             <div class="col-sm-3">
                 {!! Form::label("aceite_caja_fabrica","Aceite de caja de Fabrica:") !!}
-                {!! Form::text( "aceite_caja_fabrica" , null , ['class' => 'form-control' , 'placeholder' => 'Aceite de Caja Según Fabricante' ]) !!}
+                {!! Form::text( "aceite_caja_fabrica" , null , ['class' => 'form-control' , 'placeholder' => 'Aceite de Caja Según Fabricante', 'id' => 'aceite_caja_2' ]) !!}
                 
             </div>
             <div class="col-sm-3">

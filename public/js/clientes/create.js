@@ -303,13 +303,13 @@ function BorrarFormularioCliente() {
 
 $("#ButtonClienteModal").click(function(event) {
 	if ($('#ClienteForm').valid()) {
-		saveModal();
+		saveModalCliente();
 	} else {
 		validator.focusInvalid();
 	}
 });
 
-function saveModal(button) {
+function saveModalCliente(button) {
 	var l = Ladda.create(document.querySelector("#ButtonClienteModal"));
 	l.start();
 	var formData = $("#ClienteForm").serialize();
@@ -321,6 +321,11 @@ function saveModal(button) {
 		dataType: "json",
 		success: function(data) {
 			cargarSelectCliente();
+			if (window.location.pathname == '/ordenes_de_trabajo/new')
+			{
+				cargarSelectClienteVehiculo();
+			}
+			
 			BorrarFormularioCliente();
 			l.stop();
 			$('#myModal').modal("hide");

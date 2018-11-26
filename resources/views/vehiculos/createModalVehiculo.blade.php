@@ -1,7 +1,6 @@
 <!-- Modal -->
 <div class="modal fade" id="ModalVehiculo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        {!! Form::open( array( 'id' => 'VehiculoForm', 'route' => 'vehiculos.store2') ) !!}
-                {{csrf_field()}}
+        {!! Form::open( array( 'id' => 'VehiculoForm') ) !!}
         
           <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -11,11 +10,11 @@
                 </div>
                 <div class="modal-body">
                         @include('vehiculos.formularioVehiculo')
-                        <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="_token" id="tokenVehiculo" value="{{ csrf_token() }}">
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                  <button class="btn btn-primary">Agregar</button>
+                  <button type="submit" class="btn btn-primary" id="ButtonVehiculoModal">Agregar</button>
                 </div>
               </div>
             </div>

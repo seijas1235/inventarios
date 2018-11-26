@@ -69,6 +69,14 @@ class VehiculosController extends Controller
         return view("vehiculos.create" , compact("tipos_marcas","colores","lineas","combustibles","tipos_caja","direcciones","tracciones","tipos_vehiculos", "marcas","tipos_transmision", "clientes"));
     }
 
+    public function cargarSelect()
+	{
+		$query = "SELECT * FROM vehiculos ";
+
+		$result = DB::select($query);
+		return Response::json( $result );		
+	}
+
     /**
      * Store a newly created resource in storage.
      *
