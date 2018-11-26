@@ -56,9 +56,8 @@ class FacturasController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store2(Request $request)
     {       
-
         $data = $request->all();
         $data["user_id"] = Auth::user()->id;
 
@@ -66,6 +65,14 @@ class FacturasController extends Controller
 
         $venta->update(['tipo_venta_id' => 1]);
                
+        $factura = Factura::create($data);
+
+        return Response::json($factura);
+    }
+    public function store(Request $request)
+    {       
+        $data = $request->all();
+        $data["user_id"] = Auth::user()->id;          
         $factura = Factura::create($data);
 
         return Response::json($factura);

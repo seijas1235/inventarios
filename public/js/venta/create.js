@@ -20,7 +20,7 @@ function cargarSelectCliente(){
         dataType: "json",
         success: function(data){
           $.each(data,function(key, registro) {
-            $("#cliente_id").append('<option value='+registro.id+'>'+registro.nombres+'</option>');
+            $("#cliente_id").append('<option value='+registro.id+'>'+registro.nombres+' '+registro.apellidos+'</option>');
           });
             $('#cliente_id').addClass('selectpicker');
             $('#cliente_id').attr('data-live-search', 'true');
@@ -701,7 +701,7 @@ function saveFactura(button) {
 	$.ajax({
 		type: "POST",
 		headers: {'X-CSRF-TOKEN': $('#token').val()},
-		url: "/factura/save",
+		url: "/factura/save2",
 		data: formData,
 		dataType: "json",
 		success: function(data) {

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('content')
+@include('venta.createModal')
+@include('venta.facturaModal')
 <div id="content">
 	<div class="container-custom">
 		<div class="row">
@@ -186,8 +188,7 @@
 </div>
 @endsection
 
-	@include('venta.createModal')
-	@include('venta.facturaModal')
+	
 
 @section('scripts')
 {!! HTML::script('/js/clientes/create.js') !!}

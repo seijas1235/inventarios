@@ -57,12 +57,6 @@
 					{!! Form::text( "total" , null , ['class' => 'form-control' , 'placeholder' => 'Total' ]) !!}
 				</div>
 	
-				<div class="col-sm-4">
-						{!! Form::label("voucher","Numero Voucher:") !!}
-						{!! Form::text( "voucher" , null , ['class' => 'form-control' , 'placeholder' => 'Numero Voucher' ]) !!}
-	
-				</div>
-				
 			</div>
         <br>
         <div class="text-right m-t-15">
