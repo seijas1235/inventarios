@@ -1,5 +1,5 @@
 var compras_table = $('#compras-table').DataTable({
-    /*"ajax": "/pos_v2/ingresoproducto/getJson",*/
+
     "ajax": "/compras/getJson",
     "responsive": true,
     "processing": true,
@@ -131,7 +131,7 @@ var compras_table = $('#compras-table').DataTable({
 var detalle = $('#detallecompra').text();
 
 var compra_detalle = $('#detallecompra-table').DataTable({
-    /*"ajax": "/pos_v2/detallecompra/"+ detalle +"/getJson",*/
+
     "ajax": "/detallescompras/"+ detalle +"/getJson",
     "responsive": true,
     "processing": true,

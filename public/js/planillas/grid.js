@@ -49,26 +49,6 @@ $("#empleado_id").change(function () {
 });
 
 
-/*$("input[name='empleado_id']").focusout(function() {
-    var codigo = $("input[name='empleado_id'] ").val();
-    var url = "/empleados/get/?data=" + codigo;    
-        $.getJSON( url , function ( result ) {
-            if (result == 0 ) {
-                $("input[name='nombre'] ").val("");
-                $("input[name='apellido'] ").val("");
-                $("input[name='sueldo'] ").val("");
-                $("input[name='igss'] ").val("");
-            }
-            else {
-                $("input[name='nombre'] ").val(result[0].nombre);
-                $("input[name='apellido'] ").val(result[0].apellido);
-                $("input[name='sueldo'] ").val(result[0].sueldo);
-                var igss = $("input[name='sueldo'] ").val() *4.83/100;
-                $("input[name='igss'] ").val(igss);
-            }
-        });
-    }); */
-
 $('body').on('click', '#addDetalle', function(e) {
 
     var detalle = new Object();
@@ -218,7 +198,6 @@ $('body').on('click', '#addDetalle', function(e) {
                 deleteConfirm: "Esta seguro de borrar",
                 controller: db,
                 fields: [
-                // { title: "Id", name: "id", type:"number", index:"id", filtering:false, editing:false, inserting:false},
                 { title: "Nombre", name: "nombre", type: "text"},
                 { title: "Apellido", name: "apellido", type: "text"},
                 { title: "Codigo", name: "empleado_id", type: "text", visible:false},

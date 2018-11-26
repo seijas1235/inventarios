@@ -56,30 +56,9 @@ $("#closePassword2").click( function(e){
 	$("input[name='old-verify']").val("");
 });
 
-/*$('body').on('click', 'a.edit-venta', function(e) {
-	e.preventDefault();
-	$("#ventaUpdateModal").modal();
-	$("#ventaUpdateModal").hide().show();
-	$("#password-changed").addClass("hidden");
-	var id = $(this).parent().parent().attr("id");
-	var url= "tipoventa/"+id;
-	$.getJSON( url , function ( data ) {
-		$('#edit-venta-form').data("id", id);
-		var tipo_pago_id = data.tipo_pago_id;
-		$('#tipo_pago_id option').each(function(option) {
-			if (this.value == tipo_pago_id) {
-				$(this).parent().val( this.value );
-				return false;
-			}
-		});
-	});
-});*/
-
-
 $('body').on('click', 'a.detalle-venta', function(e) {
 	e.preventDefault();
 	var id = $(this).parent().parent().attr("id");
-	/*window.location = "/pos_v2/ventadetalle/"+ id;*/
 	window.location = "/ventadetalle/"+ id;
 });
 
@@ -87,7 +66,6 @@ $('body').on('click', 'a.detalle-venta', function(e) {
 $("#edit-venta-form").submit(function(e) {
 	e.preventDefault();
 	var id = $(this).data("id");
-	/*var url = "/pos_v2/venta/" + id + "/update";*/
 	var url = "venta/" + id + "/update";
 	var tipo_pago_id = $("#edit-venta-form #tipo_pago_id").val();
 
@@ -108,11 +86,6 @@ $("#edit-venta-form").submit(function(e) {
 		$('#ventaUpdateModal').modal("hide");
 		venta_table.ajax.reload();
 	}).fail(function(errors) {
-        // var errors = JSON.parse(errors.responseText);
-        // if (errors.name != null) setFieldErrorsUpdate("name", errors.name[0]);
-        // else unsetFieldErrorsUpdate("name");
-        // if (errors.email != null) setFieldErrorsUpdate("email", errors.email[0]);
-        // else unsetFieldErrorsUpdate("email");
     });
 	return false;
 });
@@ -175,7 +148,6 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
 
 	var td  = $("#"+id);
 
-	/*var url = "/pos_v2/venta/destroy/"+id;*/
 	var url = "venta/destroy/"+id;
 	var password_delete = $("input[name='password_delete']").val().trim();
 	data = {

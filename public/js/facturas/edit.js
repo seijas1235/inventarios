@@ -8,10 +8,6 @@ $(document).ready(function() {
 		}
 	});
 });
-/*$('#fecha').datetimepicker({
-    format: 'DD/MM/YYYY',
-
-});*/
 
 function ComprobarDatos() {
     var serie_id = $("#serie_id").val();

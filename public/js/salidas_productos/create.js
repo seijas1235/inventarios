@@ -47,19 +47,6 @@ $("input[name='codigo_barra']").focusout(function() {
         });
     });
 
-/*$("input[name='cantidad_salida']").focusout(function() {
-    var cantidad_salida = $("input[name='cantidad_salida'] ").val();
-    var precio_compra = $("input[name='precio_compra'] ").val();
-
-    var subtotal = cantidad_salida * precio_compra;
-    if (cantidad_salida != 0 ) {
-        $("input[name='subtotal'] ").val(subtotal);
-    }
-    else 
-        $("input[name='subtotal'] ").val("0");
-    return false;
-})*/
-
 $("input[name='cantidad_salida']").focusout(function() {
     var codigo = $("input[name='codigo_barra'] ").val();
     var cantidad_salida = $("input[name='cantidad_salida'] ").val();

@@ -61,13 +61,6 @@ $("input[name='codigo_maquina']").focusout(function() {
     });
 
 
-/*$("input[name='efectivo']").focusout(function() {
-    var total = $("input[name='total'] ").val();
-    var efectivo = $("input[name='efectivo']").val();
-    var cambio = efectivo - total;
-    $("input[name='cambio'] ").val("Q."+ cambio);
-});*/
-
 $("input[name='cantidad']").focusout(function() {
     var cantidad = $("input[name='cantidad'] ").val();
     var precio_compra = $("input[name='precio_compra'] ").val();
@@ -94,6 +87,7 @@ $("input[name='cantidad_maquina']").focusout(function() {
     return false;
 })
 
+//funcion para agregar detalle de compras
 $('body').on('click', '#addDetalle', function(e) {
 
     var detalle = new Object();
@@ -145,6 +139,7 @@ $('body').on('click', '#addDetalle', function(e) {
     
 });
 
+//funcion para agregar el detalle de maquinas en compras
 $('body').on('click', '#addDetalleMaquina', function(e) {
 
     var detalle = new Object();
@@ -231,6 +226,7 @@ $('body').on('click', '#addDetalleMaquina', function(e) {
     window.db = db;
     db.links = [];
 
+    //Funcion para gaurdar el detalle de compras
     function saveDetalle(button) {
         var total_factura = $("input[name='total'] ").val();
         var fecha_factura = $("#fecha_factura").val();
@@ -300,7 +296,6 @@ $('body').on('click', '#addDetalleMaquina', function(e) {
                 deleteConfirm: "Esta seguro de borrar el producto",
                 controller: db,
                 fields: [
-                // { title: "Id", name: "id", type:"number", index:"id", filtering:false, editing:false, inserting:false},
                 { title: "Producto", name: "nombre", type: "text"},
                 { title: "Codigo", name: "producto_id", type: "text", visible:false},
                 { title: "Codigo2", name: "maquinaria_equipo_id", type: "text", visible:false},

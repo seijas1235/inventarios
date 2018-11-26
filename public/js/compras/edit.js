@@ -1,24 +1,3 @@
-/*$('body').on('click', 'a.edit-compra', function(e) {
-	e.preventDefault();
-	$("#compraUpdateModal").modal();
-	$("#compraUpdateModal").hide().show();
-	$("#password-changed").addClass("hidden");
-	var id = $(this).parent().parent().attr("id");
-	var url= "/compras/name/"+id;
-	$.getJSON( url , function ( data ) {
-		$('#edit-compra-form').data("id", id);
-		$("#edit-compra-form input[name='serie_factura']").val( data.serie_factura);
-		$("#edit-compra-form input[name='num_factura']").val( data.num_factura);
-		$("#edit-compra-form input[name='fecha_factura']").val( data.fecha_factura);
-		$("#edit-compra-form input[name='proveedor_id']").selectpicker('val', proveedor_id);
-	});
-	$('#fecha_factura').datetimepicker({
-		format: 'DD-MM-YYYY',
-		showClear: true,
-		showClose: true
-	});
-});*/
-
 $(document).ready(function() {
 
 	$(document).on("keypress", 'form', function (e) {
@@ -101,9 +80,7 @@ $("#edit-compra-form").submit(function(e) {
 		$('#compraUpdateModal').modal("hide");
 		compras_table.ajax.reload();
 	}).fail(function(errors) {
-		/*var errors = JSON.parse(errors.responseText);
-		if (errors.cantidad_ingreso != null) setFieldErrors("cantidad_ingreso", errors.cantidad_ingreso);
-		else unsetFieldErrors("cantidad_ingreso");*/
+	
 	});
 	return false;
 });

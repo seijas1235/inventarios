@@ -1,11 +1,3 @@
-/*$('#fecha_adquisicion').datetimepicker({
-    format: 'YYYY-MM-DD',
-    showClear: true,
-    showClose: true
-});*/
-
-
-
 var validator = $("#MaquinariaEquipoForm").validate({
 	ignore: [],
 	onkeyup:false,

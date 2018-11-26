@@ -6,21 +6,6 @@ $(document).on("keypress", 'form', function (e) {
     }
 });
 
-/*function changeProducto() {
-    var producto_id = $("#producto_id").val();
-    var url = "/producto/precio/" + producto_id ;
-    if (producto_id != "") {
-        $.getJSON( url , function ( result ) {
-            $("input[name='costo_producto'] ").val(result.id);
-			
-        });
-    }
-}
-
-$("#producto_id").change(function () {
-    changeProducto();
-});*/
-
 $("input[name='codigo']").focusout(function() {
     var codigo = $("input[name='codigo'] ").val();
     var url = "/codigo-disponible-servicio/?data=" + codigo;
@@ -135,7 +120,6 @@ $('body').on('click', '#addProducto', function(e) {
 	var costo_producto = $("input[name='costo_producto'] ").val();
     var cantidad = $("input[name='cantidad'] ").val();
     var producto_id  = $("#producto_id").val();
-	//var unidad_cantidad = $("input[name='unidad_cantidad'] ").val();
 	var subtotal = parseFloat(cantidad) * parseFloat(costo_producto);
 	var unidad = $("#unidad_de_medida_id").val();
     
@@ -162,7 +146,6 @@ $('body').on('click', '#addProducto', function(e) {
         }
 
         db.links.push(detalle);
-        //$("input[name='producto_id'] ").val("");
         $('#producto_id').val('');
         $('#producto_id').change();
         $('#unidad_de_medida_id').val('');
@@ -283,7 +266,6 @@ $('body').on('click', '#addProducto', function(e) {
             deleteConfirm: "Esta seguro de borrar el producto",
             controller: db,
             fields: [
-            // { title: "Id", name: "id", type:"number", index:"id", filtering:false, editing:false, inserting:false},
 			{ title: "Cod. Producto", name: "producto_id", type: "text", visible: false},
 			{ title: "Cod. Maquinaria", name: "maquinaria_equipo_id", type: "text", visible: false},
 			{ title: "Cantidad", name: "cantidad", type: "text"},
@@ -303,80 +285,3 @@ $('body').on('click', '#addProducto', function(e) {
         });
     });
 }());
-
-/*var validator = $("#ServicioForm").validate({
-	ignore: [],
-	onkeyup:false,
-	rules: {
-		nombre: {
-			required : true
-		},
-		precio: {
-			required : true
-		},
-		precio_costo: {
-			required : true
-		},
-		tipo_servicio_id:{
-			required: true
-		},
-		codigo: {
-			required : true
-		}
-	},
-	messages: {
-		nombre: {
-			required: "Por favor, ingrese el nombre de un servicio"
-		},
-		precio: {
-			required: "Por favor, ingrese el precio venta sin mano de obra"
-		},
-		precio_costo: {
-			required: "Por favor, ingrese el precio costo sin mano de obra"
-		},
-		tipo_servicio_id: {
-			required: "Por favor, seleccione tipo de servicio"
-		},
-		codigo: {
-			required: "Por favor, ingrese codigo"
-		}
-	}
-});*/
-/*
-var db = {};
-
-window.db = db;
-db.detalle = [];
-
-$("#ButtonServicio").click(function(event) {
-	if ($('#ServicioForm').valid()) {
-		saveContact();
-	} else {
-		validator.focusInvalid();
-	}
-});
-
-function saveContact(button) {
-	$("#ButtonServicio").attr('disabled', 'disabled');
-	var l = Ladda.create(document.querySelector("#ButtonServicio"));
-	l.start();
-	var formData = $("#ServicioForm").serialize();
-	$.ajax({
-		type: "POST",
-		headers: {'X-CSRF-TOKEN': $('#token').val()},
-		url: "/servicios/save",
-		data: formData,
-		dataType: "json",
-		success: function(data) {
-			window.location = "/servicios" 
-		},
-		always: function() {
-			l.stop();
-		},
-		error: function() {
-			alert("Ha ocurrido un problema, contacte a su administrador!!");
-		}
-		
-	});
-}
-*/

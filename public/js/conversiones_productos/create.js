@@ -112,20 +112,6 @@ $("input[name='codigo_barra_sale']").focusout(function() {
             });
         });
 
-/*$("input[name='cantidad']").focusout(function() {
-    var cantidad = $("input[name='cantidad'] ").val();
-    var precio_compra = $("input[name='precio_compra'] ").val();
-
-    var subtotal = cantidad * precio_compra;
-    if (cantidad != 0 ) {
-        $("input[name='subtotal'] ").val(subtotal);
-    }
-    else 
-        $("input[name='subtotal'] ").val("0");
-    return false;
-})*/
-
-
 $('body').on('click', '#addDetalle', function(e) {
 
     var detalle = new Object();
@@ -241,35 +227,6 @@ $('body').on('click', '#addDetalle', function(e) {
 		});
     }
     
-
-    /*function saveDetalle(button) {
-        $.ajax({
-            type: "GET",
-            url: "/conversiones_productos/save/",
-            data: formData,
-            dataType: "json",
-            success: function(data) {
-                var detalle = data;
-                $.ajax({
-                    url: "/conversiones_productos-detalle/" + detalle.id,
-                    type: "POST",
-                    contentType: "application/json",
-                    data: JSON.stringify(db.links),
-                    success: function(addressResponse) {
-                        if (addressResponse.result == "ok") {
-                    window.location = "/conversiones_productos"
-                        }
-                    },
-                    always: function() {
-                    }
-                });
-            },
-            error: function() {
-                alert("Something went wrong, please try again!");
-            }
-        });
-        }*/
-
         $("#ButtonGuardar").click(function(event) {
             saveDetalle();
         });

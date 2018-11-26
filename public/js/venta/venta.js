@@ -1,5 +1,4 @@
 var venta_table = $('#venta-table').DataTable({
-    /*"ajax": "/pos_v2/venta/getJson",*/
     "ajax": "venta/getJson",
     "responsive": true,
     "processing": true,
@@ -119,7 +118,6 @@ var venta_table = $('#venta-table').DataTable({
 var detalle = $('#detalle').text();
 
 var venta_detalle = $('#ventadetalle-table').DataTable({
-    /*"ajax": "/pos_v2/ventadetalle/"+detalle +"/getJson",*/
     "ajax": "/ventadetalle/"+detalle +"/getJson",
     "responsive": true,
     "processing": true,

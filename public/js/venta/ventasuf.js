@@ -5,7 +5,6 @@
     });
         
 var ventasuf_table = $('#ventasuf-table').DataTable({
-    /*"ajax": "/pos_v2/ganancia/getJson",*/
     "ajax": "ventasuf/getJson",
     "responsive": true,
     "processing": true,

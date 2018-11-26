@@ -1,9 +1,3 @@
-/*$('#fecha_adquisicion').datetimepicker({
-    format: 'YYYY-MM-DD',
-    showClear: true,
-    showClose: true
-});*/
-
 $.validator.addMethod("codigoUnico", function(value, element) {
 	var valid = false;
 	$.ajax({

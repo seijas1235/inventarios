@@ -9,19 +9,6 @@ $(document).ready(function() {
 	});
 });
 
-/*$('#fecha_servicio').datetimepicker({
-    format: 'YYYY-MM-DD',
-    showClear: true,
-    showClose: true
-});
-
-$('#fecha_proximo_servicio').datetimepicker({
-    format: 'YYYY-MM-DD',
-    showClear: true,
-    showClose: true
-});*/
-
-
 var validator = $("#ManttoEquipoUpdateForm").validate({
 	ignore: [],
 	onkeyup:false,
