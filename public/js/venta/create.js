@@ -701,7 +701,7 @@ function saveFactura(button) {
 	$.ajax({
 		type: "POST",
 		headers: {'X-CSRF-TOKEN': $('#token').val()},
-		url: "/factura/save",
+		url: "/factura/save2",
 		data: formData,
 		dataType: "json",
 		success: function(data) {
