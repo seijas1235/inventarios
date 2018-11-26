@@ -2,6 +2,7 @@
 @section('content')
 <div id="content">
 	<div class="container-custom">
+			@include('proveedores.createModalProveedor')
 		<div class="row">
 			<div class="col-sm-12">
 				<h3 class="tittle-custom"> Creación de Compras </h3>
@@ -147,7 +148,7 @@
 
 @endsection
 
-@include('compras.createModalProveedor')
+
 
 @section('scripts')
 {!! HTML::script('/js/proveedores/create.js') !!}

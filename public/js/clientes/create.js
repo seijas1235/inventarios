@@ -321,10 +321,18 @@ function saveModalCliente(button) {
 		dataType: "json",
 		success: function(data) {
 			cargarSelectCliente();
-			if (window.location.pathname == '/ordenes_de_trabajo/new')
+			var url = window.location.pathname;
+			if (url == '/ordenes_de_trabajo/new')
 			{
 				cargarSelectClienteVehiculo();
 			}
+
+			if (url.indexOf('/ordenes_de_trabajo/edit') != -1)
+			{
+				cargarSelectClienteVehiculo();
+			}
+
+			
 			
 			BorrarFormularioCliente();
 			l.stop();

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-@include('venta.createModal')
+@include('clientes.createModal')
 @include('venta.facturaModal')
 <div id="content">
 	<div class="container-custom">
@@ -15,10 +15,13 @@
 		<div class="row">
 			<div class="col-sm-3">
 				{!! Form::label("cliente","Cliente:") !!}
-				<select id='cliente_id' name="cliente_id" value="" title="Seleccione">
+				<select class="selectpicker" id='cliente_id' name="cliente_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione Cliente">
+					@foreach ($clientes as $cliente)
+					<option value="{{$cliente->id}}">{{$cliente->nombres}}</option>
+					@endforeach
 				</select>
 				<br>
-				<button class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="modalCliente" type="button">
+				<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" id="modalCliente" type="button">
 				<i class="fa fa-plus"></i>Nuevo Cliente</button>
 			</div>
 			<div class="col-sm-3">

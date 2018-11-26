@@ -8,8 +8,6 @@ $(document).ready(function() {
 		}
 	});
 
-	cargarSelectCliente();
-	//cargarSelectVehiculo();
 });
 
 function cargarSelectCliente(){

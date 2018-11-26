@@ -2,6 +2,8 @@
 @section('content')
 <div id="content">
 	<div class="container-custom">
+		@include('clientes.createModal')
+		@include('vehiculos.createModalVehiculo')
 		{!! Form::model($orden, ['method' => 'PATCH', 'action' => ['OrdenesDeTrabajoController@update', $orden->id], 'id' => 'CreateUpdateForm']) !!}
 		<div class="row">
 			<div class="col-sm-12">
@@ -71,16 +73,12 @@
 </div>
 @endsection
 
-	@include('ordenes_de_trabajo.createModal')
-
-
-	@include('ordenes_de_trabajo.createModalVehiculo')
-
 
 @stack('scripts')
 
 @section('scripts')
 {!! HTML::script('/js/ordenes_de_trabajo/editcreate.js') !!}
+{!! HTML::script('/js/ordenes_de_trabajo/create.js') !!}
 {!! HTML::script('/js/clientes/create.js') !!}
 {!! HTML::script('/js/vehiculos/create.js') !!}
 @endsection

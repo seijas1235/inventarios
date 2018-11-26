@@ -26,6 +26,7 @@ class CreateTableMovimientoProducto extends Migration
             $table->integer('existencias');
             $table->float('precio_compra');
             $table->float('precio_venta')->nullable();
+            $table->$table->boolean('vendido')->nullable()->default(0);
 
             //campos para controlar inserts y updates
             //created_at updated_at

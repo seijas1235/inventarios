@@ -2,7 +2,7 @@
 @section('content')
 <div id="content">
 	<div class="container-custom">
-			@include('ordenes_de_trabajo.createModal')
+			@include('clientes.createModal')
 			@include('vehiculos.createModalVehiculo')
 		{!! Form::open( array( 'id' => 'OrdenDeTrabajoForm', 'route' => 'ordenes_de_trabajo.save') ) !!}
 		<div class="row">
@@ -29,7 +29,10 @@
 			<div class="row">
 				<div class="col-sm-6">
 					{!! Form::label("cliente_id","Cliente:") !!}
-					<select class="form-control" id='cliente_id' name="cliente_id" value="" data-live-search-placeholder="Búsqueda" title="Seleccione">
+					<select class="selectpicker" id='cliente_id' name="cliente_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione Cliente">
+							@foreach ($clientes as $cliente)
+							<option value="{{$cliente->id}}">{{$cliente->nombres}}</option>
+							@endforeach
 					</select>
 					<button class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal" id="modalCliente" type="button">
 							<i class="fa fa-plus"></i>Nuevo Cliente</button>

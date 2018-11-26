@@ -54,12 +54,12 @@ class VentasController extends Controller
 		$today = date("Y/m/d");
 		$tipo_pagos = TipoPago::all();
 		$servicios = Servicio::all();
-		//$clientes=Cliente::all();
+		$clientes=Cliente::all();
 		$tipos_clientes = TipoCliente::all();
 		$clasificaciones = ClasificacionCliente::all();
 		$series = Serie::all();
 		
-		return view("venta.create" , compact( "back", "tipo_pagos",'series',"today",'servicios','tipos_clientes', 'clasificaciones'));
+		return view("venta.create" , compact( "back", "tipo_pagos",'series',"today",'servicios','tipos_clientes', 'clasificaciones', 'clientes'));
 	}
 
 	

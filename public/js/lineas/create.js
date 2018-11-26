@@ -8,7 +8,6 @@ $(document).ready(function() {
 		}
 	});
 
-	cargarSelectLineaMarca();
 });
 
 $.validator.addMethod("lineaUnica", function(value, element) {
