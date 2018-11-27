@@ -1,10 +1,16 @@
 var venta_table = $('#venta-table').DataTable({
     "ajax": "venta/getJson",
-    "responsive": true,
-    "processing": true,
-    "serverSide": true,
-    "info": true,
-    "showNEntries": true,
+    "dom": 'Bfrtip',
+    "buttons": [
+    {
+        extend: 'pdfHtml5',
+        exportOptions: {
+            columns: [ 0, 1, 2, 3, 4, 5]
+        }
+    },
+    'excelHtml5',
+    'csvHtml5'
+    ],
     "paging": true,
     "language": {
         "sProcessing":     "Procesando...",
