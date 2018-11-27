@@ -1,12 +1,7 @@
 var ingresos_productos_table = $('#ingresos_productos-table').DataTable({
     "ajax": "/ingresos_productos/getJson",
-    "responsive": true,
-    "processing": true,
-    "serverSide": true,
-    "info": true,
-    "showNEntries": true,
-    "paging": true,
-    "language": {
+   
+       "language": {
         "sProcessing":     "Procesando...",
         "sLengthMenu":     "Mostrar _MENU_ registros",
         "sZeroRecords":    "No se encontraron resultados",

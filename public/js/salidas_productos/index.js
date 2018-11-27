@@ -1,11 +1,6 @@
 var salidas_productos_table = $('#salidas_productos-table').DataTable({
     "ajax": "/salidas_productos/getJson",
-    "responsive": true,
-    "processing": true,
-    "serverSide": true,
-    "info": true,
-    "showNEntries": true,
-    "paging": true,
+     "paging": true,
     "language": {
         "sProcessing":     "Procesando...",
         "sLengthMenu":     "Mostrar _MENU_ registros",

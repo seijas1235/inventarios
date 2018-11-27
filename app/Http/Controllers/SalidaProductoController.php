@@ -226,53 +226,11 @@ class SalidaProductoController extends Controller
 	public function getJson(Request $params)
 
 	{
-		$api_Result = array();
-		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("s.id", "s.fecha_salida", "s.cantidad_salida", "p.nombre", "ts.tipo_salida");
-
-		// Initialize query (get all)
-
-		$api_logsQueriable = DB::table("salidas_productos");
-		$api_Result["recordsTotal"] = $api_logsQueriable->count();
-
+		
 		$query = 'SELECT s.id, DATE_FORMAT(s.fecha_salida, "%d-%m-%Y") as fecha_salida, s.cantidad_salida, p.nombre, ts.tipo_salida 
 		FROM salidas_productos s 
 		INNER JOIN productos p on p.id = s.producto_id  
 		INNER JOIN tipos_salida ts on ts.id = s.tipo_salida_id ';
-
-		$where = "";
-
-		if (isset($params->search['value']) && !empty($params->search['value'])){
-
-			foreach ($columnsMapping as $column) {
-				if (strlen($where) == 0) {
-					$where .=" where (".$column." like  '%".$params->search['value']."%' ";
-				} else {
-					$where .=" or ".$column." like  '%".$params->search['value']."%' ";
-				}
-
-			}
-			$where .= ') ';
-		}
-
-		$query = $query . $where;
-
-		// Sorting
-		$sort = "";
-		foreach ($params->order as $order) {
-			if (strlen($sort) == 0) {
-				$sort .= 'order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-			} else {
-				$sort .= ', '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-			}
-		}
-
-		$result = DB::select($query);
-		$api_Result['recordsFiltered'] = count($result);
-
-		$filter = " limit ".$params->length." offset ".$params->start."";
-
-		$query .= $sort . $filter;
 		
 		$result = DB::select($query);
 		$api_Result['data'] = $result;

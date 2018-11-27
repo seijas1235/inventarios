@@ -1,10 +1,6 @@
 var series_table = $('#series-table').DataTable({
     "ajax": "/series/getJson",
-    "responsive": true,
-    "processing": true,
-    "serverSide": true,
-    "info": true,
-    "showNEntries": true,
+
     "dom": 'Bfrtip',
     "buttons": [
     {
