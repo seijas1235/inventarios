@@ -1,16 +1,11 @@
 var marcas_table = $('#marcas-table').DataTable({
     "ajax": "/marcas/getJson",
-    "responsive": true,
-    "processing": true,
-    "serverSide": true,
-    "info": true,
-    "showNEntries": true,
     "dom": 'Bfrtip',
     "buttons": [
     {
         extend: 'pdfHtml5',
         exportOptions: {
-            columns: [ 0, 1, 2, 3,]
+            columns: [ 0, 1, 2, 3, 4, 5]
         }
     },
     'excelHtml5',
@@ -18,8 +13,6 @@ var marcas_table = $('#marcas-table').DataTable({
     ],
     "paging": true,
     "language": {
-        "sdecimal":        ".",
-        "sthousands":      ",",
         "sProcessing":     "Procesando...",
         "sLengthMenu":     "Mostrar _MENU_ registros",
         "sZeroRecords":    "No se encontraron resultados",
