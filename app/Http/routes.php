@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Routes File
-|--------------------------------------------------------------------------
-|
-| Here is where you will register all of the routes in an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
-
 Route::get('/', function () 
 {
 
@@ -147,7 +136,6 @@ Route::group(['middleware' => ['web']], function ()
 		Route::delete('/inventario_equipo/remove/{inventarioequipo}' , 'InventarioEquiposController@destroy');
 		
 
-
 		//rutas Proveedores
 		Route::get( '/proveedores' , 'ProveedoresController@index');
 		Route::get( '/proveedores/getJson/' , 'ProveedoresController@getJson');
@@ -211,7 +199,6 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get( '/lineas/lineaDisponible/', 'LineasController@lineaDisponible');
 		Route::get( '/lineas/cargar' , 'LineasController@cargarSelect');
 		
-
 
 		Route::get('/productos', 'ProductosController@index');
 		Route::get('/productos/getJson/' , 'ProductosController@getJson');
@@ -308,7 +295,6 @@ Route::group(['middleware' => ['web']], function ()
 		Route::post('/cuentas_por_pagar/save/notacredito' , 'CuentasPorPagarController@savenotacredito');
 		Route::post('/cuentas_por_pagar/save/notadebito' , 'CuentasPorPagarController@savenotadebito');
 		
-
 		Route::get('/cuentas_por_cobrar', 'CuentasPorCobrarController@index');
 		Route::get('/cuentas_por_cobrar/getJson/' , 'CuentasPorCobrarController@getJson');
 		Route::get('/cuentas_por_cobrar/show/{cuenta_por_cobrar}' , 'CuentasPorCobrarController@show');
@@ -317,7 +303,6 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/cuentas_por_cobrar/new/notadebito' , 'CuentasPorCobrarController@notadebito');
 		Route::post('/cuentas_por_cobrar/save/notacredito' , 'CuentasPorCobrarController@savenotacredito');
 		Route::post('/cuentas_por_cobrar/save/notadebito' , 'CuentasPorCobrarController@savenotadebito');
-
 
 		Route::get('/ordenes_de_trabajo' , 'OrdenesDeTrabajoController@index');
 		Route::get('/ordenes_de_trabajo/getJson/' , 'OrdenesDeTrabajoController@getJson');
@@ -340,19 +325,15 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/ordenes_de_trabajo/editcreate3/{orden}' , 'OrdenesDeTrabajoController@edit3');
 		Route::patch('/ordenes_de_trabajo/{orden}/update3' , 'OrdenesDeTrabajoController@update3');
 		Route::patch('/ordenes_de_trabajo/{orden}/update4' , 'OrdenesDeTrabajoController@update4');
-		
-		
 		Route::get('/ordenes_de_trabajo/editcreate4/{orden}' , 'OrdenesDeTrabajoController@edit4');
+		
 		// edicion pagina 4
 		Route::get('/ordenes_de_trabajo/create3/{orden_de_trabajo}' , 'OrdenesDeTrabajoController@create3')->name('ordenes_de_trabajo.create3');
 		Route::get('/ordenes_de_trabajo/getDatos/{orden}' , 'OrdenesDeTrabajoController@getDatos');
 		Route::post('/ordenes_de_trabajo/save2' , 'OrdenesDeTrabajoController@save2');
 		Route::delete('/ordendetalle3/destroy/{orden_trabajo_servicio}', 'OrdenesDeTrabajoController@destroyDetalle3');
-
-		
 		Route::post('/ordenes_de_trabajo/{orden}/golpes/' , 'OrdenesDeTrabajoController@golpes')->name('ordenes_de_trabajo.golpe');
 		Route::post('/ordenes_de_trabajo/{orden}/rayones/' , 'OrdenesDeTrabajoController@rayones')->name('ordenes_de_trabajo.rayon');
-
 
 		//Reporte Ordenes
 		Route::get( '/rpt_orden_trabajo/{orden_de_trabajo}' , 'PdfController@rpt_orden_trabajo');
@@ -375,7 +356,6 @@ Route::group(['middleware' => ['web']], function ()
 
 		Route::get( '/rpt_kardex/producto/generar' , 'ProductosController@rpt_generar_kardex_producto');
 		Route::post( '/rpt_kardex/producto' , 'ProductosController@rpt_kardex_producto');
-
 
 		Route::get('/cajas_chicas', 'CajasChicasController@index');
 		Route::get('/cajas_chicas/getJson/' , 'CajasChicasController@getJson');
@@ -408,7 +388,6 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/conversiones_productos/show/{conversion_producto}' , 'ConversionesProductoController@show');
 		Route::get( '/conversiones_productos/{conversion_producto}/getJson' , 'ConversionesProductoController@getJsonDetalle');
 		
-
 		//rutas Cortes de caja
 		Route::get( '/cortes_caja' , 'CortesCajaController@index');
 		Route::get( '/cortes_caja/getJson/' , 'CortesCajaController@getJson');
@@ -429,50 +408,14 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get( '/cortes_caja/corteUnico/', 'CortesCajaController@corteUnico');
 		Route::get( '/cortes_caja/getFacturas/', 'CortesCajaController@getFacturas');
 
-		
-
 		Route::get('/home', 'HomeController@index');
 		Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 		Route::patch( '/user/{user}/change' , 'UserController@changePassword' );
 		Route::patch( '/user/{user}/changeInfo' , 'UserController@changeInformation' );
 
-		Route::group(array('middleware' => 'acl' , 'is' => 'superadmin' ), function()
+		Route::group(array('middleware' => 'acl' , 'is' => 'superadmin|administrator' ), function()
 		{
-		
-			
-		});
-
-			Route::group(array('middleware' => 'acl' , 'is' => 'superadmin|administrator' ), function()
-		{
-
-			Route::get( '/cuentas' , 'CuentasController@index');
-			Route::get( '/cuentas/getJson/' , 'CuentasController@getJson');
-			Route::get( '/cuentas/new' , 'CuentasController@create');
-			Route::post( '/cuentas/save/' , 'CuentasController@store');
-			Route::get( '/cuentas/edit/{cuenta}' , 'CuentasController@edit');
-			Route::patch( '/cuentas/{cuenta}/update' , 'CuentasController@update');
-			Route::delete( '/cuentas/remove/{cuenta}' , 'CuentasController@destroy');
-
-			Route::get( '/cuentas_contables' , 'CuentaContableController@index');
-			Route::get( '/cuentas_contables/getJson/' , 'CuentaContableController@getJson');
-			Route::get( '/cuentas_contables/new' , 'CuentaContableController@create');
-			Route::post( '/cuentas_contables/save/' , 'CuentaContableController@store');
-			Route::get( '/cuentas_contables/edit/{cuentac}' , 'CuentaContableController@edit');
-			Route::patch( '/cuentas_contables/{cuentac}/update' , 'CuentaContableController@update');
-			Route::delete( '/cuentas_contables/remove/{cuentac}' , 'CuentaContableController@destroy');
-
-			Route::get( '/corte_caja' , 'CorteCajaController@index');
-			Route::get( '/corte_caja/getJson/' , 'CorteCajaController@getJson');
-			Route::get( '/corte_caja/new' , 'CorteCajaController@create');
-			Route::post( '/corte_caja/save/' , 'CorteCajaController@store');
-			Route::get( '/corte_caja/edit/{cortec}' , 'CorteCajaController@edit');
-			Route::patch( '/corte_caja/{cortec}/update' , 'CorteCajaController@update');
-			Route::get( '/corte_caja_get' , 'CorteCajaController@create1');
-			Route::get( '/corte_caja/show/{cortec}/' , 'CorteCajaController@showCorte');
-			Route::get( '/corte_caja/show2/{cortec}/' , 'CorteCajaController@showCorte2');
-			Route::get('corte-disponible/', 'CorteCajaController@Corte_Disponible');
-
 
 			Route::get( '/user' , 'UserController@index' );
 			Route::get( '/user/getJson' , 'UserController@getJson' );
@@ -508,14 +451,6 @@ Route::group(['middleware' => ['web']], function ()
 			Route::get('cui-disponible/', 'EmpleadosController@dpiDisponible');
 			Route::get('cui-disponible-edit/', 'EmpleadosController@dpiDisponibleEdit');
 
-			Route::get( '/cargos' , 'CargoEmpleadoController@index');
-			Route::get( '/cargos/getJson/' , 'CargoEmpleadoController@getJson');
-			Route::get( '/cargos/new' , 'CargoEmpleadoController@create');
-			Route::post( '/cargos/save/' , 'CargoEmpleadoController@store');
-			Route::get( '/cargos/edit/{cargo}' , 'CargoEmpleadoController@edit');
-			Route::patch( '/cargos/{cargo}/update' , 'CargoEmpleadoController@update');
-			Route::delete( '/cargos/remove/{cargo}' , 'CargoEmpleadoController@destroy');
-
 
 			Route::get( '/productos' , 'ProductosController@index');
 			Route::get( '/producto/getJson/' , 'ProductosController@getJson');
@@ -531,45 +466,32 @@ Route::group(['middleware' => ['web']], function ()
 			Route::get( '/productos/detalle/{producto}' , 'ProductosController@getDetalle');
 		});
 
+		Route::group(array('middleware' => 'acl' , 'is' => 'superadmin|administrator|finanzas' ), function()
+		{
 
-Route::group(array('middleware' => 'acl' , 'is' => 'superadmin|administrator|operador' ), function()
-{
+			//Rutas para Series
+			Route::get( '/series' , 'SeriesController@index');
+			Route::get( '/series/getJson/' , 'SeriesController@getJson');
+			Route::get( '/series/new' , 'SeriesController@create');
+			Route::post( '/series/save/' , 'SeriesController@store');
+			Route::get( '/series/edit/{serie}' , 'SeriesController@edit');
+			Route::patch( '/series/{serie}/update' , 'SeriesController@update');
+			Route::delete( '/series/remove/{serie}' , 'SeriesController@destroy');
+			Route::get( '/series/rangoDisponible/', 'SeriesController@rangoDisponible');
+			Route::get( '/series/rangoDisponible-edit/', 'SeriesController@rangoDisponible_edit');
+			
+			//Rutas para Facturas
+			Route::get('/factura', 'FacturasController@index');
+			Route::get('/factura/getJson/' , 'FacturasController@getJson');
+			Route::get('/factura/new' , 'FacturasController@create');
+			Route::post('/factura/save/' , 'FacturasController@store');
+			Route::post('/factura/save2/' , 'FacturasController@store2');
+			Route::get('/factura/edit/{factura}' , 'FacturasController@edit');
+			Route::patch('/factura/{factura}/update' , 'FacturasController@update');
+			Route::delete('/factura/remove/{factura}' , 'FacturasController@destroy');
+			Route::get( '/serie/datos/{serie}' , 'SeriesController@getDatos');
+			Route::get( '/facturas/noDisponible/', 'FacturasController@noDisponible');
 
-
-});
-
-
-Route::group(array('middleware' => 'acl' , 'is' => 'superadmin|administrator|finanzas' ), function()
-{
-
-
-
-
-	//Rutas para Series
-	Route::get( '/series' , 'SeriesController@index');
-	Route::get( '/series/getJson/' , 'SeriesController@getJson');
-	Route::get( '/series/new' , 'SeriesController@create');
-	Route::post( '/series/save/' , 'SeriesController@store');
-	Route::get( '/series/edit/{serie}' , 'SeriesController@edit');
-	Route::patch( '/series/{serie}/update' , 'SeriesController@update');
-	Route::delete( '/series/remove/{serie}' , 'SeriesController@destroy');
-	Route::get( '/series/rangoDisponible/', 'SeriesController@rangoDisponible');
-	Route::get( '/series/rangoDisponible-edit/', 'SeriesController@rangoDisponible_edit');
-	
-	//Rutas para Facturas
-	Route::get('/factura', 'FacturasController@index');
-	Route::get('/factura/getJson/' , 'FacturasController@getJson');
-	Route::get('/factura/new' , 'FacturasController@create');
-	Route::post('/factura/save/' , 'FacturasController@store');
-	Route::post('/factura/save2/' , 'FacturasController@store2');
-	Route::get('/factura/edit/{factura}' , 'FacturasController@edit');
-	Route::patch('/factura/{factura}/update' , 'FacturasController@update');
-	Route::delete('/factura/remove/{factura}' , 'FacturasController@destroy');
-	Route::get( '/serie/datos/{serie}' , 'SeriesController@getDatos');
-	Route::get( '/facturas/noDisponible/', 'FacturasController@noDisponible');
-
-
-
-});
-});
+		});
+	});
 });
