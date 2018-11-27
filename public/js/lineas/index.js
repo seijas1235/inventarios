@@ -1,10 +1,5 @@
 var lineas_table = $('#lineas-table').DataTable({
     "ajax": "/lineas/getJson",
-    "responsive": true,
-    "processing": true,
-    "serverSide": true,
-    "info": true,
-    "showNEntries": true,
     "dom": 'Bfrtip',
     "buttons": [
     {
