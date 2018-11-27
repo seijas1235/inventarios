@@ -105,6 +105,8 @@ $('body').on('click', '#addDetalle', function(e) {
         $("input[name='nombre'] ").val("");
         $("input[name='precio_compra'] ").val("");
         $("input[name='cantidad_salida'] ").val([""]);
+        $('#tipo_salida_id').val('');
+	    $('#tipo_salida_id').change();
         var cantidad_salida = $("input[name='cantidad_salida'] ").val();
         var subtotal = cantidad_salida * precio_compra;
         $("input[name='subtotal'] ").val(subtotal);

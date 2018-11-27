@@ -42,7 +42,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="activeRecord" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" id="activeRecord3" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     <button class="btn btn-success confirm-active" id="active">
                         <i  class="fa fa-btn fa-check"></i>Activar
                     </button>
