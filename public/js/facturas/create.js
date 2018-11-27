@@ -19,14 +19,37 @@ function ComprobarDatos() {
             inicio=result.inicio;
 			fin=result.fin;
 			if(numero<inicio || numero>fin){
-				$("#error_n").text('El Numero de Factura esta Fuera de Rango de la Serie Seleccionada.');
+                $("#error_n").text('El Numero de Factura esta Fuera de Rango de la Serie Seleccionada.');
+                $('#ButtonFactura').attr("disabled", true);
 			}
 			else{
+                $('#ButtonFactura').attr("disabled", false);
 				$("#error_n").text('');
 			}
         });
     }
+
+    $.ajax({
+        type: "GET",
+        async: false,
+        url: "/facturas/noDisponible",
+        data: {"serie_id" : serie_id, "numero" : numero}, 
+        dataType: "json",
+        success: function(result) {
+            if (result == true){
+                $("input[name='numero'] ").after("<label class='error'>La serie y numero de factura ya existe</label>");
+                $('#ButtonFactura').attr("disabled", true);
+            }
+            else{
+                $('#ButtonFactura').attr("disabled", false);
+                $(".error").remove();
+            }
+        }
+    });
+
+
 }
+
 $("#numero_f").focusout(function () {
     ComprobarDatos();
 });

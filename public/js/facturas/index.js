@@ -37,7 +37,7 @@ var factura_table = $('#facturas-table').DataTable({
         },
     },
     
-    "order": [0, 'asc'],
+    "order": [1, 'asc'],
     "columns": [ 
         
     {
