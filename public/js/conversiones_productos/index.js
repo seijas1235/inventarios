@@ -1,10 +1,5 @@
 var conversiones_productos_table = $('#conversiones_productos-table').DataTable({
     "ajax": "/conversiones_productos/getJson",
-    "responsive": true,
-    "processing": true,
-    "serverSide": true,
-    "info": true,
-    "showNEntries": true,
     "paging": true,
     "language": {
         "sProcessing":     "Procesando...",
