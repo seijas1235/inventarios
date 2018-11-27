@@ -1,10 +1,6 @@
 var cuentas_por_cobrar_table = $('#cuentas_por_cobrar-table').DataTable({
     "ajax": "/cuentas_por_cobrar/getJson",
-    "responsive": true,
-    "processing": true,
-    "serverSide": true,
-    "info": true,
-    "showNEntries": true,
+
     "dom": 'Bfrtip',
     "buttons": [
     {

@@ -1,10 +1,5 @@
 var clientes_table = $('#clientes-table').DataTable({
     "ajax": "/clientes/getJson",
-    "responsive": true,
-    "processing": true,
-    "serverSide": true,
-    "info": true,
-    "showNEntries": true,
     "dom": 'Bfrtip',
     "buttons": [
     {

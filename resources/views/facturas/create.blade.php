@@ -54,8 +54,7 @@
 			<br>
 			<input type="hidden" name="serie" id="serie">
 
-			</div>
-			</div>
+			
 			<br>
 			<div class="text-right m-t-15">
 				<a class='btn btn-primary form-gradient-color form-button' href="{{ url('/factura') }}">Regresar</a>

@@ -1,10 +1,6 @@
 var tiposcliente_table = $('#tiposcliente-table').DataTable({
     "ajax": "/tipos_cliente/getJson",
-    "responsive": true,
-    "processing": true,
-    "serverSide": true,
-    "info": true,
-    "showNEntries": true,
+ 
     "dom": 'Bfrtip',
     "buttons": [
     {

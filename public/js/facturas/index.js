@@ -1,11 +1,6 @@
 var factura_table = $('#facturas-table').DataTable({
     "ajax": "/factura/getJson",
-    "responsive": true,
-    "processing": true,
-    "serverSide": true,
-    "info": true,
-    "showNEntries": true,
-    "dom": 'Bfrtip',
+     "dom": 'Bfrtip',
     "buttons": [
     {
         extend: 'pdfHtml5',
