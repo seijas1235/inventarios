@@ -78,19 +78,11 @@ var cuentas_por_cobrar_table = $('#cuentas_por_cobrar-table').DataTable({
         "width" : "20%",
         "render": function(data, type, full, meta) {
             return "<div id='" + full.id + "' class='text-center'>" + 
-            "<div class='float-left col-lg-4'>" + 
-            "<a href='/cuentas_por_cobrar/edit/"+ full.id +"' class='edit-cuenta_por_cobrar'>" + 
-            "<i class='fa fa-btn fa-edit' title='Editar Cuenta por Cobrar'></i>" + 
-            "</a>" + "</div>" + 
-            "<div class='float-right col-lg-4'>" + 
-            "<a href='#' class='remove-cuenta_por_cobrar'>" + 
-            "<i class='fa fa-btn fa-trash' title='Eliminar Cuenta por Cobrar'></i>" + 
-            "</a>" + "</div>"+
-            "<div class='float-left col-lg-4'>" + 
-            "<a href='/cuentas_por_cobrar/show/"+ full.id +"' class='cuenta_por_cobrar-detalle'>" + 
-            "<i class='fa fa-btn fa-desktop' title='Cuenta por Cobrar Detalle '></i>" + 
+            "<div class='float-left col-lg-12'>" + 
+            "<a href='/cuentas_por_cobrar/show/"+ full.id +"' class='detalle-cuenta_por_cobrar'>" + 
+            "<i class='fa fa-btn fa-desktop' title='Detalle Cuenta por Cobrar'></i>" + 
             "</a>" + "</div>";
-            
+       
         },
         "responsivePriority": 2
     }],
