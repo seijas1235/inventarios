@@ -480,55 +480,11 @@ class ComprasController extends Controller
 
 	public function getJsonDetalle(Request $params, $detalle)
 	{
-		$api_Result = array();
-		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("dc.id","dc.compra_id", "p.codigo_barra", "p.nombre", "dc.existencias", "dc.precio_compra", "dc.precio_venta");
-
-		// Initialize query (get all)
-
-
-		$api_logsQueriable = DB::table('detalles_compras');
-		$api_Result['recordsTotal'] = $api_logsQueriable->count();
-
 		$query = 'SELECT dc.id, dc.compra_id, p.codigo_barra, p.nombre, m.codigo_maquina, m.nombre_maquina, dc.existencias, dc.precio_compra, dc.precio_venta, mp.vendido
 		FROM detalles_compras dc
 		left join productos p on p.id = dc.producto_id
 		left join maquinarias_y_equipos m on m.id = dc.maquinaria_equipo_id
 		inner JOIN movimientos_productos mp on mp.id = dc.movimiento_producto_id where dc.compra_id ='.$detalle.'';
-
-		$where = "";
-
-		if (isset($params->search['value']) && !empty($params->search['value'])){
-
-			foreach ($columnsMapping as $column) {
-				if (strlen($where) == 0) {
-					$where .=" and (".$column." like  '%".$params->search['value']."%' ";
-				} else {
-					$where .=" or ".$column." like  '%".$params->search['value']."%' ";
-				}
-
-			}
-			$where .= ') ';
-		}
-
-		$query = $query . $where;
-
-		// Sorting
-		$sort = "";
-		foreach ($params->order as $order) {
-			if (strlen($sort) == 0) {
-				$sort .= ' order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-			} else {
-				$sort .= ', '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-			}
-		}
-
-		$result = DB::select($query);
-		$api_Result['recordsFiltered'] = count($result);
-
-		$filter = " limit ".$params->length." offset ".$params->start."";
-
-		$query .= $sort . $filter;
 
 		$result = DB::select($query);
 		$api_Result['data'] = $result;

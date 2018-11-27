@@ -207,52 +207,8 @@ class PlanillasController extends Controller
 	}
 
 	public function getJson(Request $params)
-
 	{
-		$api_Result = array();
-		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("planillas.id", "planillas.fecha", "planillas.total");
-
-		// Initialize query (get all)
-
-		$api_logsQueriable = DB::table("planillas");
-		$api_Result["recordsTotal"] = $api_logsQueriable->count();
-
 		$query = 'SELECT planillas.id, DATE_FORMAT(planillas.fecha, "%d-%m-%Y") as fecha, TRUNCATE(planillas.total,2) as total FROM planillas ';
-
-		$where = "";
-
-		if (isset($params->search['value']) && !empty($params->search['value'])){
-
-			foreach ($columnsMapping as $column) {
-				if (strlen($where) == 0) {
-					$where .=" where (".$column." like  '%".$params->search['value']."%' ";
-				} else {
-					$where .=" or ".$column." like  '%".$params->search['value']."%' ";
-				}
-
-			}
-			$where .= ') ';
-		}
-
-		$query = $query . $where;
-
-		// Sorting
-		$sort = "";
-		foreach ($params->order as $order) {
-			if (strlen($sort) == 0) {
-				$sort .= 'order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-			} else {
-				$sort .= ', '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-			}
-		}
-
-		$result = DB::select($query);
-		$api_Result['recordsFiltered'] = count($result);
-
-		$filter = " limit ".$params->length." offset ".$params->start."";
-
-		$query .= $sort . $filter;
 		
 		$result = DB::select($query);
 		$api_Result['data'] = $result;
@@ -264,55 +220,11 @@ class PlanillasController extends Controller
 
 	public function getJsonDetalle(Request $params, $detalle)
 	{
-		$api_Result = array();
-		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("dp.id","dp.planilla_id", "dp.empleado_id", "e.nombre", "e.apellido", "p.sueldo", "dp.horas_extra", "dp.bono_incentivo", "dp.igss", "dp.isr", "e.id");
-
-		// Initialize query (get all)
-
-
-		$api_logsQueriable = DB::table('detalles_planillas');
-		$api_Result['recordsTotal'] = $api_logsQueriable->count();
-
 		$query = 'SELECT dp.id, dp.planilla_id, dp.empleado_id, CONCAT(e.nombre,'."' '".',e.apellido) as nombre_completo, p.sueldo,
 		dp.horas_extra, dp.bono_incentivo, dp.igss, dp.isr
 		FROM detalles_planillas dp
 		INNER JOIN empleados e on e.id = dp.empleado_id
 		INNER JOIN puestos p on p.id = e.puesto_id WHERE dp.planilla_id ='.$detalle.'';
-
-		$where = "";
-
-		if (isset($params->search['value']) && !empty($params->search['value'])){
-
-			foreach ($columnsMapping as $column) {
-				if (strlen($where) == 0) {
-					$where .=" and (".$column." like  '%".$params->search['value']."%' ";
-				} else {
-					$where .=" or ".$column." like  '%".$params->search['value']."%' ";
-				}
-
-			}
-			$where .= ') ';
-		}
-
-		$query = $query . $where;
-
-		// Sorting
-		$sort = "";
-		foreach ($params->order as $order) {
-			if (strlen($sort) == 0) {
-				$sort .= ' order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-			} else {
-				$sort .= ', '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-			}
-		}
-
-		$result = DB::select($query);
-		$api_Result['recordsFiltered'] = count($result);
-
-		$filter = " limit ".$params->length." offset ".$params->start."";
-
-		$query .= $sort . $filter;
 
 		$result = DB::select($query);
 		$api_Result['data'] = $result;

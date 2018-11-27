@@ -2,7 +2,6 @@ var tiposproveedor_table = $('#tiposproveedor-table').DataTable({
     "ajax": "/tipos_proveedor/getJson",
     "responsive": true,
     "processing": true,
-    "serverSide": true,
     "info": true,
     "showNEntries": true,
     "dom": 'Bfrtip',

@@ -2,7 +2,6 @@ var existencias_table = $('#existencias-table').DataTable({
     "ajax": "/existencias/maquinaria/getJson",
     "responsive": true,
     "processing": true,
-    "serverSide": true,
     "info": true,
     "showNEntries": true,
     "dom": 'Bfrtip',
@@ -10,7 +9,7 @@ var existencias_table = $('#existencias-table').DataTable({
     {
         extend: 'pdfHtml5',
         exportOptions: {
-            columns: [ 0, 1, 2, 3, 4, 5,6]
+            columns: [ 0, 1, 2, 3, 4]
         }
     },
     'excelHtml5',

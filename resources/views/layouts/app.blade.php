@@ -248,7 +248,7 @@
 			</li>
 
 			@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
-			<li class="submenu {{request()->is('rpt_kardex/producto/generar','rpt_kardex/generar','existencias/producto*', 'existencias/maquinaria*', 'rpt_estado_cuenta_por_pagar/generar*', 'rpt_estado_cuenta_por_cobrar/generar*', 'rpt_ventas/generar')? 'active': ''}}"> <a href="#"><i class="icon icon-th-list"></i> <span>Reportes Generales</span> <span class="label label-important"></span></a>
+			<li class="submenu {{request()->is('kardex/producto','rpt_kardex/producto/generar','rpt_kardex/generar','existencias/producto*', 'existencias/maquinaria*', 'rpt_estado_cuenta_por_pagar/generar*', 'rpt_estado_cuenta_por_cobrar/generar*', 'rpt_ventas/generar')? 'active': ''}}"> <a href="#"><i class="icon icon-th-list"></i> <span>Reportes Generales</span> <span class="label label-important"></span></a>
 				@endif
 				<ul>
 					@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )

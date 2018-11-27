@@ -701,8 +701,6 @@ class VentasController extends Controller
 
 	public function getJson(Request $params)
 	{
-		$today = date("Y/m/d");
-
 		$query = 'Select TRUNCATE(total_venta,4) as total_venta, ventas_maestro.id, ventas_maestro.tipo_venta_id as tipo_venta_id,
 		tipos_pago.tipo_pago, estado_venta.edo_venta as edo_venta, users.name as name from ventas_maestro inner join 
 		tipos_pago on ventas_maestro.tipo_pago_id=tipos_pago.id inner join users on users.id=ventas_maestro.user_id
@@ -716,16 +714,6 @@ class VentasController extends Controller
 
 	public function getJsonDetalle(Request $params, $detalle)
 	{
-		$api_Result = array();
-		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("vd.venta_id", "vd.id", "pr.nombre","sr.nombre", "cantidad", "subtotal");
-
-		// Initialize query (get all)
-
-
-		$api_logsQueriable = DB::table('ventas_detalle');
-		$api_Result['recordsTotal'] = $api_logsQueriable->count();
-
 		$query ='SELECT vd.venta_id as No_Venta, vd.id, 	
 				IF(vd.producto_id>0,pr.nombre, if(vd.servicio_id>0,sr.nombre, vd.detalle_mano_obra)) as nombre, 
 				vd.cantidad as cantidad, vd.subtotal as subtotal
@@ -733,40 +721,6 @@ class VentasController extends Controller
 				LEFT JOIN productos pr ON vd.producto_id=pr.id
 				LEFT JOIN servicios sr ON vd.servicio_id=sr.id
 				where venta_id='.$detalle.' ';
-		
-		$where = "";
-
-		if (isset($params->search['value']) && !empty($params->search['value'])){
-
-			foreach ($columnsMapping as $column) {
-				if (strlen($where) == 0) {
-					$where .=" and (".$column." like  '%".$params->search['value']."%' ";
-				} else {
-					$where .=" or ".$column." like  '%".$params->search['value']."%' ";
-				}
-
-			}
-			$where .= ') ';
-		}
-
-		$query = $query . $where;
-
-		// Sorting
-		$sort = "";
-		foreach ($params->order as $order) {
-			if (strlen($sort) == 0) {
-				$sort .= 'order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-			} else {
-				$sort .= ', '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-			}
-		}
-
-		$result = DB::select($query);
-		$api_Result['recordsFiltered'] = count($result);
-
-		$filter = " limit ".$params->length." offset ".$params->start."";
-
-		$query .= $sort . $filter;
 
 		$result = DB::select($query);
 		$api_Result['data'] = $result;

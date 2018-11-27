@@ -4,7 +4,6 @@ var cuenta_por_pagar_detalle = $('#detallecuenta_por_pagar-table').DataTable({
     "ajax": "/cuentas_por_pagar/"+ detalle +"/getJson",
     "responsive": true,
     "processing": true,
-    "serverSide": true,
     "info": true,
     "showNEntries": true,
     "paging": true,

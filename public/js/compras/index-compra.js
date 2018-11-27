@@ -130,7 +130,6 @@ var compra_detalle = $('#detallecompra-table').DataTable({
     "ajax": "/detallescompras/"+ detalle +"/getJson",
     "responsive": true,
     "processing": true,
-    "serverSide": true,
     "info": true,
     "showNEntries": true,
     "paging": true,

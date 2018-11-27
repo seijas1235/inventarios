@@ -2,7 +2,6 @@ var caja_chica_detalle = $('#detalle_caja_chica-table').DataTable({
     "ajax": "/cajas_chicas/getJson/",
     "responsive": true,
     "processing": true,
-    "serverSide": true,
     "info": true,
     "showNEntries": true,
     "paging": true,

@@ -354,50 +354,7 @@ class CortesCajaController extends Controller
 
     public function getJson(Request $params)
     {
-        $api_Result = array();
-        // Create a mapping of our query fields in the order that will be shown in datatable.
-        $columnsMapping = array("id", "fecha", "factura_inicial", "factura_final", "total", "efectivo", "credito", "voucher");
-
-        // Initialize query (get all)
-
-        $api_logsQueriable = DB::table('cortes_caja');
-        $api_Result['recordsTotal'] = $api_logsQueriable->count();
-
         $query = "SELECT * FROM cortes_caja";
-
-        $where = "";
-
-        if (isset($params->search['value']) && !empty($params->search['value'])){
-
-            foreach ($columnsMapping as $column) {
-                if (strlen($where) == 0) {
-                    $where .=" where (".$column." like  '%".$params->search['value']."%' ";
-                } else {
-                    $where .=" or ".$column." like  '%".$params->search['value']."%' ";
-                }
-
-            }
-            $where .= ') ';
-        }
-        $condition = " ";
-        $query = $query . $condition . $where;
-
-        // Sorting
-        $sort = "";
-        foreach ($params->order as $order) {
-            if (strlen($sort) == 0) {
-                $sort .= 'order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-            } else {
-                $sort .= ', '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-            }
-        }
-
-        $result = DB::select($query);
-        $api_Result['recordsFiltered'] = count($result);
-
-        $filter = " limit ".$params->length." offset ".$params->start."";
-
-        $query .= $sort . $filter;
 
         $result = DB::select($query);
         $api_Result['data'] = $result;

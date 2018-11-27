@@ -5,7 +5,7 @@ var venta_table = $('#venta-table').DataTable({
     {
         extend: 'pdfHtml5',
         exportOptions: {
-            columns: [ 0, 1, 2, 3, 4, 5]
+            columns: [ 0, 1, 2, 3]
         }
     },
     'excelHtml5',
@@ -127,7 +127,6 @@ var venta_detalle = $('#ventadetalle-table').DataTable({
     "ajax": "/ventadetalle/"+detalle +"/getJson",
     "responsive": true,
     "processing": true,
-    "serverSide": true,
     "info": true,
     "showNEntries": true,
     "paging": true,

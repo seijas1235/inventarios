@@ -2,7 +2,6 @@ var cuentas_por_pagar_table = $('#cuentas_por_pagar-table').DataTable({
     "ajax": "/cuentas_por_pagar/getJson",
     "responsive": true,
     "processing": true,
-    "serverSide": true,
     "info": true,
     "showNEntries": true,
     "dom": 'Bfrtip',
@@ -10,7 +9,7 @@ var cuentas_por_pagar_table = $('#cuentas_por_pagar-table').DataTable({
     {
         extend: 'pdfHtml5',
         exportOptions: {
-            columns: [ 0, 1, 2, 3, 4, 5,6]
+            columns: [ 0, 1, 2, 3]
         }
     },
     'excelHtml5',

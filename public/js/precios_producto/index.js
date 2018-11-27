@@ -2,7 +2,6 @@ var precios_producto_table = $('#precios_producto-table').DataTable({
     "ajax": "/precios_producto/getJson",
     "responsive": true,
     "processing": true,
-    "serverSide": true,
     "info": true,
     "showNEntries": true,
     "dom": 'Bfrtip',

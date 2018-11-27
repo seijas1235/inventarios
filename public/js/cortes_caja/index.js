@@ -2,7 +2,6 @@ var cortes_caja_table = $('#cortes_caja-table').DataTable({
     "ajax": "/cortes_caja/getJson",
     "responsive": true,
     "processing": true,
-    "serverSide": true,
     "info": true,
     "showNEntries": true,
     "dom": 'Bfrtip',
@@ -10,7 +9,7 @@ var cortes_caja_table = $('#cortes_caja-table').DataTable({
     {
         extend: 'pdfHtml5',
         exportOptions: {
-            columns: [ 0, 1, 2, 3, 4, 5,6]
+            columns: [ 0, 1, 2, 3, 4, 5,6, 7, 8]
         }
     },
     'excelHtml5',

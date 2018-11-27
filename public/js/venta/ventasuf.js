@@ -8,7 +8,6 @@ var ventasuf_table = $('#ventasuf-table').DataTable({
     "ajax": "ventasuf/getJson",
     "responsive": true,
     "processing": true,
-    "serverSide": true,
     "info": true,
     "bSort" : false,
     "showNEntries": true,
