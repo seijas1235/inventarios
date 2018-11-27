@@ -44,8 +44,6 @@ Route::group(['middleware' => ['web']], function ()
 		Route::post( '/venta-detalle/{venta_maestro}' , 'VentasController@saveDetalle');
 		Route::delete( '/venta/destroy/{venta_maestro}' , 'VentasController@destroy');
 		Route::get('/existencia/getJson', 'ProductosController@getJsonExistencia');
-		Route::get('/pdf_ccdetalle', 'PdfController@pdf_ccdetalle');
-		Route::get('/pdf_ccresumen', 'PdfController@pdf_ccresumen');
 		Route::post('/cortecaja', 'VentasController@makeCorte');
 		Route::get('/tipoventa/{venta_maestro}', 'VentasController@getTipoPago');
 		Route::get('/ventadetalle/{venta_maestro}', 'VentasController@show');
