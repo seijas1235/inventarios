@@ -65,7 +65,7 @@ var maquinariaequipo_table = $('#maquinariaequipo-table').DataTable({
             return CustomDatatableRenders.fitTextHTML(data);
         },
         }, {
-        "title": "Labadas Limite",
+        "title": "Lavadas Limite",
         "data": "labadas_limite",
         "width" : "10%",
         "responsivePriority": 6,

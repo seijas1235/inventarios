@@ -2,7 +2,6 @@ var servicios_table = $('#servicios-table').DataTable({
     "ajax": "/servicios/getJson",
     "responsive": true,
     "processing": true,
-    "serverSide": true,
     "info": true,
     "showNEntries": true,
     "dom": 'Bfrtip',
