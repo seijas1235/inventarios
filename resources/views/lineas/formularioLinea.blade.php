@@ -14,7 +14,9 @@
             {!! Form::label("marca_id","Marca:") !!}
             <select class="selectpicker" id='marca_id_linea' name="marca_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione Marca">
                 @foreach ($marcas as $marca)
+                @if ($marca->tipo_marca_id==1 || $marca->tipo_marca_id==2 )
                 <option value="{{$marca->id}}">{{$marca->nombre}}</option>
+                @endif
                 @endforeach
             </select>
         </div>

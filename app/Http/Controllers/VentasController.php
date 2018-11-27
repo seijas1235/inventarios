@@ -701,55 +701,12 @@ class VentasController extends Controller
 
 	public function getJson(Request $params)
 	{
-		$api_Result = array();
 		$today = date("Y/m/d");
-		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("ventas_maestro.id", "ventas_maestro.total_venta", "users.name", "estado_venta.edo_venta", "tipos_pago.tipo_pago");
-
-		// Initialize query (get all)
-
-
-		$api_logsQueriable = DB::table('ventas_maestro');
-		$api_Result['recordsTotal'] = $api_logsQueriable->count();
 
 		$query = 'Select TRUNCATE(total_venta,4) as total_venta, ventas_maestro.id, ventas_maestro.tipo_venta_id as tipo_venta_id,
 		tipos_pago.tipo_pago, estado_venta.edo_venta as edo_venta, users.name as name from ventas_maestro inner join 
 		tipos_pago on ventas_maestro.tipo_pago_id=tipos_pago.id inner join users on users.id=ventas_maestro.user_id
 		inner join estado_venta on ventas_maestro.edo_venta_id=estado_venta.id WHERE ventas_maestro.edo_venta_id != 3 ';
-
-		$where = "";
-
-		if (isset($params->search['value']) && !empty($params->search['value'])){
-
-			foreach ($columnsMapping as $column) {
-				if (strlen($where) == 0) {
-					$where .=" and (".$column." like  '%".$params->search['value']."%' ";
-				} else {
-					$where .=" or ".$column." like  '%".$params->search['value']."%' ";
-				}
-
-			}
-			$where .= ') ';
-		}
-		$condition = "";
-		$query = $query . $where . $condition;
-
-		// Sorting
-		$sort = "";
-		foreach ($params->order as $order) {
-			if (strlen($sort) == 0) {
-				$sort .= 'order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-			} else {
-				$sort .= ', '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-			}
-		}
-
-		$result = DB::select($query);
-		$api_Result['recordsFiltered'] = count($result);
-
-		$filter = " limit ".$params->length." offset ".$params->start."";
-
-		$query .= $sort . $filter;
 
 		$result = DB::select($query);
 		$api_Result['data'] = $result;

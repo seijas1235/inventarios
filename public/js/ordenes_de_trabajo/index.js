@@ -1,10 +1,5 @@
 var ordenes_table = $('#ordenes-table').DataTable({
     "ajax": "/ordenes_de_trabajo/getJson",
-    "responsive": true,
-    "processing": true,
-    "serverSide": true,
-    "info": true,
-    "showNEntries": true,
     "dom": 'Bfrtip',
     "buttons": [
     {

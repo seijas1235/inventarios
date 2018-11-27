@@ -1,16 +1,11 @@
 var vehiculos_table = $('#vehiculos-table').DataTable({
     "ajax": "/vehiculos/getJson",
-    "responsive": true,
-    "processing": true,
-    "serverSide": true,
-    "info": true,
-    "showNEntries": true,
     "dom": 'Bfrtip',
     "buttons": [
     {
         extend: 'pdfHtml5',
         exportOptions: {
-            columns: [ 0, 1, 2, 3, 4, 5,6]
+            columns: [ 0, 1, 2, 3, 4, 5]
         }
     },
     'excelHtml5',

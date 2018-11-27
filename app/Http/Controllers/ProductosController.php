@@ -253,7 +253,7 @@ class ProductosController extends Controller
 		$query = "SELECT P.nombre, P.codigo_barra, P.minimo, P.id, P.descripcion, MR.nombre as mrnombre , U.descripcion as udesc
         FROM productos P 
         INNER JOIN marcas MR ON MR.id = P.marca_id 
-        INNER JOIN unidades_de_medida u on U.id = P.medida_id";
+        INNER JOIN unidades_de_medida U on U.id = P.medida_id";
 
 		$result = DB::select($query);
 		$api_Result['data'] = $result;

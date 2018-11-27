@@ -176,6 +176,7 @@ class MaquinariasEquipoController extends Controller
 
     public function getJson(Request $params)
     {
+        
         $query = "SELECT M.id, M.nombre_maquina as nombre, M.codigo_maquina as codigo, M.labadas_limite, M.fecha_adquisicion, MA.nombre as marca
                 FROM maquinarias_y_equipos M
                 INNER JOIN marcas MA on MA.id = M.marca ";

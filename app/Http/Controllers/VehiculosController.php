@@ -265,52 +265,11 @@ class VehiculosController extends Controller
 
     public function getJson(Request $params)
     {
-        $api_Result = array();
-        // Create a mapping of our query fields in the order that will be shown in datatable.
-        $columnsMapping = array("V.id", "V.placa", "V.aceite_caja", "V.aceite_motor", "V.fecha_ultimo_servicio", "V.kilometraje", "TV.nombre");
-
-        // Initialize query (get all)
-
-        $api_logsQueriable = DB::table('vehiculos');
-        $api_Result['recordsTotal'] = $api_logsQueriable->count();
-
+       
         $query = "SELECT V.id AS id, V.placa, V.aceite_caja, V.aceite_motor, V.fecha_ultimo_servicio, V.kilometraje, TV.nombre as tipo_vehiculo 
                     from vehiculos V
                     inner Join tipos_vehiculo TV on TV.id = V.tipo_vehiculo_id";
 
-        $where = "";
-
-        if (isset($params->search['value']) && !empty($params->search['value'])){
-
-            foreach ($columnsMapping as $column) {
-                if (strlen($where) == 0) {
-                    $where .=" and (".$column." like  '%".$params->search['value']."%' ";
-                } else {
-                    $where .=" or ".$column." like  '%".$params->search['value']."%' ";
-                }
-
-            }
-            $where .= ') ';
-        }
-        $condition = " ";
-        $query = $query . $condition . $where;
-
-        // Sorting
-        $sort = "";
-        foreach ($params->order as $order) {
-            if (strlen($sort) == 0) {
-                $sort .= 'order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-            } else {
-                $sort .= ', '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-            }
-        }
-
-        $result = DB::select($query);
-        $api_Result['recordsFiltered'] = count($result);
-
-        $filter = " limit ".$params->length." offset ".$params->start."";
-
-        $query .= $sort . $filter;
 
         $result = DB::select($query);
         $api_Result['data'] = $result;

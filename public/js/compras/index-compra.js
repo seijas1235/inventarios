@@ -1,12 +1,7 @@
 var compras_table = $('#compras-table').DataTable({
 
     "ajax": "/compras/getJson",
-    "responsive": true,
-    "processing": true,
-    "serverSide": true,
-    "info": true,
-    "showNEntries": true,
-    "paging": true,
+   
     "language": {
         "sProcessing":     "Procesando...",
         "sLengthMenu":     "Mostrar _MENU_ registros",
