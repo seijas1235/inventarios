@@ -212,50 +212,7 @@ class ServiciosController extends Controller
 
     public function getJson(Request $params)
     {
-        $api_Result = array();
-        // Create a mapping of our query fields in the order that will be shown in datatable.
-        $columnsMapping = array("id", "nombre", "codigo", "precio", "precio_costo");
-
-        // Initialize query (get all)
-
-        $api_logsQueriable = DB::table('servicios');
-        $api_Result['recordsTotal'] = $api_logsQueriable->count();
-
         $query = "SELECT * FROM servicios";
-
-        $where = "";
-
-        if (isset($params->search['value']) && !empty($params->search['value'])){
-
-            foreach ($columnsMapping as $column) {
-                if (strlen($where) == 0) {
-                    $where .=" where (".$column." like  '%".$params->search['value']."%' ";
-                } else {
-                    $where .=" or ".$column." like  '%".$params->search['value']."%' ";
-                }
-
-            }
-            $where .= ') ';
-        }
-        $condition = " ";
-        $query = $query . $condition . $where;
-
-        // Sorting
-        $sort = "";
-        foreach ($params->order as $order) {
-            if (strlen($sort) == 0) {
-                $sort .= 'order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-            } else {
-                $sort .= ', '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-            }
-        }
-
-        $result = DB::select($query);
-        $api_Result['recordsFiltered'] = count($result);
-
-        $filter = " limit ".$params->length." offset ".$params->start."";
-
-        $query .= $sort . $filter;
 
         $result = DB::select($query);
         $api_Result['data'] = $result;
@@ -266,16 +223,6 @@ class ServiciosController extends Controller
 
     public function getJsonDetalle(Request $params, $detalle)
 	{
-		$api_Result = array();
-		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("ds.id");
-
-		// Initialize query (get all)
-
-
-		$api_logsQueriable = DB::table('detalles_servicios');
-		$api_Result['recordsTotal'] = $api_logsQueriable->count();
-
 		$query = 'SELECT ds.id, if(p.nombre is null,0, p.nombre) as nombre, if(me.nombre_maquina is null,0, me.nombre_maquina) as nombre_maquina, ds.costo, ds.cantidad
 		FROM detalles_servicios ds
 		INNER JOIN servicios s on s.id = ds.servicio_id
@@ -283,39 +230,6 @@ class ServiciosController extends Controller
 		LEFT JOIN maquinarias_y_equipos me on me.id = ds.maquinaria_equipo_id
 		WHERE  s.id ='.$detalle.'';
 
-		$where = "";
-
-		if (isset($params->search['value']) && !empty($params->search['value'])){
-
-			foreach ($columnsMapping as $column) {
-				if (strlen($where) == 0) {
-					$where .=" and (".$column." like  '%".$params->search['value']."%' ";
-				} else {
-					$where .=" or ".$column." like  '%".$params->search['value']."%' ";
-				}
-
-			}
-			$where .= ') ';
-		}
-
-		$query = $query . $where;
-
-		// Sorting
-		$sort = "";
-		foreach ($params->order as $order) {
-			if (strlen($sort) == 0) {
-				$sort .= ' order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-			} else {
-				$sort .= ', '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-			}
-		}
-
-		$result = DB::select($query);
-		$api_Result['recordsFiltered'] = count($result);
-
-		$filter = " limit ".$params->length." offset ".$params->start."";
-
-		$query .= $sort . $filter;
 
 		$result = DB::select($query);
 		$api_Result['data'] = $result;

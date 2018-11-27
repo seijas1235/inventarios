@@ -2,7 +2,6 @@ var maquinariaequipo_table = $('#maquinariaequipo-table').DataTable({
     "ajax": "/maquinarias_equipo/getJson",
     "responsive": true,
     "processing": true,
-    "serverSide": true,
     "info": true,
     "showNEntries": true,
     "dom": 'Bfrtip',
@@ -10,7 +9,7 @@ var maquinariaequipo_table = $('#maquinariaequipo-table').DataTable({
     {
         extend: 'pdfHtml5',
         exportOptions: {
-            columns: [ 0, 1, 2, 3, 4, 5,6]
+            columns: [ 0, 1, 2, 3, 4]
         }
     },
     'excelHtml5',
@@ -70,7 +69,7 @@ var maquinariaequipo_table = $('#maquinariaequipo-table').DataTable({
             return CustomDatatableRenders.fitTextHTML(data);
         },
         }, {
-        "title": "Labadas Limite",
+        "title": "Lavadas Limite",
         "data": "labadas_limite",
         "width" : "10%",
         "responsivePriority": 6,

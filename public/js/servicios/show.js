@@ -4,7 +4,6 @@ var servicio_detalle = $('#detallesServicios-table').DataTable({
     "ajax": "/servicios/"+ detalle +"/getJson",
     "responsive": true,
     "processing": true,
-    "serverSide": true,
     "info": true,
     "showNEntries": true,
     "paging": true,

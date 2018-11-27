@@ -2,7 +2,6 @@ var puestos_table = $('#puestos-table').DataTable({
     "ajax": "/puestos/getJson",
     "responsive": true,
     "processing": true,
-    "serverSide": true,
     "info": true,
     "showNEntries": true,
     "dom": 'Bfrtip',
@@ -10,7 +9,7 @@ var puestos_table = $('#puestos-table').DataTable({
     {
         extend: 'pdfHtml5',
         exportOptions: {
-            columns: [ 0, 1, 2, 3,]
+            columns: [ 0, 1, 2]
         }
     },
     'excelHtml5',

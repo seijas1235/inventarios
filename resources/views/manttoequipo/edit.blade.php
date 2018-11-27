@@ -17,9 +17,9 @@
                 <select class="selectpicker" id='maquinaria_id' name="maquinaria_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
                     @foreach ($maquinarias as $maquinaria)
                     @if ( $maquinaria->id == $manttoequipo->maquinaria_id)
-                    <option value="{{$maquinaria->id}}" selected>{{ $maquinaria->nombre_nombre}}</option>
+                    <option value="{{$maquinaria->id}}" selected>{{ $maquinaria->descripcion}}</option>
                     @else
-                    <option value="{{$maquinaria->id}}">{{ $maquinaria->nombre}}</option>
+                    <option value="{{$maquinaria->id}}">{{ $maquinaria->descripcion}}</option>
                     @endif
                     @endforeach
                 </select>
@@ -70,7 +70,7 @@
         </div>  
         <br>
         <div class="text-right m-t-15">
-            <a class='btn btn-primary form-gradient-color form-button' href="{{ url('/mantto_equipos') }}">Regresar</a>
+            <a class='btn btn-primary form-gradient-color form-button' href="{{ url('/mantto_equipo') }}">Regresar</a>
             {!! Form::input('submit', 'submit', 'Editar', ['class' => 'btn btn-primary form-gradient-color form-button', 'id'=>'ButtonUpdateManttoEquipo']) !!}
         </div>
         <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
