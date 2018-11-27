@@ -5,7 +5,7 @@ var factura_table = $('#facturas-table').DataTable({
     {
         extend: 'pdfHtml5',
         exportOptions: {
-            columns: [ 0, 1, 2, 3, 4, 5,6]
+            columns: [ 0, 1, 2, 3]
         }
     },
     'excelHtml5',
