@@ -36,7 +36,7 @@ var clientes_table = $('#clientes-table').DataTable({
             "sSortDescending": ": Activar para ordenar la columna de manera descendente"
         },
     },
-    "order": [0, 'asc'],
+    "order": [0, 'DESC'],
     "columns": [ {
         "title": "NIT",
         "data": "nit",
