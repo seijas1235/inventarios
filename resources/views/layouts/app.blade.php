@@ -7,13 +7,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<title>SFI</title>
-
 <script
   src="https://code.jquery.com/jquery-3.3.1.js"
   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
   crossorigin="anonymous"></script>
- 
-	
+
 	{{--<script src="{{ URL::to("js/jquery.min.js")  }}"></script>--}}
 	<script src="{{ URL::to("js/bootstrap.min.js")  }}"></script>
 	<script src="{{ URL::to("js/jquery.validate.js")  }}"></script>
@@ -75,11 +73,11 @@
 	<script src="/js/matrix.js"></script> 
 	<script src="/js/matrix.dashboard.js"></script> 
 	<!--<script src="/js/jquery.gritter.min.js"></script> -->
-	<script src="/js/matrix.interface.js"></script> 
+	<!-- <script src="/js/matrix.interface.js"></script> Estaba Habilitado -->
 	<script src="/js/matrix.chat.js"></script> 
 	<script src="/js/matrix.form_validation.js"></script> 
 	<script src="/js/jquery.wizard.js"></script> 
-	<!--<script src="/js/jquery.uniform.js"></script> --> 
+	<script src="/js/jquery.uniform.js"></script> 
 	<script src="/js/matrix.popover.js"></script> 
 	<script src="/js/matrix.tables.js"></script> 
 	<script src="/js/typehead.js"></script> 

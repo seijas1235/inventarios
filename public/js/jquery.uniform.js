@@ -44,7 +44,7 @@ Enjoy!
     },
     elements: []
   };
-
+//Aqui
   if($.browser.msie && $.browser.version < 7){
     $.support.selectOpacity = false;
   }else{
