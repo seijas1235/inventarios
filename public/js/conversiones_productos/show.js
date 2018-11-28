@@ -4,7 +4,6 @@ var conversion_producto_detalle = $('#detalleconversion_producto-table').DataTab
     "ajax": "/conversiones_productos/"+ detalle +"/getJson",
     "responsive": true,
     "processing": true,
-    "serverSide": true,
     "info": true,
     "showNEntries": true,
     "paging": true,

@@ -42,7 +42,7 @@ var productos_table = $('#productos-table').DataTable({
         "title": "Codigo de barra",
         "data": "codigo_barra",
         "width" : "20%",
-        "responsivePriority": 3,
+        "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data); },
     }, 

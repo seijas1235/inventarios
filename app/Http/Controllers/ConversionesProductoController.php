@@ -234,54 +234,10 @@ class ConversionesProductoController extends Controller
 
 	public function getJsonDetalle(Request $params, $detalle)
 	{
-		$api_Result = array();
-		// Create a mapping of our query fields in the order that will be shown in datatable.
-		$columnsMapping = array("dc.id", "p1.nombre", "p2.nombre");
-
-		// Initialize query (get all)
-
-
-		$api_logsQueriable = DB::table('detalles_conversiones');
-		$api_Result['recordsTotal'] = $api_logsQueriable->count();
-
 		$query = 'SELECT dc.id, p1.nombre as producto_ingresa, p2.nombre as producto_sale  FROM detalles_conversiones dc
 		INNER JOIN productos p1 on p1.id = dc.producto_id_ingresa
 		INNER JOIN productos p2 on p2.id = dc.producto_id_sale
 		WHERE dc.conversion_producto_id ='.$detalle.'';
-
-		$where = "";
-
-		if (isset($params->search['value']) && !empty($params->search['value'])){
-
-			foreach ($columnsMapping as $column) {
-				if (strlen($where) == 0) {
-					$where .=" and (".$column." like  '%".$params->search['value']."%' ";
-				} else {
-					$where .=" or ".$column." like  '%".$params->search['value']."%' ";
-				}
-
-			}
-			$where .= ') ';
-		}
-
-		$query = $query . $where;
-
-		// Sorting
-		$sort = "";
-		foreach ($params->order as $order) {
-			if (strlen($sort) == 0) {
-				$sort .= ' order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-			} else {
-				$sort .= ', '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-			}
-		}
-
-		$result = DB::select($query);
-		$api_Result['recordsFiltered'] = count($result);
-
-		$filter = " limit ".$params->length." offset ".$params->start."";
-
-		$query .= $sort . $filter;
 
 		$result = DB::select($query);
 		$api_Result['data'] = $result;

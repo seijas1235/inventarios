@@ -5,7 +5,7 @@
                 <button type="button" class="close" id="closeProfile" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="userUpdateLabel">Update My Information  </h4>
             </div>
-            <form id="{{ Auth::user()->id }}" class="update-userInfo form-horizontal" role="form" method="POST" action="{{ url('/admin/user/store') }}">
+            <form class="update-userInfo form-horizontal" role="form" method="POST" action="{{ url('/admin/user/store') }}">
                 <div class="modal-body">
                     {!! csrf_field() !!}
                     <div class="form-group{{ $errors->has('old_name') ? ' has-error' : '' }}">

@@ -43,7 +43,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="activeRecord" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-success confirm-active" id="active">
+                    <button class="btn btn-success confirm-active" id="active1">
                         <i  class="fa fa-btn fa-user-times"></i>Activar
                     </button>
                 </div>

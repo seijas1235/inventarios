@@ -461,7 +461,6 @@ class ComprasController extends Controller
 	}
 
 	public function getJson(Request $params)
-
 	{
 		
 		$query = 'SELECT  c.id, c.serie_factura, c.num_factura, DATE_FORMAT(c.fecha_factura, "%d-%m-%Y") as fecha_factura, proveedores.nombre, TRUNCATE(c.total_factura,2) as total,

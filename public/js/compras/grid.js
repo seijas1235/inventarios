@@ -247,14 +247,12 @@ $('body').on('click', '#addDetalleMaquina', function(e) {
                     success: function(data) {
                         var detalle = data;
                         $.ajax({
-                            /*url: "/pos_v2/compras-detalle/" + detalle.id,*/
                             url: "/compras-detalle/" + detalle.id,
                             type: "POST",
                             contentType: "application/json",
                             data: JSON.stringify(db.links),
                             success: function(addressResponse) {
                                 if (addressResponse.result == "ok") {
-                            /*window.location = "/pos_v2/compras"*/
                             window.location = "/compras"
                                 }
                             },
@@ -263,7 +261,7 @@ $('body').on('click', '#addDetalleMaquina', function(e) {
                         });
                     },
                     error: function() {
-                        alert("Something went wrong, please try again!");
+                        alert("Ocurrio un error Contacte al Administrador!");
                     }
                 });
             }

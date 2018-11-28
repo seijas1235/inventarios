@@ -72,7 +72,7 @@
 
 				<div class="col-sm-3">
 					{!! Form::label("nombre","Descripcion del Producto:") !!}
-					{!! Form::text( "nombre" , null , ['class' => 'form-control' , 'disabled','placeholder' => 'Descripcion del producto' ]) !!}
+					{!! Form::text( "nombre" , null , ['class' => 'form-control' , 'disabled','placeholder' => 'Descripcion del producto', 'id' => 'nombreProducto']) !!}
 				</div>
 
 				<div class="col-sm-2">
