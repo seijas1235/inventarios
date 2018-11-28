@@ -203,8 +203,6 @@ class ConversionesProductoController extends Controller
 		}
 		else if( password_verify( $request["password_delete"] , $user1))
 		{
-
-			//$producto = MovimientoProducto::where('id', $ingreso_producto->movimiento_producto_id)->get()->first();
 			$newExistencias = 0;
 			$updateExistencia = MovimientoProducto::where('id', $ingreso_producto->movimiento_producto_id)
 			->update(['existencias' => $newExistencias]);

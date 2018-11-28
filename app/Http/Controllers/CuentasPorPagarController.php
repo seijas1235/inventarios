@@ -98,7 +98,6 @@ class CuentasPorPagarController extends Controller
             $cuentaporpagar->update(['total' => $newtotal]); 
              
         }
-
         else
         {
             $detalle = array(
@@ -118,10 +117,7 @@ class CuentasPorPagarController extends Controller
             $cuentaporpagar->detalles_cuentas_por_pagar()->create($detalle);
 
         }
-
         return Response::json($cuentaporpagar);
-
-    
 	}
 
 

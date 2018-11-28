@@ -62,8 +62,6 @@ class VentasController extends Controller
 		return view("venta.create" , compact( "back", "tipo_pagos",'series',"today",'servicios','tipos_clientes', 'clasificaciones', 'clientes'));
 	}
 
-	
-
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -131,9 +129,7 @@ class VentasController extends Controller
 			$cuenta2 = new CuentaPorCobrarDetalle;
 			$cuenta2->create($detalle);
 			return Response::json($cuenta2);
-		}
-		
-	
+		}	
 	}
 
 	public function saveDetalle(Request $request, Venta $venta_maestro)
@@ -179,8 +175,6 @@ class VentasController extends Controller
 				$existencias = $producto->existencias;
 				$cantidad = $stat["cantidad"];
 				$newExistencias = $existencias - $cantidad;
-
-
 				//kardex
 				$existencia_anterior = MovimientoProducto::where( "producto_id" , "=" , $producto->producto_id )
 				->sum( "existencias");
@@ -314,8 +308,6 @@ class VentasController extends Controller
 				}	
 
 			}
-
-
 		elseif( $tipo_pago_anterior == 1 && $data["tipo_pago_id"] == 3 && $cliente_anterior != $data['cliente_id'] || 
 				$tipo_pago_anterior == 2 && $data["tipo_pago_id"] == 3 && $cliente_anterior != $data['cliente_id'] )
 		{
@@ -481,8 +473,6 @@ class VentasController extends Controller
 			return Response::json( $response  , 422 );
 		}
 	}
-
-
 
 	public function destroyDetalle(VentaDetalle $venta_detalle, Request $request)
 	{

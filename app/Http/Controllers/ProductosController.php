@@ -322,14 +322,7 @@ class ProductosController extends Controller
 
 	// Sorting
 		$sort = "";
-		//foreach ($params->order as $order) {
-		//	if (strlen($sort) == 0) {
-		//		$sort .= ' order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-		//	} else {
-		//		$sort .= ' , '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-		//	}
-		//}
-
+	
 		$filter = " limit ".$params->length." offset ".$params->start."";
 		$group = " GROUP BY productos.id, productos.codigo_barra, movimientos_productos.precio_compra ";
 		
@@ -380,13 +373,6 @@ class ProductosController extends Controller
 
 	// Sorting
 		$sort = "";
-		//foreach ($params->order as $order) {
-		//	if (strlen($sort) == 0) {
-		//		$sort .= ' order by ' . $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-		//	} else {
-		//		$sort .= ' , '. $columnsMapping[$order['column']] . ' '. $order['dir']. ' ';
-		//	}
-		//}
 
 		$filter = " limit ".$params->length." offset ".$params->start."";
 		$group = " GROUP BY productos.id, productos.codigo_barra, productos.nombre ";
@@ -405,7 +391,4 @@ class ProductosController extends Controller
 
 		return Response::json( $api_Result );
 	}
-
-
-
 }

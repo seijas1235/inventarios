@@ -79,7 +79,6 @@ class DocumentosController extends Controller
 
         return view('documentos.edit', compact('documento', 'fieldsArray'));
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -130,7 +129,6 @@ class DocumentosController extends Controller
             return Response::json( $response  , 422 );
         }    
     }
-
 
     public function getJson(Request $params)
     {

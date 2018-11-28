@@ -98,7 +98,6 @@ class MaquinariasEquipoController extends Controller
         return redirect('/maquinarias_equipo');
     }
 
-
     public function updateMaquinariaEquipo(MaquinariaEquipo $maquinariaequipo, array $data )
     {
         $id= $maquinariaequipo->id;
@@ -191,8 +190,6 @@ class MaquinariasEquipoController extends Controller
 	{
 		return view('maquinariaequipo.existencias');
 	}
-
-
 
 	public function existencias(Request $params)
 	{

@@ -216,8 +216,6 @@ class PlanillasController extends Controller
 		return Response::json( $api_Result );
 	}
 
-
-
 	public function getJsonDetalle(Request $params, $detalle)
 	{
 		$query = 'SELECT dp.id, dp.planilla_id, dp.empleado_id, CONCAT(e.nombre,'."' '".',e.apellido) as nombre_completo, p.sueldo,

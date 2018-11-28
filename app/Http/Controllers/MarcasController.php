@@ -161,8 +161,6 @@ class MarcasController extends Controller
 			return 'true';
 		}
     }
-    
-
     public function getJson(Request $params)
     {
         

@@ -139,7 +139,6 @@ class PreciosProductoController extends Controller
         }    
     }
 
-
     public function getJson(Request $params)
     {
         $query = "SELECT * FROM precios_producto";

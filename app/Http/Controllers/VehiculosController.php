@@ -25,7 +25,6 @@ use App\Linea;
 use App\Color;
 use App\TipoMarca;
 
-
 class VehiculosController extends Controller
 {
     /**
@@ -192,7 +191,6 @@ class VehiculosController extends Controller
         return redirect('/vehiculos');
     }
 
-
     public function updateVehiculo(Vehiculo $vehiculo, array $data )
     {
         $id= $vehiculo->id;
@@ -259,9 +257,6 @@ class VehiculosController extends Controller
             return Response::json( $response  , 422 );
         }    
     }
-
-
-
 
     public function getJson(Request $params)
     {
