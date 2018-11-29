@@ -28,15 +28,15 @@
 
 </head>
 <body>
-
+    <center><h1>Car-Zone Chiquimula </h1> </center>
     <center><h3>Reporte de Ventas</h3></center>
-    <center><h4>Del {{$fecha_inicial}} al {{$fecha_final}}</h4></center>
+    <h4> <center>Del {{$fecha_inicial}} al {{$fecha_final}} </center> <p align="right"> Generado por: {{$user}}  </p>  </h4>
 
     <table border="1" width="100%">
         <tr>
             <th style="border: 0px">Fecha</th>
-            <th style="border: 0px">Serie</th>
-            <th style="border: 0px">No.Factura</th>
+            <th style="border: 0px">Nit</th>
+            <th style="border: 0px">Nombre Cliente</th>
             <th style="border: 0px">Total</th>
         </tr>
 
@@ -44,16 +44,16 @@
         <tr>
             <td style="text-align: center">{{$detalle->fecha}}</td>
 
-            @if($detalle->serie == "")
+            @if($detalle->nit == "")
             <td style="text-align: center">S/F</td>
             @else
-            <td style="text-align: center">{{$detalle->serie}}</td>
+            <td style="text-align: center">{{$detalle->nit}}</td>
             @endif
 
-            @if($detalle->numero == "")
+            @if($detalle->nombres == "")
             <td style="text-align: center">S/F</td>
             @else
-            <td style="text-align: center">{{$detalle->numero}}</td>
+            <td style="text-align: center">{{$detalle->nombres}}</td>
             @endif
 
             <td style="text-align: center">Q {{number_format($detalle->total_venta,2)}}</td>
