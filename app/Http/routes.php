@@ -336,6 +336,7 @@ Route::group(['middleware' => ['web']], function ()
 
 		Route::get( '/rpt_ventas/generar' , 'VentasController@rpt_generar');
 		Route::post( '/rpt_ventas/' , 'VentasController@rpt_ventas');
+		Route::post( '/rpt_ventas_dia/' , 'VentasController@rpt_ventas_dia');
 
 		Route::get('/rpt_factura/{venta}' , 'PdfController@rpt_factura');
 
