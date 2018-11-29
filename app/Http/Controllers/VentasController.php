@@ -720,7 +720,7 @@ class VentasController extends Controller
 	public function rpt_ventas_dia(Request $request)
     {
         $today = date("Y/m/d");
-       
+		
         $query = "SELECT v.id, DATE_FORMAT(v.created_at, '%d-%m-%Y') as fecha, s.serie, f.numero, v.total_venta
 		FROM ventas_maestro v
 		LEFT JOIN facturas f on f.venta_id = v.id
@@ -743,18 +743,18 @@ class VentasController extends Controller
     {
         $fecha_inicial = $request['fecha_inicial'];
         $fecha_final = $request['fecha_final'];
+		$user = Auth::user()->name;
 
-        $query = "SELECT v.id, DATE_FORMAT(v.created_at, '%d-%m-%Y') as fecha, s.serie, f.numero, v.total_venta
+        $query = "SELECT v.id, DATE_FORMAT(v.created_at, '%d-%m-%Y') as fecha, v.total_venta, concat(C.nombres,' ' ,C.apellidos) as nombres, C.nit as nit
 		FROM ventas_maestro v
-		LEFT JOIN facturas f on f.venta_id = v.id
-		LEFT JOIN series s on s.id = f.serie_id
+		LEFT JOIN clientes C on C.id = v.cliente_id
 		WHERE v.created_at BETWEEN '".$fecha_inicial."' AND '".$fecha_final." 23:59:59' order by fecha ";
         $detalles = DB::select($query);
 
         $fecha_inicial = Carbon::parse($fecha_inicial)->format('d/m/Y');
         $fecha_final = Carbon::parse($fecha_final)->format('d/m/Y');
     
-        $pdf = PDF::loadView('pdf.rpt_ventas', compact('detalles', 'fecha_inicial', 'fecha_final'));
+        $pdf = PDF::loadView('pdf.rpt_ventas', compact('detalles', 'fecha_inicial', 'fecha_final','user'));
         return $pdf->stream('Reporte de ventas.pdf');
     }
     

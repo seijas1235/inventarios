@@ -193,7 +193,7 @@
 					<li class="{{request()->is('venta*')? 'active': ''}}"><a href="/ventas"><i class="icon icon-th"></i> <span>Ventas</span></a></li>
 					
 					<li class="{{request()->is('cajas_chicas*')? 'active': ''}}"><a href="/cajas_chicas"><i class="icon icon-th"></i> <span>Caja Chica</span></a></li>
-					<li class="{{request()->is('rpt_ventas/generar*')? 'active': ''}}"><a href="/rpt_ventas/generar" >Reporte de venta</a></li> 
+					
 					@endif
 				</ul>
 			</li>
@@ -259,7 +259,8 @@
 					<li class="{{request()->is('rpt_compras/generar*')? 'active': ''}}"><a href="/rpt_compras/generar">Compras por fecha</a></li> 
 					<li class="{{request()->is('rpt_ventas_cliente/generar*')? 'active': ''}}"><a href="/rpt_ventas_cliente/generar">Reporte de Ventas por Cliente</a></li> 
 					
-					
+					<li class="{{request()->is('rpt_ventas/generar*')? 'active': ''}}"><a href="/rpt_ventas/generar" >Reporte de venta</a></li>
+					<li class="{{request()->is('rpt_servicios/generar*')? 'active': ''}}"><a href="/rpt_servicios/generar" >Reporte de Servicios</a></li>
 					 
 					@endif
 				</ul>

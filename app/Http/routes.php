@@ -336,6 +336,9 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get( '/rpt_estado_cuenta_por_cobrar/generar' , 'CuentasPorCobrarController@rpt_generar');
 		Route::post( '/rpt_estado_cuenta_por_cobrar/' , 'CuentasPorCobrarController@rpt_estado_cuenta_por_cobrar');
 
+		Route::get( '/rpt_servicios/generar' , 'ServiciosController@rpt_generar');
+		Route::post( '/rpt_servicios/' , 'ServiciosController@rpt_ventas');
+
 		Route::get( '/rpt_ventas/generar' , 'VentasController@rpt_generar');
 		Route::post( '/rpt_ventas/' , 'VentasController@rpt_ventas');
 		Route::post( '/rpt_ventas_dia/' , 'VentasController@rpt_ventas_dia');
@@ -343,6 +346,7 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get( '/rpt_ventas_cliente/generar' , 'VentasController@rpt_ventas_cliente_generar');
 		Route::post( '/rpt_ventas_cliente/' , 'VentasController@rpt_ventas_cliente');
 
+		
 		Route::get('/rpt_factura/{venta}' , 'PdfController@rpt_factura');
 
 		Route::get('/rpt_compras/generar' , 'ComprasController@rpt_compras_generar');

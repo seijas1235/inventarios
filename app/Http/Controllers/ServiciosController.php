@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use App\TipoServicio;
 use App\Producto;
 use App\UnidadDeMedida;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Input;
 
 class ServiciosController extends Controller
@@ -252,6 +253,30 @@ class ServiciosController extends Controller
 				return Response::json( $result);
 			}
 
-	}
+    }
+    
+    public function rpt_ventas(Request $request)
+    {
+        $fecha_inicial = $request['fecha_inicial'];
+        $fecha_final = $request['fecha_final'];
+		$user = Auth::user()->name;
+
+        $query = "SELECT DATE_FORMAT(V.created_at, '%d-%m-%Y') as fecha, S.codigo, S.nombre,V.cantidad, V.precio_venta as precio, V.subtotal as subtotal
+        from ventas_detalle V
+        left join servicios S on S.id = V.servicio_id
+        where (V.servicio_id > 0) And (v.created_at BETWEEN '".$fecha_inicial."' AND '".$fecha_final." 23:59:59') order by fecha ";
+        $detalles = DB::select($query);
+
+        $fecha_inicial = Carbon::parse($fecha_inicial)->format('d/m/Y');
+        $fecha_final = Carbon::parse($fecha_final)->format('d/m/Y');
+    
+        $pdf = PDF::loadView('pdf.rpt_servicios', compact('detalles', 'fecha_inicial', 'fecha_final','user'));
+        return $pdf->stream('Reporte de servicios.pdf');
+    }
+    
+    public function rpt_generar()
+    {
+        return view("servicios.rptGenerar");
+    }
 
 }
