@@ -31,7 +31,7 @@ function cargarSelectCliente(){
       });
 }
 
-/*function cargarSelectVehiculo(){
+function cargarSelectVehiculo(){
     $('#vehiculo_id').empty();
     $("#vehiculo_id").append('<option value="" selected>Seleccione Vehiculo</option>');
     $.ajax({
@@ -50,7 +50,7 @@ function cargarSelectCliente(){
           alert('error');
         }
       });
-}*/
+}
 
 function changevehiculo() {
 	var cliente_id = $("#cliente_id").val();
