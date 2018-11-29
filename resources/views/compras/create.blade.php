@@ -12,10 +12,6 @@
 			<br>
 			<div class="row">
 				<div class="col-sm-3">
-					{!! Form::label("edo_ingreso_id","Estado:") !!}
-					{!! Form::text( "edo_ingreso_id" , "Activo", ['class' => 'form-control' , 'disabled' ]) !!}
-				</div>
-				<div class="col-sm-3">
 					{!! Form::label("fecha_ingreso","Fecha Compra:") !!}
 					{!! Form::date( "fecha_ingreso" , Carbon\Carbon::now() , ['class' => 'form-control' , 'placeholder' => 'Fecha', 'id' => 'fecha_ingreso' ]) !!}
 				</div>
