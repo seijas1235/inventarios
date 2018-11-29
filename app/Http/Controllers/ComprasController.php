@@ -29,6 +29,7 @@ use App\DetalleCuentaPorPagar;
 use App\Kardex;
 use App\Events\ActualizacionProducto;
 use App\TipoProveedor;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class ComprasController extends Controller
 {
@@ -505,5 +506,32 @@ class ComprasController extends Controller
 
 		return Response::json( $api_Result );
 	}
+
+	public function rpt_compras(Request $request)
+    {
+        $fecha_inicial = $request['fecha_inicial'];
+        $fecha_final = $request['fecha_final'];
+
+        $query = "SELECT  c.id, c.serie_factura, c.num_factura, DATE_FORMAT(c.fecha_factura, '%d-%m-%Y') as fecha_factura, proveedores.nombre, TRUNCATE(c.total_factura,2) as total,
+		IF((SELECT sum(mp.vendido) FROM compras
+				INNER JOIN detalles_compras dc on compras.id = dc.compra_id 
+				INNER JOIN movimientos_productos mp on mp.id = dc.movimiento_producto_id WhERE compras.id = c.id) > 0, 1, 0) as vendido
+				FROM compras c
+				INNER JOIN proveedores ON proveedores.id=c.proveedor_id WhERE c.edo_ingreso_id !=3
+				AND c.fecha_factura BETWEEN '".$fecha_inicial."' AND '".$fecha_final." 23:59:59 ' ";
+
+        $detalles = DB::select($query);
+
+        $fecha_inicial = Carbon::parse($fecha_inicial)->format('d/m/Y');
+        $fecha_final = Carbon::parse($fecha_final)->format('d/m/Y');
+    
+        $pdf = PDF::loadView('pdf.rpt_compra', compact('detalles', 'fecha_inicial', 'fecha_final'));
+        return $pdf->stream('Compras.pdf');
+    }
+    
+    public function rpt_compras_generar()
+    {
+        return view("compras.rptGenerar");
+    }
 
 }
