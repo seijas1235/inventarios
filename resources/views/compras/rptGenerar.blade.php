@@ -22,8 +22,8 @@
 			</div>		
 			<br>
 			<div class="text-right m-t-15">
-				<a class='btn btn-primary form-gradient-color form-button' href="{{ url('/compras') }}">Regresar</a>
-				{!! Form::input('submit', 'submit', 'Generar Reporte', ['class' => 'btn btn-primary form-gradient-color form-button', 'id'=>'ButtonReporte']) !!}
+				<a class='btn btn-primary form-gradient-color form-button' href="{{ url('/compras') }}" >Regresar</a>
+				{!! Form::input('submit', 'submit', 'Generar Reporte', ['class' => 'btn btn-primary form-gradient-color form-button', 'id'=>'ButtonReporte', "formtarget" => "_ blank"]) !!}
 			</div>
 			<input type="hidden" name="_token" id="tokenReporte" value="{{ csrf_token() }}">
 		<br>
