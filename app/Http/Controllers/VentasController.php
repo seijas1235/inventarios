@@ -739,8 +739,6 @@ class VentasController extends Controller
     }
     
 
-
-
 	public function rpt_ventas(Request $request)
     {
         $fecha_inicial = $request['fecha_inicial'];
@@ -763,5 +761,34 @@ class VentasController extends Controller
     public function rpt_generar()
     {
         return view("venta.rptGenerar");
+	}
+	
+	public function rpt_ventas_cliente(Request $request)
+    {
+        $fecha_inicial = $request['fecha_inicial'];
+        $fecha_final = $request['fecha_final'];
+
+        $query = "SELECT c.nit, CONCAT(c.nombres,' ',c.apellidos) as nombre_completo, SUM(v.total_venta) as total
+		FROM ventas_maestro v
+		INNER JOIN clientes c on v.cliente_id = c.id
+		WHERE v.created_at BETWEEN '".$fecha_inicial."' AND '".$fecha_final." 23:59:59' AND v.edo_venta_id != 3 GROUP BY nombre_completo, c.nit order by total ";
+		$detalles = DB::select($query);
+		
+		$query2 = "SELECT SUM(v.total_venta) as total
+		FROM ventas_maestro v
+		WHERE v.created_at BETWEEN '".$fecha_inicial."' AND '".$fecha_final." 23:59:59' 
+		AND v.edo_venta_id != 3  ";
+		$total_general = DB::select($query2);
+
+        $fecha_inicial = Carbon::parse($fecha_inicial)->format('d/m/Y');
+        $fecha_final = Carbon::parse($fecha_final)->format('d/m/Y');
+    
+        $pdf = PDF::loadView('pdf.rpt_ventas_cliente', compact('detalles', 'fecha_inicial', 'fecha_final', 'total_general'));
+        return $pdf->stream('Reporte de ventas por cliente.pdf');
+    }
+    
+    public function rpt_ventas_cliente_generar()
+    {
+        return view("clientes.rptGenerar");
     }
 }
