@@ -52,6 +52,29 @@ function cargarSelectVehiculo(){
       });
 }
 
+function changevehiculo() {
+	var cliente_id = $("#cliente_id").val();
+	
+	var url = "/vehiculo/obtener/" + cliente_id ;
+	if (cliente_id != "") {
+			$.getJSON( url , function ( result ) {
+		
+		var selector =''
+		for (let index = 0; index < result.length; index++) {
+			selector += '<option value="'+result[index].id+'">'+result[index].placa+'</option>';	
+		}
+		selector += ""
+		
+		$('#vehiculo_id').html(selector).fadeIn();
+			});
+	}
+}
+	
+
+$("#cliente_id").change(function () {
+	changevehiculo();
+});
+
 var validator = $("#OrdenDeTrabajoForm").validate({
 	ignore: [],
 	onkeyup:false,

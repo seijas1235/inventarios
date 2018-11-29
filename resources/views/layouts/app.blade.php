@@ -193,6 +193,7 @@
 					<li class="{{request()->is('venta*')? 'active': ''}}"><a href="/ventas"><i class="icon icon-th"></i> <span>Ventas</span></a></li>
 					
 					<li class="{{request()->is('cajas_chicas*')? 'active': ''}}"><a href="/cajas_chicas"><i class="icon icon-th"></i> <span>Caja Chica</span></a></li>
+					<li class="{{request()->is('rpt_ventas/generar*')? 'active': ''}}"><a href="/rpt_ventas/generar" >Reporte de venta</a></li> 
 					@endif
 				</ul>
 			</li>
@@ -255,9 +256,9 @@
 					<li class="{{request()->is('kardex/producto*')? 'active': ''}}"><a href="/kardex/producto">Kardex de Producto</a></li>
 					<li class="{{request()->is('rpt_kardex/generar*')? 'active': ''}}"><a href="/rpt_kardex/generar">Kardex Total por Fecha</a></li>
 					<li class="{{request()->is('rpt_kardex/producto/generar*')? 'active': ''}}"><a href="/rpt_kardex/producto/generar">Kardex por Producto y Fecha</a></li>  
-					<li class="{{request()->is('rpt_estado_cuenta_por_pagar/generar*')? 'active': ''}}"><a href="/rpt_estado_cuenta_por_pagar/generar">Estado de Cuenta Proveedor</a></li> 
-					<li class="{{request()->is('rpt_estado_cuenta_por_cobrar/generar*')? 'active': ''}}"><a href="/rpt_estado_cuenta_por_cobrar/generar">Estado de Cuenta Cliente</a></li>
-					<li class="{{request()->is('rpt_ventas/generar*')? 'active': ''}}"><a href="/rpt_ventas/generar">Reporte de venta</a></li>  
+					
+					
+					 
 					@endif
 				</ul>
 			</li>
@@ -280,6 +281,7 @@
 					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
 					<li class="{{request()->is('proveedores*')? 'open active': ''}}"><a href="/proveedores">Proveedores</a></li>
 					<li class="{{request()->is('cuentas_por_pagar*')? 'active': ''}}"><a href="/cuentas_por_pagar"><i class="icon icon-th"></i> <span>Cuentas Por pagar</span></a></li>
+					<li class="{{request()->is('rpt_estado_cuenta_por_pagar/generar*')? 'active': ''}}"><a href="/rpt_estado_cuenta_por_pagar/generar">Estado de Cuenta Proveedor</a></li> 
 					@endif
 				</ul>
 			</li>
@@ -293,6 +295,7 @@
 					
 					<li class="{{request()->is('clientes*')? 'active': ''}}"><a href="/clientes">Clientes</a></li>
 					<li class="{{request()->is('cuentas_por_cobrar*')? 'active': ''}}"><a href="/cuentas_por_cobrar"><i class="icon icon-th"></i> <span>Cuentas Por Cobrar</span></a></li>
+					<li class="{{request()->is('rpt_estado_cuenta_por_cobrar/generar*')? 'active': ''}}"><a href="/rpt_estado_cuenta_por_cobrar/generar">Estado de Cuenta Cliente</a></li>
 					@endif
 				</ul>
 			</li>

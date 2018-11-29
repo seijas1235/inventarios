@@ -40,10 +40,8 @@
 
 				<div class="col-sm-6">
 					{!! Form::label("vehiculo_id","Vehiculo:") !!}
-					<select class="selectpicker" id='vehiculo_id' name="vehiculo_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
-						@foreach ($vehiculos as $vehiculo)
-						<option value="{{$vehiculo->id}}">{{$vehiculo->placa}}</option>
-						@endforeach
+					<select class="form-control" id='vehiculo_id' name="vehiculo_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+						
 					</select>
 					<button class="btn btn-primary pull-right" data-toggle="modal" data-target="#ModalVehiculo" id="modalvehiculo" type="button">
 							<i class="fa fa-plus"></i>Nuevo Vehiculo</button>
