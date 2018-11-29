@@ -13,6 +13,7 @@
 
   html{
     margin 0;
+    background-color:#F1DEDA;
   }
     .table {
         height: auto;
@@ -28,9 +29,9 @@
 
 </head>
 <body>
-    <center><h1>Car-Zone Chiquimula </h1> </center>
-    <center><h3>Reporte de Ventas</h3></center>
-    <h4> <center>Del {{$fecha_inicial}} al {{$fecha_final}} </center> <p align="right"> Generado por: {{$user}}  </p>  </h4>
+    <center><img src="images/car_zone1.jpg" width="300"> </center>
+    <center><h2><b> Reporte de Ventas por Fecha </b> </h2></center>
+    <h4> <center>Del {{$fecha_inicial}} al {{$fecha_final}} </center> <p align="right"> Generado por: {{$user}} El {{$hoy}} </p>  </h4>
 
     <table border="1" width="100%">
         <tr>
@@ -39,7 +40,6 @@
             <th style="border: 0px">Nombre Cliente</th>
             <th style="border: 0px">Total</th>
         </tr>
-
         @foreach ($detalles as $detalle)
         <tr>
             <td style="text-align: center">{{$detalle->fecha}}</td>
@@ -59,6 +59,10 @@
             <td style="text-align: center">Q {{number_format($detalle->total_venta,2)}}</td>
         </tr>            
         @endforeach
+        
+        <tr>
+            <td><td></td></td><td style="text-align: center" > <h4><B>  TOTAL:</h4></B> </td> <td style="text-align: center"><h4><B>Q.{{number_format($total,2)}} </h4> </B></td>
+        </tr>
     </table>
 
 </body>

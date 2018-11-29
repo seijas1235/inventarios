@@ -24,9 +24,9 @@
 			<ul class="quick-actions">
 				<li class="bg_lb"> <a href=/clientes> <i class="icon-user"></i> <span class="label label-important">{{App\Cliente::count()}}
 				</span>Clientes Registrados</a> </li>
-				<li class="bg_lg"> <a href=/servicios> <i class="icon-file"></i> <span class="label label-important">
+				<li class="bg_lg"> <a href=/rpt_servicios/generar> <i class="icon-file"></i> <span class="label label-important">
 					 </span>Servicios Realizados</a> </li>
-					<li class="bg_lo"> <a href=/ventas> <i class="icon-money"></i>Ingresos del Día</a> </li>
+					<li class="bg_lo"> <a href=/rpt_ventas/generar> <i class="icon-money"></i>Ingresos del Día</a> </li>
 					<li class="bg_lg"> <a href=/factura> <i class="icon-calendar"></i> <span class="label label-important">{{App\Factura::count()}}
 					</span> Facturación</a> </li>
 					<li class="bg_ly"> <a href=/factura_cambiaria> <i class="icon-inbox"></i><span class="label label-important"></span> Inventario </a> </li>

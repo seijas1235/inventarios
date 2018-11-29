@@ -752,11 +752,15 @@ class VentasController extends Controller
 		LEFT JOIN clientes C on C.id = v.cliente_id
 		WHERE v.created_at BETWEEN '".$fecha_inicial."' AND '".$fecha_final." 23:59:59' order by fecha ";
         $detalles = DB::select($query);
-
+		$total=0;
+		foreach ($detalles as $detalle) {
+			$total=$total+$detalle->total_venta;
+		}
+		$hoy=Carbon::now();
         $fecha_inicial = Carbon::parse($fecha_inicial)->format('d/m/Y');
         $fecha_final = Carbon::parse($fecha_final)->format('d/m/Y');
     
-        $pdf = PDF::loadView('pdf.rpt_ventas', compact('detalles', 'fecha_inicial', 'fecha_final','user'));
+        $pdf = PDF::loadView('pdf.rpt_ventas', compact('hoy','total','detalles', 'fecha_inicial', 'fecha_final','user'));
         return $pdf->stream('Reporte de ventas.pdf');
     }
     
