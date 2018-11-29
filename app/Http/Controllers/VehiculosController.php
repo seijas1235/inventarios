@@ -111,6 +111,22 @@ class VehiculosController extends Controller
         //
     }
 
+    public function getDatos($cliente_id, Vehiculo $vehiculo) {
+        $cliente=$cliente_id;
+            if ($cliente == "")
+            {
+                $result = "";
+                return Response::json( $result);
+                
+            }
+            else {
+                $query = "SELECT * FROM vehiculos
+                            where vehiculos.cliente_id='$cliente'";
+                $result = DB::select($query);
+                return Response::json( $result);
+            }
+    }
+
     public function placaDisponible()
 	{
 		$dato = Input::get("placa");

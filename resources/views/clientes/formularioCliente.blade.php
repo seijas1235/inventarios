@@ -48,16 +48,19 @@
     </div>
     <br>
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-5">
             {!! Form::label("fecha_nacimiento","Fecha Nacimiento:") !!}
             {!! Form::date( "fecha_nacimiento" , null , ['class' => 'form-control']) !!}
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-5">
             {!! Form::label("telefonos","Telefonos:") !!}
             {!! Form::text( "telefonos" , null , ['class' => 'form-control' , 'placeholder' => 'Telefonos' ]) !!}
         </div>
-
-        <div class="col-sm-5">
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-12">
             {!! Form::label("direccion","Dirección:") !!}
             {!! Form::text( "direccion" , null , ['class' => 'form-control' , 'placeholder' => 'Dirección' ]) !!}
         </div>

@@ -157,6 +157,7 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get( 'vin-disponible/', 'VehiculosController@vinDisponible');
 		Route::get( '/linea/obtener/{marca}' , 'LineasController@getDatos');
 		Route::get( '/vehiculos/cargar' , 'VehiculosController@cargarSelect');
+		Route::get( '/vehiculo/obtener/{cliente}' , 'VehiculosController@getDatos');
 
 		Route::get('/unidades_de_medida', 'UnidadesDeMedidaController@index');
 		Route::get('/unidades_de_medida/getJson/' , 'UnidadesDeMedidaController@getJson');
