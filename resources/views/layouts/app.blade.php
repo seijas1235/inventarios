@@ -258,7 +258,8 @@
 					<li class="{{request()->is('rpt_kardex/producto/generar*')? 'active': ''}}"><a href="/rpt_kardex/producto/generar">Kardex por Producto y Fecha</a></li>
 					<li class="{{request()->is('rpt_compras/generar*')? 'active': ''}}"><a href="/rpt_compras/generar">Compras por fecha</a></li>  
 					
-					<li class="{{request()->is('rpt_ventas/generar*')? 'active': ''}}"><a href="/rpt_ventas/generar" >Reporte de venta</a></li> 
+					<li class="{{request()->is('rpt_ventas/generar*')? 'active': ''}}"><a href="/rpt_ventas/generar" >Reporte de venta</a></li>
+					<li class="{{request()->is('rpt_servicios/generar*')? 'active': ''}}"><a href="/rpt_servicios/generar" >Reporte de Servicios</a></li>
 					 
 					@endif
 				</ul>
