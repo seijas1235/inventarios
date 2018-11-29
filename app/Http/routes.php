@@ -341,6 +341,9 @@ Route::group(['middleware' => ['web']], function ()
 
 		Route::get('/rpt_factura/{venta}' , 'PdfController@rpt_factura');
 
+		Route::get('/rpt_compras/generar' , 'ComprasController@rpt_compras_generar');
+		Route::post( '/rpt_compras/' , 'ComprasController@rpt_compras');
+
 		//Reportes kardex
 
 		Route::get( '/rpt_kardex/generar' , 'ProductosController@rpt_generar_kardex');
