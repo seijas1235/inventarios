@@ -177,4 +177,17 @@ class CuentasPorPagarController extends Controller
         $proveedores = Proveedor::all();
         return view("cuentas_por_pagar.rptGenerar", compact('proveedores'));
     }
+
+    public function rpt_estado_cuenta_por_pagarTotal(Request $request)
+    {
+        $fechacompleta = Carbon::now();
+        $fecha = Carbon::parse($fechacompleta)->format('d/m/Y');
+
+        $query = "SELECT cpp.id, cpp.proveedor_id, cpp.total, p.nombre FROM cuentas_por_pagar cpp 
+        INNER JOIN proveedores p on p.id = cpp.proveedor_id ";
+        $detalles = DB::select($query);
+    
+        $pdf = PDF::loadView('pdf.rpt_estado_cuenta_por_pagar_total', compact('detalles', 'fecha'));
+        return $pdf->stream('Estado Cuenta por Pagar.pdf');
+    }
 }

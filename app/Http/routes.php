@@ -331,6 +331,8 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get( '/rpt_estado_cuenta_por_pagar/generar' , 'CuentasPorPagarController@rpt_generar');	
 		Route::post( '/rpt_estado_cuenta_por_pagar/' , 'CuentasPorPagarController@rpt_estado_cuenta_por_pagar');
 
+		Route::get( '/rpt_estado_cuenta_por_pagar/total' , 'CuentasPorPagarController@rpt_estado_cuenta_por_pagarTotal');
+
 		Route::get( '/rpt_estado_cuenta_por_cobrar/generar' , 'CuentasPorCobrarController@rpt_generar');
 		Route::post( '/rpt_estado_cuenta_por_cobrar/' , 'CuentasPorCobrarController@rpt_estado_cuenta_por_cobrar');
 

@@ -247,7 +247,7 @@
 			</li>
 
 			@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
-			<li class="submenu {{request()->is('kardex/producto','rpt_kardex/producto/generar','rpt_kardex/generar','existencias/producto*', 'existencias/maquinaria*', 'rpt_estado_cuenta_por_pagar/generar*', 'rpt_estado_cuenta_por_cobrar/generar*', 'rpt_ventas/generar')? 'active': ''}}"> <a href="#"><i class="icon icon-th-list"></i> <span>Reportes Generales</span> <span class="label label-important"></span></a>
+			<li class="submenu {{request()->is('kardex/producto','rpt_kardex/producto/generar','rpt_kardex/generar','existencias/producto*', 'existencias/maquinaria*', 'rpt_ventas/generar')? 'active': ''}}"> <a href="#"><i class="icon icon-th-list"></i> <span>Reportes Generales</span> <span class="label label-important"></span></a>
 				@endif
 				<ul>
 					@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
@@ -275,19 +275,20 @@
 			</li>
 
 			@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
-			<li class="submenu {{request()->is('proveedores*', 'cuentas_por_pagar*')? 'active': ''}}"> <a href="#"><i class="fa fa-cogs"></i> <span>Cuentas por Pagar</span> <span class="label label-important"></span></a>
+			<li class="submenu {{request()->is('rpt_estado_cuenta_por_pagar/total*','rpt_estado_cuenta_por_pagar/generar*','proveedores*', 'cuentas_por_pagar*')? 'active': ''}}"> <a href="#"><i class="fa fa-cogs"></i> <span>Cuentas por Pagar</span> <span class="label label-important"></span></a>
 				@endif
 				<ul>
 					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
 					<li class="{{request()->is('proveedores*')? 'open active': ''}}"><a href="/proveedores">Proveedores</a></li>
 					<li class="{{request()->is('cuentas_por_pagar*')? 'active': ''}}"><a href="/cuentas_por_pagar"><i class="icon icon-th"></i> <span>Cuentas Por pagar</span></a></li>
-					<li class="{{request()->is('rpt_estado_cuenta_por_pagar/generar*')? 'active': ''}}"><a href="/rpt_estado_cuenta_por_pagar/generar">Estado de Cuenta Proveedor</a></li> 
+					<li class="{{request()->is('rpt_estado_cuenta_por_pagar/generar*')? 'active': ''}}"><a href="/rpt_estado_cuenta_por_pagar/generar">Estado de Cuenta por Proveedor</a></li>
+					<li class="{{request()->is('rpt_estado_cuenta_por_pagar/total*')? 'active': ''}}"><a href="/rpt_estado_cuenta_por_pagar/total" target="_blank">Estado de Cuenta Proveedores</a></li> 
 					@endif
 				</ul>
 			</li>
 
 			@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
-			<li class="submenu {{request()->is('tipos_cliente*', 'cliente*', 'cuentas_por_cobrar')? 'active': ''}}"> <a href="#"><i class="fa fa-cogs"></i> <span>Cuentas por Cobrar</span> <span class="label label-important"></span></a>
+			<li class="submenu {{request()->is('rpt_estado_cuenta_por_cobrar/generar*','tipos_cliente*', 'cliente*', 'cuentas_por_cobrar')? 'active': ''}}"> <a href="#"><i class="fa fa-cogs"></i> <span>Cuentas por Cobrar</span> <span class="label label-important"></span></a>
 				@endif
 				<ul>
 					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
