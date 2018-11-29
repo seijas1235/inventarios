@@ -82,16 +82,16 @@ $('body').on('click', '#addMaquinaria', function(e) {
 		detalle.cantidad  = $("input[name='cantidad_maquina'] ").val();
 		detalle.nombre =  $("#maquinaria_equipo_id").find("option:selected").text();
 		detalle.unidad_de_medida =  $("#unidad_de_medida_id2").find("option:selected").text();
-        var total2 = $("input[name='total'] ").val();
+        var total2 = $("input[name='precio_costo'] ").val();
         if (total2 != "") {
             var total2 =parseFloat(total2);
             var subtotal = parseFloat(subtotal);
             var total = total2 + subtotal;
-            var total3 = $("input[name='total'] ").val(total);
+            var total3 = $("input[name='precio_costo'] ").val(total);
         }
         else {
             var subtotal = parseFloat(subtotal);
-            var total3 = $("input[name='total'] ").val(subtotal);
+            var total3 = $("input[name='precio_costo'] ").val(subtotal);
         }
 
         db.links.push(detalle);
@@ -133,16 +133,16 @@ $('body').on('click', '#addProducto', function(e) {
 		detalle.cantidad  = $("input[name='cantidad'] ").val();
 		detalle.nombre =  $("#producto_id").find("option:selected").text();
 		detalle.unidad_de_medida =  $("#unidad_de_medida_id").find("option:selected").text();
-        var total2 = $("input[name='total'] ").val();
+        var total2 = $("input[name='precio_costo'] ").val();
         if (total2 != "") {
             var total2 =parseFloat(total2);
             var subtotal = parseFloat(subtotal);
             var total = total2 + subtotal;
-            var total3 = $("input[name='total'] ").val(total);
+            var total3 = $("input[name='precio_costo'] ").val(total);
         }
         else {
             var subtotal = parseFloat(subtotal);
-            var total3 = $("input[name='total'] ").val(subtotal);
+            var total3 = $("input[name='precio_costo'] ").val(subtotal);
         }
 
         db.links.push(detalle);
@@ -188,11 +188,11 @@ $('body').on('click', '#addProducto', function(e) {
 
         deleteItem: function(deletingLink) {
             var linkIndex = $.inArray(deletingLink, this.links);
-            var total2 = $("input[name='total'] ").val();
+            var total2 = $("input[name='precio_costo'] ").val();
             var total2 =parseFloat(total2);
             var subtotal = parseFloat(deletingLink.subtotal_servicio);
             var total = total2 - subtotal;
-            var total3 = $("input[name='total'] ").val(total);
+            var total3 = $("input[name='precio_costo'] ").val(total);
             this.links.splice(linkIndex, 1);
         }
 
@@ -201,7 +201,7 @@ $('body').on('click', '#addProducto', function(e) {
     db.links = [];
 	
 	function saveDetalle(button) {
-		var total = $("input[name='total'] ").val();
+		var total = $("input[name='precio_costo'] ").val();
 		var codigo = $("input[name='codigo'] ").val();
 		var precio = $("input[name='precio'] ").val();
 		var precio_costo = $("input[name='precio_costo'] ").val();

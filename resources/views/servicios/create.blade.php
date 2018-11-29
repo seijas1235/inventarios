@@ -35,7 +35,7 @@
 			<div class="row">
 				<div class="col-sm-4">
 					{!! Form::label("precio_costo","Precio Costo sin Mano de Obra:") !!}
-					{!! Form::number( "precio_costo" , null , ['class' => 'form-control' , 'placeholder' => 'Precio Costo sin Mano de Obra' ]) !!}
+					{!! Form::number( "precio_costo" , null , ['class' => 'form-control' , 'placeholder' => 'Precio Costo sin Mano de Obra', 'disabled' => true ]) !!}
 	
 				</div>
 				<div class="col-sm-4">
@@ -54,10 +54,12 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-3">
+					{!! Form::label("cantidad","Cantidad:") !!}
 					{!! Form::number( "cantidad" , null , ['class' => 'form-control' , 'placeholder' => 'Cantidad' ]) !!}
 					{!! Form::hidden("unidad_cantidad" , null , ['class' => 'form-control' , 'disabled']) !!}
 				</div>
 				<div class="col-sm-3">
+					{!! Form::label("unidad_de_medida_id","Unidad de medida:") !!}
 					<select class="selectpicker" id='unidad_de_medida_id' name="unidad_de_medida_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
 						<option value="" selected>Unidad de medida</option>
 						@foreach ($unidades_de_medida as $unidad_de_medida)
@@ -66,8 +68,9 @@
 					</select>
 				</div>
 				<div class="col-sm-3">
+					{!! Form::label("producto_id","Producto:") !!}
 					<select class="selectpicker" id='producto_id' name="producto_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
-						<option value="" selected>Selecciona</option>
+						<option value="" selected>Selecciona Producto</option>
 						@foreach ($productos as $producto)
 						<option value="{{$producto->id}}">{{$producto->nombre}}</option>							
 						@endforeach
@@ -75,9 +78,11 @@
 					{!! Form::hidden("subtotal" , null , ['class' => 'form-control' , 'disabled']) !!}
 				</div>
 				<div class="col-sm-2">
+					{!! Form::label("costo_producto","Costo:") !!}
 					{!! Form::number( "costo_producto" , null , ['class' => 'form-control' , 'placeholder' => 'Costo' ]) !!}
 				</div>
 				<div class="col-sm-1">
+					{!! Form::label("addProducto"," ") !!}
 					{!! Form::button('Agregar' , ['class' => 'btn btn-success' ,'id' => 'addProducto', 'data-loading-text' => 'Processing...' ]) !!}
 				</div>
 			</div>
@@ -90,9 +95,11 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-3">
+					{!! Form::label("cantidad_maquina","Cantidad:") !!}
 					{!! Form::number( "cantidad_maquina" , null , ['class' => 'form-control' , 'placeholder' => 'Cantidad' ]) !!}
 				</div>
 				<div class="col-sm-3">
+					{!! Form::label("unidad_de_medida_id","Unidad de medida:") !!}
 					<select class="selectpicker" id='unidad_de_medida_id2' name="unidad_de_medida_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
 						<option value="" selected>Unidad de medida</option>
 						@foreach ($unidades_de_medida as $unidad_de_medida)
@@ -101,6 +108,7 @@
 					</select>
 				</div>
 				<div class="col-sm-3">
+					{!! Form::label("maquinaria_equipo_id","Maquinaria y/o Equipo:") !!}
 					<select class="selectpicker" id='maquinaria_equipo_id' name="maquinaria_equipo_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
 						<option value="" selected>Selecciona</option>
 						@foreach ($maquinarias as $maquinaria)
@@ -110,9 +118,11 @@
 					{!! Form::hidden("subtotalmaquina" , null , ['class' => 'form-control' , 'disabled']) !!}
 				</div>
 				<div class="col-sm-2">
+					{!! Form::label("costo_maquinaria","Costo:") !!}
 					{!! Form::number( "costo_maquinaria" , null , ['class' => 'form-control' , 'placeholder' => 'Costo' ]) !!}
 				</div>
 				<div class="col-sm-1">
+					{!! Form::label("addMaquinaria"," ") !!}
 					{!! Form::button('Agregar' , ['class' => 'btn btn-success' ,'id' => 'addMaquinaria', 'data-loading-text' => 'Processing...' ]) !!}
 				</div>
 			</div>

@@ -123,16 +123,7 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/mantto_equipo/edit/{manttoequipo}' , 'MantenimientoEquiposController@edit');
 		Route::patch('/mantto_equipo/{manttoequipo}/update' , 'MantenimientoEquiposController@update');
 		Route::delete('/mantto_equipo/remove/{manttoequipo}' , 'MantenimientoEquiposController@destroy');
-		
-		//rutas Inventario de maquinarias y equipos
-		Route::get('/inventario_equipo', 'InventarioEquiposController@index');
-		Route::get('/inventario_equipo/getJson/' , 'InventarioEquiposController@getJson');
-		Route::get('/inventario_equipo/new' , 'InventarioEquiposController@create');
-		Route::post('/inventario_equipo/save/' , 'InventarioEquiposController@store');
-		Route::get('/inventario_equipo/edit/{inventarioequipo}' , 'InventarioEquiposController@edit');
-		Route::patch('/inventario_equipo/{inventarioequipo}/update' , 'InventarioEquiposController@update');
-		Route::delete('/inventario_equipo/remove/{inventarioequipo}' , 'InventarioEquiposController@destroy');
-		
+			
 
 		//rutas Proveedores
 		Route::get( '/proveedores' , 'ProveedoresController@index');
