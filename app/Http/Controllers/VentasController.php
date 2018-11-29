@@ -717,6 +717,29 @@ class VentasController extends Controller
 
 		return Response::json( $api_Result );
 	}
+	public function rpt_ventas_dia(Request $request)
+    {
+        $today = date("Y/m/d");
+       
+        $query = "SELECT v.id, DATE_FORMAT(v.created_at, '%d-%m-%Y') as fecha, s.serie, f.numero, v.total_venta
+		FROM ventas_maestro v
+		LEFT JOIN facturas f on f.venta_id = v.id
+		LEFT JOIN series s on s.id = f.serie_id
+		WHERE v.created_at BETWEEN '".$today."' AND '".$today." 23:59:59' order by fecha ";
+        $detalles = DB::select($query);
+
+       
+		//$pdf = \PDF::loadView();
+		$view =  \View::make('pdf.rpt_ventas_dia', compact('detalles', 'today'))->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+
+
+        return $pdf->stream('Reporte de ventas de dia.pdf', array("Attachment" => 0));
+    }
+    
+
+
 
 	public function rpt_ventas(Request $request)
     {
