@@ -237,15 +237,19 @@ $('body').on('click', '#addDetalleMaquina', function(e) {
         if ( fecha_factura != '' && proveedor_id != '' && serie_factura != '' && num_factura != '' && tipo_pago_id != '') 
         {
             var formData = {total_factura: total_factura, proveedor_id : proveedor_id, fecha_factura: fecha_factura,
-                serie_factura : serie_factura, num_factura :num_factura, tipo_pago_id : tipo_pago_id} 
-                $.ajax({
+                serie_factura : serie_factura, num_factura :num_factura, tipo_pago_id : tipo_pago_id}
+                //var detalle = JSON.stringify(db.links);
+                var Datos = {'formData': formData, 'detalle': db.links}; 
+                $.ajax({ 
                     type: "GET",
-                    /*url: "../pos_v2/compras/save/",*/
                     url: "/compras/save/",
-                    data: formData,
+                    data: Datos,
                     dataType: "json",
                     success: function(data) {
-                        var detalle = data;
+                        if (data.result == "ok") {
+                            window.location = "/compras"
+                                }
+                        /*var detalle = data;
                         $.ajax({
                             url: "/compras-detalle/" + detalle.id,
                             type: "POST",
@@ -258,7 +262,7 @@ $('body').on('click', '#addDetalleMaquina', function(e) {
                             },
                             always: function() {
                             }
-                        });
+                        });*/
                     },
                     error: function() {
                         alert("Ocurrio un error Contacte al Administrador!");

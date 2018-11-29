@@ -67,49 +67,6 @@ class ComprasController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {/*
-        try{
-            DB:beginTransaction();
-
-            //Aqui Compra
-            $compra = new Compra();
-            $compra->fecha = $request->fecha;
-
-            //Aqui detalle
-
-            $detalles = $request->data;
-
-            foreach($detalles as $ep=>$det)
-            {
-                $detalle = new DetalleCompra();
-
-                $detalle->producto_id = $det['producto_id'];
-                $detalle->compra_id = $compra->id;
-                $detalle->cantidad = $det['cantidad'];
-                $detalle->precio_costo = $det['precio_costo'];
-                $detalle->subtotal = $det['subtotal'];
-                $detalle->maquinaria_equipo_id = $det['maquinaria_equipo_id'];
-                $detalle->save();
-            }
-
-            DB::commit();
-        }catch(Exception $e){
-            DB::rollBack();
-        }       
-
-        $data = $request->all();
-        $compra = compra::create($data);
-
-        return Response::json($compra);*/
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -117,52 +74,53 @@ class ComprasController extends Controller
      */
     public function save(Request $request)
 	{
+		try{
+			DB::beginTransaction();
 
-		$data = $request->all();
+		$data0 = $request->all();
+		$data = $data0['formData'];
 		$data["user_id"] = Auth::user()->id;
 		//$data['fecha_factura'] = Carbon::createFromFormat('d/m/Y', $data['fecha_factura']);
 		$data["edo_ingreso_id"] = 1;
-		$data["tipo_pago_id"] = $request["tipo_pago_id"];
+		$data["tipo_pago_id"] = $request['formData']["tipo_pago_id"];
 		$maestro = Compra::create($data);
 
-		if($request["tipo_pago_id"] == 3){
+		if($request['formData']["tipo_pago_id"] == 3){
 
-			$existeCuentaProveedor = CuentaPorPagar::where('proveedor_id',$request["proveedor_id"])->first();
+			$existeCuentaProveedor = CuentaPorPagar::where('proveedor_id',$request['formData']["proveedor_id"])->first();
 
 			if($existeCuentaProveedor){
 
 				$detalle = array(
 					'compra_id' => $maestro->id,
-					'num_factura' => $request["num_factura"],
+					'num_factura' => $request['formData']["num_factura"],
 					'fecha' => $data["fecha_factura"],
 					'descripcion' => 'Compra',
-					'cargos' => $request["total_factura"],	
+					'cargos' => $request['formData']["total_factura"],	
 					'abonos' => 0,
-					'saldo' => $existeCuentaProveedor->total + $request["total_factura"]
+					'saldo' => $existeCuentaProveedor->total + $request['formData']["total_factura"]
 				);					
 
 				$existeCuentaProveedor->detalles_cuentas_por_pagar()->create($detalle);
 
-				//$total = $existeCuentaProveedor->total;
-				//$newtotal = $total + $request["total_factura"];
 				$newtotal = $detalle['saldo'];
 				$existeCuentaProveedor->update(['total' => $newtotal]);
 			}
 
 			else{
 				$cuenta = new CuentaPorPagar;
-				$cuenta->total = $request["total_factura"];
-				$cuenta->proveedor_id = $request["proveedor_id"];
+				$cuenta->total = $request['formData']["total_factura"];
+				$cuenta->proveedor_id = $request['formData']["proveedor_id"];
 				$cuenta->save();
 
 				$detalle = array(
 					'compra_id' => $maestro->id,
-					'num_factura' => $request["num_factura"],
+					'num_factura' => $request['formData']["num_factura"],
 					'fecha' => $data["fecha_factura"],
 					'descripcion' => 'Compra',
-					'cargos' => $request["total_factura"],	
+					'cargos' => $request['formData']["total_factura"],	
 					'abonos' => 0,
-					'saldo' => $request["total_factura"]
+					'saldo' => $request['formData']["total_factura"]
 				);							
 
 				$cuenta->detalles_cuentas_por_pagar()->create($detalle);
@@ -170,11 +128,68 @@ class ComprasController extends Controller
 			
 		}
 
-		return $maestro;
+		//return $maestro;
+
+		//Guarda Detalle
+
+		$statsArray = $data0['detalle'];
+
+		foreach($statsArray as $stat) {
+			if(empty($stat['producto_id'])){
+				$stat['user_id'] = Auth::user()->id;
+				$stat['maquinaria_equipo_id'] = $stat['maquinaria_equipo_id'];
+				$stat["precio_venta"] = 0;
+				$stat["subtotal"] = $stat["subtotal_venta"];
+				$stat['existencias'] = $stat["cantidad"];
+				$stat["precio_compra"] = $stat["precio_compra"];
+				$stat['fecha_ingreso'] = Carbon::now();
+			
+				$detalle = MovimientoProducto::create($stat);
+				$stat["movimiento_producto_id"] = $detalle->id;
+				$maestro->detalles_compras()->create($stat);
+			}
+
+			else{
+				$stat['user_id'] = Auth::user()->id;
+				$stat['producto_id'] = $stat['producto_id'];
+				$stat["precio_venta"] = $stat["precio_venta"];
+				$stat["subtotal"] = $stat["subtotal_venta"];
+				$stat['existencias'] = $stat["cantidad"];
+				$stat["precio_compra"] = $stat["precio_compra"];
+				$stat['fecha_ingreso'] = Carbon::now();
+
+				//kardex
+
+				$existencia_anterior = MovimientoProducto::where( "producto_id" , "=" , $stat["producto_id"] )
+				->sum( "existencias");
+
+				if($existencia_anterior == null){
+					$existencia_anterior = 0;
+				};
+			
+				$detalle = MovimientoProducto::create($stat);
+				$stat["movimiento_producto_id"] = $detalle->id;
+				$maestro->detalles_compras()->create($stat);
+
+				event(new ActualizacionProducto($stat['producto_id'], 'Compra', $stat['cantidad'],0, $existencia_anterior, $existencia_anterior + $stat['cantidad']));
+			}		
+			
+		}
+
+		DB::commit();
+		return Response::json(['result' => 'ok']);
+		}
+
+		catch(Exception $e)
+		{
+            DB::rollBack();
+		}
+
 	}
 
 	public function saveDetalle(Request $request, Compra $compra)
-	{
+	{/*
+
 		$statsArray = $request->all();
 		foreach($statsArray as $stat) {
 
@@ -218,7 +233,7 @@ class ComprasController extends Controller
 			}		
 			
 		}
-		return Response::json(['result' => 'ok']);
+		return Response::json(['result' => 'ok']); */
 
 	}
 
