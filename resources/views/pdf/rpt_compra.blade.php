@@ -28,9 +28,10 @@
 
 </head>
 <body>
-
+    
+    <center><img src="images/car_zone1.jpg" width="300"> </center>
     <center><h3>Compras</h3></center>
-    <center><h4>Del {{$fecha_inicial}} al {{$fecha_final}}</h4></center>
+    <center><h4>Del {{$fecha_inicial}} al {{$fecha_final}}</h4></center><p align="right"> Generado por: {{Auth::user()->name}} El {{Carbon\Carbon::now()}} </p>
 
     <table border="1" width="100%">
         <tr>
@@ -52,6 +53,10 @@
             <td style="text-align: center">Q {{number_format($detalle->total,2)}}</td>
         </tr>            
         @endforeach
+        <tr>
+            <td colspan="5" style="text-align: center"><b>Total</b> </td>
+            <td colspan="1" style="text-align: center">Q {{number_format($total_general[0]->total,2)}}</td>
+        </tr>
     </table>
 
 </body>

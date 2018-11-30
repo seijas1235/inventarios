@@ -520,12 +520,16 @@ class ComprasController extends Controller
 				INNER JOIN proveedores ON proveedores.id=c.proveedor_id WhERE c.edo_ingreso_id !=3
 				AND c.fecha_factura BETWEEN '".$fecha_inicial."' AND '".$fecha_final." 23:59:59 ' ";
 
-        $detalles = DB::select($query);
+		$detalles = DB::select($query);
+		
+		$query2 = "SELECT SUM(c.total_factura) as total FROM compras c where c.edo_ingreso_id !=3
+		AND c.fecha_factura BETWEEN '".$fecha_inicial."' AND '".$fecha_final." 23:59:59' ";
+		$total_general = DB::select($query2);
 
         $fecha_inicial = Carbon::parse($fecha_inicial)->format('d/m/Y');
         $fecha_final = Carbon::parse($fecha_final)->format('d/m/Y');
     
-        $pdf = PDF::loadView('pdf.rpt_compra', compact('detalles', 'fecha_inicial', 'fecha_final'));
+        $pdf = PDF::loadView('pdf.rpt_compra', compact('detalles', 'fecha_inicial', 'fecha_final', 'total_general'));
         return $pdf->stream('Compras.pdf');
     }
     

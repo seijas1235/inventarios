@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compras por Fecha</title>
+    <title>Ventas por cliente y fecha</title>
     <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -29,8 +29,9 @@
 </head>
 <body>
 
+    <center><img src="images/car_zone1.jpg" width="300"> </center>
     <center><h3>Ventas por Cliente</h3></center>
-    <center><h4>Del {{$fecha_inicial}} al {{$fecha_final}}</h4></center>
+    <center><h4>Del {{$fecha_inicial}} al {{$fecha_final}}</h4></center><p align="right"> Generado por: {{Auth::user()->name}} El {{Carbon\Carbon::now()}} </p>
 
     <table border="1" width="100%">
         <tr>

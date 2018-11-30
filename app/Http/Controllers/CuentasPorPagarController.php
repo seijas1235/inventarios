@@ -186,8 +186,11 @@ class CuentasPorPagarController extends Controller
         $query = "SELECT cpp.id, cpp.proveedor_id, cpp.total, p.nombre FROM cuentas_por_pagar cpp 
         INNER JOIN proveedores p on p.id = cpp.proveedor_id ";
         $detalles = DB::select($query);
+
+        $query2 = "SELECT sum(cpp.total) as total FROM cuentas_por_pagar cpp ";
+		$total_general = DB::select($query2);
     
-        $pdf = PDF::loadView('pdf.rpt_estado_cuenta_por_pagar_total', compact('detalles', 'fecha'));
+        $pdf = PDF::loadView('pdf.rpt_estado_cuenta_por_pagar_total', compact('detalles', 'fecha', 'total_general'));
         return $pdf->stream('Estado Cuenta por Pagar.pdf');
     }
 }
