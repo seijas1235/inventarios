@@ -261,16 +261,22 @@ class ServiciosController extends Controller
         $fecha_final = $request['fecha_final'];
 		$user = Auth::user()->name;
 
-        $query = "SELECT DATE_FORMAT(V.created_at, '%d-%m-%Y') as fecha, S.codigo, S.nombre,V.cantidad, V.precio_venta as precio, V.subtotal as subtotal
+        $query = "SELECT DATE_FORMAT(V.created_at, '%d-%m-%Y') as fecha,S.codigo,T.nombre as tipo, S.nombre, V.subtotal as subtotal
         from ventas_detalle V
         left join servicios S on S.id = V.servicio_id
+        left join tipos_servicio T on T.id = S.tipo_servicio_id
         where (V.servicio_id > 0) And (v.created_at BETWEEN '".$fecha_inicial."' AND '".$fecha_final." 23:59:59') order by fecha ";
         $detalles = DB::select($query);
 
         $fecha_inicial = Carbon::parse($fecha_inicial)->format('d/m/Y');
         $fecha_final = Carbon::parse($fecha_final)->format('d/m/Y');
+        $total=0;
+		foreach ($detalles as $detalle) {
+			$total=$total+$detalle->subtotal;
+		}
+		$hoy=Carbon::now();
     
-        $pdf = PDF::loadView('pdf.rpt_servicios', compact('detalles', 'fecha_inicial', 'fecha_final','user'));
+        $pdf = PDF::loadView('pdf.rpt_servicios', compact('hoy','total','detalles', 'fecha_inicial', 'fecha_final','user'));
         return $pdf->stream('Reporte de servicios.pdf');
     }
     
