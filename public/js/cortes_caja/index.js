@@ -156,11 +156,11 @@ $('body').on('click', 'a.remove-corte_caja', function(e) {
     $("#userDeleteModal").hide().show();
     $("#userDeleteModal").modal();
     if (user.length = 1) {
-        $("#message").text("este tipo de corte_caja?");
+        $("#message").text("este corte de caja?");
         $(".variable").text("");
         $(".entity").text("");
     } else {
-        $("#message").text("este tipo de corte_caja");
+        $("#message").text("este corte de caja");
         $(".variable").text("");
         $(".entity").text("");
     }

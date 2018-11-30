@@ -10,7 +10,6 @@ $(document).ready(function() {
 
 	cargarSelectMarca();
 	cargarSelectClienteVehiculo();
-	//cargarSelectLinea();
 });
 
 function cargarSelectMarca(){
@@ -478,7 +477,8 @@ function saveModalVehiculo(button) {
 		data: formData,
 		dataType: "json",
 		success: function(data) {
-			cargarSelectVehiculo();
+			//cargarSelectVehiculo();
+			changevehiculo();
 			BorrarFormularioVehiculo();
 			l.stop();
 			$('#ModalVehiculo').modal("hide");
