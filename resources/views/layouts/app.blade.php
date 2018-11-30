@@ -247,7 +247,7 @@
 			</li>
 
 			@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
-			<li class="submenu {{request()->is('rpt_compras*','kardex/producto','rpt_kardex/producto/generar','rpt_kardex/generar','existencias/producto*', 'existencias/maquinaria*', 'rpt_ventas/generar')? 'active': ''}}"> <a href="#"><i class="icon icon-th-list"></i> <span>Reportes Generales</span> <span class="label label-important"></span></a>
+			<li class="submenu {{request()->is('rpt_ventas_cliente/generar*','rpt_compras*','kardex/producto','rpt_kardex/producto/generar','rpt_kardex/generar','existencias/producto*', 'existencias/maquinaria*', 'rpt_ventas/generar')? 'active': ''}}"> <a href="#"><i class="icon icon-th-list"></i> <span>Reportes Generales</span> <span class="label label-important"></span></a>
 				@endif
 				<ul>
 					@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
@@ -256,7 +256,8 @@
 					<li class="{{request()->is('kardex/producto*')? 'active': ''}}"><a href="/kardex/producto">Kardex de Producto</a></li>
 					<li class="{{request()->is('rpt_kardex/generar*')? 'active': ''}}"><a href="/rpt_kardex/generar">Kardex Total por Fecha</a></li>
 					<li class="{{request()->is('rpt_kardex/producto/generar*')? 'active': ''}}"><a href="/rpt_kardex/producto/generar">Kardex por Producto y Fecha</a></li>
-					<li class="{{request()->is('rpt_compras/generar*')? 'active': ''}}"><a href="/rpt_compras/generar">Compras por fecha</a></li>  
+					<li class="{{request()->is('rpt_compras/generar*')? 'active': ''}}"><a href="/rpt_compras/generar">Compras por fecha</a></li> 
+					<li class="{{request()->is('rpt_ventas_cliente/generar*')? 'active': ''}}"><a href="/rpt_ventas_cliente/generar">Reporte de Ventas por Cliente</a></li> 
 					
 					<li class="{{request()->is('rpt_ventas/generar*')? 'active': ''}}"><a href="/rpt_ventas/generar" >Reporte de venta</a></li>
 					<li class="{{request()->is('rpt_servicios/generar*')? 'active': ''}}"><a href="/rpt_servicios/generar" >Reporte de Servicios</a></li>
