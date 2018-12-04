@@ -245,7 +245,7 @@ Route::group(['middleware' => ['web']], function ()
         Route::get( '/compras/new' , 'ComprasController@create' );
         Route::get( '/compras/save/' , 'ComprasController@save');
         Route::post( '/compras-detalle/{compra}' , 'ComprasController@saveDetalle');
-        Route::patch( '/compras/{compra}/update' , 'ComprasController@update' );
+		Route::patch( '/compras/{compra}/update' , 'ComprasController@update' );
         Route::resource("compras", "ComprasController");
         Route::get('/compras/name/{compra}', 'ComprasController@getName' );
 		Route::delete('/compras/destroy/{compra}' , 'ComprasController@destroy' );

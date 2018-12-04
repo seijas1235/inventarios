@@ -12,15 +12,23 @@
         </div>
         <br>
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 {!! Form::label("serie_factura","Serie:") !!}
                 {!! Form::text( "serie_factura" , null , ['class' => 'form-control' , 'placeholder' => 'Serie' ]) !!}
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 {!! Form::label("num_factura","No.Factura:") !!}
                 {!! Form::text( "num_factura" , null , ['class' => 'form-control' , 'placeholder' => 'numero factura' ]) !!}
             </div>
-            <div class="col-sm-3">
+            
+            <div class="col-sm-4">
+                {!! Form::label("fecha_factura","Fecha factura:") !!}
+                {!! Form::date( "fecha_factura" , null , ['class' => 'form-control' , 'id'=>'fecha_factura' ]) !!}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-6">
                 {!! Form::label("proveedor_id","Proveedor:") !!}
                 <select class="selectpicker" id='proveedor_id' name="proveedor_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
                     @foreach ($proveedores as $proveedor)
@@ -32,9 +40,17 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-sm-3">
-                {!! Form::label("fecha_factura","Fecha factura:") !!}
-                {!! Form::date( "fecha_factura" , null , ['class' => 'form-control' , 'id'=>'fecha_factura' ]) !!}
+            <div class="col-sm-6">
+                {!! Form::label("tipo_pago_id","Tipo de Pago:") !!}
+                <select class="selectpicker" id='tipo_pago_id' name="tipo_pago_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+                    @foreach ($tipo_pagos as $tipo_pago)
+                    @if ( $tipo_pago->id == $compra->tipo_pago_id)
+                    <option value="{{$tipo_pago->id}}" selected>{{ $tipo_pago->tipo_pago}}</option>
+                    @else
+                    <option value="{{$tipo_pago->id}}">{{ $tipo_pago->tipo_pago}}</option>
+                    @endif
+                    @endforeach
+                </select>
             </div>
         </div>
         <br>

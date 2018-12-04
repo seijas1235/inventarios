@@ -280,7 +280,8 @@ class ComprasController extends Controller
 		$fieldsArray = DB::select($query);
 		
 		$proveedores = Proveedor::all();
-        return view ("compras.edit", compact('compra', 'fieldsArray','proveedores'));
+		$tipo_pagos = TipoPago::all();
+        return view ("compras.edit", compact('compra', 'fieldsArray','proveedores', 'tipo_pagos'));
 	}
 
 	/**
@@ -294,6 +295,153 @@ class ComprasController extends Controller
 
 	public function update(Compra $compra, Request $request )
 	{
+		function cargarSaldo(CuentaPorPagar $cuentaporpagar, Compra $compra){
+			$detalle = array(
+				'compra_id' => $compra->id,
+				'num_factura' => $compra->num_factura,
+				'fecha' => $compra->created_at,
+				'descripcion' => 'Compra modificada',
+				'cargos' => $compra->total_factura,	
+				'abonos' => 0,
+				'saldo' => $cuentaporpagar->total + $compra->total_factura
+			);					
+
+			$cuentaporpagar->detalles_cuentas_por_pagar()->create($detalle);
+
+			$newtotal = $detalle['saldo'];
+			$cuentaporpagar->update(['total' => $newtotal]);
+		};
+
+		function nuevaCuentaPorPagar(compra $compra, array $data){
+			$cuenta = new CuentaPorPagar;
+			$cuenta->total = $compra->total_factura;
+			$cuenta->proveedor_id = $data["proveedor_id"];
+			$cuenta->save();
+
+			$detalle = array(
+				'compra_id' => $compra->id,
+				'num_factura' => $compra->num_factura,
+				'fecha' => $compra->created_at,
+				'descripcion' => 'Compra modificada',
+				'cargos' => $compra->total_factura,	
+				'abonos' => 0,
+				'saldo' => $compra->total_factura
+			);							
+
+			$cuenta->detalles_cuentas_por_pagar()->create($detalle);
+
+		};
+
+		function abonarSaldo(CuentaPorPagar $cuentaporpagar, Compra $compra){
+			$total = $cuentaporpagar->total;
+			$NuevoTotal = $total - $compra->total_factura;
+
+			$detalle = array(
+				'compra_id' => $compra->id,
+				'num_factura' => $compra->num_factura,
+				'fecha' => carbon::now(),
+				'descripcion' => 'Compra modifico proveedor anterior',
+				'cargos' => 0,	
+				'abonos' => $compra->total_factura,
+				'saldo' => $NuevoTotal
+			);					
+
+			$cuentaporpagar->detalles_cuentas_por_pagar()->create($detalle);
+			$cuentaporpagar->update(['total' => $NuevoTotal]);
+		};
+
+		$data = $request->all();
+		$tipo_pago_anterior = $compra->tipo_pago_id;
+		$proveedor_anterior = $compra->proveedor_id;
+
+		$compra->tipo_pago_id = $data["tipo_pago_id"];
+		$compra->proveedor_id = $data["proveedor_id"];
+
+		if($tipo_pago_anterior == 1 && $data["tipo_pago_id"] == 3 && $proveedor_anterior == $data['proveedor_id'] || 
+		   $tipo_pago_anterior == 2 && $data["tipo_pago_id"] == 3 && $proveedor_anterior == $data['proveedor_id'] )
+			{
+				$cuentaporpagar = CuentaPorPagar::where('proveedor_id', $data["proveedor_id"])->first();
+
+				if($cuentaporpagar){
+					cargarSaldo($cuentaporpagar, $compra);					
+				}
+
+				else 
+				{
+					//dd($data);
+					nuevaCuentaPorPagar($compra, $data);				
+				}	
+
+			}
+		elseif( $tipo_pago_anterior == 1 && $data["tipo_pago_id"] == 3 && $proveedor_anterior != $data['proveedor_id'] || 
+				$tipo_pago_anterior == 2 && $data["tipo_pago_id"] == 3 && $proveedor_anterior != $data['proveedor_id'] )
+		{
+
+			$cuentaNueva = CuentaPorPagar::where('proveedor_id', $data['proveedor_id'])->first();
+
+			if($cuentaNueva)
+			{
+				//Se carga deuda a proveedor nuevo
+				cargarSaldo($cuentaNueva, $compra);
+			}
+
+			else
+			{
+				//Se Crea deuda a nuevo proveedor
+				nuevaCuentaPorPagar($compra, $data);
+			}
+
+		}
+
+		elseif($tipo_pago_anterior == 3 && $tipo_pago_anterior == $data["tipo_pago_id"] && $proveedor_anterior != $data['proveedor_id'] )
+		{
+			$cuentaporpagar = CuentaPorPagar::where('proveedor_id', $proveedor_anterior)->first();
+
+				//Se abona deuda proveedor anterior
+				abonarSaldo($cuentaporpagar, $compra);
+
+				$cuentaNueva = CuentaPorPagar::where('proveedor_id', $data['proveedor_id'])->first();
+
+				if($cuentaNueva)
+				{
+					//Se carga deuda a proveedor nuevo
+					cargarSaldo($cuentaNueva, $compra);
+				}
+
+				else
+				{
+					//Se crea deuda a nuevo proveedor
+					nuevaCuentaPorPagar($compra, $data);
+				}		
+		}
+
+		elseif($tipo_pago_anterior == 3 && $tipo_pago_anterior == $data["tipo_pago_id"] && $proveedor_anterior == $data['proveedor_id'])
+		{
+
+		}
+
+		//Cambio de credito a efectivo o tarjeta
+		elseif($tipo_pago_anterior == 3 && $data["tipo_pago_id"] == 1 && $proveedor_anterior == $data['proveedor_id']||
+				$tipo_pago_anterior == 3 && $data["tipo_pago_id"] == 2 && $proveedor_anterior == $data['proveedor_id'])
+		{
+			$cuentaporpagar = CuentaPorPagar::where('proveedor_id', $proveedor_anterior)->first();
+			//Se abona deuda proveedor anterior
+			abonarSaldo($cuentaporpagar, $compra);
+			
+		}
+
+		elseif($tipo_pago_anterior == 3 && $data["tipo_pago_id"] == 1 && $proveedor_anterior != $data['proveedor_id']||
+				$tipo_pago_anterior == 3 && $data["tipo_pago_id"] == 2 && $proveedor_anterior != $data['proveedor_id'])
+		{
+			$cuentaporpagar = CuentaPorPagar::where('proveedor_id', $proveedor_anterior)->first();
+			//Se abona deuda proveedor anterior
+			abonarSaldo($cuentaporpagar, $compra);
+
+		}
+		//$compra->save();
+		//return redirect('/compras');
+
+		//UPDATE COMPRAS
 		Response::json($this->updateIngresoProducto($compra , $request->all()));
         return redirect('/compras');
 
@@ -310,7 +458,7 @@ class ComprasController extends Controller
 		$compra->num_factura = $data["num_factura"];
 		$compra->fecha_factura = $data["fecha_factura"];
 		$compra->proveedor_id = $data["proveedor_id"];
-		//$compra->tipo_pago_id = $data["tipo_pago_id"];
+		$compra->tipo_pago_id = $data["tipo_pago_id"];
 		$compra->save();
 		return $compra;
 	}
