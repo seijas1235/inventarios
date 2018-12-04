@@ -299,7 +299,8 @@
 					
 					<li class="{{request()->is('clientes*')? 'active': ''}}"><a href="/clientes">Clientes</a></li>
 					<li class="{{request()->is('cuentas_por_cobrar*')? 'active': ''}}"><a href="/cuentas_por_cobrar"><i class="icon icon-th"></i> <span>Cuentas Por Cobrar</span></a></li>
-					<li class="{{request()->is('rpt_estado_cuenta_por_cobrar/generar*')? 'active': ''}}"><a href="/rpt_estado_cuenta_por_cobrar/generar">Estado de Cuenta Cliente</a></li>
+					<li class="{{request()->is('rpt_estado_cuenta_por_cobrar/generar*')? 'active': ''}}"><a href="/rpt_estado_cuenta_por_cobrar/generar">Estado de Cuenta por Cliente</a></li>
+					<li class="{{request()->is('rpt_estado_cuenta_por_cobrar/total*')? 'active': ''}}"><a href="/rpt_estado_cuenta_por_cobrar/total" target="_blank">Estado de Cuenta Clientes</a></li>
 					@endif
 				</ul>
 			</li>

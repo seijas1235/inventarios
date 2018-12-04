@@ -209,4 +209,20 @@ class CuentasPorCobrarController extends Controller
         $clientes = Cliente::all();
         return view("cuentas_por_cobrar.rptGenerar", compact('clientes'));
     }
+
+    public function rpt_estado_cuenta_por_cobrarTotal(Request $request)
+    {
+        $fechacompleta = Carbon::now();
+        $fecha = Carbon::parse($fechacompleta)->format('d/m/Y');
+
+        $query = "SELECT cpc.id, cpc.cliente_id, cpc.total, c.nombres FROM cuentas_por_cobrar cpc 
+        INNER JOIN clientes c on c.id = cpc.cliente_id ";
+        $detalles = DB::select($query);
+
+        $query2 = "SELECT sum(cpc.total) as total FROM cuentas_por_cobrar cpc ";
+		$total_general = DB::select($query2);
+    
+        $pdf = PDF::loadView('pdf.rpt_estado_cuenta_por_cobrar_total', compact('detalles', 'fecha', 'total_general'));
+        return $pdf->stream('Estado Cuenta por Cobrar.pdf');
+    }
 }
