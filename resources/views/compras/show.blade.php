@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-sm-3 title-line-height"></div>
             <div class="col-sm-6 text-center">
-                <h4 class="inline-title">Detalle de Ingreso de Producto</h4>
+                <h4 class="inline-title">Detalle de Compra</h4>
             </div>
             <div class="col-sm-3 title-line-height text-right">
                 <div class="btn-group">

@@ -71,7 +71,7 @@ var ingresos_productos_table = $('#ingresos_productos-table').DataTable({
         },
     },
     {
-        "title": "Predio de Venta",
+        "title": "Precio de Venta",
         "data": "precio_venta",
         "orderable": false,
         "width" : "20%",
