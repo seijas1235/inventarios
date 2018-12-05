@@ -95,6 +95,7 @@
 	<script src="/js/ladda.jquery.min.js"></script> 
 	<script src="/js/ladda.min.js"></script> 
 
+	<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
 
 </head>
 

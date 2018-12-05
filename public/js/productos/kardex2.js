@@ -1,15 +1,21 @@
 
 $('#kardex-table').DataTable({
     "dom": 'Bfrtip',
+    lengthMenu: [
+        [ 10, 25, 50, -1 ],
+        [ '10 filas', '25 filas', '50 filas', 'Mostrar todo' ]
+    ],
     "buttons": [
+    'pageLength',
     {
         extend: 'pdfHtml5',
         exportOptions: {
             columns: [ 1, 2, 3, 4, 5, 6, 7, 8]
-        }
+        },
     },
     'excelHtml5',
-    'csvHtml5'
+    'csvHtml5',
+    
     ],
     "language": {
         "sProcessing":     "Procesando...",
