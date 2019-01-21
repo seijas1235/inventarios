@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use App\TipoServicio;
 use App\Producto;
 use App\UnidadDeMedida;
+use App\DetalleServicio;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Input;
 
@@ -143,6 +144,49 @@ class ServiciosController extends Controller
         ]);
         
         //return view('servicios.edit', compact('servicio', 'fieldsArray', 'maquinarias','maquinarias2'));
+    }
+
+    public function editDetalle(DetalleServicio $detalle)
+    {
+
+        return view('servicios.editdetalle', [
+            'maquinarias' => MaquinariaEquipo::all(),
+            'productos' => Producto::all(),
+            'detalle' => $detalle
+        ]);
+        
+        //return view('servicios.edit', compact('servicio', 'fieldsArray', 'maquinarias','maquinarias2'));
+    }
+    
+    public function updateDetalle(DetalleServicio $detalle, Request $request )
+    {
+        $subtotal_anterior = $detalle->cantidad * $detalle->costo;
+
+        if(empty($request['producto_id'])){
+            $detalle->maquinaria_equipo_id = $request["maquinaria_equipo_id"];
+            $detalle->user_id = Auth::user()->id;
+            $detalle->costo = $request["costo"];
+            $detalle->cantidad = $request["cantidad"];
+            $detalle->save();
+        }
+        else{
+
+            $detalle->producto_id = $request["producto_id"];
+            $detalle->user_id = Auth::user()->id;
+            $detalle->costo = $request["costo"];
+            $detalle->cantidad = $request["cantidad"];
+            $detalle->save();
+        }
+        
+
+        $servicio = Servicio::where('id', $detalle->servicio_id)->first();
+
+        $nuevototal = $servicio->precio_costo - $subtotal_anterior + ($detalle->costo * $detalle->cantidad);
+        $servicio->precio_costo = $nuevototal;
+        $servicio->save();
+
+
+        return redirect('/servicios');
     }
 
     /**

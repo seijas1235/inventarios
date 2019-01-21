@@ -240,6 +240,9 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get( '/servicios/{servicio}/getJson' , 'ServiciosController@getJsonDetalle' );
 		Route::get( '/codigo-disponible-servicio/', 'ServiciosController@codigoDisponible');
 
+		Route::get('/detalleservicios/edit/{detalle}' , 'ServiciosController@editDetalle');
+		Route::patch('/detalleservicios/{detalle}/update' , 'ServiciosController@updateDetalle');
+
 		Route::get( '/compras' , 'ComprasController@index' );
         Route::get( '/compras/getJson' , 'ComprasController@getJson' );
         Route::get( '/compras/new' , 'ComprasController@create' );
