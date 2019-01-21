@@ -74,6 +74,21 @@ var servicio_detalle = $('#detallesServicios-table').DataTable({
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(parseFloat(Math.round(data * 100) / 100).toFixed(2));
         },
+    },
+
+    {
+        "title": "Acciones",
+        "orderable": false,
+        "width" : "20%",
+        "render": function(data, type, full, meta) {
+            return "<div id='" + full.id + "' class='text-center'>" + 
+            "<div class='float-left col-lg-12'>" + 
+            "<a href='/detalleservicios/edit/"+ full.id +"' class='edit-detalle'>" + 
+            "<i class='fa fa-btn fa-edit' title='Editar Detalle'></i>" + 
+            "</a>" + "</div>";
+            
+        },
+        "responsivePriority": 2
     }],
 "createdRow": function(row, data, rowIndex) {
     $.each($('td', row), function(colIndex) {
