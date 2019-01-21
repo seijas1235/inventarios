@@ -16,27 +16,29 @@
 			</div>	
 			<br>
 			<div class="row">
-				<div class="col-sm-3">
+				<div class="col-sm-4">
 					{!! Form::label("codigo_barra","Codigo de Barra:") !!}
 					{!! Form::hidden("producto_id" , null , ['class' => 'form-control' , 'disabled']) !!}
 					{!! Form::hidden("subtotal" , null , ['class' => 'form-control' , 'disabled']) !!}
 					{!! Form::text( "codigo_barra" , null , ['class' => 'form-control' , 'placeholder' => 'Codigo Barra' ]) !!}
 				</div>
 
-				<div class="col-sm-3">
+				<div class="col-sm-8">
 					{!! Form::label("nombre","Descripcion del Producto:") !!}
 					{!! Form::text( "nombre" , null , ['class' => 'form-control' , 'disabled','placeholder' => 'Descripcion del producto' ]) !!}
 				</div>
-
-				<div class="col-sm-2">
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-4">
 					{!! Form::label("cantidad_salida","Cantidad:") !!}
 					{!! Form::text( "cantidad_salida" , null , ['class' => 'form-control' , 'placeholder' => 'Cantidad' ]) !!}
 				</div>
-				<div class="col-sm-2">
+				<div class="col-sm-4">
 					{!! Form::label("precio_compra","Precio de compra:") !!}
 					{!! Form::text( "precio_compra" , null , ['class' => 'form-control' , 'disabled','placeholder' => 'Precio de compra' ]) !!}
 				</div>
-				<div class="col-sm-2">
+				<div class="col-sm-4">
 					{!! Form::label("tipo_salida_id","Tipo de salida:") !!}
 					<select class="selectpicker" id='tipo_salida_id' name="tipo_salida_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
 						@foreach ($tipos_salida as $tipo_salida)

@@ -39,7 +39,7 @@ $("input[name='codigo_barra']").focusout(function() {
                 $("input[name='nombre'] ").val("");
             }
             else {
-                $("input[name='nombre'] ").val(result[0].nombre);
+                $("input[name='nombre'] ").val(result[0].nombre+" - "+result[0].medida );
                 $("input[name='producto_id'] ").val(result[0].prod_id);
             }
         });
