@@ -261,6 +261,9 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/detallescompras/name/{detallecompra}', 'ComprasController@getDetalle');		
 		Route::get('/compras/edit/{compra}', 'ComprasController@edit');
 
+		Route::get('/detallescompras/edit/{detallecompra}' , 'ComprasController@editDetalle');
+		Route::patch( '/detallescompras/{detallecompra}' , 'ComprasController@updateDetalle' );
+
 		//Rutas Planillas
 		Route::get( '/planillas' , 'PlanillasController@index' );
         Route::get( '/planillas/getJson' , 'PlanillasController@getJson' );

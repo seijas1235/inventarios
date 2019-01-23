@@ -284,6 +284,16 @@ class ComprasController extends Controller
         return view ("compras.edit", compact('compra', 'fieldsArray','proveedores', 'tipo_pagos'));
 	}
 
+	public function editDetalle(DetalleCompra $detallecompra)
+	{
+		/*$query = "SELECT * FROM compras WHERE id=".$compra->id."";
+		$fieldsArray = DB::select($query);*/
+		
+		$productos = Producto::all();
+		$maquinarias = MaquinariaEquipo::all();
+        return view ("compras.editdetalle", compact('detallecompra','productos', 'maquinarias'));
+	}
+
 	/**
 	 * Update the specified resource in storage.
 	 *
@@ -443,6 +453,142 @@ class ComprasController extends Controller
 
 		//UPDATE COMPRAS
 		Response::json($this->updateIngresoProducto($compra , $request->all()));
+        return redirect('/compras');
+
+		//return Response::json( $this->updateIngresoProducto($compra, $request->all())); 
+	}
+
+
+	public function updateDetalle(DetalleCompra $detallecompra, Request $request )
+	{
+		function cargarSaldo(CuentaPorPagar $cuentaporpagar, Compra $compra, $cargar){
+			$detalle = array(
+				'compra_id' => $compra->id,
+				'num_factura' => $compra->num_factura,
+				'fecha' => $compra->created_at,
+				'descripcion' => 'Detalle Compra modificado',
+				'cargos' => $cargar,	
+				'abonos' => 0,
+				'saldo' => $cuentaporpagar->total + $cargar
+			);					
+
+			$cuentaporpagar->detalles_cuentas_por_pagar()->create($detalle);
+
+			$newtotal = $detalle['saldo'];
+			$cuentaporpagar->update(['total' => $newtotal]);
+		};
+
+		function abonarSaldo(CuentaPorPagar $cuentaporpagar, Compra $compra, $abonar){
+			$total = $cuentaporpagar->total;
+			$NuevoTotal = $total - $abonar;
+
+			$detalle = array(
+				'compra_id' => $compra->id,
+				'num_factura' => $compra->num_factura,
+				'fecha' => carbon::now(),
+				'descripcion' => 'Detalle Compra modificado',
+				'cargos' => 0,	
+				'abonos' => $abonar,
+				'saldo' => $NuevoTotal
+			);					
+
+			$cuentaporpagar->detalles_cuentas_por_pagar()->create($detalle);
+			$cuentaporpagar->update(['total' => $NuevoTotal]);
+		};
+
+		$data = $request->all();
+		$compra = Compra::where('id', $detallecompra->compra_id)->first();
+		$tipo_pago_anterior = $compra->tipo_pago_id;
+		$proveedor_anterior = $compra->proveedor_id;
+		$subtotal_anterior = $detallecompra->existencias * $detallecompra->precio_compra;
+		$subtotal_nuevo = $data['existencias'] * $data['precio_compra'];
+
+		//UPDATE cuando el detalle es de una compra al credito
+		if($tipo_pago_anterior == 3)
+		{
+			$cuentaporpagar = CuentaPorPagar::where('proveedor_id', $proveedor_anterior)->first();
+			abonarSaldo($cuentaporpagar, $compra, $subtotal_anterior);
+			cargarSaldo($cuentaporpagar, $compra, $subtotal_nuevo);					
+		}
+
+		//Se actualiza el total de la factura
+		$nuevoTotalFactura = $compra->total_factura - $subtotal_anterior + $subtotal_nuevo;
+
+		$compra->total_factura = $nuevoTotalFactura;
+		$compra->save();
+
+
+		//Se actualiza el movimiento
+		if(!empty($data['producto_id'])){
+
+			//kardex para rebajar
+			$existencia_anterior = MovimientoProducto::where( "producto_id" , "=" , $detallecompra->producto_id )->sum("existencias");
+
+			if($existencia_anterior == null){
+				$existencia_anterior = 0;
+			};
+		
+			event(new ActualizacionProducto($detallecompra->producto_id, 'Reversion Compra', 0,$detallecompra->existencias, $existencia_anterior, $existencia_anterior - $detallecompra->existencias));
+
+
+			$movimiento = MovimientoProducto::where('id', $detallecompra->movimiento_producto_id)->first();
+			$movimiento->existencias = $data['existencias'];
+			$movimiento->producto_id = $data['producto_id'];
+			$movimiento->precio_compra = $data['precio_compra'];
+			$movimiento->precio_venta = $data['precio_venta'];
+			$movimiento->save();
+
+			//kardex para cargar
+
+			/*if($data['producto_id'] == $detallecompra->producto_id){
+				$existencia_anterior2 = MovimientoProducto::where( "producto_id" , "=" , $data["producto_id"] )->sum("existencias");
+
+				$existencia_anterior2 = $existencia_anterior2 - $data['existencias'];
+			}
+			else{
+				$existencia_anterior2 = MovimientoProducto::where( "producto_id" , "=" , $data["producto_id"] )->sum("existencias");
+				$existencia_anterior2 = $existencia_anterior2 - $detallecompra->existencias;
+			}*/
+
+			$existencia_anterior2 = MovimientoProducto::where( "producto_id" , "=" , $data["producto_id"] )->sum("existencias");
+
+			$existencia_anterior2 = $existencia_anterior2 - $data['existencias'];
+
+			if($existencia_anterior2 == null){
+				$existencia_anterior2 = 0;
+			};
+		
+			event(new ActualizacionProducto($data['producto_id'], 'Compra', $data['existencias'],0, $existencia_anterior2, $existencia_anterior2 + $data['existencias']));
+		}
+
+		else{
+			$movimiento = MovimientoProducto::where('id', $detallecompra->movimiento_producto_id)->first();
+			$movimiento->existencias = $data['existencias'];
+			$movimiento->maquinaria_equipo_id = $data['maquinaria_equipo_id'];
+			$movimiento->precio_compra = $data['precio_compra'];
+			$movimiento->precio_venta = $data['precio_venta'];
+			$movimiento->save();			
+		}
+
+
+		//UPDATE DETALLE
+		if(!empty($data['producto_id'])){
+		$detallecompra->producto_id = $data['producto_id'];
+		$detallecompra->user_id = Auth::user()->id;
+		$detallecompra->precio_compra = $data['precio_compra'];
+		$detallecompra->precio_venta = $data['precio_venta'];
+		$detallecompra->existencias = $data['existencias'];
+		$detallecompra->save();
+		}
+		else{
+			$detallecompra->maquinaria_equipo_id = $data['maquinaria_equipo_id'];
+			$detallecompra->user_id = Auth::user()->id;
+			$detallecompra->precio_compra = $data['precio_compra'];
+			$detallecompra->precio_venta = $data['precio_venta'];
+			$detallecompra->existencias = $data['existencias'];
+			$detallecompra->save();
+		}
+
         return redirect('/compras');
 
 		//return Response::json( $this->updateIngresoProducto($compra, $request->all())); 
