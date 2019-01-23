@@ -611,6 +611,17 @@ class VentasController extends Controller
 		$existencias = $movimiento_producto->existencias;
 		$newExistencias = $existencias + $diferencia;
 		//dd($data);
+		//actualizacion de total de ventas
+		$ventamaestro = Venta::where('id', $venta_detalle->venta_id)
+		->get()->first();
+		$total = $ventamaestro->total_venta;
+		$sub=$data["cantidad"] * $data["precio_venta"];
+		$totalresta = $venta_detalle->subtotal- $sub;
+		$newTotal = $total - $totalresta;
+		$updateTotal = Venta::where('id', $venta_detalle->venta_id)
+		->update(['total_venta' => $newTotal]);
+
+
 		//Movimiento Producto
 		$updateExistencia = MovimientoProducto::where('id', $movimiento_producto->id)
 		->update(['existencias' => $newExistencias]);
@@ -629,6 +640,15 @@ class VentasController extends Controller
 		$data=$request->all();
 		$existencia_anterior = VentaDetalle::where( "id" , "=" , $venta_detalle->id )->sum( "cantidad");
 		$diferencia=$existencia_anterior - $data['cantidad'] ;
+		//actualizacion de total de ventas
+		$ventamaestro = Venta::where('id', $venta_detalle->venta_id)
+		->get()->first();
+		$total = $ventamaestro->total_venta;
+		$sub=$data["cantidad"] * $data["precio_venta"];
+		$totalresta = $venta_detalle->subtotal - $sub;
+		$newTotal = $total - $totalresta;
+		$updateTotal = Venta::where('id', $venta_detalle->venta_id)
+		->update(['total_venta' => $newTotal]);
 
 		if (empty( $data["servicio_id"])) {
 			$venta_detalle->cantidad=$data["cantidad"];
@@ -636,6 +656,7 @@ class VentasController extends Controller
 			$venta_detalle->precio_venta=$data["precio_venta"];
 			$venta_detalle->subtotal=$data["cantidad"] * $data["precio_venta"];
 			$venta_detalle->save();
+			
 		} else {
 			
 		$venta_detalle->cantidad=$data["cantidad"];
@@ -644,6 +665,8 @@ class VentasController extends Controller
 		$venta_detalle->save();
 
 		}
+		
+		
 
 		$response["response"] = "";
 		return Response::json($response);

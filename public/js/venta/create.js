@@ -780,7 +780,7 @@ function saveFactura(button) {
                 { title: "venta_detalle", name: "venta_detalle", type: "text", visible:false},
                 { title: "movimiento", name: "movimiento_id", type: "text", visible:false},
                 { title: "Cantidad", name: "cantidad", type: "text"},
-                { title: "Precio", name: "precio_venta", type: "text", editing: false},
+                { title: "Precio", name: "precio_venta", type: "text"},
                 { title: "Subtotal", name: "subtotal_venta", type: "text", editing:false},
                 { type: "control" }
                 ],
