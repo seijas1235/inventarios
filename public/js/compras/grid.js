@@ -126,10 +126,10 @@ $('body').on('click', '#addDetalle', function(e) {
         $("input[name='precio_venta'] ").val("");
         $("input[name='precio_compra'] ").val("");
         $("input[name='cantidad'] ").val([""]);
-        var cantidad = $("input[name='cantidad'] ").val();
+        /*var cantidad = $("input[name='cantidad'] ").val();
         var precio_venta = $("input[name='precio_venta'] ").val();
         var subtotal = cantidad * precio_compra;
-        $("input[name='subtotal'] ").val(subtotal);
+        $("input[name='subtotal'] ").val(subtotal);*/
         $("#compradetalle-grid .jsgrid-search-button").trigger("click");    
     }
     else 
@@ -178,10 +178,10 @@ $('body').on('click', '#addDetalleMaquina', function(e) {
         $("input[name='precio_venta'] ").val("");
         $("input[name='precio_compra_maquina'] ").val("");
         $("input[name='cantidad_maquina'] ").val([""]);
-        var cantidad = $("input[name='cantidad_maquina'] ").val();
+        /*var cantidad = $("input[name='cantidad_maquina'] ").val();
         var precio_venta = 0;
         var subtotal = cantidad * precio_compra;
-        $("input[name='subtotal'] ").val(subtotal);
+        $("input[name='subtotalmaquina'] ").val(subtotal);*/
         $("#compradetalle-grid .jsgrid-search-button").trigger("click");    
     }
     else 
@@ -209,7 +209,27 @@ $('body').on('click', '#addDetalleMaquina', function(e) {
         },
 
         updateItem: function(updatingLink) {
-            console.log(updatingLink);
+            var subtotal_nuevo = updatingLink.cantidad * updatingLink.precio_compra;
+
+            var total2 = $("input[name='total'] ").val();
+            var total2 =parseFloat(total2);
+
+            if(updatingLink.maquinaria_equipo_id == undefined){
+                var subtotal = $("input[name='subtotal'] ").val();
+                var subtotal = parseFloat(subtotal);
+                $("input[name='subtotal'] ").val(subtotal_nuevo);
+            }
+            else{
+                var subtotal = $("input[name='subtotalmaquina'] ").val();
+                var subtotal = parseFloat(subtotal);
+                $("input[name='subtotalmaquina'] ").val(subtotal_nuevo);
+            }
+            
+            console.log("El subtotal es "+subtotal);
+            var total = total2 - subtotal + (subtotal_nuevo);
+            $("input[name='total'] ").val(total);
+            updatingLink.subtotal_venta = subtotal_nuevo;
+            console.log("Nuevo " +subtotal_nuevo);
         },
 
         deleteItem: function(deletingLink) {
@@ -286,7 +306,7 @@ $('body').on('click', '#addDetalleMaquina', function(e) {
             $("#compradetalle-grid").jsGrid({
                 width: "",
                 filtering: false,
-                editing: false,
+                editing: true,
                 sorting: true,
                 paging: true,
                 autoload: true,
@@ -298,13 +318,13 @@ $('body').on('click', '#addDetalleMaquina', function(e) {
                 deleteConfirm: "Esta seguro de borrar el producto",
                 controller: db,
                 fields: [
-                { title: "Producto", name: "nombre", type: "text"},
+                { title: "Producto", name: "nombre", type: "text", editing: false},
                 { title: "Codigo", name: "producto_id", type: "text", visible:false},
                 { title: "Codigo2", name: "maquinaria_equipo_id", type: "text", visible:false},
                 { title: "Cantidad", name: "cantidad", type: "text"},
                 { title: "Precio Compra", name: "precio_compra", type: "text"},
                 { title: "Precio Venta", name: "precio_venta", type: "text"},
-                { title: "Subtotal", name: "subtotal_venta", type: "text"},
+                { title: "Subtotal", name: "subtotal_venta", type: "text", editing: false},
                 { type: "control" }
                 ],
                 onItemInserting: function (args) {
