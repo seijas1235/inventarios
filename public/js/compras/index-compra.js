@@ -235,10 +235,14 @@ var compra_detalle = $('#detallecompra-table').DataTable({
     "render": function(data, type, full, meta) {
         if(data ==0){
         return "<div id='" + full.id + "' class='text-center'>" + 
-            "<div class='float-center three-columns'>" + 
+            "<div class='float-center col-lg-6'>" + 
             "<a href='#' class='remove-detallecompra'>" + 
             "<i class='fa fa-btn fa-trash' title='Delete'></i>" + 
-            "</a>" + "</div>" + "</div>";
+            "</a>" + "</div>" + "</div>"+
+            "<div class='float-left col-lg-6'>" + 
+            "<a href='/detallescompras/edit/"+full.id+"'class='edit-detalle'>" + 
+            "<i class='fa fa-btn fa-edit' title='Editar detalle'></i>" + 
+            "</a>" + "</div>";
         }
         else{
             return "<div id='" + full.id + "' class='text-center'>";
