@@ -602,7 +602,53 @@ class VentasController extends Controller
 		return Response::json($response);
 	}
 
+// funciones para la edicion del detalle de ventas
+	public function UpdateDetalle2(VentaDetalle $venta_detalle, MovimientoProducto $movimiento_producto, Request $request)
+	{
+		$data = $request->all();
+		$existencia_anterior = VentaDetalle::where( "id" , "=" , $venta_detalle->id )->sum( "cantidad");
+		$diferencia=$existencia_anterior - $data['cantidad'] ;
+		$existencias = $movimiento_producto->existencias;
+		$newExistencias = $existencias + $diferencia;
+		//dd($data);
+		//Movimiento Producto
+		$updateExistencia = MovimientoProducto::where('id', $movimiento_producto->id)
+		->update(['existencias' => $newExistencias]);
+		$venta_detalle->cantidad=$data["cantidad"];
+		$venta_detalle->precio_venta=$data["precio_venta"];
+		$venta_detalle->subtotal=$data["cantidad"] * $data["precio_venta"];
+		$venta_detalle->save();
 
+
+
+		$response["response"] = "";
+		return Response::json($response);
+	}
+	public function UpdateDetalle3(VentaDetalle $venta_detalle,Request $request)
+	{
+		$data=$request->all();
+		$existencia_anterior = VentaDetalle::where( "id" , "=" , $venta_detalle->id )->sum( "cantidad");
+		$diferencia=$existencia_anterior - $data['cantidad'] ;
+
+		if (empty( $data["servicio_id"])) {
+			$venta_detalle->cantidad=$data["cantidad"];
+			$venta_detalle->detalle_mano_obra=$data["nombre"];
+			$venta_detalle->precio_venta=$data["precio_venta"];
+			$venta_detalle->subtotal=$data["cantidad"] * $data["precio_venta"];
+			$venta_detalle->save();
+		} else {
+			
+		$venta_detalle->cantidad=$data["cantidad"];
+		$venta_detalle->precio_venta=$data["precio_venta"];
+		$venta_detalle->subtotal=$data["cantidad"] * $data["precio_venta"];
+		$venta_detalle->save();
+
+		}
+
+		$response["response"] = "";
+		return Response::json($response);
+	
+	}
 	public function getTipoPago( Venta $venta_maestro )
 	{
 		$result = Venta::where( "id" , "=" , $venta_maestro->id )

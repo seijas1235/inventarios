@@ -436,12 +436,40 @@ $('body').on('click', '#addDetalleServicio', function(e)
         updateItem: function(updatingLink) {
             
             var subtotal_nuevo = updatingLink.cantidad * updatingLink.precio_venta;
-
             var total2 = $("input[name='total'] ").val();
             var total2 =parseFloat(total2);
-            
             var subtotal = updatingLink.subtotal_venta;
-           
+            
+            if(updatingLink.movimiento_id>0){
+                $.ajax({
+                    method: "PATCH",
+                    url: "/ventadetalle2/update/"+ updatingLink.venta_detalle+ "/" + updatingLink.movimiento_id,
+                    data: updatingLink,
+                    dataType: "json",
+                    success: function(data) {
+                        var detalle = data;
+                    },
+                    error: function() {
+                        alert("Something went wrong, please try again!");
+                    }
+                }); 
+            }else{
+                console.log(updatingLink);
+                $.ajax({
+                    method: "PATCH",
+                    url: "/ventadetalle3/update/"+ updatingLink.venta_detalle,
+                    data: updatingLink,
+                    dataType: "json",
+                    success: function(data) {
+                        var detalle = data;
+                    },
+                    error: function() {
+                        alert("Something went wrong, please try again!");
+                    }
+                }); 
+
+            }
+
             $("input[name='subtotal_venta'] ").val(subtotal_nuevo);
             console.log(subtotal);
         
