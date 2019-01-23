@@ -194,7 +194,11 @@ var venta_detalle = $('#ventadetalle-table').DataTable({
         "<div class='float-right one-columns'>" + 
         "<a href='#' class='remove-ventadetalle'>" + 
         "<i class='fa fa-btn fa-trash' title='Delete'></i>" + 
-        "</a>" + "</div>" + "</div>";;
+        "</a>" + "</div>" +
+        "<div class='float-left col-lg-6'>" + 
+        "<a href='/detallesventas/edit/"+full.id+"'class='edit-detalle'>" + 
+        "<i class='fa fa-btn fa-edit' title='Editar detalle'></i>" + 
+        "</a>" + "</div>";
     },
     "responsivePriority": 2
 }],

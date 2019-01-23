@@ -57,7 +57,9 @@ Route::group(['middleware' => ['web']], function ()
 		//rutas para edicion de detalle de ventas
 		Route::patch('/ventadetalle2/update/{venta_detalle}/{movimiento_producto}', 'VentasController@UpdateDetalle2');
 		Route::patch('/ventadetalle3/update/{venta_detalle}', 'VentasController@UpdateDetalle3');
-
+		
+		Route::get('/detallesventas/edit/{venta_detalle}' , 'VentasController@editDetalle');
+		Route::patch( '/detallesventas/{venta_detalle}' , 'VentasController@updateDetalle' );
 
 		Route::get('/tipos_cliente', 'TiposClienteController@index');
 		Route::get('/tipos_cliente/getJson/' , 'TiposClienteController@getJson');

@@ -679,6 +679,30 @@ class VentasController extends Controller
 		->first();
 		return Response::json( $result);
 	}
+	public function editDetalle ( VentaDetalle $venta_detalle)
+	{
+		/*$query = "SELECT * FROM compras WHERE id=".$compra->id."";
+		$fieldsArray = DB::select($query);*/
+		
+		$productos = Producto::all();
+		$servicios = Servicio::all();
+        return view ("venta.editdetalle", compact('venta_detalle','productos', 'servicios'));
+	}
+	public function updateDetalle(VentaDetalle $venta_detalle, Request $request )
+	{
+		$data=$request->all();	
+		if (empty($data["producto_id"]) && empty($data["servicio_id"] ) ) {
+			dd('si funca pa mano di obra');
+		} else  if (empty($data["producto_id"]) ) {
+			dd('si funca pa servicios');
+		}
+		else{
+			dd('si funca pa productos');
+		}
+		
+
+	}
+
 
 	public function makeCorte (Request $request)
 	{
