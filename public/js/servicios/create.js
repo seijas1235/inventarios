@@ -75,9 +75,9 @@ $('body').on('click', '#addMaquinaria', function(e) {
 
     if (cantidad != "" && maquinaria_equipo_id != "" && costo_maquinaria != "" && unidad != "")
     {
-        $("input[name='subtotal'] ").val(subtotal);
+        $("input[name='subtotalmaquina'] ").val(subtotal);
         detalle.costo = $("input[name='costo_maquinaria'] ").val();
-        detalle.subtotal_servicio = $("input[name='subtotal'] ").val();
+        detalle.subtotal_servicio = $("input[name='subtotalmaquina'] ").val();
 		detalle.maquinaria_equipo_id  = $("#maquinaria_equipo_id").val();
 		detalle.cantidad  = $("input[name='cantidad_maquina'] ").val();
 		detalle.nombre =  $("#maquinaria_equipo_id").find("option:selected").text();
@@ -101,9 +101,9 @@ $('body').on('click', '#addMaquinaria', function(e) {
         $('#unidad_de_medida_id2').change();
 		$("input[name='costo_maquinaria'] ").val("");
 		$("input[name='cantidad_maquina'] ").val("");
-        var precio = $("input[name='costo_maquinaria'] ").val();
+        /*var precio = $("input[name='costo_maquinaria'] ").val();
         var subtotal = precio;
-        $("input[name='subtotal'] ").val(subtotal);
+        $("input[name='subtotalmaquina'] ").val(subtotal);*/
         $("#servicio-grid .jsgrid-search-button").trigger("click");    
     }
     else 
@@ -153,9 +153,9 @@ $('body').on('click', '#addProducto', function(e) {
 		$("input[name='costo_producto'] ").val("");
 		$("input[name='cantidad'] ").val("");
         $('#producto_id option').removeAttr('selected');
-        var precio = $("input[name='costo_producto'] ").val();
+        /*var precio = $("input[name='costo_producto'] ").val();
         var subtotal = precio;
-        $("input[name='subtotal'] ").val(subtotal);
+        $("input[name='subtotal'] ").val(subtotal);*/
         $("#servicio-grid .jsgrid-search-button").trigger("click");    
     }
     else 
@@ -183,7 +183,27 @@ $('body').on('click', '#addProducto', function(e) {
         },
 
         updateItem: function(updatingLink) {
-            console.log(updatingLink);
+            var subtotal_nuevo = updatingLink.cantidad * updatingLink.costo;
+
+            var total2 = $("input[name='precio_costo'] ").val();
+            var total2 =parseFloat(total2);
+
+            if(updatingLink.maquinaria_equipo_id == undefined){
+                var subtotal = $("input[name='subtotal'] ").val();
+                var subtotal = parseFloat(subtotal);
+                $("input[name='subtotal'] ").val(subtotal_nuevo);
+            }
+            else{
+                var subtotal = $("input[name='subtotalmaquina'] ").val();
+                var subtotal = parseFloat(subtotal);
+                $("input[name='subtotalmaquina'] ").val(subtotal_nuevo);
+            }
+            
+            console.log("El subtotal es "+subtotal);
+            var total = total2 - subtotal + (subtotal_nuevo);
+            $("input[name='precio_costo'] ").val(total);
+            updatingLink.subtotal_servicio = subtotal_nuevo;
+            console.log("Nuevo " +subtotal_nuevo);
         },
 
         deleteItem: function(deletingLink) {
@@ -206,9 +226,10 @@ $('body').on('click', '#addProducto', function(e) {
 		var precio = $("input[name='precio'] ").val();
 		var precio_costo = $("input[name='precio_costo'] ").val();
 		var nombre = $("input[name='nombre'] ").val();
-		var tipo_servicio_id = $("#tipo_servicio_id").val();
+        var tipo_servicio_id = $("#tipo_servicio_id").val();
+        console.log(tipo_servicio_id);
 
-			if(codigo !="" && precio !="" && precio_costo !="" && nombre != "" && tipo_servicio_id !="")
+			if(codigo !="" && precio !="" && precio_costo !="" && nombre != "" && tipo_servicio_id !=null)
 			{
 				
 			var formData = {total: total,codigo:codigo, tipo_servicio_id : tipo_servicio_id, precio_costo:precio_costo, precio:precio, nombre:nombre } 
@@ -254,7 +275,7 @@ $('body').on('click', '#addProducto', function(e) {
         $("#servicio-grid").jsGrid({
             width: "",
             filtering: false,
-            editing: false,
+            editing: true,
             sorting: true,
             paging: true,
             autoload: true,
@@ -269,10 +290,10 @@ $('body').on('click', '#addProducto', function(e) {
 			{ title: "Cod. Producto", name: "producto_id", type: "text", visible: false},
 			{ title: "Cod. Maquinaria", name: "maquinaria_equipo_id", type: "text", visible: false},
 			{ title: "Cantidad", name: "cantidad", type: "text"},
-			{ title: "Unidad de Medida", name: "unidad_de_medida", type: "text"},
-            { title: "Descripcion", name: "nombre", type: "text"},
+			{ title: "Unidad de Medida", name: "unidad_de_medida", type: "text", editing: false},
+            { title: "Descripcion", name: "nombre", type: "text", editing: false},
             { title: "Costo", name: "costo", type: "text"},
-            { title: "Subtotal", name: "subtotal_servicio", type: "text"},
+            { title: "Subtotal", name: "subtotal_servicio", type: "text", editing: false},
             { type: "control" }
             ],
             onItemInserting: function (args) {
