@@ -719,7 +719,7 @@ function saveFactura(button) {
         $("#detalle-grid").jsGrid({
             width: "",
             filtering: false,
-            editing: false,
+            editing: true,
             sorting: true,
             paging: true,
             autoload: true,
@@ -738,8 +738,8 @@ function saveFactura(button) {
                 { title: "venta_detalle", name: "venta_detalle", type: "text", visible:false},
                 { title: "movimiento", name: "movimiento_id", type: "text", visible:false},
                 { title: "Cantidad", name: "cantidad", type: "text"},
-                { title: "Precio", name: "precio_venta", type: "text"},
-                { title: "Subtotal", name: "subtotal_venta", type: "text"},
+                { title: "Precio", name: "precio_venta", type: "text", editing: false},
+                { title: "Subtotal", name: "subtotal_venta", type: "text", editing:false},
                 { type: "control" }
                 ],
                 onItemInserting: function (args) {
