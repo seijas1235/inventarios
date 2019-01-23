@@ -434,7 +434,21 @@ $('body').on('click', '#addDetalleServicio', function(e)
         },
 
         updateItem: function(updatingLink) {
-            console.log(updatingLink);
+            
+            var subtotal_nuevo = updatingLink.cantidad * updatingLink.precio_venta;
+
+            var total2 = $("input[name='total'] ").val();
+            var total2 =parseFloat(total2);
+            
+            var subtotal = updatingLink.subtotal_venta;
+           
+            $("input[name='subtotal_venta'] ").val(subtotal_nuevo);
+            console.log(subtotal);
+        
+            var total = (total2 - subtotal) + (subtotal_nuevo);
+            $("input[name='total'] ").val(total);
+            updatingLink.subtotal_venta = subtotal_nuevo;
+
         },
 
         deleteItem: function(deletingLink) {
