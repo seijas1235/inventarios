@@ -190,11 +190,11 @@ var venta_detalle = $('#ventadetalle-table').DataTable({
     "title": "Acciones",
     "orderable": false,
     "render": function(data, type, full, meta) {
-        return "<div id='" + full.id + "' class='text-center'>" + 
+        return "<div id='" + full.id + "' class=' col-lg-6 text-center'>" + 
         "<div class='float-right one-columns'>" + 
         "<a href='#' class='remove-ventadetalle'>" + 
         "<i class='fa fa-btn fa-trash' title='Delete'></i>" + 
-        "</a>" + "</div>" +
+        "</a>" + "</div>" +"</div>" + 
         "<div class='float-left col-lg-6'>" + 
         "<a href='/detallesventas/edit/"+full.id+"'class='edit-detalle'>" + 
         "<i class='fa fa-btn fa-edit' title='Editar detalle'></i>" + 

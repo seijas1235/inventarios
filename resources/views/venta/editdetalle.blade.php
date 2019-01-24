@@ -18,7 +18,7 @@
                 <select class="selectpicker" id='servicio_id',disabled ,  name="servicio_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
                     @foreach ($servicios as $servicio)
                     @if($servicio->id == $venta_detalle->servicio_id)
-                    <option value="{{$servicio->id}}" selected>{{$servicio->nombre_maquina}}</option>
+                    <option value="{{$servicio->id}}" selected>{{$servicio->nombre}}</option>
                      @endif							
                     @endforeach
                 </select>
