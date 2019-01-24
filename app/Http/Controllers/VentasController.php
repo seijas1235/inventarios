@@ -688,18 +688,78 @@ class VentasController extends Controller
 		$servicios = Servicio::all();
         return view ("venta.editdetalle", compact('venta_detalle','productos', 'servicios'));
 	}
-	public function updateDetalle(VentaDetalle $venta_detalle, Request $request )
+	public function updateDetalle(VentaDetalle $venta_detalle,MovimientoProducto $movimiento_producto, Request $request )
 	{
-		$data=$request->all();	
+		$data=$request->all();
+		
+
 		if (empty($data["producto_id"]) && empty($data["servicio_id"] ) ) {
-			dd('si funca pa mano di obra');
+			$existencia_anterior = VentaDetalle::where( "id" , "=" , $venta_detalle->id )->sum( "cantidad");
+			$diferencia=$existencia_anterior - $data['cantidad'] ;
+			//actualizacion de total de ventas
+			$ventamaestro = Venta::where('id', $venta_detalle->venta_id)
+			->get()->first();
+			$total = $ventamaestro->total_venta;
+			$sub=$data["cantidad"] * $data["precio_venta"];
+			$totalresta = $venta_detalle->subtotal - $sub;
+			$newTotal = $total - $totalresta;
+			$updateTotal = Venta::where('id', $venta_detalle->venta_id)
+			->update(['total_venta' => $newTotal]);
+
+			$venta_detalle->cantidad=$data["cantidad"];
+			$venta_detalle->detalle_mano_obra=$data["detalle_mano_obra"];
+			$venta_detalle->precio_venta=$data["precio_venta"];
+			$venta_detalle->subtotal=$data["cantidad"] * $data["precio_venta"];
+			$venta_detalle->save();
 		} else  if (empty($data["producto_id"]) ) {
-			dd('si funca pa servicios');
+			$existencia_anterior = VentaDetalle::where( "id" , "=" , $venta_detalle->id )->sum( "cantidad");
+			$diferencia=$existencia_anterior - $data['cantidad'] ;
+			//actualizacion de total de ventas
+			$ventamaestro = Venta::where('id', $venta_detalle->venta_id)
+			->get()->first();
+			$total = $ventamaestro->total_venta;
+			$sub=$data["cantidad"] * $data["precio_venta"];
+			$totalresta = $venta_detalle->subtotal - $sub;
+			$newTotal = $total - $totalresta;
+			$updateTotal = Venta::where('id', $venta_detalle->venta_id)
+			->update(['total_venta' => $newTotal]);
+
+			$venta_detalle->cantidad=$data["cantidad"];
+			$venta_detalle->precio_venta=$data["precio_venta"];
+			$venta_detalle->subtotal=$data["cantidad"] * $data["precio_venta"];
+			$venta_detalle->save();
+			
+		
 		}
 		else{
-			dd('si funca pa productos');
+			
+			$existencia_anterior = VentaDetalle::where( "id" , "=" , $venta_detalle->id )->sum( "cantidad");
+			$diferencia=$existencia_anterior - $data['cantidad'] ;
+			$existencias = $movimiento_producto->existencias;
+			$newExistencias = $existencias + $diferencia;
+			//dd($data);
+			//actualizacion de total de ventas
+			$ventamaestro = Venta::where('id', $venta_detalle->venta_id)
+			->get()->first();
+			$total = $ventamaestro->total_venta;
+			$sub=$data["cantidad"] * $data["precio_venta"];
+			$totalresta = $venta_detalle->subtotal- $sub;
+			$newTotal = $total - $totalresta;
+			$updateTotal = Venta::where('id', $venta_detalle->venta_id)
+			->update(['total_venta' => $newTotal]);
+
+
+			//Movimiento Producto
+			$updateExistencia = MovimientoProducto::where('id', $movimiento_producto->id)
+			->update(['existencias' => $newExistencias]);
+			$venta_detalle->cantidad=$data["cantidad"];
+			$venta_detalle->precio_venta=$data["precio_venta"];
+			$venta_detalle->subtotal=$data["cantidad"] * $data["precio_venta"];
+			$venta_detalle->save();
+			
 		}
 		
+		return redirect('/ventadetalle/'.$venta_detalle->venta_id);	
 
 	}
 

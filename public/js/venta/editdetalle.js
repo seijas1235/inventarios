@@ -31,7 +31,7 @@ $("input[name='cantidad']").focusout(function() {
         precio_venta = 0;
     }
 
-    $("input[name='subtotal']").val(precio_venta * cantidad);
+    $("input[name='subtotal_venta']").val(precio_venta * cantidad);
 
 });
 
