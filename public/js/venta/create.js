@@ -434,27 +434,49 @@ $('body').on('click', '#addDetalleServicio', function(e)
         },
 
         updateItem: function(updatingLink) {
-            
-            var subtotal_nuevo = updatingLink.cantidad * updatingLink.precio_venta;
-            var total2 = $("input[name='total'] ").val();
-            var total2 =parseFloat(total2);
-            var subtotal = updatingLink.subtotal_venta;
-            
+
             if(updatingLink.movimiento_id>0){
-                $.ajax({
-                    method: "PATCH",
-                    url: "/ventadetalle2/update/"+ updatingLink.venta_detalle+ "/" + updatingLink.movimiento_id,
-                    data: updatingLink,
-                    dataType: "json",
-                    success: function(data) {
-                        var detalle = data;
-                    },
-                    error: function() {
-                        alert("Something went wrong, please try again!");
-                    }
-                }); 
-            }else{
-                console.log(updatingLink);
+                var codigo = updatingLink.venta_detalle;
+                /*var url = "../pos_v2/venta/get/?data=" + codigo;*/
+                var existencias;
+                var cantidadant;
+                var url = "/../venta/get2/?data=" + codigo;
+                    $.getJSON( url , function ( result ) {
+                        existencias=result[0].existencia;
+                        cantidadant=result[0].cantidad;
+                        var diferencia=updatingLink.cantidad-cantidadant;
+                        if (existencias >= diferencia )
+                        {
+                            $.ajax({
+                                method: "PATCH",
+                                url: "/ventadetalle2/update/"+ updatingLink.venta_detalle+ "/" + updatingLink.movimiento_id,
+                                data: updatingLink,
+                                dataType: "json",
+                                success: function(data) {
+                                    var detalle = data;
+                                },
+                                error: function() {
+                                    alert("Something went wrong, please try again!");
+                                }
+                            }); 
+                            var subtotal_nuevo = updatingLink.cantidad * updatingLink.precio_venta;
+                            var total2 = $("input[name='total'] ").val();
+                            var total2 =parseFloat(total2);
+                            var subtotal = updatingLink.subtotal_venta;
+                            $("input[name='subtotal_venta'] ").val(subtotal_nuevo);        
+                            var total = (total2 - subtotal) + (subtotal_nuevo);
+                            $("input[name='total'] ").val(total);
+                            updatingLink.subtotal_venta = subtotal_nuevo;
+                        }
+                        else{
+                            updatingLink.cantidad=cantidadant;
+                            //$("#detalle-grid").jsGrid("cancelEdit");
+                            alert("No se puede realizar la venta, revise las existencias del producto");
+                        } 
+                    });
+                    
+            }
+            else{
                 $.ajax({
                     method: "PATCH",
                     url: "/ventadetalle3/update/"+ updatingLink.venta_detalle,
@@ -467,15 +489,16 @@ $('body').on('click', '#addDetalleServicio', function(e)
                         alert("Something went wrong, please try again!");
                     }
                 }); 
-
+                var subtotal_nuevo = updatingLink.cantidad * updatingLink.precio_venta;
+                var total2 = $("input[name='total'] ").val();
+                var total2 =parseFloat(total2);
+                var subtotal = updatingLink.subtotal_venta;
+                $("input[name='subtotal_venta'] ").val(subtotal_nuevo);        
+                var total = (total2 - subtotal) + (subtotal_nuevo);
+                $("input[name='total'] ").val(total);
+                updatingLink.subtotal_venta = subtotal_nuevo;
             }
-
-            $("input[name='subtotal_venta'] ").val(subtotal_nuevo);
-            console.log(subtotal);
-        
-            var total = (total2 - subtotal) + (subtotal_nuevo);
-            $("input[name='total'] ").val(total);
-            updatingLink.subtotal_venta = subtotal_nuevo;
+           
 
         },
 

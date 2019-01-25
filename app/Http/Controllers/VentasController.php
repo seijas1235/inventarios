@@ -81,6 +81,17 @@ class VentasController extends Controller
 		
 		return $maestro;
 	}
+	public function getInfo(Request $request)
+	{
+		$movimiento = $request["data"];
+		$query = "SELECT VD.cantidad as cantidad , M.existencias as existencia
+					from ventas_detalle VD
+					left join movimientos_productos M on VD.movimiento_producto_id = M.id
+					where VD.id= ".$movimiento."";
+				$result = DB::select($query);
+				return Response::json( $result);
+	}
+
 	public function ccobrar(Request $request){
 		$data = $request->all();
 		$maestro = $data["venta_maestro_id"];

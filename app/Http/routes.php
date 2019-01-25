@@ -55,6 +55,8 @@ Route::group(['middleware' => ['web']], function ()
 		Route::delete('/ventadetalle3/destroy/{venta_detalle}', 'VentasController@destroyDetalle3');
 		Route::get('/ventas/edit/{venta}', 'VentasController@edit');
 		//rutas para edicion de detalle de ventas
+
+		Route::get('/venta/get2/', 'VentasController@getInfo');
 		Route::patch('/ventadetalle2/update/{venta_detalle}/{movimiento_producto}', 'VentasController@UpdateDetalle2');
 		Route::patch('/ventadetalle3/update/{venta_detalle}', 'VentasController@UpdateDetalle3');
 		
