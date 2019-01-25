@@ -686,7 +686,11 @@ class VentasController extends Controller
 		
 		$productos = Producto::all();
 		$servicios = Servicio::all();
-        return view ("venta.editdetalle", compact('venta_detalle','productos', 'servicios'));
+		$movimientos;
+		if ($venta_detalle->movimiento_producto_id>0) {
+			$movimientos = MovimientoProducto::where( "id" , "=" , $venta_detalle->movimiento_producto_id )->sum( "existencias");	
+		}
+        return view ("venta.editdetalle", compact('venta_detalle','productos', 'servicios','movimientos'));
 	}
 	public function updateDetalle(VentaDetalle $venta_detalle,MovimientoProducto $movimiento_producto, Request $request )
 	{
