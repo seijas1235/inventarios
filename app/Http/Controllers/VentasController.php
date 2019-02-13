@@ -81,6 +81,17 @@ class VentasController extends Controller
 		
 		return $maestro;
 	}
+	public function getInfo(Request $request)
+	{
+		$movimiento = $request["data"];
+		$query = "SELECT VD.cantidad as cantidad , M.existencias as existencia
+					from ventas_detalle VD
+					left join movimientos_productos M on VD.movimiento_producto_id = M.id
+					where VD.id= ".$movimiento."";
+				$result = DB::select($query);
+				return Response::json( $result);
+	}
+
 	public function ccobrar(Request $request){
 		$data = $request->all();
 		$maestro = $data["venta_maestro_id"];
@@ -686,12 +697,17 @@ class VentasController extends Controller
 		
 		$productos = Producto::all();
 		$servicios = Servicio::all();
-        return view ("venta.editdetalle", compact('venta_detalle','productos', 'servicios'));
+		$movimientos;
+		if ($venta_detalle->movimiento_producto_id>0) {
+			$movimientos = MovimientoProducto::where( "id" , "=" , $venta_detalle->movimiento_producto_id )->sum( "existencias");	
+		}
+        return view ("venta.editdetalle", compact('venta_detalle','productos', 'servicios','movimientos'));
 	}
 	public function updateDetalle(VentaDetalle $venta_detalle,MovimientoProducto $movimiento_producto, Request $request )
 	{
 		$data=$request->all();
 		
+		$diferencias=0;
 
 		if (empty($data["producto_id"]) && empty($data["servicio_id"] ) ) {
 			$existencia_anterior = VentaDetalle::where( "id" , "=" , $venta_detalle->id )->sum( "cantidad");
@@ -702,6 +718,7 @@ class VentasController extends Controller
 			$total = $ventamaestro->total_venta;
 			$sub=$data["cantidad"] * $data["precio_venta"];
 			$totalresta = $venta_detalle->subtotal - $sub;
+			$diferencias=$totalresta;
 			$newTotal = $total - $totalresta;
 			$updateTotal = Venta::where('id', $venta_detalle->venta_id)
 			->update(['total_venta' => $newTotal]);
@@ -720,6 +737,7 @@ class VentasController extends Controller
 			$total = $ventamaestro->total_venta;
 			$sub=$data["cantidad"] * $data["precio_venta"];
 			$totalresta = $venta_detalle->subtotal - $sub;
+			$diferencias=$totalresta;
 			$newTotal = $total - $totalresta;
 			$updateTotal = Venta::where('id', $venta_detalle->venta_id)
 			->update(['total_venta' => $newTotal]);
@@ -735,22 +753,21 @@ class VentasController extends Controller
 			
 			$existencia_anterior = VentaDetalle::where( "id" , "=" , $venta_detalle->id )->sum( "cantidad");
 			$diferencia=$existencia_anterior - $data['cantidad'] ;
-			$existencias = $movimiento_producto->existencias;
+			$existencias = MovimientoProducto::where( "id" , "=" , $venta_detalle->movimiento_producto_id )->sum( "existencias");
 			$newExistencias = $existencias + $diferencia;
-			//dd($data);
 			//actualizacion de total de ventas
 			$ventamaestro = Venta::where('id', $venta_detalle->venta_id)
 			->get()->first();
 			$total = $ventamaestro->total_venta;
 			$sub=$data["cantidad"] * $data["precio_venta"];
 			$totalresta = $venta_detalle->subtotal- $sub;
+			$diferencias=$totalresta;
 			$newTotal = $total - $totalresta;
 			$updateTotal = Venta::where('id', $venta_detalle->venta_id)
 			->update(['total_venta' => $newTotal]);
 
-
 			//Movimiento Producto
-			$updateExistencia = MovimientoProducto::where('id', $movimiento_producto->id)
+			$updateExistencia = MovimientoProducto::where('id', $venta_detalle->movimiento_producto_id)
 			->update(['existencias' => $newExistencias]);
 			$venta_detalle->cantidad=$data["cantidad"];
 			$venta_detalle->precio_venta=$data["precio_venta"];
@@ -758,6 +775,18 @@ class VentasController extends Controller
 			$venta_detalle->save();
 			
 		}
+		
+		 if ($ventamaestro->tipo_pago_id==3) {
+			
+			$total = CuentasPorCobrar::where( "cliente_id" , "=" , $ventamaestro->cliente_id )->sum( "total");
+			$newtt=$total-$diferencias;
+			$updatetotal1 = CuentasPorCobrar::where('cliente_id', $ventamaestro->cliente_id)
+			->update(['total' => $newtt]);
+
+			$updatetotal1 = CuentaPorCobrarDetalle::where('venta_id', $ventamaestro->id)
+			->update(['cargos' => $newtt,'saldo' => $newtt ]);
+
+		 }
 		
 		return redirect('/ventadetalle/'.$venta_detalle->venta_id);	
 

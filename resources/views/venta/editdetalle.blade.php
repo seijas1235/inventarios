@@ -55,6 +55,11 @@
             </div>
         </div>
         <br>
+        @if($venta_detalle->producto_id)
+            {!! Form::hidden("cantidad_ant" , $venta_detalle->cantidad , ['class' => 'form-control' , 'disabled']) !!}
+            {!! Form::hidden("existencias" , $movimientos , ['class' => 'form-control' , 'disabled']) !!}
+            <div id='total_existencia', name="existencias" style="font-size:16px; font-weight:bold; color:green"> La existencia del producto con el precio Q.  {{$venta_detalle->precio_venta}}  es de: {{$movimientos}} </div>
+        @endif
         <div class="text-right m-t-15">
             <a class='btn btn-primary form-gradient-color form-button' href="{{ url('/ventas') }}">Regresar</a>
             {!! Form::input('submit', 'submit', 'Editar', ['class' => 'btn btn-primary form-gradient-color form-button', 'id'=>'ButtonUpdateDetalle']) !!}
