@@ -848,9 +848,9 @@ class VentasController extends Controller
 				$pdf2 = \App::make('dompdf.wrapper');
 				$pdf2->loadHTML($view);
 
-				$m->from('info@vrinfosysgt.com', 'VR InfoSys');
+				$m->from('info@technovation.com.gt', 'Technovation');
 
-				$m->to("carburantesdecalidad@hotmail.com", "Amaris Pazos")->subject('Corte de Caja');
+				$m->to("g.seijas1305@gmail.com", "Usuario")->subject('Corte de Caja');
 
 				$m->attachData($pdf->output(), 'corte.pdf');
 
