@@ -44,8 +44,8 @@ var existencias_table = $('#existencias-table').DataTable({
         {
             "title": "Codigo de Barra",
             "data": "codigo_barra",
-            "width" : "03%",
-            "responsivePriority": 5,
+            "width" : "3%",
+            "responsivePriority": 2,
             "render": function( data, type, full, meta ) {
                 return CustomDatatableRenders.fitTextHTML(data); },
         },
@@ -53,7 +53,7 @@ var existencias_table = $('#existencias-table').DataTable({
         "title": "MARCA",
         "data": "id",
         "width" : "20%",
-        "responsivePriority": 3,
+        "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data); },
     },
@@ -78,8 +78,8 @@ var existencias_table = $('#existencias-table').DataTable({
         {
         "title": "Existencia",
         "data": "existencias",
-        "width" : "03%",
-        "responsivePriority": 3,
+        "width" : "3%",
+        "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data); },
     },
