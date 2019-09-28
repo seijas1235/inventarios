@@ -46,9 +46,11 @@ class ProductosController extends Controller
 	public function existencias(Request $params)
 	{
 
-		$query = "SELECT p.id, p.nombre,p.codigo_barra, IF(SUM(mp.existencias) IS NULL,0,SUM(mp.existencias)) AS existencias,
-		p.minimo, IF(MAX(mp.fecha_ingreso) IS NULL,0,MAX(mp.fecha_ingreso)) as ultimo_ingreso FROM productos p
-		LEFT JOIN movimientos_productos mp on p.id = mp.producto_id GROUP BY p.nombre, p.id ";
+		$query = "SELECT m.nombre as id, p.nombre,p.codigo_barra, IF(SUM(mp.existencias) IS NULL,0,SUM(mp.existencias)) AS existencias,
+		p.descripcion as minimo, IF(MAX(mp.fecha_ingreso) IS NULL,0,MAX(mp.fecha_ingreso)) as ultimo_ingreso FROM productos p
+		LEFT JOIN movimientos_productos mp on p.id = mp.producto_id
+		LEFT JOIN marcas m on p.marca_id = m.id
+		 GROUP BY p.nombre, p.id ";
         
 		$result = DB::select($query);
 		$api_Result['data'] = $result;

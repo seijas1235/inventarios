@@ -41,8 +41,16 @@ var existencias_table = $('#existencias-table').DataTable({
     },
     //"order": [0, 'asc'],
     "columns": [ 
-    {
-        "title": "ID",
+        {
+            "title": "Codigo de Barra",
+            "data": "codigo_barra",
+            "width" : "03%",
+            "responsivePriority": 5,
+            "render": function( data, type, full, meta ) {
+                return CustomDatatableRenders.fitTextHTML(data); },
+        },
+        {
+        "title": "MARCA",
         "data": "id",
         "width" : "20%",
         "responsivePriority": 3,
@@ -50,42 +58,27 @@ var existencias_table = $('#existencias-table').DataTable({
             return CustomDatatableRenders.fitTextHTML(data); },
     },
     {
-        "title": "Codigo de Barra",
-        "data": "codigo_barra",
-        "width" : "20%",
-        "responsivePriority": 3,
-        "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data); },
-    },  
-    {
         "title": "Nombre Producto",
         "data": "nombre",
         "width" : "20%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data); },
-    },
-    {
+        },
+        {
+            "title": "Descripción",
+            "data": "minimo",
+            "width" : "35%",
+            "responsivePriority": 2,
+            "render": function( data, type, full, meta ) {
+                return CustomDatatableRenders.fitTextHTML(data); },
+        },
+    
+    
+        {
         "title": "Existencia",
         "data": "existencias",
-        "width" : "15%",
-        "responsivePriority": 3,
-        "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data); },
-    },
-    {
-        "title": "Stock Minimo",
-        "data": "minimo",
-        "width" : "15%",
-        "responsivePriority": 3,
-        "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data); },
-    },
-
-    {
-        "title": "Ultimo Ingreso",
-        "data": "ultimo_ingreso",
-        "width" : "15%",
+        "width" : "03%",
         "responsivePriority": 3,
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data); },
