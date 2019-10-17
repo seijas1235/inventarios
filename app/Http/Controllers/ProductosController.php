@@ -130,7 +130,7 @@ class ProductosController extends Controller
 		$user = Auth::user()->id;
 		$medidas = UnidadDeMedida::All();
 		$marcas = Marca::All();
-		$localidades=Localidad::All();
+		$localidades=Localidad::where('estado',1)->get();
 		return view("productos.create" , compact( "user",'medidas','marcas','localidades'));
 	}
 
@@ -172,7 +172,7 @@ class ProductosController extends Controller
 		$fieldsArray = DB::select($query);
 		$medidas = UnidadDeMedida::All();
 		$marcas = Marca::All();
-		$localidades=Localidad::All();
+		$localidades=Localidad::where('estado',1)->get();
 
 		return view('productos.edit', compact('producto', 'fieldsArray','medidas','marcas','localidades'));
 	}
