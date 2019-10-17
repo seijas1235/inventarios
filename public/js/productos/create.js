@@ -40,7 +40,16 @@ var validator = $("#ProductoForm").validate({
 
 		minimo: {
 			required : true
-		}
+		},
+		localidad_id: {
+			required : true
+		},
+		marca_id:{
+			required : true
+		},
+		medida_id:{
+			required : true
+		},
 	},
 	messages: {
 		codigo_barra: {
@@ -53,7 +62,16 @@ var validator = $("#ProductoForm").validate({
 
 		minimo: {
 			required: "Por favor, ingrese el stock minimo del producto"
-		}
+		},
+		localidad_id: {
+			required : "Por Favor, Seleccione la Ubicación"
+		},
+		marca_id:{
+			required : "debe seleccionar La Marca del Producto"
+		},
+		medida_id:{
+			required : "Debe seleccionar una Unidad de medida del Producto"
+		},
 	}
 });
 

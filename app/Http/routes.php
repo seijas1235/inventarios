@@ -196,7 +196,27 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get( '/lineas/lineaDisponible/', 'LineasController@lineaDisponible');
 		Route::get( '/lineas/cargar' , 'LineasController@cargarSelect');
 		
+		//rutas bodegas
+		Route::get('/bodegas', 'BodegaController@index');
+		Route::get('/bodegas/getjson/' , 'BodegaController@getjson');
+		Route::put( '/bodegas/{bodega}/update' , 'BodegaController@update')->name('bodegas.update');
+		Route::post( '/bodegas/save' , 'BodegaController@store')->name('bodegas.save');
+		Route::delete('/bodegas/{bodega}/delete' , 'BodegaController@destroy');
+		Route::get('/bodegas/nombreDisponible/', 'BodegaController@nombreDisponible');
+		Route::get('/bodegas/nombreDisponibleEdit/', 'BodegaController@nombreDisponibleEdit');
+		
+		//rutas bodegas
+		Route::get('/localidades', 'LocalidadController@index');
+		Route::get('/localidades/getjson/' , 'LocalidadController@getjson');
+		Route::put( '/localidades/{localidad}/update' , 'LocalidadController@update')->name('localidades.update');
+		Route::post( '/localidades/save' , 'LocalidadController@store')->name('localidades.save');
+		Route::delete('/localidades/{localidad}/delete' , 'LocalidadController@destroy');
+		Route::get('/localidades/nombreDisponible/', 'LocalidadController@nombreDisponible');
+		Route::get('/localidades/nombreDisponibleEdit/', 'LocalidadController@nombreDisponibleEdit');
+		Route::get( '/bodegas/cargar' , 'BodegaController@cargarSelect')->name('bodegas.cargar');
 
+
+		//rutas productos
 		Route::get('/productos', 'ProductosController@index');
 		Route::get('/productos/getJson/' , 'ProductosController@getJson');
 		Route::get('/productos/new' , 'ProductosController@create');

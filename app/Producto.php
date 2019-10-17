@@ -15,7 +15,8 @@ class Producto extends Model
         'codigo_barra',
         'medida_id',
         'marca_id',
-        'descripcion'
+        'descripcion',
+        'localidad_id'
         ];
 
     public function precios_producto(){
@@ -23,6 +24,9 @@ class Producto extends Model
        }
     public function unidades_de_medida(){
         return $this->belongsTo(UnidadDeMedida::class);
+    }
+    public function localidades(){
+        return $this->belongsTo(Localidad::class);
     }
     public function proveedores(){
         return $this->belongsTo(Proveedor::class);

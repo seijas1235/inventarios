@@ -25,6 +25,11 @@ class CreateTableProductos extends Migration
             
             $table->foreign('marca_id')->references('id')->on('marcas')->onDelete('cascade');
             $table->text('descripcion');
+
+            $table->unsignedInteger('localidad_id');
+            $table->foreign('localidad_id')->references('id')->on('localidades')->onDelete('cascade');
+
+
             $table->timestamps();
         });
     }

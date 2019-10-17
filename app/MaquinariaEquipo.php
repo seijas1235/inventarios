@@ -15,13 +15,17 @@ class MaquinariaEquipo extends Model
         'marca',
         'labadas_limite',
         'fecha_adquisicion',
-        'descripcion'
+        'descripcion',
+        'localidad_id'
         ];
     public function mantto_equipo(){
         return $this->hasMany(MantenimientoEquipo::class);
     }
     public function marcas(){
         return $this->belongsTo(Marca::class);
+    }
+    public function localidades(){
+        return $this->belongsTo(Localidad::class);
     }
     public function detalles_servicios(){
         return $this->hasMany(DetalleServicio::class);

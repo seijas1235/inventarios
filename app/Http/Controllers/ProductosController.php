@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Localidad;
 use DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
@@ -129,7 +130,8 @@ class ProductosController extends Controller
 		$user = Auth::user()->id;
 		$medidas = UnidadDeMedida::All();
 		$marcas = Marca::All();
-		return view("productos.create" , compact( "user",'medidas','marcas'));
+		$localidades=Localidad::All();
+		return view("productos.create" , compact( "user",'medidas','marcas','localidades'));
 	}
 
 	/**
@@ -170,8 +172,9 @@ class ProductosController extends Controller
 		$fieldsArray = DB::select($query);
 		$medidas = UnidadDeMedida::All();
 		$marcas = Marca::All();
+		$localidades=Localidad::All();
 
-		return view('productos.edit', compact('producto', 'fieldsArray','medidas','marcas'));
+		return view('productos.edit', compact('producto', 'fieldsArray','medidas','marcas','localidades'));
 	}
 
 	/**
@@ -201,6 +204,7 @@ class ProductosController extends Controller
 		$producto->marca_id = $data["marca_id"];
 		$producto->medida_id = $data["medida_id"];
 		$producto->descripcion = $data["descripcion"];
+		$producto->localidad_id = $data["localidad_id"];
 		$producto->save();
 
 		return $producto;
@@ -252,10 +256,11 @@ class ProductosController extends Controller
 
 	public function getJson()
 	{
-		$query = "SELECT P.nombre, P.codigo_barra, P.minimo, P.id, P.descripcion, MR.nombre as mrnombre , U.descripcion as udesc
+		$query = "SELECT P.nombre, P.codigo_barra, L.nombre as localidad, P.id, P.descripcion, MR.nombre as mrnombre , U.descripcion as udesc
         FROM productos P 
         INNER JOIN marcas MR ON MR.id = P.marca_id 
-        INNER JOIN unidades_de_medida U on U.id = P.medida_id";
+        INNER JOIN unidades_de_medida U on U.id = P.medida_id
+        INNER JOIN localidades L on P.localidad_id=L.id ";
 
 		$result = DB::select($query);
 		$api_Result['data'] = $result;

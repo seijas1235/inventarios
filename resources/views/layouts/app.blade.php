@@ -231,6 +231,8 @@
 					<li class="{{request()->is('empleados*')? 'active': ''}}"><a href="/empleados">Empleados</a></li>
 
 					<li class="{{request()->is('unidades_de_medida*')? 'active': ''}}"><a href="/unidades_de_medida">Unidades de medida</a></li>
+					<li class="{{request()->is('bodegas*')? 'active': ''}}"><a href="/bodegas">Bodegas</a></li>
+					<li class="{{request()->is('localidades*')? 'active': ''}}"><a href="/localidades">Localidades</a></li>
 
 					<li class="{{request()->is('productos*')? 'active': ''}}"><a href="/productos">Productos</a></li>
 
@@ -350,7 +352,9 @@
 	@include("users.edit-my-user")
 	@include("users.delete-special")
 	@endif
-
+	<script type="text/javascript">
+		var APP_URL = {!! json_encode(url('/')) !!}
+	</script>
 	<script src="{{ URL::to("/js/users/update.js")  }}"></script>
 	<script src="{{ URL::to("/js/users/update-information.js")  }}"></script>
 

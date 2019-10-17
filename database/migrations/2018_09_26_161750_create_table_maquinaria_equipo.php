@@ -23,6 +23,10 @@ class CreateTableMaquinariaEquipo extends Migration
             $table->integer('labadas_limite')->nullable();
             $table->date('fecha_adquisicion');
             $table->text('descripcion') ->nullable();
+            
+            $table->unsignedInteger('localidad_id');
+            $table->foreign('localidad_id')->references('id')->on('localidades')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

@@ -23,13 +23,10 @@
 		<div class="quick-actions_homepage">
 			<ul class="quick-actions">
 					<li class="bg_ly"> <a href=/venta/new> <i class="icon-inbox"></i><span class="label label-important"></span>Nueva Venta </a> </li>
-				<li class="bg_lb"> <a href=/existencias/producto> <i class="icon-user"></i> <span class="label label-important">
-				</span>Existencias de Productos</a> </li>
-				<li class="bg_lg"> <a href=/rpt_servicios/generar> <i class="icon-file"></i> <span class="label label-important">
-					 </span>Servicios Realizados</a> </li>
+				<li class="bg_lb"> <a href=/existencias/producto> <i class="icon-user"></i> Existencias de Productos</a> </li>
+				<li class="bg_lg"> <a href=/cortes_caja> <i class="icon-file"></i> Corte de caja</a> </li>
 					<li class="bg_lo"> <a href=/rpt_ventas/generar> <i class="icon-money"></i>Ingresos del Día</a> </li>
-					<li class="bg_lg"> <a href=/factura> <i class="icon-calendar"></i> <span class="label label-important">{{App\Factura::count()}}
-					</span> Facturación</a> </li>
+
 				</ul>
 			</div>
 			<!--End-Action boxes-->    

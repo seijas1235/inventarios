@@ -56,7 +56,19 @@
         </div>
         <br>
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-3">
+                {!! Form::label("localidad_id","Ubicación :") !!}
+                <select class="selectpicker" id='localidad_id' name="localidad_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
+                    @foreach ($localidades as $marca)
+                    @if ( $marca->id == $producto->localidad_id)
+                    <option value="{{$marca->id}}" selected>{{ $marca->nombre}}</option>
+                    @else
+                    <option value="{{$marca->id}}">{{$marca->nombre}}</option> 
+                    @endif
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-sm-9">
                 {!! Form::label("descripcion","Descripcion:") !!}
                 {!! Form::text( "descripcion" , null , ['class' => 'form-control' , 'placeholder' => 'Ingrese la descripcion del producto']) !!}
             </div>

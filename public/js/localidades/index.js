@@ -1,18 +1,29 @@
-var productos_table = $('#productos-table').DataTable({
-    "ajax": "/productos/getJson",
+
+$('.loader').removeClass('is-active');
+
+var Localidad_table = $('#Localidad-table').DataTable({
+    "ajax": APP_URL+"/localidades/getjson",
+    "responsive": true,
+    "processing": true,
+    "info": true,
+    "showNEntries": true,
     "dom": 'Bfrtip',
+
+    lengthMenu: [
+        [ 10, 25, 50, -1 ],
+        [ '10 filas', '25 filas', '50 filas', 'Mostrar todo' ]
+    ],
+
     "buttons": [
-    {
-        extend: 'pdfHtml5',
-        exportOptions: {
-            columns: [ 0, 1, 2, 3, 4, 5]
-        }
-    },
+    'pageLength',
     'excelHtml5',
     'csvHtml5'
     ],
+
     "paging": true,
     "language": {
+        "sdecimal":        ".",
+        "sthousands":      ",",
         "sProcessing":     "Procesando...",
         "sLengthMenu":     "Mostrar _MENU_ registros",
         "sZeroRecords":    "No se encontraron resultados",
@@ -37,73 +48,71 @@ var productos_table = $('#productos-table').DataTable({
         },
     },
     "order": [0, 'asc'],
-    "columns": [ 
-    {
-        "title": "Codigo de barra",
-        "data": "codigo_barra",
-        "width" : "20%",
-        "responsivePriority": 2,
+
+    "columns": [ {
+        "title": "No.",
+        "data": "id",
+        "width" : "5%",
+        "responsivePriority": 1,
         "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data); },
+            return (data);},
     }, 
+    
     {
-        "title": "Nombre Producto",
+        "title": "Localidad",
         "data": "nombre",
         "width" : "20%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data); },
-    },
+            return (data);},
+    }, 
     {
-        "title": "Marca",
-        "data": "mrnombre",
-        "width" : "15%",
+        "title": "Bodega",
+        "data": "bodega",
+        "width" : "20%",
         "responsivePriority": 3,
         "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data); },
-    },
-    {
-        "title": "Unidad de Medida",
-        "data": "udesc",
-        "width" : "15%",
-        "responsivePriority": 3,
-        "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data); },
+            return (data);},
     },
 
     {
-        "title": "Ubicación",
-        "data": "localidad",
+        "title": "Fecha Creación",
+        "data": "fecha",
         "width" : "15%",
         "responsivePriority": 3,
         "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data); },
-    },
-       
+            return (data);},
+    },       
     {
         "title": "Acciones",
         "orderable": false,
         "width" : "20%",
         "render": function(data, type, full, meta) {
-            return "<div id='" + full.id + "' class='text-center'>" + 
-            "<div class='float-left col-lg-6'>" + 
-            "<a href='/productos/edit/"+ full.id +"' class='edit-producto'>" + 
-            "<i class='fa fa-btn fa-edit' title='Editar Producto'></i>" + 
-            "</a>" + "</div>" + 
-            "<div class='float-right col-lg-6'>" + 
-            "<a href='#' class='remove-producto'>" + 
-            "<i class='fa fa-btn fa-trash' title='Eliminar Producto'></i>" + 
-            "</a>" + "</div>";
+
+        return "<div id='" + full.id + "' class='text-center'>" + 
+        "<div class='float-left col-lg-6'>" + 
+        "<a href='#' class='edit-Localidad' data-toggle='modal' data-target='#modalUpdateLocalidad' data-id='"+full.id+"' data-nombre='"+full.nombre+"'data-bodega_id='"+full.bodega_id+"' >" + 
+        "<i class='fa fa-btn fa-edit' title='Editar Localidad'></i>" + 
+        "</a>" + "</div>" + 
+        "<div class='float-right col-lg-6'>" + 
+        "<a href='#' class='remove-Localidad'>" + 
+        "<i class='fa fa-btn fa-trash' title='Eliminar Localidad'></i>" + 
+        "</a>" + "</div>";           
             
         },
-        "responsivePriority": 2
+        "responsivePriority": 5
     }],
+    "createdRow": function(row, data, rowIndex) {
+        $.each($('td', row), function(colIndex) {
+            if (colIndex == 6) $(this).attr('id', data.id);
+        });
+    },
+    "fnPreDrawCallback": function( oSettings ) {
+    }
 
 });
 
-
-
-$('body').on('click', 'a.remove-producto', function(e) {
+$('body').on('click', 'a.remove-Localidad', function(e) {
     $( ".confirm-delete" , "#userDeleteModal").removeAttr("field");
     var id = $(this).parent().parent().attr("id");
     $("input[name='password_delete']").val("");
@@ -112,11 +121,11 @@ $('body').on('click', 'a.remove-producto', function(e) {
     $("#userDeleteModal").hide().show();
     $("#userDeleteModal").modal();
     if (user.length = 1) {
-        $("#message").text("este Producto?");
+        $("#message").text("esta Localidad?");
         $(".variable").text("");
         $(".entity").text("");
     } else {
-        $("#message").text("este Producto");
+        $("#message").text("esta Localidad");
         $(".variable").text("");
         $(".entity").text("");
     }
@@ -144,7 +153,7 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
 
     var td  = $("#"+id);
 
-    var url = "/productos/remove/"+id;
+    var url = "/localidades/"+id+"/delete/";
     var password_delete = $("input[name='password_delete']").val().trim();
     data = {
         password_delete : password_delete
@@ -161,8 +170,8 @@ $('body').on('click', 'button.confirm-delete', function( e ) {
         $(".user-created-message").removeClass("hidden");
         $(".user-created-message").addClass("alert-danger");
         $(".user-created-message").fadeIn();
-        $(".user-created-message > p").text("Producto eliminado exitosamente!");
-        productos_table.ajax.reload();
+        $(".user-created-message > p").text("Localidad eliminada exitosamente!");
+        Localidad_table.ajax.reload();
         $("#userDeleteModal").modal("hide");
     }).fail(function(errors) {
         var errors = JSON.parse(errors.responseText);

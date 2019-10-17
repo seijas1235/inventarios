@@ -16,6 +16,9 @@ var validator = $("#ProductoUpdateForm").validate({
 		},
 		medida_id:{
 			required : true
+		},
+		localidad_id:{
+			required : true
 		}
 	},
 	messages: {
@@ -33,6 +36,9 @@ var validator = $("#ProductoUpdateForm").validate({
 		},
 		medida_id:{
 			required : "Debe seleccionar una Unidad de medida del Producto"
+		},
+		localidad_id:{
+			required : "Debe seleccionar una Ubicación del Producto"
 		}
 	}
 });
