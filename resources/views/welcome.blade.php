@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title></title>
+    <title>SAI</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -42,13 +42,13 @@
                         <div class="home-content">
                             <br>
                             <br>
-                            <h1><strong text_align="center">Sistema de Administración de Car Wash</strong></h1>
+                            <h1><strong text_align="center">Sistema de Control de Inventarios </strong></h1>
                         </div>
                     </div>
                     
                     <div class="col-sm-6 col-xs-12">
                         <div class="home-photo">
-                            <img src="/images/car_zone.jpg" alt="carwash" />
+                            <img src="/images/car_zone.jpg" alt="SCI" / width="550">
                         </div>
                     </div>
                     

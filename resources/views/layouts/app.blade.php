@@ -113,7 +113,7 @@
 				</button>
 				<!-- Branding Image -->
 				<a class="navbar-brand" href="{{ url('/') }}">
-					Car Zone - Chiquimula
+					Contro de Inventario
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -143,7 +143,7 @@
 
 				<!-- Branding Image -->
 				<a class="navbar-brand" href="{{ url('/') }}">
-					Car Zone - Chiquimula
+					Control de Inventario
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="app-navbar-collapse">
