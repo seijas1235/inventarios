@@ -38,6 +38,7 @@
             <th style="border: 0px">Fecha</th>
             <th style="border: 0px">Codigo Barra</th>
             <th style="border: 0px">Nombre Producto</th>
+            <th style="border: 0px">Ubicación</th>
             <th style="border: 0px">Transaccion</th>
             <th style="border: 0px">Ingreso</th>
             <th style="border: 0px">Salida</th>
@@ -50,6 +51,7 @@
             <td style="text-align: center">{{$detalle->fecha}}</td>
             <td style="text-align: center">{{$detalle->codigo_barra}}</td>
             <td style="text-align: center">{{$detalle->nombre}}</td>
+            <td style="text-align: center">{{$detalle->ubicacion}}</td>
             <td style="text-align: center">{{$detalle->transaccion}}</td>
             <td style="text-align: center">{{$detalle->ingreso}}</td>
             <td style="text-align: center">{{$detalle->salida}}</td>

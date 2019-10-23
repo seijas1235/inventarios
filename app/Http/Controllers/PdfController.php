@@ -85,6 +85,33 @@ class PdfController extends Controller
 
      
     }
+    public function rpt_salida(Venta $venta)
+    {
+        $id = $venta->id;
+
+        $query2 = "SELECT vd.venta_id as numero,vd.venta_id as No_Venta, vd.id, 	
+        IF(vd.producto_id>0,pr.nombre, if(vd.servicio_id>0,sr.nombre, vd.detalle_mano_obra)) as nombre, ifnull (l.nombre,'N/A') as localidad,
+        vd.cantidad as cantidad
+        FROM ventas_detalle vd
+        LEFT JOIN productos pr ON vd.producto_id=pr.id
+        LEFT JOIN servicios sr ON vd.servicio_id=sr.id
+        LEFT JOIN localidades l on pr.localidad_id=l.id
+        where venta_id=".$id.'';
+        $detalle = DB::select($query2);
+
+        $query3 = "SELECT concat(C.nombres ,' ' ,C.apellidos) as nombres, C.nit, C.direccion 
+        FROM clientes C
+        inner join ventas_maestro V on V.cliente_id = C.id
+        where V.id=".$id.'';
+        $cliente = DB::select($query3);
+       
+
+    
+        $pdf = PDF::loadView('pdf.rpt_salidas', compact('detalle', 'cliente'));
+        return $pdf->stream('Vale_Salida.pdf');
+
+     
+    }
 
     public function getDataOrdenTrabajo($id) 
     {

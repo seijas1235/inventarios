@@ -55,11 +55,10 @@
   <div class="col-6">
     <table style="width:100%" border="1"> 
     <tr>   
-          <td><h5>Factura</h5>
+          <td><h5>Vale de Bodega</h5>
             
           </td> 
-          <td>Serie: {{$facturas[0]->serie  }}</td>
-          <td>Número: {{$facturas[0]->numero  }}</td>
+         <td>Número: {{$detalle[0]->numero  }}</td>
             
         </tr>
       </table>
@@ -77,29 +76,44 @@
           Descripcion
         </td>
         <td>
-          SubTotal
+          localidad
         </td>
     </tr>
     @foreach ($detalle as $item)    
     <tr>
       <td>{{$item->cantidad  }} </td>
       <td> {{$item->nombre  }} </td>
-      <td> {{$item->subtotal  }} </td>
+      <td> {{$item->localidad  }} </td>
     </tr>
     @endforeach
   </table>
 </div>
-<div class="row">
-  <table style="width:40% " border="1" align="right" >
-<tr>
-  <td >
-    Total:
-  </td>
-  <td>
-      {{$facturas[0]->total  }}
-  </td>
-</tr>
+<br>
+<div class="row" >
+  <table align="center">
+    <tr>
+      <td>
+        <p>Firma Entrega: </p><br>
+      <p>__________________________   </p>
+      <p> Despacho Bodega </p>
+    
+      </td>
+      <td>
+          <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+      </td>
+      <td align="right">
+        <p>Firma Recibido: </p><br>
+        <p>__________________________   </p>
+        <p> {{$cliente[0]->nombres  }}</p>
+   
+      </td>
+    </tr>
+
   </table>
+
+   
+      
+
 </div>
  
 

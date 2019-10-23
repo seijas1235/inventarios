@@ -381,6 +381,8 @@ Route::group(['middleware' => ['web']], function ()
 
 		
 		Route::get('/rpt_factura/{venta}' , 'PdfController@rpt_factura');
+		//reporte de salida de inventario
+		Route::get('/rpt_salida/{venta}' , 'PdfController@rpt_salida');
 
 		Route::get('/rpt_compras/generar' , 'ComprasController@rpt_compras_generar');
 		Route::post( '/rpt_compras/' , 'ComprasController@rpt_compras');

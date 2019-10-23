@@ -83,6 +83,13 @@ var existencias_table = $('#existencias-table').DataTable({
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data); },
     },
-    
+    {
+        "title": "Ubicación",
+        "data": "ubicacion",
+        "width" : "3%",
+        "responsivePriority": 2,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML(data); },
+    },
     ],
 });

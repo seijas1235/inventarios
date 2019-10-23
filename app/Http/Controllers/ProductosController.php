@@ -47,11 +47,12 @@ class ProductosController extends Controller
 	public function existencias(Request $params)
 	{
 
-		$query = "SELECT m.nombre as id, p.nombre,p.codigo_barra, IF(SUM(mp.existencias) IS NULL,0,SUM(mp.existencias)) AS existencias,
+		$query = "SELECT l.nombre as ubicacion, m.nombre as id, p.nombre,p.codigo_barra, IF(SUM(mp.existencias) IS NULL,0,SUM(mp.existencias)) AS existencias,
 		p.descripcion as minimo, IF(MAX(mp.fecha_ingreso) IS NULL,0,MAX(mp.fecha_ingreso)) as ultimo_ingreso FROM productos p
 		LEFT JOIN movimientos_productos mp on p.id = mp.producto_id
 		LEFT JOIN marcas m on p.marca_id = m.id
-		 GROUP BY p.nombre, p.id ";
+		LEFT JOIN localidades l on p.localidad_id=l.id
+		 GROUP BY p.nombre, p.id";
         
 		$result = DB::select($query);
 		$api_Result['data'] = $result;
@@ -61,9 +62,10 @@ class ProductosController extends Controller
 
 	public function kardexIndex()
 	{
-		$query = "select DISTINCT k.id, k.fecha, p.codigo_barra, p.nombre, k.transaccion, k.ingreso as cantidad_ingreso, k.salida as cantidad_salida, k.existencia_anterior, k.saldo from kardex k 
+		$query = "SELECT DISTINCT l.nombre as ubicacion, k.id, k.fecha, p.codigo_barra, p.nombre, k.transaccion, k.ingreso as cantidad_ingreso, k.salida as cantidad_salida, k.existencia_anterior, k.saldo from kardex k 
 		LEFT JOIN productos p on p.id = k.producto_id
-		order by k.id ";
+		LEFT JOIN localidades l on p.localidad_id=l.id
+		order by k.id  ";
 		$kardex = DB::select($query);
 		
 		return view('productos.kardex2', compact('kardex'));
@@ -74,9 +76,10 @@ class ProductosController extends Controller
         $fecha_inicial = $request['fecha_inicial'];
         $fecha_final = $request['fecha_final'];
 
-        $query = "SELECT k.id, DATE_FORMAT(k.fecha, '%d-%m-%Y') as fecha , p.codigo_barra, p.nombre, k.transaccion, k.ingreso, k.salida, k.existencia_anterior, k.saldo
+        $query = "SELECT l.nombre as ubicacion, k.id, DATE_FORMAT(k.fecha, '%d-%m-%Y') as fecha , p.codigo_barra, p.nombre, k.transaccion, k.ingreso, k.salida, k.existencia_anterior, k.saldo
 		FROM kardex k
 		INNER JOIN productos p on p.id = k.producto_id
+		LEFT JOIN localidades l on p.localidad_id = l.id
 		WHERE k.fecha BETWEEN '".$fecha_inicial."' AND '".$fecha_final." 23:59:59' ";
         $detalles = DB::select($query);
 
@@ -98,9 +101,10 @@ class ProductosController extends Controller
         $fecha_inicial = $request['fecha_inicial'];
         $fecha_final = $request['fecha_final'];
 
-        $query = "SELECT k.id, DATE_FORMAT(k.fecha, '%d-%m-%Y') as fecha , p.codigo_barra, p.nombre, k.transaccion, k.ingreso, k.salida, k.existencia_anterior, k.saldo
+        $query = "SELECT l.nombre as ubicacion, k.id, DATE_FORMAT(k.fecha, '%d-%m-%Y') as fecha , p.codigo_barra, p.nombre, k.transaccion, k.ingreso, k.salida, k.existencia_anterior, k.saldo
 		FROM kardex k
 		INNER JOIN productos p on p.id = k.producto_id
+		LEFT JOIN localidades l on p.localidad_id = l.id
 		WHERE p.id = '".$idProducto."' AND k.fecha BETWEEN '".$fecha_inicial."' AND '".$fecha_final." 23:59:59' ";
 		$detalles = DB::select($query);
 		

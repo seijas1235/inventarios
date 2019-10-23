@@ -44,6 +44,7 @@
                                 <th>Cantidad Salida</th>
                                 <th>Existencia Anterior</th>
                                 <th>Saldo</th>
+                                <th>Ubicación</th>
                             </tr>
                         </thead>
                         
@@ -59,6 +60,7 @@
                                 <td>{{$item->cantidad_salida}}</td>
                                 <td>{{$item->existencia_anterior}}</td>
                                 <td>{{$item->saldo}}</td>
+                                <td>{{$item->ubicacion}}</td>
                             </tr>
                             
 

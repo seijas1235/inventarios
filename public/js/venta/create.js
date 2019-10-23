@@ -434,7 +434,7 @@ $('body').on('click', '#addDetalleServicio', function(e)
         },
 
         updateItem: function(updatingLink) {
-
+ 
             if(updatingLink.movimiento_id>0){
                 var codigo = updatingLink.venta_detalle;
                 /*var url = "../pos_v2/venta/get/?data=" + codigo;*/
@@ -585,6 +585,7 @@ $('body').on('click', '#addDetalleServicio', function(e)
         var cliente_id = $("#cliente_id").val();
         var formData = {total_venta: total_venta, tipo_pago_id : tipo_pago_id, cliente_id : cliente_id} 
         var factura=$("#factura").val();
+        window.open(APP_URL+'/rpt_salida/'+venta_maestro,'_blank'); 
 
         if(tipo_pago_id==3){
             var fecha_venta= $("input[name='fecha_venta'] ").val();
@@ -604,7 +605,8 @@ $('body').on('click', '#addDetalleServicio', function(e)
                 }
             });
         }
-           
+       
+    
         $.ajax({
             type: "PATCH",
             url: "/venta/update-total/"+ venta_maestro+ "/",
@@ -618,6 +620,7 @@ $('body').on('click', '#addDetalleServicio', function(e)
                 alert("falla de guardado");
             }
         });
+        
     }
 
 
