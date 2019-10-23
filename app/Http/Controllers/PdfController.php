@@ -89,7 +89,7 @@ class PdfController extends Controller
     {
         $id = $venta->id;
 
-        $query2 = "SELECT vd.venta_id as numero,vd.venta_id as No_Venta, vd.id, 	
+        $query2 = "SELECT ifnull( pr.codigo_barra,'N/A') as codigo ,vd.venta_id as No_Venta, vd.id, 	
         IF(vd.producto_id>0,pr.nombre, if(vd.servicio_id>0,sr.nombre, vd.detalle_mano_obra)) as nombre, ifnull (l.nombre,'N/A') as localidad,
         vd.cantidad as cantidad
         FROM ventas_detalle vd
