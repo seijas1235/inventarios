@@ -5,7 +5,7 @@
 		{!! Form::open( array('class'=> 'form', 'id' => 'NotaDebitoForm') ) !!}
 		<div class="row">
 			<div class="col-sm-12">
-				<h3 class="tittle-custom"> Creación Nota de Debito </h3>
+				<h3 class="tittle-custom"> Creación de Ajuste (Nota de Debito) </h3>
 				<line>
 			</div>
 		</div>
@@ -18,8 +18,16 @@
 							<option value="{{$cliente->id}}">{{$cliente->nombres}} {{$cliente->apellidos}}</option>
 							@endforeach
 						</select>
-                </div>
-                <div class="col-sm-4">
+				</div>
+				<div class="col-sm-3">
+					{!! Form::label("no_factura","No. Documento:") !!}
+					{!! Form::text( "no_factura" , null , ['class' => 'form-control' , 'placeholder' => 'No. Documento:' ]) !!}	
+				</div>
+				<div class="col-sm-3">
+					{!! Form::label("fecha_documento","Fecha documento:") !!}
+					{!! Form::date( "fecha_documento" , null , ['class' => 'form-control' , 'placeholder' => 'Fecha documento' ]) !!}	
+				</div>
+                <div class="col-sm-3">
 					{!! Form::label("total","Total:") !!}
 					{!! Form::text( "total" , null , ['class' => 'form-control' , 'placeholder' => 'Total' ]) !!}	
 				</div>

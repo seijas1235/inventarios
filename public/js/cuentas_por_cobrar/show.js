@@ -49,7 +49,7 @@ var cuenta_por_cobrar_detalle = $('#cuenta_por_cobrar-detalle-table').DataTable(
             return CustomDatatableRenders.fitTextHTML(data);
         },
     },{
-        "title": "No. Factura",
+       "title": "No. Documento",
         "data": "num_factura",
         "width" : "10%",
         "responsivePriority": 2,

@@ -56,8 +56,8 @@ class CuentasPorPagarController extends Controller
         if($cuentaporpagar)
         {
             $detalle = array(
-                'num_factura' => '',
-                'fecha' => Carbon::now(),
+                'num_factura' => 'Rec-'.$data['no_factura'],
+                'fecha' => $data['fecha_documento'],
                 'descripcion' => 'Nota de Credito',
                 'cargos' => 0,	
                 'abonos' => $data["total"],
@@ -85,8 +85,8 @@ class CuentasPorPagarController extends Controller
         if($cuentaporpagar)
         {
             $detalle = array(
-                'num_factura' => '',
-                'fecha' => Carbon::now(),
+                'num_factura' =>  'Rec-'.$data['no_factura'],
+                'fecha' => $data['fecha_documento'],
                 'descripcion' => 'Nota de Debito',
                 'cargos' => $data["total"],	
                 'abonos' => 0,
@@ -101,8 +101,8 @@ class CuentasPorPagarController extends Controller
         else
         {
             $detalle = array(
-                'num_factura' => '',
-                'fecha' => Carbon::now(),
+                'num_factura' =>  'Rec-'.$data['no_factura'],
+                'fecha' => $data['fecha_documento'],
                 'descripcion' => 'Nota de Debito',
                 'cargos' => $data["total"],	
                 'abonos' => 0,

@@ -94,6 +94,7 @@
 				</div>				
 			<br>
 			<hr>
+			{{--
 			<div class="row">
 					<div class="col-sm-3">
 						{!! Form::label("codigo_maquina","Codigo de Maquina:") !!}
@@ -118,13 +119,14 @@
 					</div>
 	
 				</div>
+			
 				<br>
 					<div class="text-right m-t-15">
 						{!! Form::button('Agregar Nueva maquina' , ['class' => 'btn btn-success' ,'id' => 'addDetalleMaquina', 'data-loading-text' => 'Processing...' ]) !!}
 					</div>
 				<br>
 				<hr>	
-
+--}}
 			<div id="compradetalle-grid">
 
 			</div>

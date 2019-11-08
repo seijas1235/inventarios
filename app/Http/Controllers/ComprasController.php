@@ -94,7 +94,7 @@ class ComprasController extends Controller
 
 				$detalle = array(
 					'compra_id' => $maestro->id,
-					'num_factura' => $request['formData']["num_factura"],
+					'num_factura' => 'Fac-'.$request['formData']["num_factura"],
 					'fecha' => $data["fecha_factura"],
 					'descripcion' => 'Compra',
 					'cargos' => $request['formData']["total_factura"],	
@@ -116,7 +116,7 @@ class ComprasController extends Controller
 
 				$detalle = array(
 					'compra_id' => $maestro->id,
-					'num_factura' => $request['formData']["num_factura"],
+					'num_factura' => 'Fac-'.$request['formData']["num_factura"],
 					'fecha' => $data["fecha_factura"],
 					'descripcion' => 'Compra',
 					'cargos' => $request['formData']["total_factura"],	
@@ -308,7 +308,7 @@ class ComprasController extends Controller
 		function cargarSaldo(CuentaPorPagar $cuentaporpagar, Compra $compra){
 			$detalle = array(
 				'compra_id' => $compra->id,
-				'num_factura' => $compra->num_factura,
+				'num_factura' => 'Fac-'.$compra->num_factura,
 				'fecha' => $compra->created_at,
 				'descripcion' => 'Compra modificada',
 				'cargos' => $compra->total_factura,	
@@ -330,7 +330,7 @@ class ComprasController extends Controller
 
 			$detalle = array(
 				'compra_id' => $compra->id,
-				'num_factura' => $compra->num_factura,
+				'num_factura' => 'Fac-'.$compra->num_factura,
 				'fecha' => $compra->created_at,
 				'descripcion' => 'Compra modificada',
 				'cargos' => $compra->total_factura,	
@@ -348,7 +348,7 @@ class ComprasController extends Controller
 
 			$detalle = array(
 				'compra_id' => $compra->id,
-				'num_factura' => $compra->num_factura,
+				'num_factura' => 'Fac-'.$compra->num_factura,
 				'fecha' => carbon::now(),
 				'descripcion' => 'Compra modifico proveedor anterior',
 				'cargos' => 0,	
@@ -464,7 +464,7 @@ class ComprasController extends Controller
 		function cargarSaldo(CuentaPorPagar $cuentaporpagar, Compra $compra, $cargar){
 			$detalle = array(
 				'compra_id' => $compra->id,
-				'num_factura' => $compra->num_factura,
+				'num_factura' => 'Fac-'.$compra->num_factura,
 				'fecha' => $compra->created_at,
 				'descripcion' => 'Detalle Compra modificado',
 				'cargos' => $cargar,	
@@ -484,7 +484,7 @@ class ComprasController extends Controller
 
 			$detalle = array(
 				'compra_id' => $compra->id,
-				'num_factura' => $compra->num_factura,
+				'num_factura' => 'Fac-'.$compra->num_factura,
 				'fecha' => carbon::now(),
 				'descripcion' => 'Detalle Compra modificado',
 				'cargos' => 0,	
@@ -660,7 +660,7 @@ class ComprasController extends Controller
 				$NuevoTotal = $total - $compra->total_factura;
 
 				$detallecuenta = array(
-					'num_factura' => $compra->num_factura,
+					'num_factura' => 'Fac-'.$compra->num_factura,
 					'fecha' => carbon::now(),
 					'descripcion' => 'Se elimino compra',
 					'cargos' => 0,	
@@ -740,7 +740,7 @@ class ComprasController extends Controller
 				$NuevoTotal = $totalactual - $totalresta;
 
 				$detallecuenta = array(
-					'num_factura' => $ingresomaestro->num_factura,
+					'num_factura' => 'Fac-'.$ingresomaestro->num_factura,
 					'fecha' => carbon::now(),
 					'descripcion' => 'Se elimino detalle de compra',
 					'cargos' => 0,	

@@ -58,8 +58,9 @@ class VentasController extends Controller
 		$tipos_clientes = TipoCliente::all();
 		$clasificaciones = ClasificacionCliente::all();
 		$series = Serie::all();
+		$productos = Producto::all();
 		
-		return view("venta.create" , compact( "back", "tipo_pagos",'series',"today",'servicios','tipos_clientes', 'clasificaciones', 'clientes'));
+		return view("venta.create" , compact( "productos","back", "tipo_pagos",'series',"today",'servicios','tipos_clientes', 'clasificaciones', 'clientes'));
 	}
 
 	/**
@@ -95,7 +96,7 @@ class VentasController extends Controller
 	public function ccobrar(Request $request){
 		$data = $request->all();
 		$maestro = $data["venta_maestro_id"];
-
+dd($request);
 		$existeCuentaCliente = CuentasPorCobrar::where('cliente_id',$request["cliente_id"])->first();
 		
 		$cuenta_id=$existeCuentaCliente["id"];
@@ -106,8 +107,8 @@ class VentasController extends Controller
 				
 				'venta_id' => $maestro,
 				'cuentas_por_cobrar_id' => $cuenta_id,
-				'num_factura' => $request["num_factura"],
-				'fecha' => $data["fecha_venta"],
+				'num_factura' => 'Fac-'.$request["num_factura"],
+				'fecha' => $request["fecha_venta"],
 				'descripcion' => 'Venta',
 				'cargos' => $request["total_venta"],	
 				'abonos' => 0,
@@ -130,7 +131,7 @@ class VentasController extends Controller
 			$detalle = array(
 				'venta_id'=>$maestro,
 				'cuentas_por_cobrar_id'=>$cuenta_id,
-				'num_factura'=> $request["num_factura"],
+				'num_factura'=> 'Fac-'.$data["num_factura"],
 				'fecha'=>$request["fecha_venta"],
 				'descripcion'=> 'Venta',
 				'cargos'=>$request["total_venta"],	
@@ -245,7 +246,7 @@ class VentasController extends Controller
 		function cargarSaldo(CuentasPorCobrar $cuentaporcobrar, Venta $venta_maestro){
 			$detalle = array(
 				'compra_id' => $venta_maestro->id,
-				'num_factura' => $venta_maestro->id,
+				'num_factura' => 'Fac-'.$venta_maestro->id,
 				'fecha' => $venta_maestro->created_at,
 				'descripcion' => 'Venta modificada',
 				'cargos' => $venta_maestro->total_venta,	
@@ -267,7 +268,7 @@ class VentasController extends Controller
 
 			$detalle = array(
 				'compra_id' => $venta_maestro->id,
-				'num_factura' => $venta_maestro->id,
+				'num_factura' => 'Fac-'.$venta_maestro->id,
 				'fecha' => $venta_maestro->created_at,
 				'descripcion' => 'Venta modificada',
 				'cargos' => $venta_maestro->total_venta,	
@@ -285,7 +286,7 @@ class VentasController extends Controller
 
 			$detalle = array(
 				'compra_id' => $venta_maestro->id,
-				'num_factura' => $venta_maestro->id,
+				'num_factura' => 'Fac-'.$venta_maestro->id,
 				'fecha' => carbon::now(),
 				'descripcion' => 'Venta modifico cliente anterior',
 				'cargos' => 0,	
@@ -455,7 +456,7 @@ class VentasController extends Controller
 				$NuevoTotal = $total - $venta_maestro->total_venta;
 
 				$detallecuenta = array(
-					'num_factura' => $venta_maestro->num_factura,
+					'num_factura' => 'Fac-'.$venta_maestro->num_factura,
 					'fecha' => carbon::now(),
 					'descripcion' => 'Se elimino venta',
 					'cargos' => 0,	
@@ -536,7 +537,7 @@ class VentasController extends Controller
 				$NuevoTotal = $totalactual - $totalresta;
 
 				$detallecuenta = array(
-					'num_factura' => $ventamaestro->id,
+					'num_factura' => 'Fac-'.$ventamaestro->id,
 					'fecha' => carbon::now(),
 					'descripcion' => 'Se elimino detalle de venta',
 					'cargos' => 0,	
