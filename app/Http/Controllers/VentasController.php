@@ -96,7 +96,7 @@ class VentasController extends Controller
 	public function ccobrar(Request $request){
 		$data = $request->all();
 		$maestro = $data["venta_maestro_id"];
-dd($request);
+
 		$existeCuentaCliente = CuentasPorCobrar::where('cliente_id',$request["cliente_id"])->first();
 		
 		$cuenta_id=$existeCuentaCliente["id"];
