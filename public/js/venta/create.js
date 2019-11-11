@@ -47,8 +47,8 @@ $("#codigo_barra").change(function() {
             }
             else {
                 $("input[name='descripcion'] ").val(result[0].nombre);
-                $("input[name='precio_venta'] ").val((result[0].precio_venta).toFixed(2));
-                $("input[name='precio_compra'] ").val((result[0].precio_compra).toFixed(2));
+                $("input[name='precio_venta'] ").val((result[0].precio_venta));
+                $("input[name='precio_compra'] ").val((result[0].precio_compra));
                 $("input[name='existencias'] ").val(result[0].existencias);
                 $("input[name='cantidad'] ").val(1);
                 $("input[name='producto_id'] ").val(result[0].prod_id);
