@@ -31,8 +31,10 @@ function cargarSelectCliente(){
       });
 }
 
-$("input[name='codigo_barra']").focusout(function() {
-    var codigo = $("input[name='codigo_barra'] ").val();
+
+$("#codigo_barra").change(function() {
+    var codigo = $("#codigo_barra ").val();
+    console.log(codigo);
     /*var url = "../pos_v2/venta/get/?data=" + codigo;*/
     var url = "/../venta/get/?data=" + codigo;
         $.getJSON( url , function ( result ) {

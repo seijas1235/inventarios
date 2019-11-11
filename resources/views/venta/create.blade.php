@@ -58,19 +58,20 @@
 		<h3> Agregar Producto</h3>
 		<br>
 		<div class="row">
-			{{--<div class="col-sm-6">
-			{!! Form::label("produccto","produccto:") !!}
-				<select class="selectpicker" id='produccto_id' name="produccto_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione produccto">
+			<div class="col-sm-6">
+			{!! Form::label("codigo_barra","produccto:") !!}
+				<select class="selectpicker" id='codigo_barra' name="codigo_barra" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione produccto">
 					@foreach ($productos as $cliente)
-					<option value="{{$cliente->id}}">{{$cliente->codigo_barra}}- {{$cliente->nombre}}</option>
+					<option value="{{$cliente->codigo_barra}}">{{$cliente->codigo_barra}}- {{$cliente->nombre}}</option>
 					@endforeach
 				</select>
-			</div>--}}
+			</div>
+			{{--
 			<div class="col-sm-6">
 				{!! Form::label("codigo","Código de Barras:") !!}
 				{!! Form::text( "codigo_barra" , null , ['class' => 'form-control' , 'placeholder' => 'Código de Barras' ]) !!}
 			</div>
-		
+		--}}
 			<div class="col-sm-3">
 				{!! Form::label("cantidad","Cantidad:") !!}
 				{!! Form::text( "cantidad" , null , ['class' => 'form-control' , 'placeholder' => 'Cantidad']) !!}
