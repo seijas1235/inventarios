@@ -194,7 +194,7 @@ class CuentasPorCobrarController extends Controller
 		WHERE cpc.cliente_id = '".$idCliente."' AND dc.fecha BETWEEN '".$fecha_inicial."' AND '".$fecha_final." 23:59:59' ";
         $detalles = DB::select($query);
 
-        $query2 = "SELECT c.nombres FROM clientes c WHERE c.id = '".$idCliente."' ";
+        $query2 = "SELECT c.nombres, c.apellidos FROM clientes c WHERE c.id = '".$idCliente."' ";
         $cliente = DB::select($query2);
 
         $fecha_inicial = Carbon::parse($fecha_inicial)->format('d/m/Y');
@@ -215,7 +215,7 @@ class CuentasPorCobrarController extends Controller
         $fechacompleta = Carbon::now();
         $fecha = Carbon::parse($fechacompleta)->format('d/m/Y');
 
-        $query = "SELECT cpc.id, cpc.cliente_id, cpc.total, c.nombres FROM cuentas_por_cobrar cpc 
+        $query = "SELECT cpc.id, cpc.cliente_id, cpc.total, concat(c.nombres,' ',c.apellidos) as nombres FROM cuentas_por_cobrar cpc 
         INNER JOIN clientes c on c.id = cpc.cliente_id ";
         $detalles = DB::select($query);
 

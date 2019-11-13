@@ -58,7 +58,7 @@ class CuentasPorPagarController extends Controller
             $detalle = array(
                 'num_factura' => 'Rec-'.$data['no_factura'],
                 'fecha' => $data['fecha_documento'],
-                'descripcion' => 'Nota de Credito',
+                'descripcion' => 'Abonos',
                 'cargos' => 0,	
                 'abonos' => $data["total"],
                 'saldo' => $cuentaporpagar->total - $data["total"]
@@ -87,7 +87,7 @@ class CuentasPorPagarController extends Controller
             $detalle = array(
                 'num_factura' =>  'Rec-'.$data['no_factura'],
                 'fecha' => $data['fecha_documento'],
-                'descripcion' => 'Nota de Debito',
+                'descripcion' => 'Ajustes',
                 'cargos' => $data["total"],	
                 'abonos' => 0,
                 'saldo' => $cuentaporpagar->total + $data["total"]
@@ -103,7 +103,7 @@ class CuentasPorPagarController extends Controller
             $detalle = array(
                 'num_factura' =>  'Rec-'.$data['no_factura'],
                 'fecha' => $data['fecha_documento'],
-                'descripcion' => 'Nota de Debito',
+                'descripcion' => 'Ajustes ',
                 'cargos' => $data["total"],	
                 'abonos' => 0,
                 'saldo' => $data["total"]

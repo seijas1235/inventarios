@@ -30,13 +30,13 @@
 <body>
 
     <center><img src="images/car_zone1.jpg" width="300"> </center>
-    <center><h3>Estado de cuenta de {{$cliente[0]->nombres}}</h3></center>
+    <center><h3>Estado de cuenta del Cliente <strong>{{$cliente[0]->nombres}} {{$cliente[0]->apellidos}} </strong> </h3></center>
     <center><h4>Del {{$fecha_inicial}} al {{$fecha_final}}</h4></center><p align="right"> Generado por: {{Auth::user()->name}} El {{Carbon\Carbon::now()}} </p>
 
     <table border="1" width="100%">
         <tr>
             <th style="border: 0px">Fecha</th>
-            <th style="border: 0px">No. Factura</th>
+            <th style="border: 0px">No. Documento</th>
             <th style="border: 0px">Descripcion</th>
             <th style="border: 0px">Cargos</th>
             <th style="border: 0px">Abonos</th>
