@@ -22,7 +22,7 @@ class CreateTableMovimientoProducto extends Migration
 
             $table->integer('maquinaria_equipo_id')->unsigned()->nullable();
             $table->foreign('maquinaria_equipo_id')->references('id')->on('maquinarias_y_equipos')->onDelete('cascade');
-
+            $table->integer('paquete');
             $table->integer('existencias');
             $table->float('precio_compra');
             $table->float('precio_venta')->nullable();

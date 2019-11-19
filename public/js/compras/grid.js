@@ -42,6 +42,7 @@ $("input[name='codigo_barra']").focusout(function() {
             else {
                 $("input[name='nombre'] ").val(result[0].nombre);
                 $("input[name='producto_id'] ").val(result[0].producto_id);
+                $("input[name='aux'] ").val(result[0].cantidadu);
             }
         });
     });
@@ -64,13 +65,17 @@ $("input[name='codigo_maquina']").focusout(function() {
 $("input[name='cantidad']").focusout(function() {
     var cantidad = $("input[name='cantidad'] ").val();
     var precio_compra = $("input[name='precio_compra'] ").val();
-
+    var aux=parseInt( $('#aux').val());
+    var unidades=aux*cantidad;
     var subtotal = cantidad * precio_compra;
+    
     if (cantidad != 0 ) {
+        $("input[name='unidades'] ").val(unidades);
         $("input[name='subtotal'] ").val(subtotal);
     }
     else 
         $("input[name='subtotal'] ").val("0");
+        
     return false;
 })
 
@@ -92,6 +97,7 @@ $('body').on('click', '#addDetalle', function(e) {
 
     var detalle = new Object();
     var cantidad = $("input[name='cantidad'] ").val();
+    var unidades = $("input[name='unidades'] ").val();
     var precio_venta = $("input[name='precio_venta'] ").val();
     var precio_compra = $("input[name='precio_compra'] ").val();
     var id = $("input[name='producto_id'] ").val(); 
@@ -101,6 +107,7 @@ $('body').on('click', '#addDetalle', function(e) {
     {
         $("input[name='subtotal'] ").val(subtotal);
         detalle.cantidad = $("input[name='cantidad'] ").val();
+        detalle.unidades = $("input[name='unidades'] ").val();
         detalle.precio_venta = $("input[name='precio_venta'] ").val();
         detalle.precio_compra = $("input[name='precio_compra'] ").val();
         detalle.subtotal_venta = $("input[name='subtotal'] ").val();
@@ -126,6 +133,7 @@ $('body').on('click', '#addDetalle', function(e) {
         $("input[name='precio_venta'] ").val("");
         $("input[name='precio_compra'] ").val("");
         $("input[name='cantidad'] ").val([""]);
+        $("input[name='unidades'] ").val([""]);
         /*var cantidad = $("input[name='cantidad'] ").val();
         var precio_venta = $("input[name='precio_venta'] ").val();
         var subtotal = cantidad * precio_compra;
@@ -274,7 +282,7 @@ $('body').on('click', '#addDetalleMaquina', function(e) {
                             url: "/compras-detalle/" + detalle.id,
                             type: "POST",
                             contentType: "application/json",
-                            data: JSON.stringify(db.links),
+                            data: JSON.stringify(db.links), 
                             success: function(addressResponse) {
                                 if (addressResponse.result == "ok") {
                             window.location = "/compras"
@@ -322,6 +330,7 @@ $('body').on('click', '#addDetalleMaquina', function(e) {
                 { title: "Codigo", name: "producto_id", type: "text", visible:false},
                 { title: "Codigo2", name: "maquinaria_equipo_id", type: "text", visible:false},
                 { title: "Cantidad", name: "cantidad", type: "text"},
+                { title: "Unidades", name: "unidades", type: "text"},
                 { title: "Precio Compra", name: "precio_compra", type: "text"},
                 { title: "Precio Venta", name: "precio_venta", type: "text"},
                 { title: "Subtotal", name: "subtotal_venta", type: "text", editing: false},

@@ -155,7 +155,8 @@ class ComprasController extends Controller
 				$stat['producto_id'] = $stat['producto_id'];
 				$stat["precio_venta"] = $stat["precio_venta"];
 				$stat["subtotal"] = $stat["subtotal_venta"];
-				$stat['existencias'] = $stat["cantidad"];
+				$stat['paquete'] = $stat["cantidad"];
+				$stat['existencias'] = $stat["unidades"];
 				$stat["precio_compra"] = $stat["precio_compra"];
 				$stat['fecha_ingreso'] = Carbon::now();
 
@@ -172,7 +173,7 @@ class ComprasController extends Controller
 				$stat["movimiento_producto_id"] = $detalle->id;
 				$maestro->detalles_compras()->create($stat);
 
-				event(new ActualizacionProducto($stat['producto_id'], 'Compra', $stat['cantidad'],0, $existencia_anterior, $existencia_anterior + $stat['cantidad']));
+				event(new ActualizacionProducto($stat['producto_id'], 'Compra', $stat['unidades'],0, $existencia_anterior, $existencia_anterior + $stat['unidades']));
 			}		
 			
 		}

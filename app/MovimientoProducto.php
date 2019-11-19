@@ -12,6 +12,7 @@ class MovimientoProducto extends Model
     'id',
     'fecha_ingreso',
     'producto_id',
+    'paquete',
     'existencias',
     'precio_compra',
     'precio_venta',
