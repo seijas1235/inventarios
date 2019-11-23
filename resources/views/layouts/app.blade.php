@@ -236,7 +236,7 @@
 
 					<li class="{{request()->is('productos*')? 'active': ''}}"><a href="/productos">Productos</a></li>
 
-					{{--<li class="{{request()->is('precios_producto*')? 'active': ''}}"><a href="/precios_producto">Precios de Producto</a></li>--}}
+					<li class="{{request()->is('precios_producto*')? 'active': ''}}"><a href="/precios_producto">Precios de Producto</a></li>
 
 					<li class="{{request()->is('maquinarias_equipo*')? 'active': ''}}"><a href="/maquinarias_equipo">Maquinarias y equipos</a></li>
 
