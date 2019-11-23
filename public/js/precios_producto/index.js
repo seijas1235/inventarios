@@ -40,7 +40,7 @@ var precios_producto_table = $('#precios_producto-table').DataTable({
             "sSortDescending": ": Activar para ordenar la columna de manera descendente"
         },
     },
-    "order": [0, 'asc'],
+    "order": [0, 'Desc'],
     "columns": [ {
         "title": "No.",
         "data": "id",
@@ -59,7 +59,7 @@ var precios_producto_table = $('#precios_producto-table').DataTable({
     },
     {
         "title": "Producto",
-        "data": "producto_id",
+        "data": "producto",
         "width" : "20%",
         "responsivePriority": 2,
         "render": function( data, type, full, meta ) {

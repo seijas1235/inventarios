@@ -100,13 +100,11 @@ class PreciosProductoController extends Controller
         return redirect('/precios_producto');
     }
 
-    public function updatePrecioProducto(PrecioProducto $precio_producto, array $data )
+    public function updatePrecioProducto(PrecioProducto $precio_producto, $data )
     {
-        $id= $precio_producto->id;
-        $precio_producto->precio_venta = $data["precio_venta"];
-        $precio_producto->producto_id = $data["producto_id"];
-        $precio_producto->save();
-
+        $data["user_id"] = Auth::user()->id;
+        $data['fecha']=Carbon::now();
+        $precio_producto=PrecioProducto::create($data);
         return $precio_producto;
     }
 
@@ -141,7 +139,9 @@ class PreciosProductoController extends Controller
 
     public function getJson(Request $params)
     {
-        $query = "SELECT * FROM precios_producto";
+        $query = "SELECT pp.id as id, pp.precio_venta as precio_venta, pp.fecha as fecha, p.nombre as producto FROM precios_producto pp
+        INNER JOIN productos p on pp.producto_id=p.id;
+        ";
 
         $result = DB::select($query);
         $api_Result['data'] = $result;
