@@ -41,10 +41,7 @@
                 {!! Form::label("precio_compra","Precio Compra:") !!}
                 {!! Form::number( "precio_compra" , null , ['class' => 'form-control' , 'placeholder' => 'Precio Compra' ]) !!}
             </div>
-            <div class="col-sm-3">
-                {!! Form::label("precio_venta","Precio Venta:") !!}
-                {!! Form::number( "precio_venta" , null , ['class' => 'form-control' , 'placeholder' => 'Precio Venta' ]) !!}
-            </div>
+  
             <div class="col-sm-3">
                 {!! Form::label("existencias","Cantidad:") !!}
                 {!! Form::text( "existencias" , null , ['class' => 'form-control' , 'placeholder' => 'Cantidad' ]) !!}

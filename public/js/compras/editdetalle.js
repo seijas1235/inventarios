@@ -14,9 +14,7 @@ var validator = $("#DetalleUpdateForm").validate({
 		maquinaria_equipo_id: {
 			required : true
 		},
-		precio_venta: {
-			required : true
-		}
+
 	},
 	messages: {
 		precio_compra: {
@@ -31,9 +29,6 @@ var validator = $("#DetalleUpdateForm").validate({
 		maquinaria_equipo_id: {
 			required: "Por favor, Seleccione maquinaria"
 		},
-		precio_venta: {
-			required: "Por favor, Ingrese precio de venta"
-		}
 	}
 });
 

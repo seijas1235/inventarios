@@ -139,7 +139,7 @@ class ComprasController extends Controller
 			if(empty($stat['producto_id'])){
 				$stat['user_id'] = Auth::user()->id;
 				$stat['maquinaria_equipo_id'] = $stat['maquinaria_equipo_id'];
-				$stat["precio_venta"] = 0;
+				
 				$stat["subtotal"] = $stat["subtotal_venta"];
 				$stat['existencias'] = $stat["cantidad"];
 				$stat["precio_compra"] = $stat["precio_compra"];
@@ -153,7 +153,7 @@ class ComprasController extends Controller
 			else{
 				$stat['user_id'] = Auth::user()->id;
 				$stat['producto_id'] = $stat['producto_id'];
-				$stat["precio_venta"] = $stat["precio_venta"];
+				
 				$stat["subtotal"] = $stat["subtotal_venta"];
 				$stat['paquete'] = $stat["cantidad"];
 				$stat['existencias'] = $stat["unidades"];
@@ -536,7 +536,7 @@ class ComprasController extends Controller
 			$movimiento->existencias = $data['existencias'];
 			$movimiento->producto_id = $data['producto_id'];
 			$movimiento->precio_compra = $data['precio_compra'];
-			$movimiento->precio_venta = $data['precio_venta'];
+		
 			$movimiento->save();
 
 			//kardex para cargar
@@ -567,7 +567,7 @@ class ComprasController extends Controller
 			$movimiento->existencias = $data['existencias'];
 			$movimiento->maquinaria_equipo_id = $data['maquinaria_equipo_id'];
 			$movimiento->precio_compra = $data['precio_compra'];
-			$movimiento->precio_venta = $data['precio_venta'];
+			
 			$movimiento->save();			
 		}
 
@@ -577,7 +577,7 @@ class ComprasController extends Controller
 		$detallecompra->producto_id = $data['producto_id'];
 		$detallecompra->user_id = Auth::user()->id;
 		$detallecompra->precio_compra = $data['precio_compra'];
-		$detallecompra->precio_venta = $data['precio_venta'];
+		
 		$detallecompra->existencias = $data['existencias'];
 		$detallecompra->save();
 		}
@@ -585,7 +585,7 @@ class ComprasController extends Controller
 			$detallecompra->maquinaria_equipo_id = $data['maquinaria_equipo_id'];
 			$detallecompra->user_id = Auth::user()->id;
 			$detallecompra->precio_compra = $data['precio_compra'];
-			$detallecompra->precio_venta = $data['precio_venta'];
+			
 			$detallecompra->existencias = $data['existencias'];
 			$detallecompra->save();
 		}

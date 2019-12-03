@@ -20,7 +20,7 @@ class CreateTableDetallesCompras extends Migration
             $table->unsignedInteger('maquinaria_equipo_id')->nullable();
             $table->unsignedInteger('user_id');
             $table->float('precio_compra');
-            $table->float('precio_venta');
+            $table->float('precio_venta')->nullable();
             $table->integer('existencias');
             $table->unsignedInteger('movimiento_producto_id');
 

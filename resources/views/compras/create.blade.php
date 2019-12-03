@@ -59,14 +59,14 @@
 			<hr>
 
 			<div class="row">
-				<div class="col-sm-2">
+				<div class="col-sm-3">
 					{!! Form::label("codigo_barra","Codigo de Barra:") !!}
 					{!! Form::hidden("producto_id" , null , ['class' => 'form-control' , 'disabled']) !!}
 					{!! Form::hidden("subtotal" , null , ['class' => 'form-control' , 'disabled']) !!}
 					{!! Form::text( "codigo_barra" , null , ['class' => 'form-control' , 'placeholder' => 'Codigo Barra' ]) !!}
 				</div>
 
-				<div class="col-sm-2">
+				<div class="col-sm-3">
 					{!! Form::label("nombre","Descripcion del Producto:") !!}
 					{!! Form::text( "nombre" , null , ['class' => 'form-control' , 'disabled','placeholder' => 'Descripcion del producto', 'id' => 'nombreProducto']) !!}
 				</div>
@@ -83,11 +83,7 @@
 					{!! Form::label("precio_compra","Precio Compra:") !!}
 					{!! Form::text( "precio_compra" , null , ['class' => 'form-control' , 'placeholder' => 'Precio Compra' ]) !!}
 				</div>
-
-				<div class="col-sm-2">
-						{!! Form::label("precio_venta","Precio Venta:") !!}
-						{!! Form::text( "precio_venta" , null , ['class' => 'form-control' , 'placeholder' => 'Precio venta' ]) !!}
-					</div>
+	
 			</div>
 			<input type="hidden" name="aux" id="aux">
 			<br>
