@@ -38,6 +38,6 @@ class CreateTableMaquinariaEquipo extends Migration
      */
     public function down()
     {
-        Schema::drop('Maquinarias_y_equipos');
+        Schema::drop('maquinarias_y_equipos');
     }
 }
