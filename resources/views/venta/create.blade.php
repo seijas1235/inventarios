@@ -97,7 +97,9 @@
 				{!! Form::text( "precio_venta" , null , ['class' => 'form-control' , 'disabled', 'placeholder' => 'Precio de Venta' ]) !!}
 				{!! Form::hidden("producto_id" , null , ['class' => 'form-control' , 'disabled']) !!}
 				{!! Form::hidden("precio_compra" , null , ['class' => 'form-control' , 'disabled']) !!}
+				{!! Form::hidden("precio_id" , null , ['class' => 'form-control' , 'disabled']) !!}
 				{!! Form::hidden("movimiento_id" , null , ['class' => 'form-control' , 'disabled']) !!}
+				{!! Form::hidden("cantidadu" , null , ['class' => 'form-control' , 'disabled']) !!}
 				{!! Form::hidden("existencias" , null , ['class' => 'form-control' , 'disabled']) !!}
 				{!! Form::hidden("venta_maestro" , null , ['class' => 'form-control' , 'disabled']) !!}
 			</div>

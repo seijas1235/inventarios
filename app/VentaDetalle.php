@@ -12,6 +12,7 @@ class VentaDetalle extends Model
     'id',
     'venta_id',
     'producto_id',
+    'precio_id',
     'cantidad',
     'precio_compra',
     'precio_venta',

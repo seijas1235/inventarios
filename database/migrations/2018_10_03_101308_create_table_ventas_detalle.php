@@ -25,6 +25,10 @@ class CreateTableVentasDetalle extends Migration
             $table->foreign('servicio_id')->references('id')->on('servicios')->onDelete('cascade');
             $table->integer('movimiento_producto_id')->unsigned()->nullable();
             
+            $table->integer('precio_id')->unsigned()->nullable();
+            $table->foreign('precio_id')->references('id')->on('precios_producto')->onDelete('cascade');
+
+
             $table->text('detalle_mano_obra');
             $table->integer('cantidad');
             $table->float('precio_compra')->nullable();

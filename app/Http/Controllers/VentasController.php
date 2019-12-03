@@ -185,8 +185,12 @@ class VentasController extends Controller
 				$venta_maestro->total_venta = $total_venta;
 				$venta_maestro->save();
 				$existencias = $producto->existencias;
+				$paquete = $producto->paquete;
 				$cantidad = $stat["cantidad"];
-				$newExistencias = $existencias - $cantidad;
+				$cantidadu = $stat["cantidadu"];
+				$newExistencias = $existencias - ($cantidad*$cantidadu);
+				$newpaquete = $paquete - $cantidad;
+				
 				//kardex
 				$existencia_anterior = MovimientoProducto::where( "producto_id" , "=" , $producto->producto_id )
 				->sum( "existencias");
@@ -199,6 +203,8 @@ class VentasController extends Controller
 
 				$updateExistencia = MovimientoProducto::where('id', $stat["movimiento_id"])
 				->update(['existencias' => $newExistencias, 'vendido' => 1]);
+				$updateExistencia = MovimientoProducto::where('id', $stat["movimiento_id"])
+				->update(['paquete' => $newpaquete, 'vendido' => 1]);
 			}
 			
 		}

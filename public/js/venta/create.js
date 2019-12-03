@@ -30,13 +30,11 @@ function cargarSelectCliente(){
         }
       });
 }
-
+ 
 
 $("#codigo_barra").change(function() {
     var codigo = $("#codigo_barra ").val();
-    console.log(codigo);
-    /*var url = "../pos_v2/venta/get/?data=" + codigo;*/
-    var url = "/../venta/get/?data=" + codigo;
+     var url = "/../venta/get/?data=" + codigo;
         $.getJSON( url , function ( result ) {
             if (result == 0 ) {
                 $("input[name='descripcion'] ").val("");
@@ -51,6 +49,8 @@ $("#codigo_barra").change(function() {
                 $("input[name='precio_compra'] ").val((result[0].precio_compra));
                 $("input[name='existencias'] ").val(result[0].existencias);
                 $("input[name='cantidad'] ").val(1);
+                $("input[name='precio_id'] ").val(result[0].precio_id);
+                $("input[name='cantidadu'] ").val(result[0].cantidadu);
                 $("input[name='producto_id'] ").val(result[0].prod_id);
                 $("input[name='movimiento_id'] ").val(result[0].producto_id);
                 $("#total_existencia").text("La existencia del producto con el precio Q." + result[0].precio_venta + " es de:" + result[0].existencias);
@@ -121,6 +121,8 @@ $('body').on('click', '#addDetalle', function(e)
             detalle.precio_venta = $("input[name='precio_venta'] ").val();
             detalle.subtotal_venta = $("input[name='subtotal'] ").val();
             detalle.producto_id  = $("input[name='producto_id'] ").val();
+            detalle.precio_id  = $("input[name='precio_id'] ").val();
+            detalle.cantidadu  = $("input[name='cantidadu'] ").val();
             detalle.movimiento_id  = $("input[name='movimiento_id'] ").val();
             detalle.codigoballa = $("input[name='codigo_barra'] ").val();
             detalle.nombre = $("input[name='descripcion'] ").val();
@@ -142,6 +144,7 @@ $('body').on('click', '#addDetalle', function(e)
             $("input[name='codigo_barra'] ").val("");
             $("input[name='descripcion'] ").val("");
             $("input[name='precio_venta'] ").val("");
+            $("input[name='precio_id'] ").val("");
             $("input[name='precio_compra'] ").val("");
             $("input[name='cantidad'] ").val(1);
             var cantidad = $("input[name='cantidad'] ").val();
@@ -151,7 +154,6 @@ $('body').on('click', '#addDetalle', function(e)
             var venta_maestro = $("input[name='venta_maestro'] ").val();
             if($("input[name='venta_maestro']").val() != "") {       
                 $.ajax({
-                    /*url: "/pos_v2/venta-detalle/" + venta_maestro,*/
                     url: "/venta-detalle/" + venta_maestro,
                     type: "POST",
                     contentType: "application/json",

@@ -282,6 +282,20 @@ class ProductosController extends Controller
 			return Response::json( $result);
 		}
 		else {
+			$query="SELECT MP.id as producto_id, 
+			if(MP.fecha_ingreso is null,0,MP.fecha_ingreso) as fecha, PR.id as prod_id,
+				PR.nombre,  
+				if((select sum(paquete) from movimientos_productos mp where mp.producto_id=PR.id) is null,0,(select sum(paquete) from movimientos_productos mp where mp.producto_id=PR.id)) as existencias, 
+				 UM.descripcion as medida, UM.cantidad as cantidadu,
+				if((select precio_venta from precios_producto p where p.producto_id = PR.id order by p.id DESC limit 1) is null,0,(select precio_venta from precios_producto p where p.producto_id = PR.id order by p.id DESC limit 1))  as precio_venta, 
+				(select id from precios_producto p where p.producto_id = PR.id order by p.id DESC limit 1)  as precio_id, 			
+			if(MP.precio_compra is null,0,MP.precio_compra) as precio_compra,	PR.codigo_barra
+						from productos PR
+					left join movimientos_productos MP on PR.id=MP.producto_id and (MP.existencias>0)
+					Inner join unidades_de_medida UM on UM.id = PR.medida_id
+					having PR.codigo_barra = '".$producto."'
+					order by MP.fecha_ingreso DESC limit 1";
+			/*
 			$query = "SELECT MP.id as producto_id, if(MP.fecha_ingreso is null,0,MP.fecha_ingreso) as fecha, PR.id as prod_id,
 			PR.nombre, if(MP.existencias is null,0,MP.existencias) as existencias, UM.descripcion as medida, UM.cantidad as cantidadu,
 			if(MP.precio_compra is null,0,MP.precio_compra) as precio_compra, PR.codigo_barra,
@@ -290,7 +304,7 @@ class ProductosController extends Controller
 				left join movimientos_productos MP on PR.id=MP.producto_id and (MP.existencias>0)
 				Inner join unidades_de_medida UM on UM.id = PR.medida_id
 				having PR.codigo_barra = '".$producto."'
-				order by MP.fecha_ingreso DESC limit 1";
+				order by MP.fecha_ingreso DESC limit 1";*/
 				$result = DB::select($query);
 				return Response::json( $result);
 			}
