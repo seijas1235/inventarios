@@ -199,7 +199,7 @@ class VentasController extends Controller
 					$existencia_anterior = 0;
 				};
 
-				event(new ActualizacionProducto($producto->producto_id, 'Venta', 0,$stat['cantidad'], $existencia_anterior, $existencia_anterior - $stat['cantidad']));
+				event(new ActualizacionProducto($producto->producto_id, 'Venta', 0,($stat['cantidad']*$stat['cantidadu']), $existencia_anterior, $existencia_anterior - ($stat['cantidad']*$stat['cantidadu'])));
 
 				$updateExistencia = MovimientoProducto::where('id', $stat["movimiento_id"])
 				->update(['existencias' => $newExistencias, 'vendido' => 1]);
