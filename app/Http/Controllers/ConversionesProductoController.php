@@ -85,7 +85,7 @@ class ConversionesProductoController extends Controller
             $mp->fecha_ingreso = $conversion_producto->fecha;
 			$mp->producto_id = $stat["producto_id"];
 			$mp->paquete = $stat["cantidad_ingreso"];
-            $mp->existencias = $stat["cantidad_ingreso"];
+            $mp->existencias = $stat["cantidad_ingreso"]*$stat["cantidadu_in"];
             $mp->precio_compra = $stat["precio_compra"];
 			
 			//kardex
