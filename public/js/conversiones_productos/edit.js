@@ -13,9 +13,7 @@ var validator = $("#IngresoUpdateForm").validate({
 	ignore: [],
 	onkeyup:false,
 	rules: {
-		precio_venta: {
-			required : true
-		},
+
 		precio_compra: {
 			required : true
 		},
@@ -24,9 +22,7 @@ var validator = $("#IngresoUpdateForm").validate({
 		}
 	},
 	messages: {
-		precio_venta: {
-			required: "Por favor, ingrese precio de venta"
-		},
+
 		precio_compra: {
 			required : "Por favor, ingrese precio de compra"
 		},

@@ -27,7 +27,7 @@ $(document).on("keypress", '#ButtonGuardar', function (e) {
     if (code == 13) {
         e.preventDefault();
         return false;
-    }
+    } 
 });
 
 
@@ -48,10 +48,10 @@ $("input[name='codigo_barra']").focusout(function() {
                 $("input[name='nombre'] ").val(result[0].nombre);
                 $("input[name='producto_id'] ").val(result[0].prod_id);
                 $("input[name='unidad_de_medida'] ").val(result[0].medida);
-                $("input[name='cantidad_medida'] ").val(result[0].cantidad);
-                if( cantidad_medida_sale >= result[0].cantidad)
+                $("input[name='cantidad_medida'] ").val(result[0].cantidadu);
+                if( cantidad_medida_sale >= result[0].cantidadu)
                 {
-                    $("input[name='cantidad_ingreso'] ").val(cantidad_medida_sale * cantidad_sale * result[0].cantidad);
+                    $("input[name='cantidad_ingreso'] ").val(cantidad_medida_sale * cantidad_sale * result[0].cantidadu);
                     var precio=parseFloat($("input[name='precio_sale'] ").val());
                     var costo=parseFloat(precio/cantidad_medida_sale);
                     var num3 = costo.toFixed(2);            
@@ -60,7 +60,7 @@ $("input[name='codigo_barra']").focusout(function() {
 
                 else
                 {
-                    $("input[name='cantidad_ingreso'] ").val((cantidad_medida_sale * cantidad_sale) / result[0].cantidad);
+                    $("input[name='cantidad_ingreso'] ").val((cantidad_medida_sale * cantidad_sale) / result[0].cantidadu);
                     var precio=parseFloat($("input[name='precio_sale'] ").val());
                     var costo=parseFloat(precio*cantidad_sale);
                     var num3 = costo.toFixed(2);            
@@ -81,13 +81,14 @@ $("input[name='codigo_barra_sale']").focusout(function() {
                 $("input[name='producto_id_sale'] ").val("");
                 $("input[name='unidad_de_medida_sale'] ").val("");
                 $("input[name='cantidad_medida_sale'] ").val("");
+                
             }
             else {
                 $("input[name='precio_sale'] ").val(result[0].precio_compra);
                 $("input[name='nombre_sale'] ").val(result[0].nombre);
                 $("input[name='producto_id_sale'] ").val(result[0].prod_id);
                 $("input[name='unidad_de_medida_sale'] ").val(result[0].medida);
-                $("input[name='cantidad_medida_sale'] ").val(result[0].cantidad);
+                $("input[name='cantidad_medida_sale'] ").val(result[0].cantidadu);
             }
         });
     });
@@ -98,8 +99,9 @@ $("input[name='codigo_barra_sale']").focusout(function() {
         var cantidad_sale = $("input[name='cantidad_sale'] ").val();
         var url = "/productos/get/?data=" + codigo;    
             $.getJSON( url , function ( result ) {
-    
-                if(result[0].existencias < cantidad_sale ){
+                var existencia=parseInt(result[0].existencias);
+                console.log(existencia);
+                if(existencia <= cantidad_sale ){
                     $("input[name='cantidad_sale'] ").after("<label class='error'>No hay existencia suficiente</label>");
                     $('#addDetalle').attr("disabled", true);
                 }
@@ -117,21 +119,22 @@ $('body').on('click', '#addDetalle', function(e) {
     var detalle = new Object();
     var cantidad_sale = $("input[name='cantidad_sale'] ").val();
     var cantidad_ingreso = $("input[name='cantidad_ingreso'] ").val();
-    var precio_venta = $("input[name='precio_venta'] ").val();
+
     var precio_compra = $("input[name='precio_compra'] ").val();
     var id = $("input[name='producto_id'] ").val();
     var id_sale = $("input[name='producto_id'] ").val();  
     var subtotal = cantidad * precio_compra;
 
-    if (cantidad_sale != "" && cantidad_ingreso != "" && precio_venta != "" && precio_compra != "" && id != "" & id_sale != "")
+    if (cantidad_sale != "" && cantidad_ingreso != "" && precio_compra != "" && id != "" & id_sale != "")
     {
         $("input[name='subtotal'] ").val(subtotal);
         detalle.cantidad_ingreso = $("input[name='cantidad_ingreso'] ").val();
         detalle.cantidad_sale = $("input[name='cantidad_sale'] ").val();
-        detalle.precio_venta = $("input[name='precio_venta'] ").val();
         detalle.precio_compra = $("input[name='precio_compra'] ").val();
         detalle.subtotal_conversion = $("input[name='subtotal'] ").val();
         detalle.producto_id  = $("input[name='producto_id'] ").val();
+        detalle.cantidadu_sale=$("input[name='cantidad_medida_sale'] ").val();
+        detalle.cantidadu_in=$("input[name='cantidad_medida'] ").val();
         detalle.producto_id_sale  = $("input[name='producto_id_sale'] ").val();
         detalle.codigo_barra = $("input[name='codigo_barra'] ").val();
         detalle.codigo_barra_sale = $("input[name='codigo_barra_sale'] ").val();
@@ -153,7 +156,6 @@ $('body').on('click', '#addDetalle', function(e) {
         $("input[name='producto_id'] ").val("");
         $("input[name='codigo_barra'] ").val("");
         $("input[name='nombre'] ").val("");
-        $("input[name='precio_venta'] ").val("");
         $("input[name='precio_compra'] ").val("");
         $("input[name='cantidad_ingreso'] ").val([""]);
 
@@ -162,7 +164,6 @@ $('body').on('click', '#addDetalle', function(e) {
         $("input[name='nombre_sale'] ").val("");
         $("input[name='cantidad_sale'] ").val([""]);
         var cantidad = $("input[name='cantidad'] ").val();
-        var precio_venta = $("input[name='precio_venta'] ").val();
         var subtotal = cantidad * precio_compra;
         $("input[name='subtotal'] ").val(subtotal);
         $("#detalle-grid .jsgrid-search-button").trigger("click");    
@@ -258,7 +259,6 @@ $('body').on('click', '#addDetalle', function(e) {
                 { title: "Producto Ingresa", name: "nombre", type: "text"},
                 { title: "Cantidad de Ingreso", name: "cantidad_ingreso", type: "text"},
                 { title: "Precio Compra", name: "precio_compra", type: "text"},
-                { title: "Precio Venta", name: "precio_venta", type: "text"},
                 { type: "control" }
                 ],
                 onItemInserting: function (args) {

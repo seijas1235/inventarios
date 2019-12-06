@@ -83,10 +83,10 @@ class ConversionesProductoController extends Controller
         //se crea el movimiento de producto   
             $mp = new MovimientoProducto;
             $mp->fecha_ingreso = $conversion_producto->fecha;
-            $mp->producto_id = $stat["producto_id"];
+			$mp->producto_id = $stat["producto_id"];
+			$mp->paquete = $stat["cantidad_ingreso"];
             $mp->existencias = $stat["cantidad_ingreso"];
             $mp->precio_compra = $stat["precio_compra"];
-			$mp->precio_venta = $stat["precio_venta"];
 			
 			//kardex
 			$existencia_anterior = MovimientoProducto::where( "producto_id" , "=" , $stat["producto_id"] )->sum( "existencias");
@@ -95,7 +95,7 @@ class ConversionesProductoController extends Controller
 				$existencia_anterior = 0;
 			};
 
-			event(new ActualizacionProducto($stat["producto_id"], 'Conversion Ingreso', $stat["cantidad_ingreso"],0, $existencia_anterior, $existencia_anterior + $stat["cantidad_ingreso"]));
+			event(new ActualizacionProducto($stat["producto_id"], 'Conversion Ingreso', ($stat["cantidad_ingreso"]*$stat["cantidadu_in"]),0, $existencia_anterior, $existencia_anterior + ($stat["cantidad_ingreso"]*$stat["cantidadu_in"])));
 
             $mp->save();
 
@@ -103,10 +103,12 @@ class ConversionesProductoController extends Controller
 			$detalle->save();	
 
         //Se actualiza la salida de producto
-            $mps = MovimientoProducto::where('producto_id', $detalle->producto_id_sale)->first();
-            $existenciaanterior = $mps->existencias;
+            $mps = MovimientoProducto::where('producto_id', $detalle->producto_id_sale)->first ();
+			$existenciaanterior = $mps->existencias;
+			$existenciapaquete = $mps->paquete;
             $detalleMps = array(
-                'existencias' => $existenciaanterior - $stat["cantidad_sale"], 'vendido' => 1
+				'existencias' => $existenciaanterior - ($stat["cantidad_sale"]*$stat["cantidadu_sale"]), 'vendido' => 1,
+				'paquete' => $existenciapaquete - $stat["cantidad_sale"], 'vendido' => 1
 			);
 			
 			//kardex
@@ -116,9 +118,10 @@ class ConversionesProductoController extends Controller
 				$existencia_anterior = 0;
 			};
 
-			event(new ActualizacionProducto($detalle->producto_id_sale, 'Conversion Salida', 0,$stat["cantidad_sale"], $existencia_anterior, $existencia_anterior - $stat["cantidad_sale"]));
+			event(new ActualizacionProducto($detalle->producto_id_sale, 'Conversion Salida', 0,($stat["cantidad_sale"]*$stat["cantidadu_sale"]), $existencia_anterior, $existencia_anterior - ($stat["cantidad_sale"]*$stat["cantidadu_sale"])));
 
-            $mps->update($detalleMps);
+			$mps->update($detalleMps);
+			//dd($stat);
             				
 		}
 

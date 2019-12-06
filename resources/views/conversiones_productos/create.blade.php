@@ -6,7 +6,7 @@
 			<div class="col-sm-12">
 				<h3 class="tittle-custom">Conversiones de Producto </h3>
 				<line>
-				</div>
+				</div> 
 		</div>
 			<br>
 			<div class="row">
@@ -75,12 +75,11 @@
 				<div class="col-sm-2">
 					{!! Form::label("precio_compra","Precio Compra:") !!}
 					{!! Form::text( "precio_compra" , null , ['class' => 'form-control' , 'placeholder' => 'Precio Compra' ]) !!}
+					{!! Form::hidden("cus" , null , ['class' => 'form-control' , 'disabled']) !!}
+					{!! Form::hidden("cui" , null , ['class' => 'form-control' , 'disabled']) !!}
 				</div>
 
-				<div class="col-sm-2">
-					{!! Form::label("precio_venta","Precio Venta:") !!}
-					{!! Form::text( "precio_venta" , null , ['class' => 'form-control' , 'placeholder' => 'Precio venta' ]) !!}
-				</div>
+			
 			</div>
 			<br>				
 	
