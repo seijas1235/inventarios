@@ -16,6 +16,7 @@ class Kardex extends Model
 	'ingreso',
 	'salida',
 	'existencia_anterior',
-	'saldo'
+	'saldo',
+	'costo'
 	];
 }

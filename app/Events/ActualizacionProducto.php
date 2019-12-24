@@ -25,7 +25,7 @@ class ActualizacionProducto extends Event
      *
      * @return void
      */
-    public function __construct($producto, $transaccion, $ingreso, $salida, $existencia_anterior, $saldo)
+    public function __construct($producto, $transaccion, $ingreso, $salida, $existencia_anterior, $saldo, $costo)
     {
         $this->producto = $producto;
         $this->transaccion = $transaccion;
@@ -33,6 +33,7 @@ class ActualizacionProducto extends Event
         $this->salida = $salida;
         $this->existencia_anterior = $existencia_anterior;
         $this->saldo = $saldo;
+        $this->costo = $costo;
     }
 
     /**

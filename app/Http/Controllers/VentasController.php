@@ -199,7 +199,7 @@ class VentasController extends Controller
 					$existencia_anterior = 0;
 				};
 
-				event(new ActualizacionProducto($producto->producto_id, 'Venta', 0,($stat['cantidad']*$stat['cantidadu']), $existencia_anterior, $existencia_anterior - ($stat['cantidad']*$stat['cantidadu'])));
+				event(new ActualizacionProducto($producto->producto_id, 'Venta', 0,($stat['cantidad']*$stat['cantidadu']), $existencia_anterior, $existencia_anterior - ($stat['cantidad']*$stat['cantidadu']),$stat["precio_compra"]));
 
 				$updateExistencia = MovimientoProducto::where('id', $stat["movimiento_id"])
 				->update(['existencias' => $newExistencias, 'vendido' => 1]);
@@ -437,12 +437,13 @@ class VentasController extends Controller
 
 				//kardex
 				$existencia_anterior = MovimientoProducto::where( "producto_id" , "=" , $producto->producto_id )->sum( "existencias");
+				
 
 				if($existencia_anterior == null){
 					$existencia_anterior = 0;
 				};
 
-				event(new ActualizacionProducto($producto->producto_id, 'Venta Borrada', $cantidad, 0, $existencia_anterior, $existencia_anterior + $cantidad));
+				event(new ActualizacionProducto($producto->producto_id, 'Venta Borrada', $cantidad, 0, $existencia_anterior, $existencia_anterior + $cantidad,0));
 
 				//Movimiento Producto
 				$newExistencias = $existencias + $cantidad;
@@ -518,7 +519,7 @@ class VentasController extends Controller
 					$existencia_anterior = 0;
 				};
 
-				event(new ActualizacionProducto($producto->producto_id, 'Venta Borrada', $cantidad, 0, $existencia_anterior, $existencia_anterior + $cantidad));
+				event(new ActualizacionProducto($producto->producto_id, 'Venta Borrada', $cantidad, 0, $existencia_anterior, $existencia_anterior + $cantidad,0));
 
 				$updateExistencia = MovimientoProducto::where('id', $venta_detalle->movimiento_producto_id)
 				->update(['existencias' => $newExistencias]);
@@ -586,7 +587,7 @@ class VentasController extends Controller
 			$existencia_anterior = 0;
 		};
 
-		event(new ActualizacionProducto($venta_detalle->producto_id, 'Venta Borrada', $cantidad, 0, $existencia_anterior, $existencia_anterior + $cantidad));
+		event(new ActualizacionProducto($venta_detalle->producto_id, 'Venta Borrada', $cantidad, 0, $existencia_anterior, $existencia_anterior + $cantidad,0));
 
 		//Movimiento Producto
 		$updateExistencia = MovimientoProducto::where('id', $movimiento_producto->id)

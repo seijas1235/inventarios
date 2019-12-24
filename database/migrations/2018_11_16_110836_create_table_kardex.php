@@ -21,6 +21,7 @@ class CreateTableKardex extends Migration
             $table->float('salida');
             $table->float('existencia_anterior');
             $table->float('saldo');
+            $table->float('costo');
 
             $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');
             $table->timestamps();

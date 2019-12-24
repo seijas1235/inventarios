@@ -173,7 +173,7 @@ class ComprasController extends Controller
 				$stat["movimiento_producto_id"] = $detalle->id;
 				$maestro->detalles_compras()->create($stat);
 
-				event(new ActualizacionProducto($stat['producto_id'], 'Compra', $stat['unidades'],0, $existencia_anterior, $existencia_anterior + $stat['unidades']));
+				event(new ActualizacionProducto($stat['producto_id'], 'Compra', $stat['unidades'],0, $existencia_anterior, $existencia_anterior + $stat['unidades'],$stat["precio_compra"]));
 			}		
 			
 		}
@@ -529,7 +529,7 @@ class ComprasController extends Controller
 				$existencia_anterior = 0;
 			};
 		
-			event(new ActualizacionProducto($detallecompra->producto_id, 'Reversion Compra', 0,$detallecompra->existencias, $existencia_anterior, $existencia_anterior - $detallecompra->existencias));
+			event(new ActualizacionProducto($detallecompra->producto_id, 'Reversion Compra', 0,$detallecompra->existencias, $existencia_anterior, $existencia_anterior - $detallecompra->existencias,0));
 
 
 			$movimiento = MovimientoProducto::where('id', $detallecompra->movimiento_producto_id)->first();
@@ -559,7 +559,7 @@ class ComprasController extends Controller
 				$existencia_anterior2 = 0;
 			};
 		
-			event(new ActualizacionProducto($data['producto_id'], 'Compra', $data['existencias'],0, $existencia_anterior2, $existencia_anterior2 + $data['existencias']));
+			event(new ActualizacionProducto($data['producto_id'], 'Compra', $data['existencias'],0, $existencia_anterior2, $existencia_anterior2 + $data['existencias'],0));
 		}
 
 		else{
@@ -643,7 +643,7 @@ class ComprasController extends Controller
 
 				$salida = $detalle->existencias;
 
-				event(new ActualizacionProducto($producto->producto_id, 'Compra Borrada', 0,$salida, $existencia_anterior, $existencia_anterior - $salida));
+				event(new ActualizacionProducto($producto->producto_id, 'Compra Borrada', 0,$salida, $existencia_anterior, $existencia_anterior - $salida,0));
 			
 				//Movimiento de Producto
 				$newExistencias = 0;
@@ -717,7 +717,7 @@ class ComprasController extends Controller
 
 			$salida = $detallecompra->existencias;
 
-			event(new ActualizacionProducto($producto->producto_id, 'Compra Borrada', 0,$salida, $existencia_anterior, $existencia_anterior - $salida));
+			event(new ActualizacionProducto($producto->producto_id, 'Compra Borrada', 0,$salida, $existencia_anterior, $existencia_anterior - $salida,0));
 
 			//Movimiento de Producto
 			$updateExistencia = MovimientoProducto::where('id', $detallecompra->movimiento_producto_id)
