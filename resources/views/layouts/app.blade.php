@@ -219,12 +219,12 @@
 
 					<li class="{{request()->is('documentos*')? 'active': ''}}"><a href="/documentos">Documentos</a></li>
 
-					<li class="{{request()->is('tipos_vehiculo*')? 'active': ''}}"><a href="/tipos_vehiculo">Tipos de Vehiculo</a></li>
+				<!-- 	<li class="{{request()->is('tipos_vehiculo*')? 'active': ''}}"><a href="/tipos_vehiculo">Tipos de Vehiculo</a></li>  -->
 
-					<li class="{{request()->is('marcas*')? 'active': ''}}"><a href="/marcas">Marcas</a></li>
+				<!-- 		<li class="{{request()->is('marcas*')? 'active': ''}}"><a href="/marcas">Marcas</a></li>  -->
 					
-					<li class="{{request()->is('lineas*')? 'active': ''}}"><a href="/lineas">Lineas</a></li>
-					<li class="{{request()->is('vehiculos*')? 'active': ''}}"><a href="/vehiculos">Vehiculos</a></li>
+					<!-- <li class="{{request()->is('lineas*')? 'active': ''}}"><a href="/lineas">Lineas</a></li> -->
+					<!-- <li class="{{request()->is('vehiculos*')? 'active': ''}}"><a href="/vehiculos">Vehiculos</a></li> -->
 					
 					<li class="{{request()->is('puestos*')? 'active': ''}}"><a href="/puestos">Puestos</a></li>
 					
@@ -238,13 +238,13 @@
 
 					<li class="{{request()->is('precios_producto*')? 'active': ''}}"><a href="/precios_producto">Precios de Producto</a></li>
 
-					<li class="{{request()->is('maquinarias_equipo*')? 'active': ''}}"><a href="/maquinarias_equipo">Maquinarias y equipos</a></li>
+					<!-- <li class="{{request()->is('maquinarias_equipo*')? 'active': ''}}"><a href="/maquinarias_equipo">Maquinarias y equipos</a></li> -->
 
-					<li class="{{request()->is('mantto_equipo*')? 'active': ''}}"><a href="/mantto_equipo">Mantenimientos de equipos</a></li>
+					<!-- <li class="{{request()->is('mantto_equipo*')? 'active': ''}}"><a href="/mantto_equipo">Mantenimientos de equipos</a></li> -->
 
-					<li class="{{request()->is('tipos_servicio*')? 'active': ''}}"><a href="/tipos_servicio">Tipos de Servicio</a></li>
+					<!-- <li class="{{request()->is('tipos_servicio*')? 'active': ''}}"><a href="/tipos_servicio">Tipos de Servicio</a></li> -->
 
-					<li class="{{request()->is('servicios*')? 'active': ''}}"><a href="/servicios">Servicios</a></li>
+					<!-- <li class="{{request()->is('servicios*')? 'active': ''}}"><a href="/servicios">Servicios</a></li> -->
 					
 				</ul>
 			</li>
@@ -255,15 +255,15 @@
 				<ul>
 					@if ( Auth::user()->is("superadmin|administrator|finanzas|operador") )
 					<li class="{{request()->is('existencias/producto*')? 'active': ''}}"><a href="/existencias/producto">Existencias Productos</a></li>
-					<li class="{{request()->is('existencias/maquinaria*')? 'active': ''}}"><a href="/existencias/maquinaria">Existencias Maquinaria y/o equipo</a></li>
-					<li class="{{request()->is('kardex/producto*')? 'active': ''}}"><a href="/kardex/producto">Kardex de Producto</a></li>
+					<!-- <li class="{{request()->is('existencias/maquinaria*')? 'active': ''}}"><a href="/existencias/maquinaria">Existencias Maquinaria y/o equipo</a></li> -->
+					<li class="{{request()->is('kardex/producto*')? 'active': ''}}"><a href="/kardex/producto">Kardex de Producto en unidades y valores</a></li>
 					<li class="{{request()->is('rpt_kardex/generar*')? 'active': ''}}"><a href="/rpt_kardex/generar">Kardex Total por Fecha</a></li>
 					<li class="{{request()->is('rpt_kardex/producto/generar*')? 'active': ''}}"><a href="/rpt_kardex/producto/generar">Kardex por Producto y Fecha</a></li>
 					<li class="{{request()->is('rpt_compras/generar*')? 'active': ''}}"><a href="/rpt_compras/generar">Compras por fecha</a></li> 
 					<li class="{{request()->is('rpt_ventas_cliente/generar*')? 'active': ''}}"><a href="/rpt_ventas_cliente/generar">Reporte de Ventas por Cliente</a></li> 
 					
 					<li class="{{request()->is('rpt_ventas/generar*')? 'active': ''}}"><a href="/rpt_ventas/generar" >Reporte de venta</a></li>
-					<li class="{{request()->is('rpt_servicios/generar*')? 'active': ''}}"><a href="/rpt_servicios/generar" >Reporte de Servicios</a></li>
+					<!-- <li class="{{request()->is('rpt_servicios/generar*')? 'active': ''}}"><a href="/rpt_servicios/generar" >Reporte de Servicios</a></li> -->
 					 
 					@endif
 				</ul>

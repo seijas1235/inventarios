@@ -20,7 +20,7 @@
 					<div class="row">
 						<div class="col-sm-3 title-line-height"></div>
 						<div class="col-sm-6 text-center">
-							<h4 class="inline-title">Kardex de producto en unidades y valores</h4>
+							<h4 class="inline-title">Kardex de producto</h4>
 						</div>
 						<div class="col-sm-3 title-line-height text-right">
 							<div class="btn-group">
@@ -35,43 +35,34 @@
 					<table id="kardex-table" class="table table-striped table-bordered no-margin-bottom dt-responsive nowrap" ellspacing="0" width="100%">
                         <thead>
                             <tr>
+                                <th>ID</th>
+                                <th>Fecha</th>
                                 <th>Codigo de Barra</th>
                                 <th>Nombre producto</th>
-                                <th>Fecha</th>
                                 <th>Transaccion</th>
-                                <th>Ubicación</th>
                                 <th>Cantidad Entrada</th>
                                 <th>Cantidad Salida</th>
                                 <th>Existencia Anterior</th>
-                                <th>saldo</th>
-                                <th>Costo Unitario</th>
-                                <th>Costo Entrada</th>
-                                <th>Costo Salida</th>
-                                <th>Costo Anterior</th>
-                                <th>Costo Acumulado</th>
-   
+                                <th>Saldo</th>
+                                <th>Ubicación</th>
+                                <th>Costo</th>
                             </tr>
                         </thead>
                         
 
                         @foreach ($kardex as $item)
                             <tr>
-                                
+                                <td>{{$item->id}}</td>
+                                <td>{{$item->fecha}}</td>
                                 <td>{{$item->codigo_barra}}</td>
                                 <td>{{$item->nombre}}</td>
-                                <td>{{$item->fecha}}</td>
                                 <td>{{$item->transaccion}}</td>
-                                <td>{{$item->ubicacion}}</td>
                                 <td>{{$item->cantidad_ingreso}}</td>
                                 <td>{{$item->cantidad_salida}}</td>
                                 <td>{{$item->existencia_anterior}}</td>
                                 <td>{{$item->saldo}}</td>
-                                
-                                <td>{{$item->ponderado}}</td>
-                                <td>{{$item->entrada}}</td>
-                                <td>{{$item->salida}}</td>
-                                <td>{{$item->anterior}}</td>
-                                <td>{{$item->acumulado}}</td>
+                                <td>{{$item->ubicacion}}</td>
+                                <td>{{$item->costo}}</td>
                             </tr>
                             
 

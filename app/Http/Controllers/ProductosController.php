@@ -62,7 +62,7 @@ class ProductosController extends Controller
 
 	public function kardexIndex()
 	{
-		$query = "SELECT DISTINCT l.nombre as ubicacion, k.id,concat('Q.',k.costo)  as costo ,k.fecha, p.codigo_barra, p.nombre, k.transaccion, k.ingreso as cantidad_ingreso, k.salida as cantidad_salida, k.existencia_anterior, k.saldo from kardex k 
+		$query = "SELECT DISTINCT l.nombre as ubicacion, k.id,k.fecha, p.codigo_barra, p.nombre, k.transaccion, k.ingreso as cantidad_ingreso, k.salida as cantidad_salida, k.existencia_anterior, k.saldo,k.costo_ponderado as ponderado,k.costo_entrada as entrada,k.costo_salida as salida,k.costo_anterior as anterior,k.costo_acumulado as acumulado from kardex k 
 		LEFT JOIN productos p on p.id = k.producto_id
 		LEFT JOIN localidades l on p.localidad_id=l.id
 		order by k.id  ";

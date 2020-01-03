@@ -80,7 +80,7 @@
 					{!! Form::text( "unidades" , null , ['class' => 'form-control' , 'disabled','placeholder' => 'Unidades del producto', 'id' => 'nombreProducto']) !!}
 				</div>
 				<div class="col-sm-2">
-					{!! Form::label("precio_compra","Precio Compra:") !!}
+					{!! Form::label("precio_compra","Precio Unitario de Compra:") !!}
 					{!! Form::text( "precio_compra" , null , ['class' => 'form-control' , 'placeholder' => 'Precio Compra' ]) !!}
 				</div>
 	

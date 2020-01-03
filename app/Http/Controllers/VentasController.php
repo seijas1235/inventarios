@@ -198,8 +198,28 @@ class VentasController extends Controller
 				if($existencia_anterior == null){
 					$existencia_anterior = 0;
 				};
+				
+				$costo_ponderado=0;
+				if ($existencia_anterior==0) {
+					$costo_ponderado=$stat["precio_compra"];
+				} else {
+					$query = " SELECT k.saldo as saldo,k.costo_acumulado as acumulado
+					FROM kardex k
+					where k.producto_id=".$producto->producto_id."
+					order by k.id desc
+					limit 1";
+					$datos = DB::select($query);
+					$costo_ponderado=$datos[0]->acumulado/$datos[0]->saldo;
+				}
+				
+				$costo_entrada=0*$stat["precio_compra"];
+				$costo_salida=$costo_ponderado*($stat['cantidad']*$stat['cantidadu']);
+				$costo_anterior=$costo_ponderado*$existencia_anterior;
+				$costo_acumulado=$costo_entrada+$costo_anterior-$costo_salida;
+				
 
-				event(new ActualizacionProducto($producto->producto_id, 'Venta', 0,($stat['cantidad']*$stat['cantidadu']), $existencia_anterior, $existencia_anterior - ($stat['cantidad']*$stat['cantidadu']),$stat["precio_compra"]));
+
+				event(new ActualizacionProducto($producto->producto_id, 'Venta', 0,($stat['cantidad']*$stat['cantidadu']), $existencia_anterior, $existencia_anterior - ($stat['cantidad']*$stat['cantidadu']),$stat["precio_compra"],$costo_ponderado,$costo_entrada,$costo_salida,$costo_anterior,$costo_acumulado ));
 
 				$updateExistencia = MovimientoProducto::where('id', $stat["movimiento_id"])
 				->update(['existencias' => $newExistencias, 'vendido' => 1]);

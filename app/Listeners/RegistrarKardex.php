@@ -37,6 +37,11 @@ class RegistrarKardex
         $kardex->existencia_anterior =  $event->existencia_anterior;
         $kardex->saldo = $event->saldo;
         $kardex->costo = $event->costo;
+        $kardex->costo_ponderado = $event->costo_ponderado;
+        $kardex->costo_entrada = $event->costo_entrada;
+        $kardex->costo_salida = $event->costo_salida;
+        $kardex->costo_anterior = $event->costo_anterior;
+        $kardex->costo_acumulado = $event->costo_acumulado;
         $kardex->save();
     }
 }

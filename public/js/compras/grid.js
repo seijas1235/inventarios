@@ -332,7 +332,7 @@ $('body').on('click', '#addDetalleMaquina', function(e) {
                 { title: "Cantidad", name: "cantidad", type: "text"},
                 { title: "Unidades", name: "unidades", type: "text"},
                 { title: "Precio Compra", name: "precio_compra", type: "text"},
-                { title: "Precio Venta", name: "precio_venta", type: "text"},
+               // { title: "Precio Venta", name: "precio_venta", type: "text"},
                 { title: "Subtotal", name: "subtotal_venta", type: "text", editing: false},
                 { type: "control" }
                 ],

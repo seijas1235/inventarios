@@ -17,6 +17,11 @@ class Kardex extends Model
 	'salida',
 	'existencia_anterior',
 	'saldo',
-	'costo'
+	'costo',
+	'costo_ponderado',
+	'costo_entrada',
+	'costo_salida',
+	'costo_anterior',
+	'costo_acumulado'
 	];
 }
