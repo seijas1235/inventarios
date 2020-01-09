@@ -94,8 +94,28 @@ class ConversionesProductoController extends Controller
 			if($existencia_anterior == null){
 				$existencia_anterior = 0;
 			};
+			
+			$costo_ponderado=0;
+			if ($existencia_anterior==0) {
+				$costo_ponderado=$stat["precio_compra"];
+			} else {
+				$query = " SELECT k.saldo as saldo,k.costo_acumulado as acumulado
+				FROM kardex k
+				where k.producto_id=".$stat['producto_id']."
+				order by k.id desc
+				limit 1";
+				$datos = DB::select($query);
+				$costo_ponderado=$datos[0]->acumulado/$datos[0]->saldo;
+			}
+			
+			$costo_entrada=($stat["cantidad_ingreso"]*$stat["cantidadu_in"])*$stat["precio_compra"];
+			$costo_salida=$costo_ponderado*0;
+			$costo_anterior=$costo_ponderado*$existencia_anterior;
+			$costo_acumulado=$costo_entrada+$costo_anterior-$costo_salida;
+			
+		//	event(new ActualizacionProducto($stat['producto_id'], 'Compra', $stat['unidades'],0, $existencia_anterior, $existencia_anterior + $stat['unidades'],$stat["precio_compra"],$costo_ponderado,$costo_entrada,$costo_salida,$costo_anterior,$costo_acumulado));
 
-			event(new ActualizacionProducto($stat["producto_id"], 'Conversion Ingreso', ($stat["cantidad_ingreso"]*$stat["cantidadu_in"]),0, $existencia_anterior, $existencia_anterior + ($stat["cantidad_ingreso"]*$stat["cantidadu_in"])));
+			event(new ActualizacionProducto($stat["producto_id"], 'Conversion Ingreso', ($stat["cantidad_ingreso"]*$stat["cantidadu_in"]),0, $existencia_anterior, $existencia_anterior + ($stat["cantidad_ingreso"]*$stat["cantidadu_in"]),$stat["precio_compra"],$costo_ponderado,$costo_entrada,$costo_salida,$costo_anterior,$costo_acumulado));
 
             $mp->save();
 
@@ -117,8 +137,16 @@ class ConversionesProductoController extends Controller
 			if($existencia_anterior == null){
 				$existencia_anterior = 0;
 			};
+			$costo_entrada=0*$stat["precio_compra"];
+			$costo_salida=$costo_ponderado*($stat["cantidad_sale"]*$stat["cantidadu_sale"]);
+			$costo_anterior=$costo_ponderado*$existencia_anterior;
+			$costo_acumulado=$costo_entrada+$costo_anterior-$costo_salida;
+			
 
-			event(new ActualizacionProducto($detalle->producto_id_sale, 'Conversion Salida', 0,($stat["cantidad_sale"]*$stat["cantidadu_sale"]), $existencia_anterior, $existencia_anterior - ($stat["cantidad_sale"]*$stat["cantidadu_sale"])));
+
+			//event(new ActualizacionProducto($producto->producto_id, 'Venta', 0,($stat['cantidad']*$stat['cantidadu']), $existencia_anterior, $existencia_anterior - ($stat['cantidad']*$stat['cantidadu']),$stat["precio_compra"],$costo_ponderado,$costo_entrada,$costo_salida,$costo_anterior,$costo_acumulado ));
+
+			event(new ActualizacionProducto($detalle->producto_id_sale, 'Conversion Salida', 0,($stat["cantidad_sale"]*$stat["cantidadu_sale"]), $existencia_anterior, $existencia_anterior - ($stat["cantidad_sale"]*$stat["cantidadu_sale"]),$stat["precio_compra"],$costo_ponderado,$costo_entrada,$costo_salida,$costo_anterior,$costo_acumulado ));
 
 			$mps->update($detalleMps);
 			//dd($stat);
