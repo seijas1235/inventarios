@@ -387,6 +387,8 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/rpt_compras/generar' , 'ComprasController@rpt_compras_generar');
 		Route::post( '/rpt_compras/' , 'ComprasController@rpt_compras');
 
+		
+
 		//Reportes kardex
 
 		Route::get( '/rpt_kardex/generar' , 'ProductosController@rpt_generar_kardex');
@@ -445,6 +447,30 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/cortes_caja/getTotalVenta/', 'CortesCajaController@getTotalVenta');
 		Route::get( '/cortes_caja/corteUnico/', 'CortesCajaController@corteUnico');
 		Route::get( '/cortes_caja/getFacturas/', 'CortesCajaController@getFacturas');
+
+		
+		// corte de  caja por empleado
+		
+		Route::get( '/corte_caja_empleado' , 'CortesCajaController@index2');
+		Route::get( '/corte_caja_empleado/new' , 'CortesCajaController@rpt_generar_corte');
+		Route::get( '/corte_caja_empleado/getJson/' , 'CortesCajaController@getJson2');
+		Route::post( '/rpt_corte_empleado/' , 'CortesCajaController@rpt_corte');
+		Route::get('/cortes_caja/getEfectivo/{user_id}/{fecha}', 'CortesCajaController@getEfectivo2');
+		Route::get('/cortes_caja/getCredito/{user_id}/{fecha}', 'CortesCajaController@getCredito2');
+		Route::get('/cortes_caja/getTarjeta/{user_id}/{fecha}', 'CortesCajaController@getTarjeta2');
+		Route::get('/cortes_caja/getTotal/{user_id}/{fecha}', 'CortesCajaController@getTotal2');
+		Route::get('/cortes_caja/getEfectivoSF/{user_id}/{fecha}', 'CortesCajaController@getEfectivoSF2');
+		Route::get('/cortes_caja/getCreditoSF/{user_id}/{fecha}', 'CortesCajaController@getCreditoSF2');
+		Route::get('/cortes_caja/getTarjetaSF/{user_id}/{fecha}', 'CortesCajaController@getTarjetaSF2');
+		Route::get('/cortes_caja/getTotalSF/{user_id}/{fecha}', 'CortesCajaController@getTotalSF2');
+		Route::get('/cortes_caja/getTotalVenta/{user_id}/{fecha}', 'CortesCajaController@getTotalVenta2');
+		Route::get( '/cortes_caja/corteUnico/{user_id}/{fecha}', 'CortesCajaController@corteUnico2');
+		Route::get( '/cortes_caja/getFacturas/{user_id}/{fecha}', 'CortesCajaController@getFacturas2');
+
+
+
+
+
 
 		Route::get('/home', 'HomeController@index');
 		Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');

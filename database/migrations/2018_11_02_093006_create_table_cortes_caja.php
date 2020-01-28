@@ -26,6 +26,9 @@ class CreateTableCortesCaja extends Migration
             $table->float('creditoSF');
             $table->float('voucherSF');
             $table->float('total_venta');
+            
+            $table->unsignedInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

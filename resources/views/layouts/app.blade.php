@@ -221,7 +221,7 @@
 
 				<!-- 	<li class="{{request()->is('tipos_vehiculo*')? 'active': ''}}"><a href="/tipos_vehiculo">Tipos de Vehiculo</a></li>  -->
 
-				<!-- 		<li class="{{request()->is('marcas*')? 'active': ''}}"><a href="/marcas">Marcas</a></li>  -->
+					<li class="{{request()->is('marcas*')? 'active': ''}}"><a href="/marcas">Marcas</a></li>
 					
 					<!-- <li class="{{request()->is('lineas*')? 'active': ''}}"><a href="/lineas">Lineas</a></li> -->
 					<!-- <li class="{{request()->is('vehiculos*')? 'active': ''}}"><a href="/vehiculos">Vehiculos</a></li> -->
@@ -274,7 +274,8 @@
 				@endif
 				<ul>
 					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
-					<li class="{{request()->is('cortes_caja*')? 'active': ''}}"><a href="/cortes_caja">Registrar Corte Diario</a></li>
+					<li class="{{request()->is('cortes_caja*')? 'active': ''}}"><a href="/cortes_caja">Registrar Corte Diario General</a></li>
+					<li class="{{request()->is('corte_caja_empleado*')? 'active': ''}}"><a href="/corte_caja_empleado">Registrar Corte Diario por empleado</a></li>
 					@endif
 					
 				</ul>
