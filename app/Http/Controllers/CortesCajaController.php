@@ -344,7 +344,7 @@ class CortesCajaController extends Controller
     public function corteUnico()
 	{
 		$dato = Input::get("fecha");
-		$query = CorteCaja::where("fecha", $dato)->get();
+		$query = CorteCaja::where("fecha", $dato)->whereNull('user_id')->get();
 		$contador = count($query);
 		if ($contador == 0)
 		{
