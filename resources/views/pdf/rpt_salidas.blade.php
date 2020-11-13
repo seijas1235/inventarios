@@ -40,22 +40,26 @@
     </div>
 <div class="row">
   <div class="col-6">
-    <table style="width:100%" border="0">  
+    <table style="width:100%" border="0"> 
+      <tr>
+        <td>
+          NIT: {{$cliente[0]->nit  }}
+        </td>
+      </tr>
+      <tr>
+        <td>
+        Nombre: {{$cliente[0]->nombres  }}
+      </td>
+      </tr>
     <tr>
-          <td>
-            Nombre: {{$cliente[0]->nombres  }}
-          </td>
           <td>
             Dirección: {{$cliente[0]->direccion }}
           </td>
-          <td>
-            NIT: {{$cliente[0]->nit  }}
-          </td>
-          </tr>
+      </tr>
         </table>
     </div>
   <div class="col-6">
-    <table style="width:100%" border="1"> 
+    <table style="width:100%" border="0"> 
     <tr>   
           <td><h5>Orden </h5>
             
