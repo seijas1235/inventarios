@@ -60,11 +60,10 @@
     </div>
   <div class="col-6">
     <table style="width:100%" border="0"> 
-    <tr>   
-          <td><h5>Orden </h5>
+        <tr>   
+          <td><h5>Orden # {{$detalle[0]->No_Venta  }} </h5>
             
           </td> 
-         <td>Número: {{$detalle[0]->No_Venta  }}</td>
             
         </tr>
       </table>
