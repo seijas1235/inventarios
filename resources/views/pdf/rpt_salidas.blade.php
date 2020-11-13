@@ -57,7 +57,7 @@
   <div class="col-6">
     <table style="width:100%" border="1"> 
     <tr>   
-          <td><h5>Vale de Bodega</h5>
+          <td><h5>Orden </h5>
             
           </td> 
          <td>Número: {{$detalle[0]->No_Venta  }}</td>
@@ -69,11 +69,8 @@
 </div>
   <br>
 <div class="row">
-  <table style="width:100%" border="1">   
+  <table style="width:100%" border="0">   
     <tr>
-        <td>
-            Código
-          </td>
         <td>
           cantidad
         </td>
@@ -86,7 +83,7 @@
     </tr>
     @foreach ($detalle as $item)    
     <tr>
-        <td>{{$item->codigo  }} </td>
+        
       <td>{{$item->cantidad  }} </td>
       <td> {{$item->nombre  }} </td>
       <td> {{$item->localidad  }} </td>
