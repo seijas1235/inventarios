@@ -78,7 +78,7 @@
           Descripcion
         </td>
         <td>
-          localidad
+          Total
         </td>
     </tr>
     @foreach ($detalle as $item)    
@@ -86,13 +86,26 @@
         
       <td>{{$item->cantidad  }} </td>
       <td> {{$item->nombre  }} </td>
-      <td> {{$item->localidad  }} </td>
+      <td> {{$item->total  }} </td>
     </tr>
     @endforeach
   </table>
 </div>
 <br>
-<div class="row" >
+<div class="row">
+  <table style="width:40% " border="1" align="right" >
+<tr>
+  <td >
+    Total:
+  </td>
+  <td>
+      {{$venta->total_venta }}
+  </td>
+</tr>
+  </table>
+</div>
+{{--
+<!--div class="row" >
   <table align="center">
     <tr>
       <td>
@@ -117,9 +130,9 @@
    
       
 
-</div>
+</div-->
  
-
+--}}
 
     <!-- Latest compiled and minified JavaScript -->
 {{--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>--}}

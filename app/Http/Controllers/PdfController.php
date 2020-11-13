@@ -91,7 +91,7 @@ class PdfController extends Controller
 
         $query2 = "SELECT ifnull( pr.codigo_barra,'N/A') as codigo ,vd.venta_id as No_Venta, vd.id, 	
         IF(vd.producto_id>0,pr.nombre, if(vd.servicio_id>0,sr.nombre, vd.detalle_mano_obra)) as nombre, ifnull (l.nombre,'N/A') as localidad,
-        vd.cantidad as cantidad
+        vd.cantidad as cantidad, vd.subtotal as total
         FROM ventas_detalle vd
         LEFT JOIN productos pr ON vd.producto_id=pr.id
         LEFT JOIN servicios sr ON vd.servicio_id=sr.id
@@ -107,7 +107,7 @@ class PdfController extends Controller
        
 
     
-        $pdf = PDF::loadView('pdf.rpt_salidas', compact('detalle', 'cliente'));
+        $pdf = PDF::loadView('pdf.rpt_salidas', compact('detalle', 'cliente','venta'));
         $pdf->setPaper(array(0, 0, 400, 450), 'portrait');
         return $pdf->stream('Vale_Salida.pdf');
 
