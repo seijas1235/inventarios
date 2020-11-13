@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sebas Corp. S.A. </title>
+    <title>Market y Restaurante Puerta a la Verapaces</title>
     <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -31,7 +31,9 @@
   <div class="row">
     <table style="width:100%" border="1">
         <tr>
-          <th><center><h4> Sebas Corp. S.A.</h4></center></th> 
+          <th><center><h4> <p>Market y Restaurante Puerta a la Verapaces </p> 
+            <p>Kilometo 95, Marajuma, Morazan, El Progreso</p>
+            <p>Telefono 3283-5382.</p></h4></center></th> 
         </tr>
       </table>
   
