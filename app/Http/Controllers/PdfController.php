@@ -108,7 +108,7 @@ class PdfController extends Controller
 
     
         $pdf = PDF::loadView('pdf.rpt_salidas', compact('detalle', 'cliente','venta'));
-        $pdf->setPaper(array(0, 0, 400, 450), 'portrait');
+        $pdf->setPaper(array(0, 0, 300, 350), 'portrait');
         return $pdf->stream('Vale_Salida.pdf');
 
      

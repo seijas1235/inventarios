@@ -29,7 +29,7 @@
 <body>
 
   <div class="row">
-    <table style="width:100%" border="1">
+    <table style="width:100%" border="0">
         <tr>
           <th><center><h4> <p>Market y Restaurante Puerta a la Verapaces </p> 
             <p>Kilometo 95, Marajuma, Morazan, El Progreso</p>
@@ -40,7 +40,7 @@
     </div>
 <div class="row">
   <div class="col-6">
-    <table style="width:100%" border="1">  
+    <table style="width:100%" border="0">  
     <tr>
           <td>
             Nombre: {{$cliente[0]->nombres  }}
@@ -49,7 +49,7 @@
             Dirección: {{$cliente[0]->direccion }}
           </td>
           <td>
-            Nit: {{$cliente[0]->nit  }}
+            NIT: {{$cliente[0]->nit  }}
           </td>
           </tr>
         </table>
@@ -72,7 +72,7 @@
   <table style="width:100%" border="0">   
     <tr>
         <td>
-          cantidad
+          Cantidad
         </td>
         <td>
           Descripcion
@@ -93,7 +93,7 @@
 </div>
 <br>
 <div class="row">
-  <table style="width:40% " border="1" align="right" >
+  <table style="width:40% " border="0" align="right" >
 <tr>
   <td >
     Total:
