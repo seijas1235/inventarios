@@ -17,9 +17,9 @@
                 <select class="selectpicker" id='producto_id' name="producto_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
                     @foreach ($productos as $producto)
                     @if ( $producto->id == $precio_producto->producto_id)
-                    <option value="{{$producto->id}}" selected>{{ $producto->nombre}}</option>
+                    <option value="{{$producto->id}}" selected>{{ $prodcuto->codigo_barra}} - {{ $producto->nombre}}</option>
                     @else
-                    <option value="{{$producto->id}}">{{ $producto->nombre}}</option>
+                    <option value="{{$producto->id}}">{{ $prodcuto->codigo_barra}} - {{ $producto->nombre}}</option>
                     @endif
                     @endforeach
                 </select>
