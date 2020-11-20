@@ -20,7 +20,7 @@
 					{!! Form::label("producto_id","Producto:") !!}
 					<select class="selectpicker" id='producto_id' name="producto_id" value="" data-live-search="true" data-live-search-placeholder="Búsqueda" title="Seleccione">
 						@foreach ($productos as $prodcuto)
-						<option value="{{$prodcuto->id}}">{{$prodcuto->nombre}}</option>
+						<option value="{{$prodcuto->id}}">{{ $prodcuto->codigo_barra}} - {{$prodcuto->nombre}}</option>
 						@endforeach
 					</select>
 				</div>
