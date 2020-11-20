@@ -37,7 +37,35 @@ var venta_table = $('#venta-table').DataTable({
         },
     },
     "order": [0, 'desc'],
-    "columns": [ {
+    "columns": [
+        {
+            "title": "# Orden",
+            "data": "id",
+            "width" : "25%",
+            "responsivePriority": 1,
+            "render": function( data, type, full, meta ) {
+                return CustomDatatableRenders.fitTextHTML(data);
+            },
+        }, 
+        {
+            "title": "Fecha",
+            "data": "fecha",
+            "width" : "25%",
+            "responsivePriority": 1,
+            "render": function( data, type, full, meta ) {
+                return CustomDatatableRenders.fitTextHTML(data);
+            },
+        }, 
+        
+        {
+        "title": "Total",
+        "data": "total_venta",
+        "responsivePriority": 2,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML("Q." + parseFloat(Math.round(data * 100) / 100).toFixed(2));
+        },
+    },
+    {
         "title": "Tipo de Pago",
         "data": "tipo_pago",
         "width" : "25%",
@@ -45,14 +73,9 @@ var venta_table = $('#venta-table').DataTable({
         "render": function( data, type, full, meta ) {
             return CustomDatatableRenders.fitTextHTML(data);
         },
-    }, {
-        "title": "Total",
-        "data": "total_venta",
-        "responsivePriority": 2,
-        "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML("Q." + parseFloat(Math.round(data * 100) / 100).toFixed(2));
-        },
-    }, {
+    }, 
+    
+    {
         "title": "Usuario",
         "data": "name",
         "responsivePriority": 5,
@@ -60,13 +83,6 @@ var venta_table = $('#venta-table').DataTable({
             return CustomDatatableRenders.fitTextHTML(data);
         },
     }, {
-        "title": "Estado de Venta",
-        "data": "edo_venta",
-        "responsivePriority": 5,
-        "render": function( data, type, full, meta ) {
-            return CustomDatatableRenders.fitTextHTML(data);
-        },
-    },{
         "title": "Acciones",
         "orderable": false,
         "data": "tipo_venta_id",

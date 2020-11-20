@@ -58,6 +58,14 @@ var precios_producto_table = $('#precios_producto-table').DataTable({
             return CustomDatatableRenders.fitTextHTML(data); },
     },
     {
+        "title": "Código",
+        "data": "codigo",
+        "width" : "12%",
+        "responsivePriority": 2,
+        "render": function( data, type, full, meta ) {
+            return CustomDatatableRenders.fitTextHTML(data); },
+    },
+    {
         "title": "Producto",
         "data": "producto",
         "width" : "20%",

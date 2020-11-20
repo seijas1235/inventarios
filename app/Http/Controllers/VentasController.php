@@ -901,7 +901,7 @@ class VentasController extends Controller
 
 	public function getJson(Request $params)
 	{
-		$query = 'Select TRUNCATE(total_venta,4) as total_venta, ventas_maestro.id, ventas_maestro.tipo_venta_id as tipo_venta_id,
+		$query = 'SELECT TRUNCATE(total_venta,4) as total_venta, ventas_maestro.id as id, ventas_maestro.created_at as fecha, ventas_maestro.tipo_venta_id as tipo_venta_id,
 		tipos_pago.tipo_pago, estado_venta.edo_venta as edo_venta, users.name as name from ventas_maestro inner join 
 		tipos_pago on ventas_maestro.tipo_pago_id=tipos_pago.id inner join users on users.id=ventas_maestro.user_id
 		inner join estado_venta on ventas_maestro.edo_venta_id=estado_venta.id WHERE ventas_maestro.edo_venta_id != 3 ';

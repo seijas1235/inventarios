@@ -29,7 +29,6 @@
 </head>
 <body>
     
-    <center><img src="images/car_zone1.jpg" width="300"> </center>
     <center><h3>Compras</h3></center>
     <center><h4>Del {{$fecha_inicial}} al {{$fecha_final}}</h4></center><p align="right"> Generado por: {{Auth::user()->name}} El {{Carbon\Carbon::now()}} </p>
 

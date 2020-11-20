@@ -139,7 +139,7 @@ class PreciosProductoController extends Controller
 
     public function getJson(Request $params)
     {
-        $query = "SELECT pp.id as id, pp.precio_venta as precio_venta, pp.fecha as fecha, p.nombre as producto FROM precios_producto pp
+        $query = "SELECT pp.id as id, pp.precio_venta as precio_venta, pp.fecha as fecha, p.nombre as producto,p.codigo_barra as codigo FROM precios_producto pp
         INNER JOIN productos p on pp.producto_id=p.id;
         ";
 

@@ -187,7 +187,7 @@
 				@endif
 				<ul>
 					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
-					<li class="{{request()->is('ordenes_de_trabajo*')? 'active': ''}}"><a href="/ordenes_de_trabajo"><i class="icon icon-th"></i> <span>Orden de Trabajo</span></a></li>
+				<!--	<li class="{{request()->is('ordenes_de_trabajo*')? 'active': ''}}"><a href="/ordenes_de_trabajo"><i class="icon icon-th"></i> <span>Orden de Trabajo</span></a></li> -->
 					
 					<li class="{{request()->is('compras*')? 'active': ''}}"><a href="/compras"><i class="icon icon-th"></i> <span>Compras</span></a></li>
 					<!--<li class="{{request()->is('planillas*')? 'active': ''}}"><a href="/planillas"><i class="icon icon-th"></i> <span>Planillas</span></a></li>-->
