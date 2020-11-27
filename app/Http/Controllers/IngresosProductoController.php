@@ -49,7 +49,7 @@ class IngresosProductoController extends Controller
     public function create()
     {
 		$productos = Producto::all();
-		return view("ingresos_productos.create" , compact("back","productos") );
+		return view("ingresos_productos.create" , compact("productos") );
     }
 
     /**
@@ -84,9 +84,28 @@ class IngresosProductoController extends Controller
 			if($existencia_anterior == null){
 				$existencia_anterior = 0;
 			};
-			event(new ActualizacionProducto($stat["producto_id"], 'Ajuste Ingreso', $stat["cantidad"],0, $existencia_anterior, $existencia_anterior + $stat["cantidad"]));
+			dd($stat);
+			$costo_ponderado=0;
+			if ($existencia_anterior==0) {
+				$costo_ponderado=$stat["precio_compra"];
+			} else {
+				$query = " SELECT k.saldo as saldo,k.costo_acumulado as acumulado
+				FROM kardex k
+				where k.producto_id=".$stat['producto_id']."  
+				order by k.id desc
+				limit 1";
+				$datos = DB::select($query);
+				$costo_ponderado=$datos[0]->acumulado/$datos[0]->saldo;
+				
+			}
+			$costo_entrada=0*$stat["precio_compra"];
+			$costo_salida=$costo_ponderado*($stat['cantidad']);
+			$costo_anterior=$costo_ponderado*$existencia_anterior;
+			$costo_acumulado=$costo_entrada+$costo_anterior-$costo_salida;
 
-			$detalle = MovimientoProducto::create($stat);
+		//event(new ActualizacionProducto($stat["producto_id"], 'Ajuste Salida', 0,$stat["cantidad_salida"], $existencia_anterior, $existencia_anterior - $stat["cantidad_salida"]));
+		event(new ActualizacionProducto($stat["producto_id"], 'Ajuste Salida', 0,($stat["cantidad_salida"]), $existencia_anterior, $existencia_anterior - $stat["cantidad_salida"],$stat["precio_compra"],$costo_ponderado,$costo_entrada,$costo_salida,$costo_anterior,$costo_acumulado ));
+		$detalle = MovimientoProducto::create($stat);
 			$ingreso_producto->movimiento_producto_id = $detalle->id;
 			$ingreso_producto->save();			
 		}

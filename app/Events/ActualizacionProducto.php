@@ -18,7 +18,7 @@ class ActualizacionProducto extends Event
     public $salida;
     public $existencia_anterior;
 
-    use SerializesModels;
+    use SerializesModels; 
 
     /**
      * Create a new event instance.
