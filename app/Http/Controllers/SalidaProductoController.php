@@ -108,7 +108,7 @@ class SalidaProductoController extends Controller
 					
 				}
 				$costo_entrada=0*$stat["precio_compra"];
-				$costo_salida=$costo_ponderado*($stat['cantidad']);
+				$costo_salida=$costo_ponderado*($stat['cantidad_salida']);
 				$costo_anterior=$costo_ponderado*$existencia_anterior;
 				$costo_acumulado=$costo_entrada+$costo_anterior-$costo_salida;
 
