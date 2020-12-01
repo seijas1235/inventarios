@@ -1,4 +1,6 @@
 @extends('layouts.app')
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 @section('content')
 
 <!--Header-part-->
@@ -24,9 +26,12 @@
 			<ul class="quick-actions">
 					<li class="bg_ly"> <a href=/venta/new> <i class="icon-inbox"></i><span class="label label-important"></span>Nueva Venta </a> </li>
 					<li class="bg_lb"> <a href=/cuentas_por_cobrar> <i class="icon-user"></i> Cuentas por Cobrar</a> </li>
-				<li class="bg_lg"> <a href=/cortes_caja> <i class="icon-file"></i> Corte de caja</a> </li>
-				<li class="bg_lb"> <a href=/existencias/producto> <i class="icon-user"></i> Existencias de Productos</a> </li>
-					<li class="bg_ly"> <a href=/ventas> <i class="icon-money"></i>Facturas y Traslados</a> </li>
+					<li class="bg_lg"> <a href=/cortes_caja> <i class="icon-file"></i> Corte de caja</a> </li>
+					<li class="bg_lb"> <a href=/existencias/producto> <i class="icon-user"></i> Existencias de Productos</a> </li>
+					<li class="bg_ly"> <a href=/cajas_chicas> <i class="icon-usd"></i>Caja Chica</a> </li>
+					<li class="bg_lb"> <a href=/proveedores> <i class="icon-btc"></i>Proveedores</a> </li>
+					<li class="bg_lg"> <a href=/compras> <i class="icon-stackexchange"></i>Compras</a> </li>
+					<li class="bg_lb"> <a href=/salidas_productos> <i class="icon-weibo"></i>ajustes</a> </li>
 
 				</ul>
 			</div>
