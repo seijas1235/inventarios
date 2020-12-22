@@ -607,7 +607,7 @@ class VentasController extends Controller
 			$existencia_anterior = 0;
 		};
 
-		event(new ActualizacionProducto($venta_detalle->producto_id, 'Venta Borrada', $cantidad, 0, $existencia_anterior, $existencia_anterior + $cantidad,0));
+		//event(new ActualizacionProducto($venta_detalle->producto_id, 'Venta Borrada', $cantidad, 0, $existencia_anterior, $existencia_anterior + $cantidad,0));
 
 		//Movimiento Producto
 		$updateExistencia = MovimientoProducto::where('id', $movimiento_producto->id)
