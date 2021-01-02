@@ -276,6 +276,8 @@
 					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
 					<li class="{{request()->is('cortes_caja*')? 'active': ''}}"><a href="/cortes_caja">Registrar Corte Diario General</a></li>
 					<li class="{{request()->is('corte_caja_empleado*')? 'active': ''}}"><a href="/corte_caja_empleado">Registrar Corte Diario por empleado</a></li>
+					<li class="{{request()->is('reporte_ventas*')? 'active': ''}}"><a href="/reporte_ventas">Reporte de ventas por Fecha</a></li>
+
 					@endif
 					
 				</ul>

@@ -448,7 +448,11 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get( '/cortes_caja/corteUnico/', 'CortesCajaController@corteUnico');
 		Route::get( '/cortes_caja/getFacturas/', 'CortesCajaController@getFacturas');
 
-		
+		//ruta para reporte de ventas general
+		Route::get( '/reporte_ventas' , 'CortesCajaController@index3');
+		Route::get( '/cortes_caja/getJson/{inicial}/{final}' , 'CortesCajaController@getJson3');
+
+
 		// corte de  caja por empleado
 		
 		Route::get( '/corte_caja_empleado' , 'CortesCajaController@index2');

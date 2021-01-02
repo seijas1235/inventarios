@@ -609,5 +609,21 @@ class CortesCajaController extends Controller
         $pdf = PDF::loadView('pdf.rpt_kardex_prod_total', compact('detalles', 'fecha_inicial', 'fecha_final'));
         return $pdf->stream('Kardex de Producto.pdf');
     }
+
+    public function index3()
+    {
+        return view ("cortes_caja.rptReporteVenta");
+    }
+    public function getJson3($inicial,$final)
+    {
+            $query = "SELECT  sum(c.total) total,sum(c.efectivo) efectivo,sum(c.credito) credito,sum(c.voucher) voucher,sum(c.totalSF) totalSF,sum(c.efectivoSF) efectivoSF,
+            sum(c.creditoSF) creditoSF,sum(c.voucherSF) voucherSF,sum(c.total_venta) total_venta FROM cortes_caja c
+            where c.fecha BETWEEN '".$inicial."' AND '".$final." 23:59:59' ";
+    
+            $result = DB::select($query);
+            $api_Result['data'] = $result;
+    
+            return Response::json( $api_Result );
+    }
     
 }

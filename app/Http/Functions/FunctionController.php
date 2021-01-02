@@ -61,9 +61,9 @@ class FunctionController
         if( count( $exists ) == 0 )
         {
             $user = new User;
-            $user->name = "Admin";
-            $user->password = bcrypt("admin");
-            $user->email = "admin@technovation.com.gt";
+            $user->name = "Demo";
+            $user->password = bcrypt('demo');
+            $user->email = "demo@technovation.com.gt";
             $user->save();
 
             $role = FunctionController::createRole( array(
