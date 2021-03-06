@@ -187,10 +187,10 @@
 				@endif
 				<ul>
 					@if ( Auth::user()->is("superadmin|administrator|finanzas") )
-				<!--	<li class="{{request()->is('ordenes_de_trabajo*')? 'active': ''}}"><a href="/ordenes_de_trabajo"><i class="icon icon-th"></i> <span>Orden de Trabajo</span></a></li> -->
+					<li class="{{request()->is('ordenes_de_trabajo*')? 'active': ''}}"><a href="/ordenes_de_trabajo"><i class="icon icon-th"></i> <span>Orden de Trabajo</span></a></li>
 					
 					<li class="{{request()->is('compras*')? 'active': ''}}"><a href="/compras"><i class="icon icon-th"></i> <span>Compras</span></a></li>
-					<!--<li class="{{request()->is('planillas*')? 'active': ''}}"><a href="/planillas"><i class="icon icon-th"></i> <span>Planillas</span></a></li>-->
+					<li class="{{request()->is('planillas*')? 'active': ''}}"><a href="/planillas"><i class="icon icon-th"></i> <span>Planillas</span></a></li
 					<li class="{{request()->is('venta*')? 'active': ''}}"><a href="/ventas"><i class="icon icon-th"></i> <span>Ventas</span></a></li>
 					
 					<li class="{{request()->is('cajas_chicas*')? 'active': ''}}"><a href="/cajas_chicas"><i class="icon icon-th"></i> <span>Caja Chica</span></a></li>
@@ -219,12 +219,12 @@
 
 					<li class="{{request()->is('documentos*')? 'active': ''}}"><a href="/documentos">Documentos</a></li>
 
-				<!-- 	<li class="{{request()->is('tipos_vehiculo*')? 'active': ''}}"><a href="/tipos_vehiculo">Tipos de Vehiculo</a></li>  -->
+					<li class="{{request()->is('tipos_vehiculo*')? 'active': ''}}"><a href="/tipos_vehiculo">Tipos de Vehiculo</a></li>
 
 					<li class="{{request()->is('marcas*')? 'active': ''}}"><a href="/marcas">Marcas</a></li>
 					
-					<!-- <li class="{{request()->is('lineas*')? 'active': ''}}"><a href="/lineas">Lineas</a></li> -->
-					<!-- <li class="{{request()->is('vehiculos*')? 'active': ''}}"><a href="/vehiculos">Vehiculos</a></li> -->
+					<li class="{{request()->is('lineas*')? 'active': ''}}"><a href="/lineas">Lineas</a></li> 
+					<li class="{{request()->is('vehiculos*')? 'active': ''}}"><a href="/vehiculos">Vehiculos</a></li> 
 					
 					<li class="{{request()->is('puestos*')? 'active': ''}}"><a href="/puestos">Puestos</a></li>
 					
@@ -242,9 +242,9 @@
 
 					<!-- <li class="{{request()->is('mantto_equipo*')? 'active': ''}}"><a href="/mantto_equipo">Mantenimientos de equipos</a></li> -->
 
-					<!-- <li class="{{request()->is('tipos_servicio*')? 'active': ''}}"><a href="/tipos_servicio">Tipos de Servicio</a></li> -->
+					 <li class="{{request()->is('tipos_servicio*')? 'active': ''}}"><a href="/tipos_servicio">Tipos de Servicio</a></li>
 
-					<!-- <li class="{{request()->is('servicios*')? 'active': ''}}"><a href="/servicios">Servicios</a></li> -->
+					<li class="{{request()->is('servicios*')? 'active': ''}}"><a href="/servicios">Servicios</a></li>
 					
 				</ul>
 			</li>
