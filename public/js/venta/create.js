@@ -618,7 +618,7 @@ $('body').on('click', '#addDetalleServicio', function(e)
             dataType: "json",
             success: function(data) {
                 var detalle = data;
-                window.location = "/ventas"
+                window.location = "/ventas/new"
             },
             error: function() {
                 alert("falla de guardado");
