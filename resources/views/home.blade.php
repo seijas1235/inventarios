@@ -26,7 +26,7 @@
 			<ul class="quick-actions">
 					<li class="bg_ly"> <a href=/venta/new> <i class="icon-inbox"></i><span class="label label-important"></span>Nueva Venta </a> </li>
 					<li class="bg_lb"> <a href=/cuentas_por_cobrar> <i class="icon-user"></i> Cuentas por Cobrar</a> </li>
-					<li class="bg_lg"> <a href=/cortes_caja> <i class="icon-file"></i> Corte de caja</a> </li>
+					<li class="bg_lg"> <a href=/cortes_caja_empleado> <i class="icon-file"></i> Corte de caja</a> </li>
 					<li class="bg_lb"> <a href=/existencias/producto> <i class="icon-user"></i> Existencias de Productos</a> </li>
 					<li class="bg_ly"> <a href=/cajas_chicas> <i class="icon-usd"></i>Caja Chica</a> </li>
 					<li class="bg_lb"> <a href=/proveedores> <i class="icon-btc"></i>Proveedores</a> </li>
