@@ -228,6 +228,7 @@ Route::group(['middleware' => ['web']], function ()
 		Route::get('/existencias/producto', 'ProductosController@existenciasIndex');
 		Route::get('/existencias/getJson/', 'ProductosController@existencias');
 		Route::get('/kardex/producto', 'ProductosController@kardexIndex');
+		Route::get('/kardex2/getJson/{inicio}/{fin}', 'ProductosController@get_kardex');
 		Route::get( 'codigo-disponible/', 'ProductosController@codigoDisponible');
 
 		Route::get('/precios_producto', 'PreciosProductoController@index');

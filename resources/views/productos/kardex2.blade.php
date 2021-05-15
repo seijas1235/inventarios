@@ -32,59 +32,37 @@
                 </div>
                 
 				<div class="panel panel-body">
-					<table id="kardex-table" class="table table-striped table-bordered no-margin-bottom dt-responsive nowrap" ellspacing="0" width="100%">
-                        <thead>
-                            <tr>
-                                <th>Codigo de Barra</th>
-                                <th>Nombre producto</th>
-                                <th>Fecha</th>
-                                <th>Transaccion</th>
-                                <th>Ubicación</th>
-                                <th>Cantidad Entrada</th>
-                                <th>Cantidad Salida</th>
-                                <th>Existencia Anterior</th>
-                                <th>saldo</th>
-                                <th>Costo Unitario</th>
-                                <th>Costo Entrada</th>
-                                <th>Costo Salida</th>
-                                <th>Costo Anterior</th>
-                                <th>Costo Acumulado</th>
-   
-                            </tr>
-                        </thead>
-                        
+                    <form action="" method="get" id="reporte-form">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="inicial">Fecha Inicial</label>
+                                <input type="date" class="form-control" required name="inicial" id="inicial">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="inicial">Fecha final</label>
+                                <input type="date" class="form-control" required name="final" id="final">
+                            </div>
+                            <label for=""></label>
+                            <input type="button" class="btn btn-success"  id="btn-reporte" value="Generar Reporte">
+                            <input type="button" class="btn btn-secondary"  id="nuevo" value="Nuevo Reporte">
+                           
+                        </div>
+                    </form>
 
-                        @foreach ($kardex as $item)
-                            <tr>
-                                
-                                <td>{{$item->codigo_barra}}</td>
-                                <td>{{$item->nombre}}</td>
-                                <td>{{$item->fecha}}</td>
-                                <td>{{$item->transaccion}}</td>
-                                <td>{{$item->ubicacion}}</td>
-                                <td>{{$item->cantidad_ingreso}}</td>
-                                <td>{{$item->cantidad_salida}}</td>
-                                <td>{{$item->existencia_anterior}}</td>
-                                <td>{{$item->saldo}}</td>
-                                
-                                <td>{{$item->ponderado}}</td>
-                                <td>{{$item->entrada}}</td>
-                                <td>{{$item->salida}}</td>
-                                <td>{{$item->anterior}}</td>
-                                <td>{{$item->acumulado}}</td>
-                            </tr>
-                            
+                    <br>
+                        <br>
 
-                        @endforeach
-                        
-					</table>
+                        <div>
+                            <table id="Reporte-table" class="table table-striped table-bordered no-margin-bottom dt-responsive nowrap" ellspacing="0" width="100%">
+                            </table>
+                        </div>
                 </div>
                 
 			</div>
 		</div>
 	</div>
 </div>
-
+ 
 
 @endsection
 @section('scripts')

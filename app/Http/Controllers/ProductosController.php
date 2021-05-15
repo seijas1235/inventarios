@@ -62,13 +62,21 @@ class ProductosController extends Controller
 
 	public function kardexIndex()
 	{
+
+		return view('productos.kardex2', compact('kardex'));
+	}
+	public function get_kardex($inicio, $fin){
+
 		$query = "SELECT DISTINCT l.nombre as ubicacion, k.id,k.fecha, p.codigo_barra, p.nombre, k.transaccion, k.ingreso as cantidad_ingreso, k.salida as cantidad_salida, k.existencia_anterior, k.saldo,k.costo_ponderado as ponderado,k.costo_entrada as entrada,k.costo_salida as salida,k.costo_anterior as anterior,k.costo_acumulado as acumulado from kardex k 
 		LEFT JOIN productos p on p.id = k.producto_id
 		LEFT JOIN localidades l on p.localidad_id=l.id
+		WHERE k.fecha BETWEEN '".$inicio."' AND '".$fin." 23:59:59' 
 		order by k.id  ";
 		$kardex = DB::select($query);
 		
-		return view('productos.kardex2', compact('kardex'));
+		$api_Result['data'] = $kardex;
+    
+		return Response::json( $api_Result );
 	}
 
 	public function rpt_kardex(Request $request)
