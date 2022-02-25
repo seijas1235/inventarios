@@ -63,7 +63,7 @@ class ProductosController extends Controller
 	public function kardexIndex()
 	{
 
-		return view('productos.kardex2', compact('kardex'));
+		return view('productos.kardex2');
 	}
 	public function get_kardex($inicio, $fin){
 
