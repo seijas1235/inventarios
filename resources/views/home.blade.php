@@ -61,7 +61,7 @@
 				<!--Footer-part-->
 
 				<div class="row-fluid">
-					<div id="footer" class="span12">Copyright © 2019 <a target="blank" href="https://technovation.com.gt">Technovation.com.gt</a>
+					<div id="footer" class="span12">Copyright © 2019 <a target="blank" href="https://gustavoseijas.dev">Gustavo Seijas</a>
                         . All rights reserved.</div>
 				</div>
 
